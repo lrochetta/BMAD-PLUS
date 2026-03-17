@@ -1,0 +1,53 @@
+# BMAD+ — .gitignore
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Runtime and build
+*.pyc
+__pycache__/
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+monitor/config.yaml
+*.key
+*.pem
+
+# Upstream clone cache (use your own)
+upstream/
+monitor/.upstream-cache/
+
+# IDE-specific (user-generated during install)
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Chromadb / RAG data
+chroma_db/
+mcp-server/chroma_db/
+
+# Monitor state (local only)
+monitor/last-synced.json
+
+# Docker volumes
+monitor/evolution_data/
+
+# Orchestrator runtime state
+.bmad-plus/orchestrator-state.yaml
+
+# Reports and output (project-specific)
+osint-reports/
+reports/

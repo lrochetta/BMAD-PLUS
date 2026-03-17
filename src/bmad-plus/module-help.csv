@@ -1,0 +1,9 @@
+skill_name,help_text
+bmad-plus-agent-strategist,"Talk to Atlas — your Strategy & Product Lead. Combines business analysis and product management. Use for brainstorming, market research, product briefs, and PRDs."
+bmad-plus-agent-architect-dev,"Talk to Forge — your Architect & Developer. Designs architectures, implements code, and writes documentation. Use for technical design, story implementation, and code review."
+bmad-plus-agent-quality,"Talk to Sentinel — your Quality & UX Guardian. Tests code, reviews UX, and catches edge cases. Use for QA, code review, and UX validation."
+bmad-plus-agent-orchestrator,"Talk to Nexus — your Orchestrator & Sprint Lead. Manages sprints, runs autopilot pipelines, and coordinates parallel agents. Use for project management, autopilot mode, and parallel execution."
+bmad-plus-autopilot,"Launch autopilot mode — give a project idea and Nexus handles the full pipeline from discovery to delivery with checkpoints for your approval."
+bmad-plus-parallel,"Enable parallel execution for independent tasks. The orchestrator detects parallelizable work and supervises multiple agents simultaneously."
+bmad-plus-agent-shadow,"Talk to Shadow — your OSINT Intelligence Analyst. Investigates people via 55+ Apify actors and 7 search APIs. Produces scored dossiers with psychoprofiles."
+bmad-plus-sync,"Synchronize BMAD+ with upstream BMAD-METHOD. Check for updates, analyze changes via AI, and merge compatible updates. Uses VPS MCP Server for git operations."

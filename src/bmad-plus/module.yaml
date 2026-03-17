@@ -1,0 +1,163 @@
+code: bmad-plus
+name: "BMAD+ Streamlined AI-Driven Development"
+description: "Augmented BMAD framework with multi-role agents, autopilot mode, and parallel execution"
+default_selected: true
+
+# Compatibility with upstream
+extends: bmm
+compatibility:
+  min_core_version: "6.0.0"
+  max_core_version: "7.0.0"
+  replaces_modules: ["bmm"]
+  keeps_core_skills: true
+
+# ═══════════════════════════════════════════
+# MODULAR PACK SYSTEM
+# Core is always installed. Additional packs
+# add specialized agents and skills.
+# ═══════════════════════════════════════════
+
+packs:
+  core:
+    name: "Core Development"
+    icon: "⚙️"
+    description: "4 multi-role agents for full development lifecycle"
+    required: true   # Always installed
+    agents:
+      - agent-strategist
+      - agent-architect-dev
+      - agent-quality
+      - agent-orchestrator
+    skills:
+      - bmad-plus-autopilot
+      - bmad-plus-parallel
+      - bmad-plus-sync
+    data:
+      - role-triggers.yaml
+
+  osint:
+    name: "OSINT Intelligence"
+    icon: "🔍"
+    description: "Investigation, scraping, psychoprofiling (55+ Apify actors, 7 APIs)"
+    required: false
+    agents:
+      - agent-shadow
+    skills:
+      - bmad-osint-investigate
+    external_package: "osint-agent-package"
+    required_keys:
+      - APIFY_API_TOKEN
+    optional_keys:
+      - PERPLEXITY_API_KEY
+      - EXA_API_KEY
+      - TAVILY_API_KEY
+      - JINA_API_KEY
+
+  audit:
+    name: "Audit Sécurité"
+    icon: "🛡️"
+    description: "Scan vulnérabilités, audit code, compliance check (bientôt)"
+    required: false
+    status: coming_soon
+    agents:
+      - agent-shield
+    skills:
+      - bmad-audit-scan
+      - bmad-audit-report
+
+install_packs:
+  prompt:
+    - "Quels packs additionnels souhaites-tu installer ?"
+    - "Core (Atlas, Forge, Sentinel, Nexus) est toujours inclus."
+  default: "none"
+  result: "{value}"
+  multi-select:
+    - value: "osint"
+      label: "🔍 OSINT — Agent Shadow (investigation, scraping, psychoprofil)"
+    - value: "audit"
+      label: "🛡️ Audit Sécurité — Agent Shield (scan vulnérabilités) [bientôt]"
+      disabled: true
+    - value: "all"
+      label: "🤖 Tout installer"
+    - value: "none"
+      label: "Aucun — Core uniquement"
+
+# Variables from Core Config inserted:
+## user_name
+## communication_language
+## document_output_language
+## output_folder
+
+project_name:
+  prompt: "What is your project called?"
+  default: "{directory_name}"
+  result: "{value}"
+
+user_skill_level:
+  prompt:
+    - "What is your development experience level?"
+    - "This affects how agents explain concepts in chat."
+  default: "expert"
+  result: "{value}"
+  single-select:
+    - value: "beginner"
+      label: "Beginner - Explain things clearly"
+    - value: "intermediate"
+      label: "Intermediate - Balance detail with speed"
+    - value: "expert"
+      label: "Expert - Be direct and technical"
+
+execution_mode:
+  prompt:
+    - "How do you want to work with BMAD+ agents?"
+    - "Manual: you call agents when needed. Autopilot: orchestrator manages everything."
+  default: "manual"
+  result: "{value}"
+  single-select:
+    - value: "manual"
+      label: "Manual - Call agents yourself"
+    - value: "autopilot"
+      label: "Autopilot - Orchestrator manages the pipeline"
+    - value: "hybrid"
+      label: "Hybrid - Autopilot with frequent checkpoints"
+
+auto_role_activation:
+  prompt: "Enable intelligent auto-activation of agent roles based on context?"
+  default: "true"
+  result: "{value}"
+  single-select:
+    - value: "true"
+      label: "Yes - Agents auto-switch roles when context demands it"
+    - value: "false"
+      label: "No - Only switch roles when I explicitly ask"
+
+parallel_execution:
+  prompt: "Enable parallel multi-agent execution for independent tasks?"
+  default: "true"
+  result: "{value}"
+  single-select:
+    - value: "true"
+      label: "Yes - Run independent tasks in parallel"
+    - value: "false"
+      label: "No - Sequential execution only"
+
+planning_artifacts:
+  prompt: "Where should planning artifacts be stored? (Discovery phase output)"
+  default: "{output_folder}/discovery"
+  result: "{project-root}/{value}"
+
+implementation_artifacts:
+  prompt: "Where should implementation artifacts be stored? (Build & Ship phase output)"
+  default: "{output_folder}/build"
+  result: "{project-root}/{value}"
+
+project_knowledge:
+  prompt: "Where should long-term project knowledge be stored?"
+  default: "docs"
+  result: "{project-root}/{value}"
+
+# Directories to create during installation
+directories:
+  - "{planning_artifacts}"
+  - "{implementation_artifacts}"
+  - "{project_knowledge}"

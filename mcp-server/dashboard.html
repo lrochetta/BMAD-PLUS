@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit 360° - Infrastructure Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+        /* Sidebar */
+        #sidebar {
+            width: 280px;
+            background: #252526;
+            border-right: 1px solid #333;
+            padding: 20px;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+        #sidebar h2 { color: #4db6ac; margin-top: 0; font-size: 1.2em; }
+        .client-group { margin-bottom: 20px; }
+        .client-title { font-weight: bold; color: #fff; margin-bottom: 5px; cursor: pointer; }
+        .project-group { margin-left: 10px; margin-bottom: 10px; border-left: 2px solid #444; padding-left: 10px; }
+        .project-title { font-size: 0.9em; color: #aaa; margin-bottom: 3px; }
+        .audit-link { 
+            display: block; 
+            color: #888; 
+            text-decoration: none; 
+            font-size: 0.85em; 
+            padding: 3px 0; 
+            cursor: pointer;
+        }
+        .audit-link:hover { color: #4db6ac; }
+        .audit-link.active { color: #4db6ac; font-weight: bold; }
+
+        /* Main Content */
+        #main {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 { margin: 0; color: #4db6ac; }
+        
+        /* Stats */
+        .score-card {
+            background: #252526;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            flex: 1;
+            margin: 0 10px;
+        }
+        .grid { display: flex; margin-bottom: 30px; }
+        
+        /* Findings */
+        .findings-list { background: #252526; border-radius: 8px; padding: 20px; }
+        .finding {
+            border-left: 4px solid;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            background: #2d2d30;
+        }
+        .finding.FAIL { border-color: #f44336; }
+        .finding.PASS { border-color: #4caf50; }
+        .status-badge {
+            display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8em;
+        }
+        .FAIL .status-badge { background: #5a1a1a; color: #ff8a80; }
+        .PASS .status-badge { background: #1b3e20; color: #a5d6a7; }
+        
+        .rag-context {
+            margin-top: 10px; font-size: 0.9em; color: #aaa; background: #1e1e1e; padding: 10px; border-radius: 4px; font-style: italic;
+        }
+        pre { white-space: pre-wrap; margin: 0; }
+        
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #666;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h2>🗄️ Audit History</h2>
+        <div id="history-container">Loading...</div>
+    </div>
+
+    <div id="main">
+        <div class="container">
+            <header>
+                <div>
+                    <h1>🛡️ Audit 360° Dashboard</h1>
+                    <div id="current-view" style="font-size:0.9em; color:#888;">Live View</div>
+                </div>
+                <div style="text-align:right">
+                    <div id="last-updated">Last Updated: Loading...</div>
+                    <div style="font-size:0.8em; color:#4db6ac;">User: <span id="user-display">laurent</span></div>
+                </div>
+            </header>
+    
+            <div class="grid">
+                <div class="score-card">
+                    <h2>Security Score</h2>
+                    <canvas id="scoreChart"></canvas>
+                    <h1 id="score-val" style="margin-top:10px; font-size:3em;">--</h1>
+                </div>
+                <div class="score-card">
+                    <h2>Compliance Status</h2>
+                    <div id="stats" style="text-align:left; padding-left:20px;">
+                        <p>Total Checks: <span id="total-checks" style="font-weight:bold">--</span></p>
+                        <p style="color:#f44336">Critical Issues: <span id="critical-issues" style="font-weight:bold">--</span></p>
+                        <p style="color:#4caf50">Passed: <span id="passed-checks" style="font-weight:bold">--</span></p>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="findings-list">
+                <h2>🔍 Detailed Findings</h2>
+                <div id="findings-container">Loading data...</div>
+            </div>
+            
+            <footer>
+                Secured by Audit 360 Basic Auth • Verified Session: <strong>laurent</strong>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+             loadHistory();
+             loadData('latest'); 
+        });
+
+        async function loadHistory() {
+            try {
+                const response = await fetch('/api/history');
+                const history = await response.json();
+                const container = document.getElementById('history-container');
+                container.innerHTML = '';
+                
+                // Add "Live / Latest" link
+                const latestDiv = document.createElement('div');
+                latestDiv.className = 'client-group';
+                latestDiv.innerHTML = `<div class="client-title" onclick="loadData('latest')">📡 Live Dashboard</div>`;
+                container.appendChild(latestDiv);
+
+                // Build tree
+                for (const [client, projects] of Object.entries(history)) {
+                    const clientDiv = document.createElement('div');
+                    clientDiv.className = 'client-group';
+                    
+                    let html = `<div class="client-title">📂 ${client}</div>`;
+                    
+                    for (const [project, files] of Object.entries(projects)) {
+                        html += `<div class="project-group"><div class="project-title">${project}</div>`;
+                        files.forEach(file => {
+                            // Extract date from filename YYYY-MM-DD_HH-MM-SS
+                            const datePart = file.split('_audit')[0];
+                            html += `<a class="audit-link" onclick="loadAudit('${client}', '${project}', '${file}')">📄 ${datePart}</a>`;
+                        });
+                        html += `</div>`;
+                    }
+                    clientDiv.innerHTML = html;
+                    container.appendChild(clientDiv);
+                }
+            } catch (e) {
+                console.error("History load failed", e);
+            }
+        }
+
+        async function loadAudit(client, project, filename) {
+             document.getElementById('current-view').textContent = `${client} / ${project} / ${filename}`;
+             const url = `/api/audit/${client}/${project}/${filename}`;
+             await loadData(url);
+        }
+
+        async function loadData(source) {
+            try {
+                let url = source === 'latest' ? '/api/audit-latest' : source;
+                if (source === 'latest') document.getElementById('current-view').textContent = "Live View (Latest)";
+                
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("Data not found");
+                
+                const data = await response.json();
+                
+                document.getElementById('last-updated').textContent = new Date(data.timestamp * 1000).toLocaleString(); // Timestamp is usually seconds in python time.time(), but in script we multiplied by 1000? 
+                // Wait, in vps_audit_rag.py: "timestamp": time.time() * 1000  (This is millis)
+                // New Javascript Date(millis) works. 
+                
+                document.getElementById('total-checks').textContent = data.findings.length;
+                
+                const fails = data.findings.filter(f => f.status === 'FAIL').length;
+                const passes = data.findings.length - fails;
+                const score = approachesScore(data.findings);
+                
+                document.getElementById('critical-issues').textContent = fails;
+                document.getElementById('passed-checks').textContent = passes;
+                document.getElementById('score-val').textContent = score;
+                
+                renderChart(score);
+                renderFindings(data.findings);
+            } catch (e) {
+                document.getElementById('findings-container').innerHTML = `<p style="color:red">Error loading audit data: ${e.message}</p>`;
+            }
+        }
+
+        function approachesScore(findings) {
+            if (findings.length === 0) return 0;
+            const passes = findings.filter(f => f.status === 'PASS').length;
+            return Math.round((passes / findings.length) * 100);
+        }
+
+        function renderChart(score) {
+            // Destroy old chart if exists (simple way: recreate canvas or check instance)
+            // For simplicity in this static file, we assume Chart.js updates or we overwrite if we keep ref.
+            // But Chart.js 3+ needs destroy. Let's just create a new one every time on a cleared canvas container?
+            // No, easier: checks if window.myChart exists.
+            
+            const ctx = document.getElementById('scoreChart').getContext('2d');
+            
+            if (window.myChart) {
+                window.myChart.destroy();
+            }
+
+            window.myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Secure', 'Risk'],
+                    datasets: [{
+                        data: [score, 100-score],
+                        backgroundColor: ['#4caf50', '#f44336'],
+                        borderWidth: 0
+                    }]
+                },
+                options: { 
+                    cutout: '70%', 
+                    plugins: { legend: { display: false } },
+                    responsive: true
+                }
+            });
+        }
+
+        function renderFindings(findings) {
+            const container = document.getElementById('findings-container');
+            container.innerHTML = '';
+            
+            findings.forEach(f => {
+                const div = document.createElement('div');
+                div.className = `finding ${f.status}`;
+                div.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center">
+                        <h3 style="margin:0">${f.id}</h3>
+                        <span class="status-badge">${f.status}</span>
+                    </div>
+                    <p style="margin:10px 0"><strong>Technical:</strong> ${f.tech_details}</p>
+                    <div class="rag-context">
+                        <strong>🧠 Industrial Context (RAG):</strong><br>
+                        ${f.rag_context ? f.rag_context.substring(0, 300) + '...' : 'No context available.'}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html>
