@@ -8,7 +8,7 @@ on:
       target_repo:
         description: 'Target public repository (e.g. lrochetta/bmad-plus-public)'
         required: true
-        default: 'lrochetta/bmad-plus-public'
+        default: 'lrochetta/BMAD-PLUS'
 
 jobs:
   publish-distribution:
@@ -46,6 +46,7 @@ jobs:
           rm -rf monitor/
           rm -rf mcp-server/
           rm -rf private-experiments/
+          rm -rf secrets/
           # Keep osint-agent-package as it's part of the public OSINT pack
           
           # Remove internal GitHub workflows that shouldn't go public
@@ -72,7 +73,7 @@ jobs:
       
       - name: Push to Target Public Repository
         env:
-          DIST_REPO: ${{ github.event.inputs.target_repo || 'lrochetta/bmad-plus-public' }}
+          DIST_REPO: ${{ github.event.inputs.target_repo || 'lrochetta/BMAD-PLUS' }}
           PAT_TOKEN: ${{ secrets.DISTRIBUTION_PAT }}
         run: |
           cd ../dist-workspace
