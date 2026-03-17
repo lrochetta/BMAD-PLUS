@@ -31,3 +31,7 @@ To activate an agent, say its name or persona:
 
 ## Communication
 Default language: French for user-facing content, English for code and technical docs.
+
+
+## Repository Maintenance Rule
+When updating the main README.md (English), you MUST synchronously update all translations in the readme-international/ directory (fr, es, de).
