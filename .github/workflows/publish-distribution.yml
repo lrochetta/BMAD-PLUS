@@ -1,0 +1,92 @@
+name: Publish Distribution Repository
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      target_repo:
+        description: 'Target public repository (e.g. lrochetta/bmad-plus-public)'
+        required: true
+        default: 'lrochetta/bmad-plus-public'
+
+jobs:
+  publish-distribution:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Golden Repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Action (Distribution Bot)"
+          git config --global user.email "action@github.com"
+      
+      - name: Prepare Clean Distribution Directory
+        run: |
+          # Create a temp directory outside the workspace
+          mkdir -p ../dist-workspace
+          
+          # Copy everything except what's in standard .gitignore
+          rsync -a --exclude='.git' --exclude='node_modules' ./ ../dist-workspace/
+          
+          cd ../dist-workspace
+          
+          # ---------------------------------------------------------
+          # 1. SCRUBBING (Remove private infrastructure components)
+          # ---------------------------------------------------------
+          echo "🧹 Scrubbing private directories..."
+          rm -rf monitor/
+          rm -rf mcp-server/
+          rm -rf private-experiments/
+          # Keep osint-agent-package as it's part of the public OSINT pack
+          
+          # Remove internal GitHub workflows that shouldn't go public
+          rm -rf .github/workflows/publish-distribution.yml
+          
+          # ---------------------------------------------------------
+          # 2. SANITIZATION (Swap READMEs)
+          # ---------------------------------------------------------
+          echo "📝 Sanitizing documentation..."
+          if [ -f "README-DIST.md" ]; then
+            mv README-DIST.md README.md
+          fi
+          
+          # Remove the architecture doc for the release strategy itself
+          rm -rf docs/architecture/golden-vs-distribution.md
+          
+          # ---------------------------------------------------------
+          # 3. INITIALIZE NEW GIT REPO
+          # ---------------------------------------------------------
+          echo "⚙️ Initializing distribution git repository..."
+          git init
+          git add -A
+          git commit -m "🚀 Release: Distribusion version synced from Golden Repo"
+      
+      - name: Push to Target Public Repository
+        env:
+          DIST_REPO: ${{ github.event.inputs.target_repo || 'lrochetta/bmad-plus-public' }}
+          PAT_TOKEN: ${{ secrets.DISTRIBUTION_PAT }}
+        run: |
+          cd ../dist-workspace
+          
+          if [ -z "$PAT_TOKEN" ]; then
+            echo "❌ ERROR: DISTRIBUTION_PAT secret is missing. Cannot push to public repo."
+            exit 1
+          fi
+          
+          echo "🚀 Pushing to $DIST_REPO..."
+          git remote add public https://x-access-token:${PAT_TOKEN}@github.com/${DIST_REPO}.git
+          
+          # We force push to the main branch of the public repo to keep it completely detached 
+          # from the internal golden history (security measure).
+          git push -f public master:main || git push -f public main:main
+          
+          echo "✅ Distribution release complete."
