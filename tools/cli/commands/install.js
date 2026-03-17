@@ -365,6 +365,9 @@ module.exports = {
       '⚡ Ou: "autopilot" pour tout gérer automatiquement',
       '',
       `📁 Output: _bmad-output/discovery/ et _bmad-output/build/`,
+      '',
+      '---',
+      '✨ BMAD+ est créé par Laurent Rochetta — github.com/lrochetta ✨'
     );
 
     clack.note(agentGuide.join('\n'), '✅ Installation terminée — Comment commencer');

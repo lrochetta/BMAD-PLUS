@@ -422,6 +422,7 @@ MIT — Based on [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) (MI
 
 ### Credits
 
+- **BMAD+** Created by [Laurent Rochetta](https://github.com/lrochetta)
 - **BMAD-METHOD** by [bmad-code-org](https://github.com/bmad-code-org) — Base framework
 - **OSINT Pipeline** based on [smixs/osint-skill](https://github.com/smixs/osint-skill) (MIT)
 - **Apify Actor Runner** integrated from [apify/agent-skills](https://github.com/apify/agent-skills) (MIT)

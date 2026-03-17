@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "name": "bmad-plus",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "BMAD+ — Augmented AI-Driven Development Framework with multi-role agents, autopilot, and parallel execution",
   "keywords": [
     "bmad",
@@ -23,6 +23,13 @@
   "bin": {
     "bmad-plus": "tools/bmad-plus-npx.js"
   },
+  "files": [
+    "tools",
+    "src/bmad-plus",
+    "osint-agent-package",
+    "readme-international",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "install:bmad": "node tools/cli/bmad-plus-cli.js install",
     "uninstall:bmad": "node tools/cli/bmad-plus-cli.js uninstall"
