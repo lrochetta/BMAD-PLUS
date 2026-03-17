@@ -325,33 +325,38 @@ module.exports = {
       'utf8'
     );
 
-    // ── Summary ──
-    const packNames = selectedPacks.map(p => `${PACKS[p].icon} ${PACKS[p].name}`).join('\n   ');
-    const agentList = selectedPacks
-      .flatMap(p => PACKS[p].agents)
-      .map(a => a.replace('agent-', ''))
-      .join(', ');
+    // ── Summary — Contextual Getting Started ──
+    const agentGuide = [
+      '💬 À qui parler ?',
+      '',
+      '  Discuter d\'une idée      →  "Atlas, j\'ai une idée de projet : [...]"',
+      '  Créer un PRD              →  "Atlas, crée le PRD"',
+      '  Architecture technique    →  "Forge, propose une architecture"',
+      '  Implémenter du code       →  "Forge, implémente la story [X]"',
+      '  Tester / code review      →  "Sentinel, review le module [X]"',
+      '  Planifier un sprint       →  "Nexus, crée les epics et stories"',
+      '  Tout automatiser          →  "autopilot" puis décris ton projet',
+    ];
 
-    clack.note(
-      [
-        `📦 Packs: ${selectedPacks.length}`,
-        `   ${packNames}`,
-        '',
-        `🎭 Agents: ${agentList}`,
-        `🖥️  IDE: ${detectedIDEs.map(id => IDE_CONFIGS[id].name).join(', ') || 'aucun'}`,
-        '',
-        `📁 Fichiers installés dans:`,
-        `   .agents/skills/  — agents & skills`,
-        `   .agents/data/    — triggers & config`,
-        `   _bmad/           — module config`,
-        '',
-        `🚀 Pour commencer, dis "Atlas" ou "Forge" à ton agent AI`,
-        `   ou lance "autopilot" pour le mode automatique`,
-      ].join('\n'),
-      'Installation terminée!'
+    if (selectedPacks.includes('osint')) {
+      agentGuide.push('  Investigation OSINT       →  "Shadow, investigate [nom]"');
+    }
+
+    agentGuide.push(
+      '',
+      '🚀 Workflow recommandé:',
+      '  1. Atlas (idée → brief → PRD)',
+      '  2. Forge (architecture → code)',
+      '  3. Sentinel (tests → review)',
+      '',
+      '⚡ Ou: "autopilot" pour tout gérer automatiquement',
+      '',
+      `📁 Output: _bmad-output/discovery/ et _bmad-output/build/`,
     );
 
-    clack.outro(pc.green('BMAD+ est prêt! 🚀'));
+    clack.note(agentGuide.join('\n'), '✅ Installation terminée — Comment commencer');
+
+    clack.outro(pc.green('BMAD+ est prêt! Parle à Atlas pour commencer 🚀'));
   },
 };
 

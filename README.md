@@ -54,19 +54,63 @@ L'installeur :
 3. Génère les fichiers de configuration adaptés
 4. Crée les dossiers d'artefacts
 
-### Utilisation rapide
+### Utilisation après installation
+
+#### 💬 À qui parler ?
+
+| Tu veux... | Parle à | Exemple |
+|---|---|---|
+| Discuter d'une idée de projet | **Atlas** 🎯 | `Atlas, j'ai une idée de projet : un SaaS de facturation` |
+| Créer un PRD / Product Brief | **Atlas** 🎯 | `Atlas, crée le PRD pour mon projet` |
+| Concevoir l'architecture technique | **Forge** 🏗️ | `Forge, propose une architecture pour l'app` |
+| Implémenter du code | **Forge** 🏗️ | `Forge, implémente la story AUTH-001` |
+| Écrire la documentation | **Forge** 🏗️ | `Forge, documente l'API` |
+| Tester / faire une revue de code | **Sentinel** 🔍 | `Sentinel, review le module auth` |
+| Planifier un sprint | **Nexus** 🎼 | `Nexus, crée les epics et stories pour le MVP` |
+| Tout automatiser de A à Z | **Nexus** 🎼 | `autopilot` puis décris ton projet |
+| Investiguer une personne (OSINT) | **Shadow** 🔍 | `Shadow, investigate Jean Dupont` |
+
+#### 🚀 Workflow typique (mode manuel)
 
 ```
-# Mode manuel — appeler un agent
-> Atlas, analyse le marché des SaaS de facturation
+1. "Atlas, brainstorme sur mon idée de [projet]"
+   → Atlas analyse, pose des questions, propose des angles
 
-# Mode autopilot — laisser Nexus tout gérer
+2. "Atlas, crée le product brief"
+   → Deliverable: _bmad-output/discovery/product-brief.md
+
+3. "Atlas, rédige le PRD"
+   → Deliverable: _bmad-output/discovery/prd.md
+
+4. "Forge, propose l'architecture"
+   → Deliverable: _bmad-output/discovery/architecture.md
+
+5. "Nexus, découpe en epics et stories"
+   → Deliverable: _bmad-output/build/stories/
+
+6. "Forge, implémente la story [X]"
+   → Code généré + tests
+
+7. "Sentinel, teste et review"
+   → Rapport QA + suggestions
+```
+
+#### ⚡ Workflow automatique (mode autopilot)
+
+```
 > autopilot
-> "Un SaaS de facturation pour PME"
-
-# Mode parallèle
-> parallel
+> "Un SaaS de facturation pour PME avec gestion des devis"
 ```
+
+Nexus orchestre tout automatiquement avec des checkpoints pour ton approbation.
+
+#### 🔑 Commandes clés
+
+| Commande | Description |
+|----------|-------------|
+| `bmad-help` | Voir tous les agents et skills disponibles |
+| `autopilot` | Nexus prend le contrôle du pipeline complet |
+| `parallel` | Lancer l'exécution multi-agents en parallèle |
 
 ---
 
