@@ -7,3 +7,4 @@ bmad-plus-autopilot,"Launch autopilot mode — give a project idea and Nexus han
 bmad-plus-parallel,"Enable parallel execution for independent tasks. The orchestrator detects parallelizable work and supervises multiple agents simultaneously."
 bmad-plus-agent-shadow,"Talk to Shadow — your OSINT Intelligence Analyst. Investigates people via 55+ Apify actors and 7 search APIs. Produces scored dossiers with psychoprofiles."
 bmad-plus-sync,"Synchronize BMAD+ with upstream BMAD-METHOD. Check for updates, analyze changes via AI, and merge compatible updates. Uses VPS MCP Server for git operations."
+bmad-plus-agent-maker,"Talk to Maker — your Agent Creator. Designs, builds, and packages new BMAD+ compatible agents from a natural language description. Outputs ready-to-integrate packages."

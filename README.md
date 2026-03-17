@@ -69,6 +69,7 @@ L'installeur :
 | Planifier un sprint | **Nexus** 🎼 | `Nexus, crée les epics et stories pour le MVP` |
 | Tout automatiser de A à Z | **Nexus** 🎼 | `autopilot` puis décris ton projet |
 | Investiguer une personne (OSINT) | **Shadow** 🔍 | `Shadow, investigate Jean Dupont` |
+| Créer un nouvel agent BMAD+ | **Maker** 🧬 | `Maker, crée un agent de support client` |
 
 #### 🚀 Workflow typique (mode manuel)
 
@@ -241,6 +242,23 @@ graph TB
 
 ---
 
+### Maker — Agent Creator 🧬 *(Pack Maker)*
+
+**Méta-agent qui crée d'autres agents.** Donne-lui une description → il génère un package complet.
+
+| Code | Description |
+|------|-------------|
+| **CA** | Create Agent — création guidée en 4 phases |
+| **QA** | Quick Agent — création rapide avec défauts sensés |
+| **EA** | Edit Agent — modifier un SKILL.md existant |
+| **VA** | Validate Agent — vérifier la conformité BMAD+ |
+| **PA** | Package Agent — générer le dossier d'intégration |
+
+**Pipeline :** Discovery → Design (validation user) → Generation → Validation
+**Output :** `_bmad-output/ready-to-integrate/` — prêt à copier dans BMAD+
+
+---
+
 ## 📦 Système de Packs
 
 BMAD+ utilise un système modulaire par packs. Le Core est toujours installé, les packs additionnels sont optionnels.
@@ -261,6 +279,7 @@ npx bmad-plus install
 |------|--------|--------|--------|
 | ⚙️ **Core** | Atlas, Forge, Sentinel, Nexus | autopilot, parallel, sync | ✅ Stable |
 | 🔍 **OSINT** | Shadow | bmad-osint-investigate | ✅ Stable |
+| 🧬 **Maker** | Maker | — | ✅ Stable |
 | 🛡️ **Audit** | Shield | bmad-audit-scan, bmad-audit-report | 🔜 Coming soon |
 
 Chaque pack définit :

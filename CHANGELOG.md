@@ -38,8 +38,15 @@ First release of BMAD+, an augmented fork of BMAD-METHOD v6.2.0.
 #### Modular Pack System
 - **Core pack** (required) — 4 agents, 3 skills, role-triggers
 - **OSINT pack** (optional) — Shadow agent + OSINT investigation skills
+- **Maker pack** (optional) — Maker meta-agent for creating new BMAD+ compatible agents (4-phase pipeline: Discovery → Design → Generation → Validation)
 - **Audit pack** (coming soon) — Shield agent placeholder
 - Multi-select installer menu with per-pack API key requirements
+
+#### `npx bmad-plus install` CLI
+- Interactive installer with pack selection, IDE auto-detection, user config
+- Contextual post-install guide adapted to installed packs
+- `--packs`, `--yes`, `--tools`, `--directory` flags for non-interactive use
+- Uninstall command: `npx bmad-plus uninstall`
 
 #### Monitoring System (`monitor/`)
 - **weekly-check.py** — Weekly upstream monitoring script (cron)

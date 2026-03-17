@@ -53,6 +53,15 @@ packs:
       - TAVILY_API_KEY
       - JINA_API_KEY
 
+  maker:
+    name: "Agent Creator"
+    icon: "🧬"
+    description: "Créer de nouveaux agents BMAD+ compatibles: design, build, package"
+    required: false
+    agents:
+      - agent-maker
+    skills: []
+
   audit:
     name: "Audit Sécurité"
     icon: "🛡️"
@@ -74,6 +83,8 @@ install_packs:
   multi-select:
     - value: "osint"
       label: "🔍 OSINT — Agent Shadow (investigation, scraping, psychoprofil)"
+    - value: "maker"
+      label: "🧬 Agent Creator — Créer de nouveaux agents BMAD+ compatibles"
     - value: "audit"
       label: "🛡️ Audit Sécurité — Agent Shield (scan vulnérabilités) [bientôt]"
       disabled: true

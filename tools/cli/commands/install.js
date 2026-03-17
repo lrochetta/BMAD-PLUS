@@ -29,6 +29,15 @@ const PACKS = {
     skills: [],
     externalPackage: 'osint-agent-package',
   },
+  maker: {
+    name: 'Agent Creator',
+    icon: '🧬',
+    description: 'Maker — design, build, and package new BMAD+ agents',
+    required: false,
+    agents: ['agent-maker'],
+    skills: [],
+    data: [],
+  },
   audit: {
     name: 'Audit Sécurité',
     icon: '🛡️',
@@ -340,6 +349,10 @@ module.exports = {
 
     if (selectedPacks.includes('osint')) {
       agentGuide.push('  Investigation OSINT       →  "Shadow, investigate [nom]"');
+    }
+
+    if (selectedPacks.includes('maker')) {
+      agentGuide.push('  Créer un nouvel agent     →  "Maker, crée un agent [description]"');
     }
 
     agentGuide.push(
