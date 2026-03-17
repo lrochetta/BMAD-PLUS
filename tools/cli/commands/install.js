@@ -367,7 +367,7 @@ module.exports = {
       `📁 Output: _bmad-output/discovery/ et _bmad-output/build/`,
       '',
       '---',
-      '✨ BMAD+ est créé par Laurent Rochetta — github.com/lrochetta ✨'
+      '✨ BMAD+ is created by Laurent Rochetta — github.com/lrochetta | linkedin.com/in/laurentrochetta ✨'
     );
 
     clack.note(agentGuide.join('\n'), '✅ Installation terminée — Comment commencer');
