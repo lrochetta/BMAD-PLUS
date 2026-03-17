@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "bmad-plus",
+  "version": "0.1.0",
+  "description": "BMAD+ — Augmented AI-Driven Development Framework with multi-role agents, autopilot, and parallel execution",
+  "keywords": [
+    "bmad",
+    "ai",
+    "agents",
+    "development",
+    "autopilot",
+    "orchestrator",
+    "osint",
+    "multi-agent"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lrochetta/BMAD-PLUS.git"
+  },
+  "license": "MIT",
+  "author": "Laurent Rochetta",
+  "main": "tools/cli/bmad-plus-cli.js",
+  "bin": {
+    "bmad-plus": "tools/bmad-plus-npx.js"
+  },
+  "scripts": {
+    "install:bmad": "node tools/cli/bmad-plus-cli.js install",
+    "uninstall:bmad": "node tools/cli/bmad-plus-cli.js uninstall"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.0.0",
+    "chalk": "^4.1.2",
+    "commander": "^14.0.0",
+    "fs-extra": "^11.3.0",
+    "js-yaml": "^4.1.0",
+    "picocolors": "^1.1.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
