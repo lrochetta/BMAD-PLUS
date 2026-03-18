@@ -5,6 +5,22 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] — 2026-03-19
+
+### 🏢 SEO Engine — Enterprise Extensions (Sprint 4)
+
+### Added
+- **Google Search Console extension** — OAuth2 client for organic search data (queries, pages, coverage, sitemaps)
+- **Google Analytics 4 extension** — GA4 Data API client for organic traffic, landing pages, and engagement metrics
+- Both extensions include setup guides, Python clients, and separate requirements
+
+### Notes
+- Extensions are **optional** and require OAuth2 setup (see `EXTENSION.md` in each directory)
+- Core SEO Engine (SKILL.md + 3 agents + Python toolkit) works without extensions
+- GSC and GA4 share OAuth2 credentials for simplified auth flow
+
+---
+
 ## [0.3.3] — 2026-03-19
 
 ### 🧪 SEO Engine — Quality & Security (Sprint 3)
