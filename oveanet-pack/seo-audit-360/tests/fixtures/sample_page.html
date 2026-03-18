@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SEO Test Page — BMAD+ Fixture</title>
+    <meta name="description" content="A test page for validating the SEO parse module with known elements.">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="SEO Test Page">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/test">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SEO Test Page">
+    <link rel="canonical" href="https://example.com/test">
+    <link rel="alternate" hreflang="en" href="https://example.com/en/test">
+    <link rel="alternate" hreflang="fr" href="https://example.com/fr/test">
+    <link rel="alternate" hreflang="x-default" href="https://example.com/test">
+</head>
+<body>
+    <h1>Main Heading of the Page</h1>
+    <p>This is a test paragraph with enough words to verify word count functionality in the parser module. We need at least a few sentences to make the test meaningful and realistic.</p>
+
+    <h2>Second Level Heading One</h2>
+    <p>Content under the first H2. This paragraph adds more text to increase the word count.</p>
+
+    <h2>Second Level Heading Two</h2>
+    <p>Another section with different content about SEO analysis and testing.</p>
+
+    <h3>Third Level Heading</h3>
+    <p>Detailed information under the H3 heading for testing hierarchy detection.</p>
+
+    <img src="/images/hero.jpg" alt="Hero image for testing" width="800" height="400" loading="lazy">
+    <img src="/images/no-alt.jpg" width="200" height="200">
+    <img src="/images/empty-alt.jpg" alt="" width="100" height="100">
+
+    <a href="https://example.com/about">About Us</a>
+    <a href="https://example.com/services">Our Services</a>
+    <a href="https://external.com/partner" rel="nofollow" target="_blank">Partner Link</a>
+    <a href="/relative-link">Relative Link</a>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Test Company",
+        "url": "https://example.com",
+        "logo": "https://example.com/logo.png"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://example.com"},
+            {"@type": "ListItem", "position": 2, "name": "Test", "item": "https://example.com/test"}
+        ]
+    }
+    </script>
+</body>
+</html>

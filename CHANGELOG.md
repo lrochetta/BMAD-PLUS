@@ -5,6 +5,18 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.3] — 2026-03-19
+
+### 🧪 SEO Engine — Quality & Security (Sprint 3)
+
+### Added
+- **Unit tests** — 50 pytest tests covering all Python scripts (fetch, parse, crawl, APIs)
+- **Pre-commit hook** — `hooks/seo-check.sh` validates HTML for title, meta, alt, H1 before commit
+- **Audit JSON schema** — `ref/audit-schema.json` standardized export format for dashboard/API integration
+- **Test fixture** — `tests/fixtures/sample_page.html` with known SEO elements
+
+---
+
 ## [0.3.2] — 2026-03-19
 
 ### 📊 SEO Engine — Reports, Competitor & Hreflang (Sprint 2)
