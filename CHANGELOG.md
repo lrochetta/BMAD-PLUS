@@ -5,6 +5,17 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.2] — 2026-03-19
+
+### 📊 SEO Engine — Reports, Competitor & Hreflang (Sprint 2)
+
+### Added
+- **seo_report.py** — Professional HTML report generator with inline SVG radar chart, color-coded issue cards, quick wins section, and print-friendly CSS
+- **Benchmarker role** — Added to Chief agent for `/seo competitor` command (side-by-side site comparison with delta scoring)
+- **hreflang-rules.md** — Complete hreflang audit reference with 7 validation rules, 6 common error patterns, and 12-point checklist
+
+---
+
 ## [0.3.1] — 2026-03-19
 
 ### 🔧 SEO Engine Enhancements (Sprint 1)
