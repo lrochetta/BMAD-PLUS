@@ -5,6 +5,57 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] — 2026-03-18
+
+### 🔀 Oveanet Fusion
+
+### Added
+- **3 new utility packs** from oveanet-agents:
+  - 🔍 **SEO Audit 360** — 9-category audit for search engines + AI engines (by Oveanet)
+  - 🗂️ **Universal Backup** — Timestamped ZIP backup with smart exclusions (by Oveanet)
+  - 🎬 **Animated Website** — Luxury scroll-driven website from video (by Oveanet)
+- `oveanet-pack/` directory as source for oveanet agent content
+- Oveanet sync documentation in `process-info.md`
+
+### Changed
+- Installer now shows 7 packs (Core + OSINT + Maker + Audit + SEO + Backup + Animated)
+- `package.json` includes `oveanet-pack` in npm distribution
+
+### Removed
+- `pour etudier/` directory (content migrated to `oveanet-pack/`)
+
+---
+
+## [0.1.3] — 2026-03-18
+
+### 🔧 Cross-Platform Fix
+
+### Fixed
+- LF line endings for `bin` scripts (fixes `npx` execution on macOS/Linux)
+- Added `.gitattributes` to enforce LF on executable scripts
+
+---
+
+## [0.1.2] — 2026-03-17
+
+### 📝 Credits Update
+
+### Changed
+- Author credits translated to English in CLI installer and READMEs
+- Added LinkedIn link to credits section
+
+---
+
+## [0.1.1] — 2026-03-17
+
+### 👤 Author Attribution
+
+### Added
+- Laurent Rochetta credit in `README.md`, `README-DIST.md`, and CLI success message
+- GitHub and LinkedIn links in credits section
+
+---
+
 ## [0.1.0] — 2026-03-17
 
 ### 🎉 Initial Release — Foundation
