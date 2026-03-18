@@ -1,0 +1,45 @@
+name: universal-backup
+version: 1.0.0
+title: "Universal Backup"
+description: "Backup ZIP horodaté multi-plateforme avec exclusions intelligentes"
+author: Laurent ROCHETTA  AI
+icon: "🗂️"
+tags: [backup, zip, devops, utilities]
+triggers:
+  - "backup"
+  - "backup project"
+  - "create backup"
+  - "save project"
+  - "zip project"
+requires:
+  tools: []
+  scripts: []
+commands:
+  - id: backup
+    name: "Create Backup"
+    description: "Crée un backup ZIP horodaté"
+  - id: list
+    name: "List Backups"
+    description: "Liste les backups existants"
+  - id: restore
+    name: "Restore Backup"
+    description: "Restaure un backup"
+  - id: clean
+    name: "Clean Backups"
+    description: "Supprime les vieux backups"
+platforms:
+  bmad:
+    target: "_bmad/core/agents/"
+    file: "backup-agent.md"
+  claude:
+    target: ".claude/skills/"
+    skillName: "backup"
+  gemini:
+    target: ".agent/workflows/"
+    file: "backup-project.md"
+  opencode:
+    target: ".opencode/agents/"
+    file: "backup-agent.md"
+  codex:
+    target: ".codex/agents/"
+    file: "backup-agent.md"

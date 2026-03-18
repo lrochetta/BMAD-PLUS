@@ -1,0 +1,209 @@
+# BMAD+ Auto-Activation Role Triggers
+# These rules define when agents automatically switch roles based on context.
+# Users can always override with "skip" or explicitly request a role change.
+
+strategist:
+  default_role: pm
+  auto_triggers:
+    analyst:
+      # Level 1 — Pattern matching (keywords in user request)
+      patterns:
+        - "analyse"
+        - "analyze"
+        - "recherche"
+        - "research"
+        - "marché"
+        - "market"
+        - "benchmark"
+        - "requirements"
+        - "domain"
+        - "competitive"
+        - "SWOT"
+        - "stakeholder"
+      # Level 2 — Contextual (situations detected during work)
+      contexts:
+        - "new_project"
+        - "pivot"
+        - "competitor_mention"
+        - "unknown_domain"
+      # Level 3 — Reasoning chain (discoveries during execution)
+      reasoning:
+        - "user_need_unclear"
+        - "market_assumption_unvalidated"
+
+    pm:
+      patterns:
+        - "PRD"
+        - "product brief"
+        - "roadmap"
+        - "priorisation"
+        - "MVP"
+        - "user story"
+        - "personas"
+        - "brief"
+      contexts:
+        - "post_research"
+        - "planning_phase"
+        - "scope_definition"
+      reasoning:
+        - "research_complete_needs_specification"
+
+architect-dev:
+  default_role: dev
+  auto_triggers:
+    architect:
+      patterns:
+        - "architecture"
+        - "design"
+        - "API"
+        - "schema"
+        - "structure"
+        - "stack"
+        - "scalab"
+        - "infrastructure"
+        - "database"
+        - "migration"
+      contexts:
+        - "multi_file_change_gt_5"
+        - "new_module"
+        - "security_domain"
+        - "performance_critical"
+        - "new_integration"
+      reasoning:
+        - "implementation_exposes_architectural_issue"
+        - "dependency_conflict_detected"
+        - "scale_concern_during_coding"
+
+    dev:
+      patterns:
+        - "implement"
+        - "implémente"
+        - "code"
+        - "build"
+        - "fix"
+        - "refactor"
+        - "develop"
+        - "créer"
+      contexts:
+        - "post_architecture"
+        - "story_assigned"
+        - "bug_fix"
+      reasoning:
+        - "architecture_approved_ready_to_code"
+
+    tech-writer:
+      patterns:
+        - "document"
+        - "README"
+        - "changelog"
+        - "explain"
+        - "documente"
+        - "API doc"
+        - "mermaid"
+      contexts:
+        - "post_implementation"
+        - "version_release"
+        - "onboarding_needed"
+      reasoning:
+        - "complex_feature_needs_explanation"
+        - "public_api_changed"
+
+quality:
+  default_role: qa
+  auto_triggers:
+    qa:
+      patterns:
+        - "test"
+        - "QA"
+        - "review"
+        - "bug"
+        - "edge case"
+        - "coverage"
+        - "valide"
+        - "vérifie"
+      contexts:
+        - "post_implementation"
+        - "financial_calculations"
+        - "security_sensitive"
+        - "user_data_handling"
+      reasoning:
+        - "critical_logic_detected"
+        - "regression_risk"
+        - "complex_state_management"
+
+    ux-review:
+      patterns:
+        - "UX"
+        - "interface"
+        - "utilisateur"
+        - "responsive"
+        - "accessibilité"
+        - "accessibility"
+        - "design"
+        - "usability"
+      contexts:
+        - "frontend_changes"
+        - "new_component"
+        - "new_page"
+        - "mobile_layout"
+      reasoning:
+        - "user_facing_feature_delivered"
+        - "interaction_pattern_changed"
+
+orchestrator:
+  default_role: scrum-master
+  auto_triggers:
+    scrum-master:
+      patterns:
+        - "sprint"
+        - "planning"
+        - "story"
+        - "retro"
+        - "backlog"
+        - "epic"
+        - "velocity"
+      contexts:
+        - "phase_transition"
+        - "milestone_reached"
+        - "team_sync"
+
+    quick-flow:
+      patterns:
+        - "rapide"
+        - "quick"
+        - "hotfix"
+        - "petit fix"
+        - "simple"
+        - "fast"
+        - "patch"
+      contexts:
+        - "single_file_change"
+        - "bug_report"
+        - "minor_feature"
+
+    autopilot:
+      patterns:
+        - "autopilot"
+        - "gère tout"
+        - "lance le projet"
+        - "full pipeline"
+        - "tout automatique"
+        - "from scratch"
+      contexts:
+        - "new_project_idea"
+        - "execution_mode_autopilot"
+
+    parallel-supervisor:
+      patterns:
+        - "parallèle"
+        - "parallel"
+        - "simultané"
+        - "concurrent"
+        - "batch"
+      contexts:
+        - "independent_stories_detected"
+        - "multi_task_queue"
+        - "parallel_execution_enabled"
+      reasoning:
+        - "stories_have_no_shared_dependencies"
+        - "workload_can_be_distributed"
