@@ -62,5 +62,31 @@ Lorsque Laurent demande de "publier une nouvelle version", suivez EXCLUSEMENT ce
 
 Lorsqu'on génère de la documentation ou des fichiers de base, l'attribution doit être claire :
 - **Framework** : "BMAD+ created by Laurent Rochetta"
+- **Oveanet Agents** : "By Oveanet × Laurent Rochetta"
 - **LinkedIn** : `https://www.linkedin.com/in/laurentrochetta/`
 - **GitHub** : `https://github.com/lrochetta/BMAD-PLUS`
+- **Oveanet** : `https://oveanet.fr`
+
+---
+
+## 🔀 5. Synchronisation Oveanet → BMAD+
+
+### Architecture
+Le dossier `oveanet-pack/` dans BMAD+ contient 3 agents utilitaires fusionnés depuis le projet **oveanet-agents** :
+- `seo-audit-360/` — Audit SEO + AI en 9 catégories
+- `universal-backup/` — Backup ZIP horodaté intelligent
+- `animated-website/` — Site scroll animé de luxe depuis vidéo
+
+### Source de Vérité
+- **`oveanet-pack/` dans le Golden BMAD+** est la source de vérité pour ces agents.
+- Si un agent est modifié dans le repo `oveanet-agents-dev`, copier manuellement les changements vers `oveanet-pack/` dans le Golden BMAD+.
+
+### Processus de mise à jour d'un agent Oveanet
+1. Modifier l'agent dans `oveanet-pack/<agent-name>/`
+2. Bump la version dans `package.json`
+3. Commit + push sur le Golden
+4. `npm publish --access public`
+5. `gh workflow run publish-distribution.yml`
+
+### Ce qui est inclus dans NPM
+Le tableau `files` de `package.json` inclut `oveanet-pack`, donc les 3 agents sont distribués avec `npx bmad-plus install`.

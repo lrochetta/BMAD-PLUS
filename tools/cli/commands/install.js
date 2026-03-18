@@ -47,6 +47,33 @@ const PACKS = {
     agents: [],
     skills: [],
   },
+  seo: {
+    name: 'SEO Audit 360',
+    icon: '🔍',
+    description: '9-category audit for search engines + AI engines (by Oveanet)',
+    required: false,
+    agents: [],
+    skills: [],
+    oveanetAgent: 'seo-audit-360',
+  },
+  backup: {
+    name: 'Universal Backup',
+    icon: '🗂️',
+    description: 'Timestamped ZIP backup with smart exclusions (by Oveanet)',
+    required: false,
+    agents: [],
+    skills: [],
+    oveanetAgent: 'universal-backup',
+  },
+  animated: {
+    name: 'Animated Website',
+    icon: '🎬',
+    description: 'Luxury scroll-driven website from video (by Oveanet)',
+    required: false,
+    agents: [],
+    skills: [],
+    oveanetAgent: 'animated-website',
+  },
 };
 
 // IDE configurations
@@ -270,6 +297,16 @@ module.exports = {
         const extDest = path.join(targetAgentsDir);
         if (fs.existsSync(extSrc)) {
           fsExtra.copySync(extSrc, extDest, { overwrite: true });
+          copiedSkills++;
+        }
+      }
+
+      // Copy Oveanet agent pack (SEO, Backup, Animated Website)
+      if (pack.oveanetAgent) {
+        const oveanetSrc = path.join(__dirname, '..', '..', '..', 'oveanet-pack', pack.oveanetAgent);
+        const oveanetDest = path.join(targetAgentsDir, pack.oveanetAgent);
+        if (fs.existsSync(oveanetSrc)) {
+          fsExtra.copySync(oveanetSrc, oveanetDest, { overwrite: true });
           copiedSkills++;
         }
       }

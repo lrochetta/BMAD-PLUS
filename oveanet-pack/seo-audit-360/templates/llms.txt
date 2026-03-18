@@ -1,0 +1,73 @@
+# TEMPLATE — llms.txt
+# Replace [BRACKETS] with your actual information
+
+# [Your Company Name]
+
+> [One-line elevator pitch describing your company]
+
+## About
+
+[Company Name] is a [type of company] based in [City, Country]. [2-3 sentences describing what you do, your unique value proposition, and your target audience.]
+
+Founded by [Founder Name], the company specializes in [core specializations].
+
+## Services
+
+### [Service 1 Name]
+- [Key feature 1]
+- [Key feature 2]
+- [Key feature 3]
+
+### [Service 2 Name]
+- [Key feature 1]
+- [Key feature 2]
+- [Key feature 3]
+
+### [Service 3 Name]
+- [Key feature 1]
+- [Key feature 2]
+- [Key feature 3]
+
+## Methodology
+
+1. **[Phase 1 Name]**: [Brief description]
+2. **[Phase 2 Name]**: [Brief description]
+3. **[Phase 3 Name]**: [Brief description]
+
+## Unique Value Proposition
+
+- **[USP 1]**: [Brief description]
+- **[USP 2]**: [Brief description]
+- **[USP 3]**: [Brief description]
+
+## FAQ
+
+### [Question 1]?
+[Concise, factual answer — 2-3 sentences max]
+
+### [Question 2]?
+[Concise, factual answer]
+
+### [Question 3]?
+[Concise, factual answer]
+
+### [Question 4]?
+[Concise, factual answer]
+
+### [Question 5]?
+[Concise, factual answer]
+
+### [Question 6]?
+[Concise, factual answer]
+
+## Contact
+
+- **Website**: https://[your-domain.com]
+- **Email**: [contact@your-domain.com]
+- **LinkedIn**: [LinkedIn URL]
+- **Location**: [City, Country (Postal Code)]
+
+## Legal
+
+- [Privacy Policy](https://[your-domain.com]/privacy)
+- [Terms of Service](https://[your-domain.com]/terms)
