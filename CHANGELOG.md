@@ -5,6 +5,18 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] — 2026-03-19
+
+### 🔧 SEO Engine Enhancements (Sprint 1)
+
+### Added
+- **SKILL.md orchestrator** — Single entry point routing 15 `/seo` commands to the right agents
+- **seo_apis.py** — Google APIs client (PageSpeed Insights, CrUX field data, Rich Results Test)
+- **requirements.txt** — Python dependencies (requests, beautifulsoup4, lxml)
+- **install.sh + install.ps1** — Cross-platform dependency installer with venv support
+
+---
+
 ## [0.3.0] — 2026-03-19
 
 ### 🚀 SEO Engine v2.0 — Complete Rewrite
