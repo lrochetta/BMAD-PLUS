@@ -5,6 +5,43 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] — 2026-03-19
+
+### 🚀 SEO Engine v2.0 — Complete Rewrite
+
+### Added
+- **3 multi-role SEO agents** (replacing single monolithic agent):
+  - 🔎 **Scout** — Technical scanner (Crawler, Inspector, Photographer)
+  - ⚖️ **Judge** — Content & AI analyst (Content Expert, Schema Master, GEO Analyst)
+  - 👑 **Chief** — Strategist & reporter (Scorer, Strategist, Reporter)
+- **4 Python scripts** (new toolkit):
+  - `seo_fetch.py` — Secure HTTP fetcher with SSRF protection and multi-UA support
+  - `seo_parse.py` — HTML parser for meta, schema, links, images, word count
+  - `seo_crawl.py` — Recursive mini-crawler with sitemap parsing and orphan detection
+  - `seo_screenshot.py` — Playwright viewport screenshots with above-fold analysis
+- **6 reference documents**:
+  - Core Web Vitals 2026 thresholds (LCP subparts, INP, CLS)
+  - Schema.org v29.4 type catalog with deprecation status
+  - E-E-A-T scoring grid (100-point evaluation)
+  - GEO signals for AI search optimization (Google AI Overviews, ChatGPT, Perplexity)
+  - Quality gates with content thresholds by page type
+  - 14 ready-to-use JSON-LD schema templates
+- **6-phase audit workflow** with PageSpeed perfection loop
+- **SEO Health Score (0–100)** with 7 weighted categories
+- **Auto-generated code fixes** for common SEO issues
+- **13 user commands** (`/seo full`, `/seo quick`, `/seo pagespeed`, etc.)
+- **Monitoring system** with historical score comparison
+
+### Changed
+- SEO Audit 360 pack upgraded from v1.0 to v2.0
+- Architecture: single SKILL.md → 3 specialized agents with parallel execution
+
+### Preserved
+- `pagespeed-playbook.md` — Battle-tested oveanet.ch PageSpeed optimization loop
+- `checklist.md` — Original PageSpeed perfection checklist
+
+---
+
 ## [0.2.0] — 2026-03-18
 
 ### 🔀 Oveanet Fusion

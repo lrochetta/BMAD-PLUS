@@ -1,71 +1,70 @@
-name: audit-seo-geo-360
-version: 3.0.0
-title: "Audit SEO GEO 360°"
-description: "Agent expert pour auditer et optimiser pour les moteurs de recherche, les moteurs IA, avec boucle PageSpeed 100% battle-tested (playbook 4 phases), contrastes WCAG AA, et auto-backup"
-author: Laurent ROCHETTA  AI
-icon: "🔍"
-tags: [seo, geo, audit, accessibility, schema, multilingual, pagespeed, performance, wcag]
-triggers:
-  - "audit seo"
-  - "seo check"
-  - "audit geo"
-  - "optimize for AI"
-  - "pagespeed"
-  - "lighthouse audit"
-  - "pagespeed loop"
-  - "100 percent"
-  - "speed test"
-  - "pagespeed perfection"
-  - "performance optimization"
-requires:
-  tools: []
-  scripts: []
-resources:
-  - pagespeed-playbook.md
+name: seo-audit-360
+version: 2.0.0
+author: Laurent Rochetta
+brand: Oveanet × Laurent Rochetta
+description: >
+  SEO Engine v2.0 — Complete SEO audit system with 3 multi-role agents,
+  6-phase workflow, Python toolkit, and PageSpeed perfection loop.
+  Covers technical SEO, E-E-A-T, schema validation, GEO (AI search),
+  Core Web Vitals, and auto-fix generation.
+
+agents:
+  - id: seo-scout
+    name: Scout
+    file: agent/seo-scout.md
+    roles: [crawler, inspector, photographer]
+    description: Technical scanner — crawl, fetch, inspect, screenshot
+
+  - id: seo-judge
+    name: Judge
+    file: agent/seo-judge.md
+    roles: [content-expert, schema-master, geo-analyst]
+    description: Content & AI analyst — E-E-A-T, schema, GEO
+
+  - id: seo-chief
+    name: Chief
+    file: agent/seo-chief.md
+    roles: [scorer, strategist, reporter]
+    description: Strategist & reporter — scoring, action plans, monitoring
+
+scripts:
+  - seo_fetch.py
+  - seo_parse.py
+  - seo_crawl.py
+  - seo_screenshot.py
+
+references:
+  - ref/cwv-thresholds.md
+  - ref/schema-catalog.md
+  - ref/eeat-criteria.md
+  - ref/geo-signals.md
+  - ref/quality-gates.md
+  - ref/schema-templates.json
+
+workflow: templates/seo-audit-workflow.md
+
 commands:
-  - id: FA
-    name: "Full Audit 360°"
-    description: "Audit complet des 9 catégories"
-  - id: TA
-    name: "Technical Audit"
-    description: "Audit technique SEO uniquement"
-  - id: GA
-    name: "GEO Audit"
-    description: "Audit optimisation pour IA"
-  - id: LA
-    name: "Local Audit"
-    description: "Audit SEO local"
-  - id: GF
-    name: "Generate Files"
-    description: "Génère robots.txt, sitemap.xml, llms.txt, Schema.org"
-  - id: FAQ
-    name: "FAQ Generator"
-    description: "Génère section FAQ + FAQPage Schema"
-  - id: I18N
-    name: "Multilingual"
-    description: "Optimisation SEO/GEO multilingue"
-  - id: SC
-    name: "Scorecard"
-    description: "Scorecard rapide avec notes /10"
-  - id: PS
-    name: "PageSpeed Perfection Loop"
-    description: "Boucle itérative PageSpeed → target 100% sur les 4 métriques avec backup auto"
-  - id: AB
-    name: "Auto-Backup"
-    description: "Backup ZIP horodaté du projet avec scores dans le nom"
-platforms:
-  bmad:
-    target: "_bmad/core/agents/"
-    file: "seo-geo-360-auditor.md"
-  claude:
-    target: ".claude/skills/"
-    skillName: "seo-geo-360"
-  gemini:
-    target: ".agent/workflows/"
-    file: "audit-seo-geo.md"
-  opencode:
-    target: ".opencode/agents/"
-    file: "seo-geo-360.md"
-  codex:
-    target: ".codex/agents/"
-    file: "seo-geo-360.md"
+  - /seo full <url>
+  - /seo quick <url>
+  - /seo technical <url>
+  - /seo content <url>
+  - /seo geo <url>
+  - /seo schema <url>
+  - /seo images <url>
+  - /seo hreflang <url>
+  - /seo pagespeed <url>
+  - /seo plan <type>
+  - /seo fix
+  - /seo history
+  - /seo compare
+
+platforms: [bmad, claude, gemini, opencode, codex]
+
+dependencies:
+  required:
+    - python >= 3.10
+  optional:
+    - requests (pip install requests)
+    - beautifulsoup4 (pip install beautifulsoup4)
+    - lxml (pip install lxml)
+    - playwright (pip install playwright && playwright install chromium)

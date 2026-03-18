@@ -1,60 +1,66 @@
-# Audit SEO / GEO 360° — Agent BMAD Réutilisable
+# SEO Engine v2.0 — BMAD+ SEO Audit 360
 
-> **v3.0.0** — PageSpeed Perfection Playbook battle-tested ajouté
+> **By Laurent Rochetta** | Oveanet × BMAD+
 
-Agent expert automatisé pour auditer et optimiser n'importe quel site web pour les moteurs de recherche classiques ET les moteurs IA. Inclut désormais un **playbook PageSpeed 4 phases** testé en production (6+ itérations, 99-100% atteint).
+## Overview
 
-## Structure
+A comprehensive SEO audit engine with 3 multi-role agents, a 6-phase workflow, Python toolkit, and auto-fix generation. Built from scratch for the BMAD+ framework.
 
+## Agents
+
+| Agent | Roles | Purpose |
+|-------|-------|---------|
+| 🔎 **Scout** | Crawler, Inspector, Photographer | Technical scanning (9 categories) |
+| ⚖️ **Judge** | Content Expert, Schema Master, GEO Analyst | Content quality, E-E-A-T, AI readiness |
+| 👑 **Chief** | Scorer, Strategist, Reporter | Scoring (0-100), action plans, monitoring |
+
+## Workflow (6 Phases)
+
+1. **Reconnaissance** — Site discovery, business type detection, mini-crawl
+2. **Deep Scan** — Scout + Judge in parallel (technical + content)
+3. **AI Readiness** — GEO analysis for AI search visibility
+4. **Scoring** — SEO Health Score (0-100) with weighted categories
+5. **Action Plan** — Prioritized roadmap + auto-generated code fixes
+5b. **PageSpeed Loop** — Iterative fixing to achieve 100% on all 4 categories
+6. **Monitoring** — Score tracking over time
+
+## Commands
+
+```bash
+/seo full <url>           # Complete 6-phase audit
+/seo quick <url>          # Phases 1-4 only
+/seo technical <url>      # Technical audit
+/seo content <url>        # Content + E-E-A-T
+/seo geo <url>            # AI search readiness
+/seo schema <url>         # Schema validation
+/seo pagespeed <url>      # PageSpeed perfection loop
+/seo plan <type>          # Strategic plan (saas/ecommerce/local)
+/seo fix                  # Auto-generate fixes
+/seo history              # Score history
+/seo compare              # Compare with previous audit
 ```
-Audit SEO GEO 360/
-├── README.md                    ← Ce fichier
-├── agent/
-│   └── seo-geo-360-auditor.md   ← Agent BMAD (format XML persona)
-├── checklist.md                 ← Checklist complète à cocher (10 sections)
-├── pagespeed-playbook.md        ← 🆕 Playbook PageSpeed battle-tested
-└── templates/
-    ├── robots.txt               ← Template robots.txt universel
-    ├── llms.txt                 ← Template llms.txt pour IA
-    └── schema-templates.json    ← Templates Schema.org
-```
 
-## Comment utiliser
+## Python Toolkit
 
-### Option 1 : Comme agent BMAD
-Copiez `agent/seo-geo-360-auditor.md` dans votre dossier `_bmad/core/agents/` et activez l'agent.
+| Script | Purpose |
+|--------|---------|
+| `seo_fetch.py` | Secure HTTP fetcher (SSRF protection, multi-UA) |
+| `seo_parse.py` | HTML parser (meta, schema, links, word count) |
+| `seo_crawl.py` | Recursive mini-crawler with sitemap discovery |
+| `seo_screenshot.py` | Playwright viewport screenshots + above-fold analysis |
 
-### Option 2 : En standalone
-Utilisez la `checklist.md` comme guide d'audit manuel et les templates comme base pour vos fichiers SEO.
+## Scoring System
 
-### Option 3 : Via l'IA
-Demandez à votre assistant IA : _"Charge l'agent `Audit SEO GEO 360/agent/seo-geo-360-auditor.md` et lance un audit complet de mon site"_.
+| Category | Weight |
+|----------|--------|
+| Technical SEO | 20% |
+| Content & E-E-A-T | 22% |
+| On-Page SEO | 18% |
+| Schema | 10% |
+| Performance (CWV) | 12% |
+| AI Readiness (GEO) | 12% |
+| Images | 6% |
 
-## Fonctionnalités de l'agent
+## License
 
-| Commande | Description |
-|---|---|
-| `[FA]` | Audit complet 360° (les 10 catégories) |
-| `[TA]` | Audit technique SEO uniquement |
-| `[GA]` | Audit GEO (optimisation pour IA) uniquement |
-| `[LA]` | Audit SEO local |
-| `[GF]` | Génère robots.txt, sitemap.xml, llms.txt, Schema.org |
-| `[FAQ]` | Génère section FAQ + FAQPage Schema |
-| `[I18N]` | Optimisation SEO/GEO multilingue |
-| `[SC]` | Scorecard rapide (scores sur 10) |
-| `[PS]` | 🆕 **PageSpeed Perfection Loop** — Boucle itérative 4 phases vers 100% |
-| `[AB]` | Auto-Backup avec scores dans le nom |
-
-## Catégories d'audit
-
-1. **Technical SEO** — robots.txt, sitemap, canonical, hreflang, performance
-2. **On-Page SEO** — title, meta, H1/H2, images, contenu
-3. **Schema.org** — ProfessionalService, FAQPage, Service, WebPage
-4. **GEO** — llms.txt, contenu structuré pour IA, FAQ, crawlers IA
-5. **Local SEO** — geo tags, NAP, Google Business Profile
-6. **Accessibility** — skip-nav, aria, contrast WCAG AA, keyboard
-7. **Social** — Open Graph, Twitter Cards, og:locale
-8. **Multilingual** — html lang, hreflang, bilingual meta/schema
-9. **Content** — keywords, intent, location-based targeting
-10. **PageSpeed 100%** — 🆕 Self-host fonts, inline CSS, cache, CLS, contrastes
-
+MIT — By Laurent Rochetta
