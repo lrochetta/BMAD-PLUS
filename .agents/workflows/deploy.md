@@ -2,58 +2,109 @@
 description: Mandatory pre-deployment checklist — MUST READ before any git push, npm publish, or release
 ---
 
-# Pre-Deploy Workflow
+# /deploy — Pre-Deployment Workflow
 
-> ⚠️ **This workflow is MANDATORY before any `git push`, `npm publish`, `git tag`, or release.**
+> ⚠️ **THIS WORKFLOW IS MANDATORY before any `git push`, `npm publish`, `git tag`, or release.**
+> Any AI assistant working on this project MUST follow this workflow WITHOUT EXCEPTION.
 
-## Step 1 — Read Architecture Doc
+---
 
-// turbo
-Read the deployment architecture document:
-```
-view_file d:\travail\DEV\BMAD+\docs\architecture\golden-vs-distribution.md
-```
-
-**Key rules from this document:**
-- `BMAD-PLUS` (origin) = **Golden repo** (private, all code including monitor/, mcp-server/)
-- `BMAD-PLUS-GOLDEN` = **Backup/mirror** of the golden repo
-- Distribution repo = **public**, receives scrubbed code only via CI/CD
-- **NEVER push directly to the public/distribution repo** — use the GitHub Action
-
-## Step 2 — Verify Remotes
+## Step 0 — Read Architecture Doc
 
 // turbo
-Run `git remote -v` to confirm which remotes exist and where you're pushing.
+Read `docs/architecture/golden-vs-distribution.md` before doing ANYTHING.
 
-## Step 3 — Verify No Secrets Leak
+Key rules:
+- **BMAD-PLUS-GOLDEN** (`origin`) = **PRIVATE** repo (all code, private dirs included)
+- **BMAD-PLUS** (`public`) = **PUBLIC** distribution repo (scrubbed, no private files)
+- **NEVER push directly to the public repo** — always use the GitHub Action
+- **NEVER run `npm publish` from the Golden repo** — always use the GitHub Action
 
-Before committing, verify that NO private files are staged:
-- ❌ `monitor/` — VPS infrastructure (Evolution API, WhatsApp webhooks)
-- ❌ `mcp-server/` — Private MCP server
-- ❌ `osint-agent-package/` — OSINT tools (check if public or private)
-- ❌ `.env`, `credentials.json`, `token.json` — Secrets
-- ❌ Any file containing API keys, passwords, or VPS IPs
+## Step 1 — Version Bump Checklist
 
-## Step 4 — Push to Golden Only
+When bumping a version, ALL of these files must be updated synchronously:
 
-Push ONLY to the golden/private repo:
-```bash
+| # | File | What to update |
+|---|------|----------------|
+| 1 | `package.json` | `"version": "X.Y.Z"` |
+| 2 | `CHANGELOG.md` | Add new `## [X.Y.Z]` section at top |
+| 3 | `README.md` | Badge: `version-X.Y.Z-blue` |
+| 4 | `README-DIST.md` | Badge: `version-X.Y.Z-blue` |
+| 5 | `readme-international/README.fr.md` | Badge: `version-X.Y.Z-blue` |
+| 6 | `readme-international/README.es.md` | Badge: `version-X.Y.Z-blue` |
+| 7 | `readme-international/README.de.md` | Badge: `version-X.Y.Z-blue` |
+| 8 | `README.md` | Version History table — add new row |
+| 9 | `README-DIST.md` | Version History table — add new row |
+| 10 | `tools/cli/i18n.js` | All 10 `installer_title` strings |
+| 11 | `tools/cli/commands/install.js` | `clack.intro()` version string |
+
+## Step 2 — Security Check
+
+// turbo
+Run: `git status --short | Select-String "secrets/"`
+
+Verify:
+- [ ] No files from `secrets/` are staged
+- [ ] `.gitignore` includes `secrets/` (check it's not corrupted — must be UTF-8)
+- [ ] No API keys, tokens, or PATs in any staged file
+
+## Step 3 — Commit & Push to Golden (Private)
+
+// turbo
+```
+git add -A
+git commit -m "release: vX.Y.Z — [description]"
 git push origin master
 ```
 
-**DO NOT** push to `public` or any distribution remote directly.
+This pushes to **BMAD-PLUS-GOLDEN** (private) only.
 
-## Step 5 — npm publish (if applicable)
+## Step 4 — Tag the Release (Triggers GitHub Action)
 
-npm publish sends the package to the public npm registry.
-Verify `.npmignore` excludes private directories before publishing.
+// turbo
+```
+git tag -a vX.Y.Z -m "Release vX.Y.Z"
+git push origin vX.Y.Z
+```
 
-## Step 6 — Distribution Sync (when CI/CD is ready)
+This triggers `.github/workflows/publish-distribution.yml` which:
+1. Clones Golden
+2. **Scrubs** private dirs (`monitor/`, `mcp-server/`, `secrets/`, `oveanet-pack/`, `.github/`, `.agents/`, `docs/architecture/`)
+3. **Swaps** `README-DIST.md` → `README.md`
+4. **Removes** IDE configs (`CLAUDE.md`, `GEMINI.md`, `AGENTS.md`)
+5. **Force-pushes** to public **BMAD-PLUS** repo
+6. **Publishes** to npm as `bmad-plus@X.Y.Z`
 
-The GitHub Action `publish-distribution.yml` handles:
-1. Clone golden
-2. Remove `monitor/`, `mcp-server/`, private files
-3. Swap `README.md` → `README-DIST.md`
-4. Force-push clean code to distribution repo
+## Step 5 — Verify
 
-Until CI/CD is implemented, distribution sync must be done manually with extreme care.
+After the GitHub Action completes:
+- [ ] Check https://github.com/lrochetta/BMAD-PLUS — version badge shows X.Y.Z
+- [ ] Check https://www.npmjs.com/package/bmad-plus — version X.Y.Z listed
+- [ ] Verify no private files visible in public repo
+
+## Required GitHub Secrets (BMAD-PLUS-GOLDEN)
+
+These must be configured in Settings → Secrets → Actions:
+
+| Secret | Purpose |
+|--------|---------|
+| `DISTRIBUTION_PAT` | GitHub PAT with `repo` scope for pushing to BMAD-PLUS |
+| `NPM_TOKEN` | npm automation token for publishing to npmjs.com |
+
+---
+
+## Visibility Matrix (Reference)
+
+| Directory | Golden (Private) | Public (BMAD-PLUS) | npm |
+|-----------|:---:|:---:|:---:|
+| `src/` | ✅ | ✅ | ✅ |
+| `tools/` | ✅ | ✅ | ✅ |
+| `osint-agent-package/` | ✅ | ✅ | ✅ |
+| `readme-international/` | ✅ | ✅ | ✅ |
+| `oveanet-pack/` | ✅ | ❌ | ❌ |
+| `monitor/` | ✅ | ❌ | ❌ |
+| `mcp-server/` | ✅ | ❌ | ❌ |
+| `secrets/` | ✅ | ❌ | ❌ |
+| `.github/` | ✅ | ❌ | ❌ |
+| `.agents/` | ✅ | ❌ | ❌ |
+| `docs/architecture/` | ✅ | ❌ | ❌ |
