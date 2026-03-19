@@ -5,6 +5,24 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.1] — 2026-03-19
+
+### 🌐 CLI Internationalization + DevOps Hardening
+
+### Added
+- **10-language CLI installer** — EN, FR, ES, DE, PT-BR, RU, ZH, HE, JA, IT with language selector at startup
+- **CI/CD pipeline** — `publish-distribution.yml` GitHub Action (Golden → Public repo scrubbing)
+- **`.npmignore`** — Excludes private directories from npm package
+- **`/deploy` workflow** — Mandatory pre-deployment checklist
+- **Post-install guide** — Enriched with all packs (SEO, Backup, Animated Website)
+
+### Fixed
+- **Security** — Purged `secrets/github_pat.txt` from git history, fixed `.gitignore` UTF-16 corruption
+- **Version badges** — Updated from 0.1.0 → 0.4.1 across all 5 READMEs
+- **Project structure** — Updated trees in both Golden and Distribution READMEs
+
+---
+
 ## [0.4.0] — 2026-03-19
 
 ### 🏢 SEO Engine — Enterprise Extensions (Sprint 4)

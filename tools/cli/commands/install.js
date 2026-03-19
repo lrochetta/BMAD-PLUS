@@ -118,7 +118,7 @@ module.exports = {
     const bmadSrc = path.join(__dirname, '..', '..', '..', 'src', 'bmad-plus');
 
     // ── Step 0: Language Selection ──
-    clack.intro(pc.bgCyan(pc.black(' BMAD+ Installer v0.4.0 ')));
+    clack.intro(pc.bgCyan(pc.black(' BMAD+ Installer v0.4.1 ')));
 
     let lang = 'en';
     if (!options.yes) {
