@@ -1,6 +1,6 @@
 /**
  * BMAD+ CLI — Internationalization (i18n)
- * 9 languages: EN, FR, ES, DE, PT-BR, RU, ZH, HE, JA
+ * 10 languages: EN, FR, ES, DE, PT-BR, RU, ZH, HE, JA, IT
  * 
  * Author: Laurent Rochetta
  */
@@ -391,6 +391,49 @@ const LANGUAGES = {
     guide_output: '📁 出力',
     guide_ready: 'BMAD+ 準備完了！Atlasに話しかけて始めましょう 🚀',
     guide_credits: '✨ BMAD+ は Laurent Rochetta によって作成されました — github.com/lrochetta | linkedin.com/in/laurentrochetta ✨',
+  },
+
+  it: {
+    flag: '🇮🇹',
+    name: 'Italiano',
+    locale: 'it',
+    installer_title: ' BMAD+ Installatore v0.4.0 ',
+    select_language: 'Seleziona la tua lingua',
+    installing_to: 'Installazione in',
+    select_packs: 'Quali pack installare? (Core è sempre incluso)',
+    select_ide: 'Quale IDE usi?',
+    detected_ides: 'IDE rilevati',
+    selected_packs: 'Pack selezionati',
+    enter_name: 'Il tuo nome (gli agenti lo usano per salutarti)',
+    comm_language: 'Lingua di comunicazione',
+    exec_mode: 'Modalità di esecuzione',
+    exec_manual: 'Manuale — Chiami tu gli agenti',
+    exec_autopilot: 'Autopilot — Nexus gestisce l\'intera pipeline',
+    exec_hybrid: 'Ibrido — Autopilot con checkpoint frequenti',
+    installing_files: 'Installazione file in corso...',
+    configuring_ides: 'Configurazione IDE...',
+    installed_summary: (a, s, f) => `✅ ${a} agenti, ${s} skill, ${f} file copiati`,
+    ide_configured: (n) => `✅ ${n} IDE configurati`,
+    cancelled: 'Installazione annullata.',
+    failed: 'Installazione fallita.',
+    source_not_found: 'Directory sorgente non trovata',
+    soon: 'prossimamente',
+    guide_title: '✅ Installazione completata — Come iniziare',
+    guide_who: '💬 Con chi parlare?',
+    guide_idea: 'Discutere un\'idea',
+    guide_prd: 'Creare un PRD',
+    guide_arch: 'Architettura tecnica',
+    guide_code: 'Implementare codice',
+    guide_test: 'Testare / code review',
+    guide_sprint: 'Pianificare uno sprint',
+    guide_auto: 'Automatizzare tutto',
+    guide_osint: 'Indagine OSINT',
+    guide_maker: 'Creare un nuovo agente',
+    guide_workflow: '🚀 Flusso consigliato:',
+    guide_or_auto: '⚡ Oppure: "autopilot" per gestire tutto automaticamente',
+    guide_output: '📁 Output',
+    guide_ready: 'BMAD+ è pronto! Parla con Atlas per iniziare 🚀',
+    guide_credits: '✨ BMAD+ è creato da Laurent Rochetta — github.com/lrochetta | linkedin.com/in/laurentrochetta ✨',
   },
 };
 
