@@ -1,0 +1,187 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BMAD+ SEO Audit Result",
+  "description": "Standardized JSON format for SEO audit results. Compatible with dashboards, MCP Server, and external tools.",
+  "version": "1.0.0",
+  "author": "Laurent Rochetta",
+  "type": "object",
+  "required": ["engine", "version", "domain", "timestamp", "score", "issues"],
+  "properties": {
+    "engine": {
+      "type": "string",
+      "const": "bmad-seo-engine",
+      "description": "Engine identifier"
+    },
+    "version": {
+      "type": "string",
+      "description": "Engine version",
+      "examples": ["2.1.0"]
+    },
+    "domain": {
+      "type": "string",
+      "description": "Audited domain (without protocol)",
+      "examples": ["example.com"]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Full URL audited"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of audit completion"
+    },
+    "business_type": {
+      "type": "string",
+      "enum": ["saas", "ecommerce", "local", "publisher", "agency", "other"],
+      "description": "Detected business type"
+    },
+    "pages_analyzed": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of pages analyzed"
+    },
+    "score": {
+      "type": "object",
+      "required": ["total", "categories"],
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Weighted SEO Health Score"
+        },
+        "rating": {
+          "type": "string",
+          "enum": ["excellent", "good", "needs_work", "poor", "critical"],
+          "description": "Score interpretation"
+        },
+        "categories": {
+          "type": "object",
+          "properties": {
+            "technical": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "content_eeat": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "on_page": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "schema": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "performance": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "ai_readiness": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "images": { "type": "integer", "minimum": 0, "maximum": 100 }
+          },
+          "description": "Score per category (0-100)"
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "severity", "category", "title"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique issue identifier",
+            "examples": ["missing-meta-description", "multiple-h1"]
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "category": {
+            "type": "string",
+            "enum": ["technical", "content", "on_page", "schema", "performance", "geo", "images"]
+          },
+          "title": {
+            "type": "string",
+            "description": "Human-readable issue title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed explanation"
+          },
+          "affected_urls": {
+            "type": "array",
+            "items": { "type": "string", "format": "uri" },
+            "description": "Pages affected by this issue"
+          },
+          "fix": {
+            "type": "string",
+            "description": "Auto-generated fix code (HTML, JSON-LD, etc.)"
+          },
+          "quick_win": {
+            "type": "boolean",
+            "description": "True if high impact / low effort"
+          },
+          "impact": {
+            "type": "string",
+            "enum": ["high", "medium", "low"]
+          },
+          "effort": {
+            "type": "string",
+            "enum": ["high", "medium", "low"]
+          }
+        }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": { "type": "string", "format": "uri" },
+          "status": { "type": "integer" },
+          "title": { "type": "string" },
+          "word_count": { "type": "integer" },
+          "schema_types": { "type": "array", "items": { "type": "string" } },
+          "eeat_score": { "type": "integer", "minimum": 0, "maximum": 100 }
+        }
+      },
+      "description": "Per-page analysis data"
+    },
+    "geo": {
+      "type": "object",
+      "properties": {
+        "ai_readiness_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "ai_crawlers_allowed": { "type": "array", "items": { "type": "string" } },
+        "has_llms_txt": { "type": "boolean" },
+        "citability_score": { "type": "integer", "minimum": 0, "maximum": 100 }
+      },
+      "description": "GEO / AI search readiness metrics"
+    },
+    "pagespeed": {
+      "type": "object",
+      "properties": {
+        "mobile": {
+          "type": "object",
+          "properties": {
+            "performance": { "type": "integer" },
+            "accessibility": { "type": "integer" },
+            "best_practices": { "type": "integer" },
+            "seo": { "type": "integer" }
+          }
+        },
+        "desktop": {
+          "type": "object",
+          "properties": {
+            "performance": { "type": "integer" },
+            "accessibility": { "type": "integer" },
+            "best_practices": { "type": "integer" },
+            "seo": { "type": "integer" }
+          }
+        }
+      },
+      "description": "PageSpeed Insights scores"
+    },
+    "monitoring": {
+      "type": "object",
+      "properties": {
+        "previous_score": { "type": "integer" },
+        "previous_date": { "type": "string", "format": "date" },
+        "delta": { "type": "integer" },
+        "issues_resolved": { "type": "integer" },
+        "issues_new": { "type": "integer" }
+      },
+      "description": "Comparison with previous audit (if available)"
+    }
+  }
+}

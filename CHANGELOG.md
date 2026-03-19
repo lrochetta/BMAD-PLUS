@@ -5,6 +5,17 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.2] — 2026-03-19
+
+### 📦 Public Packs — SEO/Backup/Animated now in npm
+
+### Added
+- **Public pack agents** — SEO Audit 360, Universal Backup, Animated Website agent files now included in npm package
+- Agent files copied from `oveanet-pack/` to `src/bmad-plus/agents/pack-seo/`, `pack-backup/`, `pack-animated/`
+- Installer `packDir` system replaces `oveanetAgent` for proper npm distribution
+
+---
+
 ## [0.4.1] — 2026-03-19
 
 ### 🌐 CLI Internationalization + DevOps Hardening
