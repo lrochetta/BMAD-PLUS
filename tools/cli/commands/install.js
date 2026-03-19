@@ -408,6 +408,18 @@ module.exports = {
       agentGuide.push(`  ${i.guide_maker.padEnd(28)} →  "Maker, create agent [desc]"`);
     }
 
+    if (selectedPacks.includes('seo')) {
+      agentGuide.push(`  ${i.guide_seo.padEnd(28)} →  "/seo audit <url>"`);
+    }
+
+    if (selectedPacks.includes('backup')) {
+      agentGuide.push(`  ${i.guide_backup.padEnd(28)} →  "/backup create"`);
+    }
+
+    if (selectedPacks.includes('animated')) {
+      agentGuide.push(`  ${i.guide_animated.padEnd(28)} →  "/animated build <video>"`);
+    }
+
     agentGuide.push(
       '',
       i.guide_workflow,
