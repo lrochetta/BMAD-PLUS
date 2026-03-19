@@ -8,7 +8,7 @@
   🌐 <b>English</b> | <a href="readme-international/README.fr.md">Français</a> | <a href="readme-international/README.es.md">Español</a> | <a href="readme-international/README.de.md">Deutsch</a>
 </div>
 
-> Smart fork of [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 — Multi-role self-activating agents, Autopilot mode, supervised parallel execution, and WhatsApp upstream monitoring.
+> Smart fork of [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 — Multi-role self-activating agents, Autopilot mode, supervised parallel execution, and a modular pack system.
 
 ---
 
@@ -21,7 +21,6 @@
 - [Pack System](#-pack-system)
 - [Innovations](#-innovations)
 - [Supported IDEs](#-supported-ides)
-- [Upstream Monitoring](#-upstream-monitoring)
 - [Project Structure](#-project-structure)
 - [Configuration](#-configuration)
 - [Version History](#-version-history)
@@ -39,7 +38,6 @@ BMAD-METHOD is an excellent framework with 9 specialized agents. But for a solo 
 | Manual activation only | **Intelligent auto-activation** at 3 levels |
 | No automated pipeline | **Autopilot Mode**: idea → delivery |
 | Sequential execution | **Supervised parallelism** |
-| No upstream tracking | **Weekly monitoring** with WhatsApp |
 | 1-2 IDEs supported | **5 IDEs** with auto-detection |
 
 ---
@@ -146,22 +144,10 @@ graph TB
     subgraph Skills["Custom Skills"]
         AP[Autopilot]
         PL[Parallel]
-        SY[Sync]
     end
 
     NX --> AP
     NX --> PL
-    NX --> SY
-
-    subgraph VPS["VPS Infrastructure"]
-        MCP[MCP Server<br/>35 tools]
-        EVO[Evolution API<br/>WhatsApp]
-        MON[Weekly Monitor]
-    end
-
-    SY --> MCP
-    MON --> EVO
-    MON --> MCP
 ```
 
 ---
@@ -282,7 +268,7 @@ npx bmad-plus install
 
 | Pack | Agents | Skills | Status |
 |------|--------|--------|--------|
-| ⚙️ **Core** | Atlas, Forge, Sentinel, Nexus | autopilot, parallel, sync | ✅ Stable |
+| ⚙️ **Core** | Atlas, Forge, Sentinel, Nexus | autopilot, parallel | ✅ Stable |
 | 🔍 **OSINT** | Shadow | bmad-osint-investigate | ✅ Stable |
 | 🧬 **Maker** | Maker | — | ✅ Stable |
 | 🛡️ **Audit** | Shield | bmad-audit-scan, bmad-audit-report | 🔜 Coming soon |
@@ -331,7 +317,7 @@ Give a project idea → Nexus orchestrates the complete pipeline:
 ```
 
 **Configurable checkpoints:**
-- `require_approval` (🔴) — Pause, WhatsApp notification, wait
+- `require_approval` (🔴) — Pause, wait for approval
 - `notify_only` (🟡) — Notification, continues unless intervened
 - `auto` (🟢) — Continues automatically
 
@@ -363,39 +349,16 @@ The installer automatically detects IDEs and generates configs:
 
 ---
 
-## 📡 Upstream Monitoring
-
-### Weekly pipeline (cron VPS, Monday 9am)
-
-```
-1. git fetch upstream BMAD-METHOD
-2. Diff analysis (commits, modified files)
-3. AI analysis via Gemini API → classification
-   🟢 Compatible | 🟡 To check | 🔴 Breaking
-4. WhatsApp Notification via Evolution API
-5. Auto-PR if changes are compatible
-```
-
-### Stack
-- **weekly-check.py** — Main script (cron)
-- **ai_analyzer.py** — AI Classification (Gemini 2.0 Flash)
-- **notifier.py** — WhatsApp (Evolution API self-hosted) + email fallback
-- **mcp_bridge.py** — Bridge to Audit 360° MCP Server (git/github ops)
-
----
-
 ## 📁 Project Structure
 
 ```
 BMAD+/
 ├── README.md                      ← This file (English)
-├── README-DIST.md                 ← Public README (swapped on publish)
 ├── readme-international/          ← Translated READMEs (fr, es, de)
 ├── CHANGELOG.md                   ← Version history
 ├── CLAUDE.md                      ← Claude Code Config
 ├── GEMINI.md                      ← Gemini CLI Config
 ├── AGENTS.md                      ← Codex CLI / OpenCode Config
-├── .npmignore                     ← npm publish exclusions
 ├── .gitignore
 │
 ├── src/
@@ -411,48 +374,18 @@ BMAD+/
 │       │   └── agent-shadow/      ← Shadow (osint) [pack: osint]
 │       ├── skills/
 │       │   ├── bmad-plus-autopilot/ ← Automated pipeline
-│       │   ├── bmad-plus-parallel/  ← Parallel execution
-│       │   └── bmad-plus-sync/      ← Upstream sync
+│       │   └── bmad-plus-parallel/  ← Parallel execution
 │       └── data/
 │           └── role-triggers.yaml ← Auto-activation rules
 │
-├── oveanet-pack/                  🔒 PRIVATE — Oveanet Utility Packs
-│   ├── seo-audit-360/             ← SEO Engine v2.1 (3 agents, 6 scripts)
-│   │   ├── SKILL.md               ← Orchestrator (15 commands)
-│   │   ├── agent/                 ← Scout, Judge, Chief
-│   │   ├── scripts/               ← Python toolkit (fetch, parse, crawl, apis, report)
-│   │   ├── ref/                   ← CWV, Schema, E-E-A-T, GEO, hreflang
-│   │   ├── tests/                 ← 50 pytest tests
-│   │   ├── hooks/                 ← Pre-commit SEO check
-│   │   └── extensions/            ← GSC + GA4 (OAuth2, optional)
-│   ├── universal-backup/          ← Backup agent
-│   └── animated-website/          ← Creative website agent
+├── tools/
+│   └── cli/                       🛠️ NPX INSTALLER
+│       └── install.js             ← npx bmad-plus install
 │
-├── monitor/                       🔒 PRIVATE — VPS Surveillance
-│   ├── weekly-check.py            ← Main script (cron)
-│   ├── ai_analyzer.py             ← AI Analysis (Gemini API)
-│   ├── notifier.py                ← WhatsApp + email
-│   ├── mcp_bridge.py              ← Bridge to MCP Server
-│   ├── config.example.yaml        ← Configuration template
-│   └── docker-compose.yml         ← Evolution API
-│
-├── mcp-server/                    🔒 PRIVATE — Audit 360° MCP
-│   ├── server.py                  ← 35 tools, 7 modules
-│   └── tools/                     ← git_ops, github_ops, etc.
-│
-├── osint-agent-package/           🔍 OSINT PACKAGE (public)
-│   ├── agents/                    ← Shadow Agent (original)
+├── osint-agent-package/           🔍 OSINT PACKAGE
+│   ├── agents/                    ← Shadow Agent (OSINT investigator)
 │   ├── skills/                    ← 55+ Apify actors
 │   └── install.ps1                ← Installation script
-│
-├── secrets/                       🔒 PRIVATE — API keys, tokens
-│
-├── docs/                          📚 Architecture docs
-│   └── architecture/
-│       └── golden-vs-distribution.md ← Deployment strategy
-│
-├── .github/workflows/             🔄 CI/CD
-│   └── publish-distribution.yml   ← Golden → Public pipeline
 │
 └── upstream/                      📦 UPSTREAM REFERENCE
     └── (clone of BMAD-METHOD)     ← Excluded from repo (.gitignore)
@@ -477,8 +410,6 @@ BMAD+/
 
 | Key | Pack | Usage |
 |-----|------|-------|
-| `GEMINI_API_KEY` | Monitor | AI Analysis of upstream diffs |
-| `EVOLUTION_API_KEY` | Monitor | WhatsApp Notifications |
 | `APIFY_API_TOKEN` | OSINT | Social media scraping |
 | `PERPLEXITY_API_KEY` | OSINT | Enriched search |
 
@@ -488,7 +419,7 @@ BMAD+/
 
 | Version | Date | Description |
 |---------|------|-------------|
-| **0.1.0** | 2026-03-17 | 🎉 Foundation — 6 agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, monitoring, multi-IDE support |
+| **0.1.0** | 2026-03-17 | 🎉 Foundation — 6 agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, multi-IDE support |
 | **0.2.0** | 2026-03-18 | 🔀 Oveanet Fusion — 3 new utility packs: SEO Audit 360, Universal Backup, Animated Website |
 | **0.3.0** | 2026-03-19 | 🚀 SEO Engine v2.0 — 3 multi-role agents, 4 Python scripts, 6-phase workflow, PageSpeed loop, GEO analysis |
 | **0.4.0** | 2026-03-19 | 🏢 SEO Engine v2.1 — SKILL.md orchestrator, Google APIs, HTML reports, competitor benchmark, 50 tests, GSC + GA4 extensions |
