@@ -1,6 +1,9 @@
 /**
  * BMAD+ Install Command
  * Installs agents, skills, and IDE configs into the current project
+ * Supports 9 languages: EN, FR, ES, DE, PT-BR, RU, ZH, HE, JA
+ *
+ * Author: Laurent Rochetta
  */
 
 const path = require('node:path');
@@ -8,6 +11,7 @@ const fs = require('node:fs');
 const fsExtra = require('fs-extra');
 const clack = require('@clack/prompts');
 const pc = require('picocolors');
+const { t, getLanguageOptions, getCommLanguageOptions } = require('../i18n');
 
 // Pack definitions
 const PACKS = {
@@ -113,17 +117,33 @@ module.exports = {
     const projectDir = path.resolve(options.directory || process.cwd());
     const bmadSrc = path.join(__dirname, '..', '..', '..', 'src', 'bmad-plus');
 
-    // ── Intro ──
-    clack.intro(pc.bgCyan(pc.black(' BMAD+ Installer v0.1.0 ')));
+    // ── Step 0: Language Selection ──
+    clack.intro(pc.bgCyan(pc.black(' BMAD+ Installer v0.4.0 ')));
+
+    let lang = 'en';
+    if (!options.yes) {
+      const langChoice = await clack.select({
+        message: '🌐 Select your language / Choisissez votre langue / 选择语言',
+        options: getLanguageOptions(),
+      });
+
+      if (clack.isCancel(langChoice)) {
+        clack.cancel('Installation cancelled.');
+        process.exit(0);
+      }
+      lang = langChoice;
+    }
+
+    const i = t(lang); // Get translations for selected language
 
     // Verify source exists
     if (!fs.existsSync(bmadSrc)) {
-      clack.log.error(`Source directory not found: ${bmadSrc}`);
-      clack.outro(pc.red('Installation failed.'));
+      clack.log.error(`${i.source_not_found}: ${bmadSrc}`);
+      clack.outro(pc.red(i.failed));
       process.exit(1);
     }
 
-    clack.log.info(`Installing to: ${pc.cyan(projectDir)}`);
+    clack.log.info(`${i.installing_to}: ${pc.cyan(projectDir)}`);
 
     // ── Step 1: Pack Selection ──
     let selectedPacks = ['core']; // Core always included
@@ -137,27 +157,27 @@ module.exports = {
       }
     } else if (!options.yes) {
       const packChoice = await clack.multiselect({
-        message: 'Quels packs installer ? (Core est toujours inclus)',
+        message: i.select_packs,
         options: Object.entries(PACKS)
           .filter(([, p]) => !p.required)
           .map(([key, pack]) => ({
             value: key,
             label: `${pack.icon} ${pack.name}`,
-            hint: pack.disabled ? 'bientôt' : pack.description,
+            hint: pack.disabled ? i.soon : pack.description,
             disabled: pack.disabled,
           })),
         required: false,
       });
 
       if (clack.isCancel(packChoice)) {
-        clack.cancel('Installation annulée.');
+        clack.cancel(i.cancelled);
         process.exit(0);
       }
 
       selectedPacks = [...new Set(['core', ...packChoice])];
     }
 
-    clack.log.success(`Packs sélectionnés: ${selectedPacks.map(p => `${PACKS[p].icon} ${PACKS[p].name}`).join(', ')}`);
+    clack.log.success(`${i.selected_packs}: ${selectedPacks.map(p => `${PACKS[p].icon} ${PACKS[p].name}`).join(', ')}`);
 
     // ── Step 2: IDE Detection ──
     let detectedIDEs = [];
@@ -178,7 +198,7 @@ module.exports = {
       // If nothing detected, ask
       if (detectedIDEs.length === 0 && !options.yes) {
         const ideChoice = await clack.multiselect({
-          message: 'Quels IDE utilises-tu ?',
+          message: i.select_ide,
           options: Object.entries(IDE_CONFIGS).map(([key, ide]) => ({
             value: key,
             label: ide.name,
@@ -198,7 +218,7 @@ module.exports = {
     }
 
     if (detectedIDEs.length > 0) {
-      clack.log.info(`IDE détectés: ${detectedIDEs.map(id => IDE_CONFIGS[id].name).join(', ')}`);
+      clack.log.info(`${i.detected_ides}: ${detectedIDEs.map(id => IDE_CONFIGS[id].name).join(', ')}`);
     }
 
     // ── Step 3: User Config ──
@@ -208,31 +228,26 @@ module.exports = {
     if (!options.yes) {
       const userConfig = await clack.group({
         userName: () => clack.text({
-          message: 'Ton prénom (les agents l\'utilisent pour te saluer)',
+          message: i.enter_name,
           placeholder: userName,
           defaultValue: userName,
         }),
         commLang: () => clack.select({
-          message: 'Langue de communication',
-          options: [
-            { value: 'French', label: '🇫🇷 Français' },
-            { value: 'English', label: '🇬🇧 English' },
-            { value: 'German', label: '🇩🇪 Deutsch' },
-            { value: 'Spanish', label: '🇪🇸 Español' },
-          ],
+          message: i.comm_language,
+          options: getCommLanguageOptions(),
         }),
         execMode: () => clack.select({
-          message: 'Mode d\'exécution',
+          message: i.exec_mode,
           options: [
-            { value: 'manual', label: 'Manuel — Tu appelles les agents toi-même' },
-            { value: 'autopilot', label: 'Autopilot — Nexus gère tout le pipeline' },
-            { value: 'hybrid', label: 'Hybride — Autopilot avec checkpoints fréquents' },
+            { value: 'manual', label: i.exec_manual },
+            { value: 'autopilot', label: i.exec_autopilot },
+            { value: 'hybrid', label: i.exec_hybrid },
           ],
         }),
       });
 
       if (clack.isCancel(userConfig)) {
-        clack.cancel('Installation annulée.');
+        clack.cancel(i.cancelled);
         process.exit(0);
       }
 
@@ -242,7 +257,7 @@ module.exports = {
 
     // ── Step 4: Install Files ──
     const spinner = clack.spinner();
-    spinner.start('Installation des fichiers...');
+    spinner.start(i.installing_files);
 
     const targetAgentsDir = path.join(projectDir, '.agents', 'skills');
     const targetDataDir = path.join(projectDir, '.agents', 'data');
@@ -325,12 +340,12 @@ module.exports = {
       copiedFiles++;
     }
 
-    spinner.stop(`✅ ${copiedAgents} agents, ${copiedSkills} skills, ${copiedFiles} fichiers copiés`);
+    spinner.stop(i.installed_summary(copiedAgents, copiedSkills, copiedFiles));
 
     // ── Step 5: Generate IDE Configs ──
     if (detectedIDEs.length > 0) {
       const ideSpinner = clack.spinner();
-      ideSpinner.start('Configuration des IDE...');
+      ideSpinner.start(i.configuring_ides);
 
       const configContent = generateIDEConfig(userName, commLang, selectedPacks);
 
@@ -342,7 +357,7 @@ module.exports = {
         fs.writeFileSync(configPath, configContent, 'utf8');
       }
 
-      ideSpinner.stop(`✅ ${detectedIDEs.length} IDE configuré(s)`);
+      ideSpinner.stop(i.ide_configured(detectedIDEs.length));
     }
 
     // ── Step 6: Create config.yaml ──
@@ -358,7 +373,8 @@ module.exports = {
 
     // ── Step 8: Write install manifest ──
     const manifest = {
-      version: '0.1.0',
+      version: '0.4.0',
+      uiLanguage: lang,
       installed: new Date().toISOString(),
       packs: selectedPacks,
       ides: detectedIDEs,
@@ -373,43 +389,43 @@ module.exports = {
 
     // ── Summary — Contextual Getting Started ──
     const agentGuide = [
-      '💬 À qui parler ?',
+      i.guide_who,
       '',
-      '  Discuter d\'une idée      →  "Atlas, j\'ai une idée de projet : [...]"',
-      '  Créer un PRD              →  "Atlas, crée le PRD"',
-      '  Architecture technique    →  "Forge, propose une architecture"',
-      '  Implémenter du code       →  "Forge, implémente la story [X]"',
-      '  Tester / code review      →  "Sentinel, review le module [X]"',
-      '  Planifier un sprint       →  "Nexus, crée les epics et stories"',
-      '  Tout automatiser          →  "autopilot" puis décris ton projet',
+      `  ${i.guide_idea.padEnd(28)} →  "Atlas, [...]"`,
+      `  ${i.guide_prd.padEnd(28)} →  "Atlas, create PRD"`,
+      `  ${i.guide_arch.padEnd(28)} →  "Forge, propose architecture"`,
+      `  ${i.guide_code.padEnd(28)} →  "Forge, implement story [X]"`,
+      `  ${i.guide_test.padEnd(28)} →  "Sentinel, review module [X]"`,
+      `  ${i.guide_sprint.padEnd(28)} →  "Nexus, create epics"`,
+      `  ${i.guide_auto.padEnd(28)} →  "autopilot"`,
     ];
 
     if (selectedPacks.includes('osint')) {
-      agentGuide.push('  Investigation OSINT       →  "Shadow, investigate [nom]"');
+      agentGuide.push(`  ${i.guide_osint.padEnd(28)} →  "Shadow, investigate [name]"`);
     }
 
     if (selectedPacks.includes('maker')) {
-      agentGuide.push('  Créer un nouvel agent     →  "Maker, crée un agent [description]"');
+      agentGuide.push(`  ${i.guide_maker.padEnd(28)} →  "Maker, create agent [desc]"`);
     }
 
     agentGuide.push(
       '',
-      '🚀 Workflow recommandé:',
-      '  1. Atlas (idée → brief → PRD)',
+      i.guide_workflow,
+      '  1. Atlas (idea → brief → PRD)',
       '  2. Forge (architecture → code)',
       '  3. Sentinel (tests → review)',
       '',
-      '⚡ Ou: "autopilot" pour tout gérer automatiquement',
+      i.guide_or_auto,
       '',
-      `📁 Output: _bmad-output/discovery/ et _bmad-output/build/`,
+      `${i.guide_output}: _bmad-output/discovery/ & _bmad-output/build/`,
       '',
       '---',
-      '✨ BMAD+ is created by Laurent Rochetta — github.com/lrochetta | linkedin.com/in/laurentrochetta ✨'
+      i.guide_credits
     );
 
-    clack.note(agentGuide.join('\n'), '✅ Installation terminée — Comment commencer');
+    clack.note(agentGuide.join('\n'), i.guide_title);
 
-    clack.outro(pc.green('BMAD+ est prêt! Parle à Atlas pour commencer 🚀'));
+    clack.outro(pc.green(i.guide_ready));
   },
 };
 
