@@ -84,16 +84,16 @@ jobs:
         run: |
           echo "🚀 Pushing to distribution repo..."
 
-          # Configure git
+          # Configure git identity
           git config user.name "Laurent Rochetta"
-          git config user.email "github-actions@github.com"
+          git config user.email "lrochetta@users.noreply.github.com"
 
           # Stage all remaining (clean) files
           git add -A
           git commit -m "Release v${{ steps.version.outputs.VERSION }} — automated distribution build" --allow-empty
 
-          # Push to distribution repo
-          git remote add distribution https://x-access-token:${DIST_PAT}@github.com/lrochetta/BMAD-PLUS.git
+          # Push to distribution repo using classic PAT auth
+          git remote add distribution https://${DIST_PAT}@github.com/lrochetta/BMAD-PLUS.git
           git push distribution HEAD:master --force
 
           echo "✅ Distribution repo updated!"
