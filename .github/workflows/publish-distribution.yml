@@ -102,12 +102,19 @@ jobs:
 
           echo "✅ Distribution repo updated!"
 
-      # ── NPM PUBLISH (optional) ──────────────────────────────────
+      # ── NPM SETUP ────────────────────────────────────────────────
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+
+      # ── NPM PUBLISH ──────────────────────────────────────────────
       - name: Publish to npm
+        continue-on-error: true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           echo "📦 Publishing to npm..."
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
-          npm publish --access public
-          echo "✅ Published to npm: bmad-plus@${{ steps.version.outputs.VERSION }}"
+          npm publish --access public 2>&1 || echo "⚠️ npm publish failed — check token permissions"
+          echo "npm publish step completed"
