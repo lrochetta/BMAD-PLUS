@@ -1,93 +1,109 @@
-name: Publish Distribution Repository
+name: Publish to Distribution Repo
 
+# Triggered when a version tag is pushed (e.g. v0.4.0)
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*'
+
+# Can also be triggered manually from GitHub UI
   workflow_dispatch:
     inputs:
-      target_repo:
-        description: 'Target public repository (e.g. lrochetta/bmad-plus-public)'
-        required: true
-        default: 'lrochetta/BMAD-PLUS'
+      force:
+        description: 'Force push to distribution'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: read
 
 jobs:
   publish-distribution:
     runs-on: ubuntu-latest
     steps:
+
       - name: Checkout Golden Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+      - name: Get version from tag
+        id: version
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+          else
+            echo "VERSION=$(node -p 'require("./package.json").version')" >> $GITHUB_OUTPUT
+          fi
+          echo "📦 Version: ${{ steps.version.outputs.VERSION || 'reading...' }}"
 
-      - name: Configure Git
+      # ── SCRUBBING — Remove private directories ──────────────────
+      - name: Scrub private directories
         run: |
-          git config --global user.name "GitHub Action (Distribution Bot)"
-          git config --global user.email "action@github.com"
-      
-      - name: Prepare Clean Distribution Directory
-        run: |
-          # Create a temp directory outside the workspace
-          mkdir -p ../dist-workspace
-          
-          # Copy everything except what's in standard .gitignore
-          rsync -a --exclude='.git' --exclude='node_modules' ./ ../dist-workspace/
-          
-          cd ../dist-workspace
-          
-          # ---------------------------------------------------------
-          # 1. SCRUBBING (Remove private infrastructure components)
-          # ---------------------------------------------------------
           echo "🧹 Scrubbing private directories..."
-          rm -rf monitor/
-          rm -rf mcp-server/
-          rm -rf private-experiments/
-          rm -rf secrets/
-          # Keep osint-agent-package as it's part of the public OSINT pack
-          
-          # Remove internal GitHub workflows that shouldn't go public
-          rm -rf .github/workflows/publish-distribution.yml
-          
-          # ---------------------------------------------------------
-          # 2. SANITIZATION (Swap READMEs)
-          # ---------------------------------------------------------
-          echo "📝 Sanitizing documentation..."
-          if [ -f "README-DIST.md" ]; then
-            mv README-DIST.md README.md
-          fi
-          
-          # Remove the architecture doc for the release strategy itself
-          rm -rf docs/architecture/golden-vs-distribution.md
-          
-          # ---------------------------------------------------------
-          # 3. INITIALIZE NEW GIT REPO
-          # ---------------------------------------------------------
-          echo "⚙️ Initializing distribution git repository..."
-          git init
-          git add -A
-          git commit -m "🚀 Release: Distribusion version synced from Golden Repo"
-      
-      - name: Push to Target Public Repository
-        env:
-          DIST_REPO: ${{ github.event.inputs.target_repo || 'lrochetta/BMAD-PLUS' }}
-          PAT_TOKEN: ${{ secrets.DISTRIBUTION_PAT }}
+          rm -rf monitor/               # VPS infrastructure
+          rm -rf mcp-server/             # Private MCP server
+          rm -rf secrets/                # API keys, tokens
+          rm -rf oveanet-pack/           # Private project (SEO Engine, etc.)
+          rm -rf .venv/
+          rm -rf .pytest_cache/
+          rm -rf node_modules/
+          rm -rf '%TEMP%'/
+          rm -rf .github/                # Don't copy CI/CD to public
+          rm -rf .agents/                # Don't copy agent workflows
+          rm -rf docs/architecture/      # Private architecture docs
+          echo "✅ Private directories removed"
+
+      # ── SANITIZATION — Swap READMEs ─────────────────────────────
+      - name: Swap README for distribution
         run: |
-          cd ../dist-workspace
-          
-          if [ -z "$PAT_TOKEN" ]; then
-            echo "❌ ERROR: DISTRIBUTION_PAT secret is missing. Cannot push to public repo."
-            exit 1
+          echo "📝 Swapping README..."
+          if [ -f "README-DIST.md" ]; then
+            mv README.md README-GOLDEN.md  # Backup (won't be pushed)
+            mv README-DIST.md README.md
+            echo "✅ README-DIST.md → README.md"
+          else
+            echo "⚠️ README-DIST.md not found, keeping original"
           fi
-          
-          echo "🚀 Pushing to $DIST_REPO..."
-          git remote add public https://x-access-token:${PAT_TOKEN}@github.com/${DIST_REPO}.git
-          
-          # We force push to the main branch of the public repo to keep it completely detached 
-          # from the internal golden history (security measure).
-          git push -f public master:main || git push -f public main:main
-          
-          echo "✅ Distribution release complete."
+
+      # ── SANITIZATION — Remove golden-only files ─────────────────
+      - name: Remove golden-only files
+        run: |
+          echo "🧹 Removing golden-only files..."
+          rm -f README-GOLDEN.md
+          rm -f CLAUDE.md          # IDE-specific config
+          rm -f GEMINI.md          # IDE-specific config
+          rm -f AGENTS.md          # IDE-specific config
+          rm -f process-info.md    # Development notes
+          echo "✅ Golden-only files removed"
+
+      # ── PUSH to Distribution Repo ───────────────────────────────
+      - name: Push to Distribution Repo
+        env:
+          DIST_PAT: ${{ secrets.DISTRIBUTION_PAT }}
+        run: |
+          echo "🚀 Pushing to distribution repo..."
+
+          # Configure git
+          git config user.name "Laurent Rochetta"
+          git config user.email "github-actions@github.com"
+
+          # Stage all remaining (clean) files
+          git add -A
+          git commit -m "Release v${{ steps.version.outputs.VERSION }} — automated distribution build" --allow-empty
+
+          # Push to distribution repo
+          git remote add distribution https://x-access-token:${DIST_PAT}@github.com/lrochetta/BMAD-PLUS.git
+          git push distribution HEAD:master --force
+
+          echo "✅ Distribution repo updated!"
+
+      # ── NPM PUBLISH (optional) ──────────────────────────────────
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "📦 Publishing to npm..."
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+          npm publish --access public
+          echo "✅ Published to npm: bmad-plus@${{ steps.version.outputs.VERSION }}"

@@ -1,0 +1,32 @@
+# BMAD+ — npm publish exclusions
+# These directories/files are PRIVATE and must NEVER appear in the npm package.
+
+# Private infrastructure
+monitor/
+mcp-server/
+secrets/
+oveanet-pack/
+
+# Development files
+.github/
+.agents/
+.venv/
+.pytest_cache/
+%TEMP%/
+docs/architecture/
+node_modules/
+
+# IDE-specific configs (Golden only)
+CLAUDE.md
+GEMINI.md
+AGENTS.md
+process-info.md
+README-GOLDEN.md
+
+# Git
+.git/
+.gitattributes
+
+# Binary/cache
+*.pyc
+__pycache__/

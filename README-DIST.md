@@ -378,8 +378,17 @@ BMAD+/
 │       └── data/
 │           └── role-triggers.yaml ← Auto-activation rules
 │
-└── osint-agent-package/           🔍 OSINT PACKAGE
-    └── scripts/                   ← Installation helpers
+├── tools/
+│   └── cli/                       🛠️ NPX INSTALLER
+│       └── install.js             ← npx bmad-plus install
+│
+├── osint-agent-package/           🔍 OSINT PACKAGE
+│   ├── agents/                    ← Shadow Agent (OSINT investigator)
+│   ├── skills/                    ← 55+ Apify actors
+│   └── install.ps1                ← Installation script
+│
+└── upstream/                      📦 UPSTREAM REFERENCE
+    └── (clone of BMAD-METHOD)     ← Excluded from repo (.gitignore)
 ```
 
 ---

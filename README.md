@@ -389,11 +389,13 @@ The installer automatically detects IDEs and generates configs:
 ```
 BMAD+/
 ├── README.md                      ← This file (English)
+├── README-DIST.md                 ← Public README (swapped on publish)
 ├── readme-international/          ← Translated READMEs (fr, es, de)
 ├── CHANGELOG.md                   ← Version history
 ├── CLAUDE.md                      ← Claude Code Config
 ├── GEMINI.md                      ← Gemini CLI Config
 ├── AGENTS.md                      ← Codex CLI / OpenCode Config
+├── .npmignore                     ← npm publish exclusions
 ├── .gitignore
 │
 ├── src/
@@ -414,7 +416,19 @@ BMAD+/
 │       └── data/
 │           └── role-triggers.yaml ← Auto-activation rules
 │
-├── monitor/                       🤖 VPS SURVEILLANCE
+├── oveanet-pack/                  🔒 PRIVATE — Oveanet Utility Packs
+│   ├── seo-audit-360/             ← SEO Engine v2.1 (3 agents, 6 scripts)
+│   │   ├── SKILL.md               ← Orchestrator (15 commands)
+│   │   ├── agent/                 ← Scout, Judge, Chief
+│   │   ├── scripts/               ← Python toolkit (fetch, parse, crawl, apis, report)
+│   │   ├── ref/                   ← CWV, Schema, E-E-A-T, GEO, hreflang
+│   │   ├── tests/                 ← 50 pytest tests
+│   │   ├── hooks/                 ← Pre-commit SEO check
+│   │   └── extensions/            ← GSC + GA4 (OAuth2, optional)
+│   ├── universal-backup/          ← Backup agent
+│   └── animated-website/          ← Creative website agent
+│
+├── monitor/                       🔒 PRIVATE — VPS Surveillance
 │   ├── weekly-check.py            ← Main script (cron)
 │   ├── ai_analyzer.py             ← AI Analysis (Gemini API)
 │   ├── notifier.py                ← WhatsApp + email
@@ -422,14 +436,23 @@ BMAD+/
 │   ├── config.example.yaml        ← Configuration template
 │   └── docker-compose.yml         ← Evolution API
 │
-├── mcp-server/                    🛡️ AUDIT 360° MCP
+├── mcp-server/                    🔒 PRIVATE — Audit 360° MCP
 │   ├── server.py                  ← 35 tools, 7 modules
 │   └── tools/                     ← git_ops, github_ops, etc.
 │
-├── osint-agent-package/           🔍 OSINT PACKAGE
+├── osint-agent-package/           🔍 OSINT PACKAGE (public)
 │   ├── agents/                    ← Shadow Agent (original)
 │   ├── skills/                    ← 55+ Apify actors
 │   └── install.ps1                ← Installation script
+│
+├── secrets/                       🔒 PRIVATE — API keys, tokens
+│
+├── docs/                          📚 Architecture docs
+│   └── architecture/
+│       └── golden-vs-distribution.md ← Deployment strategy
+│
+├── .github/workflows/             🔄 CI/CD
+│   └── publish-distribution.yml   ← Golden → Public pipeline
 │
 └── upstream/                      📦 UPSTREAM REFERENCE
     └── (clone of BMAD-METHOD)     ← Excluded from repo (.gitignore)
