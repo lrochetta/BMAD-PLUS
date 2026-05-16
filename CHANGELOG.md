@@ -4,6 +4,33 @@ All notable changes to BMAD+ will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [0.4.3] — 2026-05-17
+
+### 🔧 CLI Commands + Security Hardening + UX Enhancements
+
+### Added
+- **`bmad-plus update`** — Update agents & skills while preserving config, IDE configs, and output directories
+- **`bmad-plus doctor`** — Check installation integrity (version, agents, configs, pack health)
+- **Internationalized `uninstall`** — Uses i18n system from install manifest language (10 languages)
+- **Credits at startup** — Author attribution displayed immediately when installer launches
+- **Enriched post-install guide** — CLI commands section + pack-specific usage examples in selected language
+- **i18n strings for update/uninstall/doctor** — EN, FR, ES, DE, PT-BR, RU, ZH, HE, JA, IT
+- **CLI guide strings** — `guide_cli_title`, `guide_examples_title`, pack examples for SEO/Backup/Animated/OSINT
+
+### Fixed
+- **Security** — Added `mcp-server/.env` to `.gitignore`, created `.env.example` template
+- **Manifest version** — Now reads from `package.json` dynamically (was hardcoded `0.4.0`)
+- **`module.yaml` sync** — Added missing SEO, Backup, Animated pack definitions
+- **`package.json` cleanup** — Removed `oveanet-pack` from `files[]` (already excluded by `.npmignore`)
+- **CI/CD reliability** — Removed `continue-on-error` from npm publish step
+- **Comment accuracy** — Updated "9 languages" → "10 languages" in install.js header
+- **Installer title** — Now reads version from `package.json` dynamically
+
+### Changed
+- **Dependencies** — Updated `@clack/prompts` 1.1.0 → 1.4.0, `fs-extra` 11.3.4 → 11.3.5
+- **npm scripts** — Added `update:bmad` and `doctor:bmad` scripts
+
+---
 
 ## [0.4.2] — 2026-03-19
 

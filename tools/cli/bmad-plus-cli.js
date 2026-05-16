@@ -2,6 +2,7 @@
 
 /**
  * BMAD+ CLI — Main entry point
+ * Commands: install, uninstall, update, doctor
  */
 
 const { program } = require('commander');
@@ -22,6 +23,8 @@ if (process.stdin.isTTY) {
 // Register commands
 const install = require('./commands/install');
 const uninstall = require('./commands/uninstall');
+const update = require('./commands/update');
+const doctor = require('./commands/doctor');
 
 program
   .version(packageJson.version)
@@ -42,6 +45,26 @@ const uninstallCmd = program
   .command('uninstall')
   .description('Remove BMAD+ from your project');
 uninstallCmd.action(uninstall.action);
+
+// Update command
+const updateCmd = program
+  .command('update')
+  .description('Update BMAD+ agents and skills (preserves config)');
+
+for (const option of update.options || []) {
+  updateCmd.option(...option);
+}
+updateCmd.action(update.action);
+
+// Doctor command
+const doctorCmd = program
+  .command('doctor')
+  .description('Check BMAD+ installation integrity');
+
+for (const option of doctor.options || []) {
+  doctorCmd.option(...option);
+}
+doctorCmd.action(doctor.action);
 
 program.parse(process.argv);
 

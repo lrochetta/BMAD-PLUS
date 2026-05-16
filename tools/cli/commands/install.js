@@ -118,7 +118,9 @@ module.exports = {
     const bmadSrc = path.join(__dirname, '..', '..', '..', 'src', 'bmad-plus');
 
     // ── Step 0: Language Selection ──
-    clack.intro(pc.bgCyan(pc.black(' BMAD+ Installer v0.4.2 ')));
+    const pkgJson = require('../../../package.json');
+    clack.intro(pc.bgCyan(pc.black(` BMAD+ Installer v${pkgJson.version} `)));
+    clack.log.info(pc.dim('✨ Created by Laurent Rochetta — github.com/lrochetta'));
 
     let lang = 'en';
     if (!options.yes) {
@@ -432,6 +434,40 @@ module.exports = {
       i.guide_or_auto,
       '',
       `${i.guide_output}: _bmad-output/discovery/ & _bmad-output/build/`,
+      '',
+      '─'.repeat(50),
+      '',
+      `📦 ${i.guide_cli_title || 'CLI Commands'}:`,
+      `  npx bmad-plus install    ${i.guide_cli_install || '— Install agents & skills'}`,
+      `  npx bmad-plus update     ${i.guide_cli_update || '— Update agents (keeps config)'}`,
+      `  npx bmad-plus doctor     ${i.guide_cli_doctor || '— Check installation health'}`,
+      `  npx bmad-plus uninstall  ${i.guide_cli_uninstall || '— Remove BMAD+ from project'}`,
+    );
+
+    // Add pack-specific examples
+    const examples = [];
+    if (selectedPacks.includes('seo')) {
+      examples.push(`  ${i.guide_example_seo || '🔍 SEO: "/seo audit https://example.com"'}`);
+    }
+    if (selectedPacks.includes('backup')) {
+      examples.push(`  ${i.guide_example_backup || '🗂️  Backup: "/backup create" → ZIP timestamped'}`);
+    }
+    if (selectedPacks.includes('animated')) {
+      examples.push(`  ${i.guide_example_animated || '🎬 Animated: "/animated build hero.mp4"'}`);
+    }
+    if (selectedPacks.includes('osint')) {
+      examples.push(`  ${i.guide_example_osint || '🔍 OSINT: "Shadow, investigate John Doe"'}`);
+    }
+
+    if (examples.length > 0) {
+      agentGuide.push(
+        '',
+        `💡 ${i.guide_examples_title || 'Quick Examples'}:`,
+        ...examples
+      );
+    }
+
+    agentGuide.push(
       '',
       '---',
       i.guide_credits
