@@ -4,6 +4,23 @@ All notable changes to BMAD+ will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.4.4] — 2026-05-17
+
+### 🔧 Encoding Fix + i18n Complete + Tests
+
+### Fixed
+- **UTF-8 encoding** — Fixed double-encoding corruption in `i18n.js` caused by PowerShell `Set-Content`
+- **Credits URL** — Now points to public repo `github.com/lrochetta/BMAD-PLUS`
+- **npm re-publish** — v0.4.3 had corrupted Unicode on npm; this release replaces it
+
+### Added
+- **Complete i18n** — CLI guide strings (commands, examples) now translated in all 10 languages (no more EN fallbacks)
+- **Unit tests** — 53+ tests covering i18n, CLI modules, package.json integrity, module.yaml, source files, version consistency
+- **`npm test`** — Jest test script added to package.json
+
+---
+
 ## [0.4.3] — 2026-05-17
 
 ### 🔧 CLI Commands + Security Hardening + UX Enhancements

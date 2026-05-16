@@ -120,7 +120,7 @@ module.exports = {
     // ── Step 0: Language Selection ──
     const pkgJson = require('../../../package.json');
     clack.intro(pc.bgCyan(pc.black(` BMAD+ Installer v${pkgJson.version} `)));
-    clack.log.info(pc.dim('✨ Created by Laurent Rochetta — github.com/lrochetta'));
+    clack.log.info(pc.dim('✨ Created by Laurent Rochetta — github.com/lrochetta/BMAD-PLUS'));
 
     let lang = 'en';
     if (!options.yes) {

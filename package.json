@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "name": "bmad-plus",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "BMAD+ — Augmented AI-Driven Development Framework with multi-role agents, autopilot, and parallel execution",
   "keywords": [
     "bmad",
@@ -34,6 +34,7 @@
     "install:bmad": "node tools/cli/bmad-plus-cli.js install",
     "update:bmad": "node tools/cli/bmad-plus-cli.js update",
     "doctor:bmad": "node tools/cli/bmad-plus-cli.js doctor",
+    "test": "jest",
     "uninstall:bmad": "node tools/cli/bmad-plus-cli.js uninstall"
   },
   "dependencies": {
@@ -49,5 +50,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2"
   }
 }
