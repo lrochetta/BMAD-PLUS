@@ -18,6 +18,7 @@ build/
 .env
 .env.local
 .env.*.local
+mcp-server/.env
 monitor/config.yaml
 *.key
 *.pem

@@ -74,6 +74,35 @@ packs:
       - bmad-audit-scan
       - bmad-audit-report
 
+  seo:
+    name: "SEO Audit 360"
+    icon: "🔍"
+    description: "3 agents (Scout, Chief, Judge) + 6-phase audit + PageSpeed loop"
+    required: false
+    packDir: pack-seo
+    agents:
+      - seo-scout
+      - seo-chief
+      - seo-judge
+
+  backup:
+    name: "Universal Backup"
+    icon: "🗂️"
+    description: "Timestamped ZIP backup with smart exclusions"
+    required: false
+    packDir: pack-backup
+    agents:
+      - backup-agent
+
+  animated:
+    name: "Animated Website"
+    icon: "🎬"
+    description: "Luxury scroll-driven website from video"
+    required: false
+    packDir: pack-animated
+    agents:
+      - animated-website-agent
+
 install_packs:
   prompt:
     - "Quels packs additionnels souhaites-tu installer ?"

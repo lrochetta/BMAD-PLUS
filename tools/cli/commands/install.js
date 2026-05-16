@@ -1,7 +1,7 @@
 /**
  * BMAD+ Install Command
  * Installs agents, skills, and IDE configs into the current project
- * Supports 9 languages: EN, FR, ES, DE, PT-BR, RU, ZH, HE, JA
+ * Supports 10 languages: EN, FR, ES, DE, PT-BR, RU, ZH, HE, JA, IT
  *
  * Author: Laurent Rochetta
  */
@@ -373,8 +373,9 @@ module.exports = {
     fsExtra.ensureDirSync(path.join(projectDir, 'docs'));
 
     // ── Step 8: Write install manifest ──
+    const pkgVersion = require('../../../package.json').version;
     const manifest = {
-      version: '0.4.0',
+      version: pkgVersion,
       uiLanguage: lang,
       installed: new Date().toISOString(),
       packs: selectedPacks,
