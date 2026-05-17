@@ -556,7 +556,20 @@ MIT — Based on [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) (MI
 
 ### Credits
 
+**Creator**
 - **BMAD+** Created by [Laurent Rochetta](https://github.com/lrochetta) ([LinkedIn](https://www.linkedin.com/in/laurentrochetta/))
-- **BMAD-METHOD** by [bmad-code-org](https://github.com/bmad-code-org) — Base framework
+
+**Base Framework**
+- **BMAD-METHOD** by [bmad-code-org](https://github.com/bmad-code-org/BMAD-METHOD) — Original multi-agent methodology (MIT)
+
+**Pack Sources & Inspirations**
 - **OSINT Pipeline** based on [smixs/osint-skill](https://github.com/smixs/osint-skill) (MIT)
 - **Apify Actor Runner** integrated from [apify/agent-skills](https://github.com/apify/agent-skills) (MIT)
+- **Karpathy Guardrails** adapted from [Andrej Karpathy](https://github.com/multica-ai/andrej-karpathy-skills) (MIT) — Behavioral rules for Memory Pack
+- **Shield GRC Pack** — 38 compliance agents built on public regulatory texts (GDPR, ISO 27001, SOC 2, HIPAA, EU AI Act, DORA, NIST, CMMC, etc.)
+- **SEO Engine** — PageSpeed, Google Search Console & GA4 API integrations
+- **Dev Studio Pack** — Torah-named SDLC agents (Miriam, Yosef, Bezalel, Hiram, Nehemiah, Ezra)
+
+**Tools & Infrastructure**
+- [Evolution API](https://github.com/EvolutionAPI/evolution-api) — WhatsApp notifications for upstream monitoring
+- [Gemini API](https://ai.google.dev/) — AI analysis for upstream change classification
