@@ -1,8 +1,0 @@
-fastmcp
-uvicorn
-chromadb
-sentence-transformers
-gitpython
-requests
-pyyaml
-PyPDF2
