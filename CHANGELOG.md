@@ -5,6 +5,25 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.1] — 2026-05-17
+
+### 🛠️ CLI Commands & Guardrails Injection
+
+### Added
+- **`npx bmad-plus scan [path]`** — Interactive project scanner
+  - Recursive directory scan with stack auto-detection (Node.js, Rust, Python, Go, PHP, Ruby, Java)
+  - Framework detection (Next.js, Nuxt, React, Vue, Svelte, Express, Electron, Tauri)
+  - Status tracking (active/paused/archived based on last modified)
+  - Interactive validation: index all, select, or skip
+  - Auto-generates `projects-index.md` in global brain
+- **`npx bmad-plus memory status`** — Memory health report
+  - Shows project memory + global brain status
+  - Entry counts, last modified dates, health score
+  - Brain link detection
+- **`npx bmad-plus memory export`** — Export brain as portable Markdown archive
+- **Karpathy Guardrails injection** — 4 principles auto-injected into CLAUDE.md/GEMINI.md/AGENTS.md when Memory pack is installed
+- **i18n** — Memory + Dev Studio keys for EN and FR (other languages use fallback)
+
 ## [0.7.0] — 2026-05-17
 
 ### 🧠 Pack Memory — Persistent Brain

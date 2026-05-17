@@ -25,6 +25,8 @@ const install = require('./commands/install');
 const uninstall = require('./commands/uninstall');
 const update = require('./commands/update');
 const doctor = require('./commands/doctor');
+const scan = require('./commands/scan');
+const memory = require('./commands/memory');
 
 program
   .version(packageJson.version)
@@ -65,6 +67,26 @@ for (const option of doctor.options || []) {
   doctorCmd.option(...option);
 }
 doctorCmd.action(doctor.action);
+
+// Scan command
+const scanCmd = program
+  .command('scan')
+  .description('Scan directories to discover and index projects in the global brain');
+
+for (const option of scan.options || []) {
+  scanCmd.option(...option);
+}
+scanCmd.action(scan.action);
+
+// Memory command
+const memoryCmd = program
+  .command('memory [subcommand]')
+  .description('Manage persistent brain (status, export)');
+
+for (const option of memory.options || []) {
+  memoryCmd.option(...option);
+}
+memoryCmd.action(memory.action);
 
 program.parse(process.argv);
 

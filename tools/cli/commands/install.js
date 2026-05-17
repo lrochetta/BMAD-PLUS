@@ -655,6 +655,39 @@ function generateIDEConfig(userName, language, packs) {
     agents.push('- **Zecher** (זכר) — Memory Archivist — Consolidation, project scanning, context recall');
   }
 
+  // Build memory section if memory pack is installed
+  let memorySection = '';
+  if (packs.includes('memory')) {
+    memorySection = [
+      '',
+      '## Memory Protocol (Karpathy Guardrails)',
+      '',
+      'Agents MUST follow these behavioral principles:',
+      '',
+      '### G1 — Think Before Coding',
+      '- State assumptions explicitly. If uncertain, ask.',
+      '- Check `.agents/memory/decisions.md` for prior decisions before re-deciding.',
+      '',
+      '### G2 — Simplicity First',
+      '- Minimum code that solves the problem. Nothing speculative.',
+      '- Check `.agents/memory/patterns.md` for existing solutions.',
+      '',
+      '### G3 — Surgical Changes',
+      '- Touch only what you must. Match existing style.',
+      '- Log surprises in `.agents/memory/lessons.md`.',
+      '',
+      '### G4 — Goal-Driven Execution',
+      '- Define success criteria before implementing.',
+      '- Log non-obvious decisions in `.agents/memory/decisions.md`.',
+      '',
+      '### Memory Files',
+      '- `.agents/memory/decisions.md` — Read at session start, write when making decisions',
+      '- `.agents/memory/lessons.md` — Write when something unexpected happens',
+      '- `.agents/memory/patterns.md` — Write when a reusable pattern is validated',
+      '- `.agents/memory/context.md` — Update at session end with project state',
+    ].join('\n');
+  }
+
   return `# BMAD+ — AI Agent Configuration
 
 ## Project Context
@@ -678,7 +711,7 @@ ${agents.join('\n')}
 ## Communication
 - User name: ${userName}
 - Default language: ${language} for user-facing content, English for code and technical docs.
-`;
+${memorySection}`;
 }
 
 function generateConfigYaml(userName, language, projectDir) {
