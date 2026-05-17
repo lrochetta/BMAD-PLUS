@@ -8,7 +8,7 @@
   🌐 <b>English</b> | <a href="readme-international/README.fr.md">Français</a> | <a href="readme-international/README.es.md">Español</a> | <a href="readme-international/README.de.md">Deutsch</a>
 </div>
 
-> **6 multi-role agents · 9 modular packs · Autopilot mode · Parallel execution · 143 tests**
+> **56+ agents · 9 modular packs · Autopilot mode · Parallel execution · 143 tests**
 > Smart fork of [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) — Self-activating agents with 3-level context detection, GRC compliance (Shield), full SDLC pipeline (Dev Studio), OSINT intelligence, SEO audit, persistent cross-session memory, and a 10-language CLI installer.
 
 ---
@@ -345,7 +345,12 @@ npx bmad-plus install
 
    🔍 OSINT — Shadow (investigation, scraping, psychoprofiling)
    🧬 Agent Creator — Maker (design, build, package)
-   🛡️ Security Audit — Shield (vulnerability scan) [soon]
+   🛡️ Shield GRC — 38 compliance agents (GDPR, ISO 27001, SOC 2, HIPAA...)
+   🏗️ Dev Studio — 6 SDLC agents (full lifecycle: design to deploy)
+   🔎 SEO Engine — Scout, Chief, Judge (6-phase audit, PageSpeed)
+   🧠 Memory — Zecher (persistent brain, session handoffs)
+   🗂️ Backup — Smart archive with versioning
+   🎬 Animated — Scroll-driven animated websites
    🤖 Install everything
    None — Core only
 ```
@@ -536,13 +541,16 @@ MIT — Based on [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) (MI
 **Base Framework**
 - **BMAD-METHOD** by [bmad-code-org](https://github.com/bmad-code-org/BMAD-METHOD) — Original multi-agent methodology (MIT)
 
-**Pack Sources & Inspirations**
+**Original Packs** (created by Laurent Rochetta)
+- **Shield GRC** — 38 compliance agents covering 25+ frameworks (GDPR, ISO 27001, SOC 2, HIPAA, EU AI Act, DORA, NIST, CMMC, etc.)
+- **Dev Studio** — 6 specialized SDLC agents: Miriam (business analyst), Huldah (tech writer), Yosef (product manager), Rachel (UX designer), Bezalel (system architect), Oholiab (senior engineer) — 44 workflows covering the full lifecycle from brainstorming to deployment
+- **SEO Engine** — 3 agents (Scout, Chief, Judge), 6-phase audit pipeline, PageSpeed perfection loop, Google Search Console & GA4 integrations
+- **Memory Pack** — Zecher agent for persistent cross-session brain with project scanner
+
+**External Sources & Inspirations**
 - **OSINT Pipeline** based on [smixs/osint-skill](https://github.com/smixs/osint-skill) (MIT)
 - **Apify Actor Runner** integrated from [apify/agent-skills](https://github.com/apify/agent-skills) (MIT)
 - **Karpathy Guardrails** adapted from [Andrej Karpathy](https://github.com/multica-ai/andrej-karpathy-skills) (MIT) — Behavioral rules for Memory Pack
-- **Shield GRC Pack** — 38 compliance agents built on public regulatory texts (GDPR, ISO 27001, SOC 2, HIPAA, EU AI Act, DORA, NIST, CMMC, etc.)
-- **SEO Engine** — PageSpeed, Google Search Console & GA4 API integrations
-- **Dev Studio Pack** — Torah-named SDLC agents (Miriam, Yosef, Bezalel, Hiram, Nehemiah, Ezra)
 
 **Tools & Infrastructure**
 - [Evolution API](https://github.com/EvolutionAPI/evolution-api) — WhatsApp notifications for upstream monitoring
