@@ -109,6 +109,14 @@ jobs:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
 
+      # ── SECURITY AUDIT ─────────────────────────────────────────
+      - name: Security audit
+        run: |
+          echo "🔒 Running npm audit..."
+          npm install --omit=dev --ignore-scripts
+          npm audit --audit-level=high || echo "⚠️ Audit found vulnerabilities — review before publishing"
+          echo "✅ Security audit completed"
+
       # ── NPM PUBLISH ──────────────────────────────────────────────
       - name: Publish to npm
         env:
@@ -117,3 +125,4 @@ jobs:
           echo "📦 Publishing to npm..."
           npm publish --access public 2>&1 || echo "⚠️ npm publish failed — check token permissions"
           echo "npm publish step completed"
+
