@@ -371,7 +371,7 @@ npx bmad-plus install
 | 🔍 **OSINT** | Shadow | Investigation, scraping social, psychoprofil (55+ acteurs Apify) | ✅ Stable |
 | 🧬 **Maker** | Maker | Concevoir, construire, valider et packager de nouveaux agents BMAD+ | ✅ Stable |
 | 🛡️ **Shield** | 38 agents de conformité | GRC sur 25+ frameworks : GDPR, ISO 27001, SOC 2, HIPAA, PCI DSS, EU AI Act, DORA, NIS2 | ✅ Stable |
-| 🏗️ **Dev Studio** | 56+ agents Torah-named | SDLC complet : brainstorm → PRD → architecture → TDD → review (30 workflows) | ✅ Stable |
+| 🏗️ **Dev Studio** | 56+ agents specialized SDLC | SDLC complet : brainstorm → PRD → architecture → TDD → review (30 workflows) | ✅ Stable |
 | 🔍 **SEO** | Scout, Chief, Judge | Audit SEO 6 phases, boucle PageSpeed, APIs Google, benchmark concurrentiel | ✅ Stable |
 | 🗂️ **Backup** | Backup Agent | ZIP horodaté avec exclusions intelligentes | ✅ Stable |
 | 🎬 **Animated** | Animated Website Agent | Site web luxe scroll-driven à partir de vidéo | ✅ Stable |
@@ -558,7 +558,7 @@ BMAD+/
 |---------|------|-------------|
 | **0.1.0** | 2026-03-17 | 🎉 Foundation — 56+ agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, monitoring, multi-IDE support |
 | **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 agents de conformité GRC |
-| **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 56+ agents Torah-named + 30 workflows SDLC |
+| **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 56+ agents specialized SDLC + 30 workflows SDLC |
 | **0.7.5** | 2026-05-17 | 🩺 **Qualité & Compliance** — MIT LICENSE, 143 tests, scan, autoconfig, mémoire globale |
 
 Voir [CHANGELOG.md](../CHANGELOG.md) pour le détail complet.

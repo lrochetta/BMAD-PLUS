@@ -422,7 +422,7 @@ npx bmad-plus install
 | 🔍 **OSINT** | Shadow | Person investigation, social scraping, psychoprofiling (55+ Apify actors) | ✅ Stable |
 | 🧬 **Maker** | Maker | Design, build, validate, and package new BMAD+ agents | ✅ Stable |
 | 🛡️ **Shield** | 38 compliance agents | GRC across 25+ frameworks: GDPR, ISO 27001, SOC 2, HIPAA, PCI DSS, EU AI Act, DORA, NIS2 | ✅ Stable |
-| 🏗️ **Dev Studio** | 6 Torah-named agents | Full SDLC: brainstorm → PRD → architecture → TDD → review (30 workflows, BWML DSL) | ✅ Stable |
+| 🏗️ **Dev Studio** | 6 specialized SDLC agents | Full SDLC: brainstorm → PRD → architecture → TDD → review (30 workflows, BWML DSL) | ✅ Stable |
 | 🔍 **SEO** | Scout, Chief, Judge | 6-phase SEO audit, PageSpeed perfection loop, Google APIs, competitor benchmark | ✅ Stable |
 | 🗂️ **Backup** | Backup Agent | Timestamped ZIP with smart exclusions (node_modules, .git, dist...) | ✅ Stable |
 | 🎬 **Animated** | Animated Website Agent | Luxury scroll-driven website from video input | ✅ Stable |
@@ -543,7 +543,7 @@ The installer automatically detects IDEs and generates configs:
 | **0.4.3** | 2026-05-17 | 🔧 update + doctor commands, i18n complete, credits fix |
 | **0.4.4** | 2026-05-17 | 🔧 UTF-8 encoding fix, complete i18n 10 languages, 62 unit tests |
 | **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 GRC compliance agents, 7 categories, 25+ frameworks (GDPR, ISO 27001, SOC 2, EU AI Act...) |
-| **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 Torah-named agents (Miriam, Yosef, Bezalel...) + 30 SDLC workflows, BWML DSL |
+| **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 SDLC agents (Miriam, Yosef, Bezalel...) + 30 SDLC workflows, BWML DSL |
 | **0.7.5** | 2026-05-17 | 🩺 **Quality & Compliance** — MIT LICENSE, 143 tests (46 functional), scan, autoconfig, memory CLI, i18n sync |
 
 See [CHANGELOG.md](CHANGELOG.md) for full details.
