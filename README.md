@@ -15,24 +15,71 @@
 
 ## 📋 Table of Contents
 
-- [Why BMAD+?](#-why-bmad-)
+- [What is BMAD+?](#-what-is-bmad)
 - [Quick Start](#-quick-start)
-- [Architecture](#-architecture)
 - [The 6 Agents](#-the-6-agents)
 - [Pack System](#-pack-system)
-- [Innovations](#-innovations)
+- [Key Features](#-innovations)
+- [CLI Reference](#-cli-commands)
 - [Supported IDEs](#-supported-ides)
-- [Upstream Monitoring](#-upstream-monitoring)
-- [Project Structure](#-project-structure)
 - [Configuration](#-configuration)
 - [Version History](#-version-history)
 - [License](#-license)
 
 ---
 
-## 💡 Why BMAD+?
+## 💡 What is BMAD+?
 
-BMAD-METHOD is an excellent framework with 9 specialized agents. But for a solo developer or a small team, 9 agents is too fragmented. BMAD+ solves this problem:
+BMAD+ is a **multi-agent AI framework** that turns your AI coding assistant into a full team. Install it in any project, talk to specialized agents by name, and let them handle strategy, architecture, code, testing, compliance, OSINT, SEO — everything from idea to production.
+
+### At a Glance
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  🚀 BMAD+ — What You Get                                          │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  6 Agents        Talk to Atlas, Forge, Sentinel, Nexus,            │
+│                  Shadow, Zecher — each handles multiple roles       │
+│                                                                     │
+│  9 Packs         Core dev · OSINT · GRC compliance · SDLC          │
+│                  · SEO audit · Memory · Backup · Maker · Animated  │
+│                                                                     │
+│  Autopilot       Say "autopilot" → Nexus orchestrates              │
+│                  idea → PRD → architecture → code → tests → ship   │
+│                                                                     │
+│  Parallel        Independent tasks run concurrently                 │
+│                  with conflict detection and supervision            │
+│                                                                     │
+│  Memory          Persistent brain across sessions                   │
+│                  with project scanner and Karpathy guardrails       │
+│                                                                     │
+│  5 IDEs          Claude Code · Gemini CLI · Antigravity            │
+│                  · Codex CLI · OpenCode — auto-detected             │
+│                                                                     │
+│  10 Languages    CLI installer in EN, FR, ES, DE, IT, PT,          │
+│                  NL, RU, ZH, JA                                     │
+│                                                                     │
+│  143 Tests       Full functional + unit test coverage               │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### Not Just Development
+
+| Domain | What BMAD+ Does | Agent/Pack |
+|--------|----------------|------------|
+| 📊 **Strategy** | Market research, SWOT, product briefs, PRDs, UX design | Atlas (Core) |
+| 🏗️ **Development** | Architecture, TDD, code generation, documentation | Forge (Core) |
+| 🔍 **Quality** | Code review, E2E tests, UX audit, accessibility | Sentinel (Core) |
+| 🎼 **Management** | Sprint planning, story breakdown, retrospectives | Nexus (Core) |
+| 🕵️ **OSINT** | Person investigation, social scraping, psychoprofiling | Shadow (OSINT Pack) |
+| 🛡️ **Compliance** | GDPR, ISO 27001, SOC 2, HIPAA, EU AI Act — 25+ frameworks | 38 agents (Shield Pack) |
+| 🔎 **SEO** | 6-phase audit, PageSpeed loop, Google APIs, competitor analysis | Scout/Chief/Judge (SEO Pack) |
+| 🧠 **Memory** | Cross-session brain, decision recall, session handoffs | Zecher (Memory Pack) |
+| 🧬 **Agent Creation** | Design, build, validate and package new agents | Maker (Maker Pack) |
+
+### Why BMAD+ over BMAD-METHOD?
 
 | BMAD-METHOD | BMAD+ |
 |---|---|
@@ -42,7 +89,7 @@ BMAD-METHOD is an excellent framework with 9 specialized agents. But for a solo 
 | Sequential execution | **Supervised parallelism** |
 | No persistent memory | **Cross-session brain** with project scanner |
 | 1-2 IDEs supported | **5 IDEs** with auto-detection |
-| 1 module | **8 modular packs** (Core, OSINT, Shield, Dev Studio, SEO, Memory...) |
+| 1 module | **9 modular packs** (Core, OSINT, Shield, Dev Studio, SEO, Memory...) |
 
 ---
 
@@ -464,104 +511,8 @@ The installer automatically detects IDEs and generates configs:
 | Codex CLI | `AGENTS.md` | `.codex/` folder |
 | OpenCode | `OPENCODE.md` | opencode config |
 
----
 
-## 📡 Upstream Monitoring
 
-### Weekly pipeline (cron VPS, Monday 9am)
-
-```
-1. git fetch upstream BMAD-METHOD
-2. Diff analysis (commits, modified files)
-3. AI analysis via Gemini API → classification
-   🟢 Compatible | 🟡 To check | 🔴 Breaking
-4. WhatsApp Notification via Evolution API
-5. Auto-PR if changes are compatible
-```
-
-### Stack
-- **weekly-check.py** — Main script (cron)
-- **ai_analyzer.py** — AI Classification (Gemini 2.0 Flash)
-- **notifier.py** — WhatsApp (Evolution API self-hosted) + email fallback
-- **mcp_bridge.py** — Bridge to Audit 360° MCP Server (git/github ops)
-
----
-
-## 📁 Project Structure
-
-```
-BMAD+/
-├── README.md                      ← This file (English)
-├── README-DIST.md                 ← Public README (swapped on publish)
-├── readme-international/          ← Translated READMEs (fr, es, de)
-├── CHANGELOG.md                   ← Version history
-├── CLAUDE.md                      ← Claude Code Config
-├── GEMINI.md                      ← Gemini CLI Config
-├── AGENTS.md                      ← Codex CLI / OpenCode Config
-├── .npmignore                     ← npm publish exclusions
-├── .gitignore
-│
-├── src/
-│   └── bmad-plus/                 ⭐ CUSTOM MODULE
-│       ├── module.yaml            ← Module + packs config
-│       ├── module-help.csv        ← Contextual help
-│       ├── agents/
-│       │   ├── agent-strategist/  ← Atlas (analyst + pm)
-│       │   ├── agent-architect-dev/ ← Forge (architect + dev + tw)
-│       │   ├── agent-quality/     ← Sentinel (qa + ux)
-│       │   ├── agent-orchestrator/ ← Nexus (sm + qf + autopilot + parallel)
-│       │   ├── agent-maker/       ← Maker (meta-agent) [pack: maker]
-│       │   └── agent-shadow/      ← Shadow (osint) [pack: osint]
-│       ├── skills/
-│       │   ├── bmad-plus-autopilot/ ← Automated pipeline
-│       │   ├── bmad-plus-parallel/  ← Parallel execution
-│       │   └── bmad-plus-sync/      ← Upstream sync
-│       └── data/
-│           └── role-triggers.yaml ← Auto-activation rules
-│
-├── oveanet-pack/                  🔒 PRIVATE — Oveanet Utility Packs
-│   ├── seo-audit-360/             ← SEO Engine v2.1 (3 agents, 6 scripts)
-│   │   ├── SKILL.md               ← Orchestrator (15 commands)
-│   │   ├── agent/                 ← Scout, Judge, Chief
-│   │   ├── scripts/               ← Python toolkit (fetch, parse, crawl, apis, report)
-│   │   ├── ref/                   ← CWV, Schema, E-E-A-T, GEO, hreflang
-│   │   ├── tests/                 ← 50 pytest tests
-│   │   ├── hooks/                 ← Pre-commit SEO check
-│   │   └── extensions/            ← GSC + GA4 (OAuth2, optional)
-│   ├── universal-backup/          ← Backup agent
-│   └── animated-website/          ← Creative website agent
-│
-├── monitor/                       🔒 PRIVATE — VPS Surveillance
-│   ├── weekly-check.py            ← Main script (cron)
-│   ├── ai_analyzer.py             ← AI Analysis (Gemini API)
-│   ├── notifier.py                ← WhatsApp + email
-│   ├── mcp_bridge.py              ← Bridge to MCP Server
-│   ├── config.example.yaml        ← Configuration template
-│   └── docker-compose.yml         ← Evolution API
-│
-├── mcp-server/                    🔒 PRIVATE — Audit 360° MCP
-│   ├── server.py                  ← 35 tools, 7 modules
-│   └── tools/                     ← git_ops, github_ops, etc.
-│
-├── osint-agent-package/           🔍 OSINT PACKAGE (public)
-│   ├── agents/                    ← Shadow Agent (original)
-│   ├── skills/                    ← 55+ Apify actors
-│   └── install.ps1                ← Installation script
-│
-├── secrets/                       🔒 PRIVATE — API keys, tokens
-│
-├── docs/                          📚 Architecture docs
-│   └── architecture/
-│       └── golden-vs-distribution.md ← Deployment strategy
-│
-├── .github/workflows/             🔄 CI/CD
-│   └── publish-distribution.yml   ← Golden → Public pipeline
-│
-└── upstream/                      📦 UPSTREAM REFERENCE
-    └── (clone of BMAD-METHOD)     ← Excluded from repo (.gitignore)
-```
-
----
 
 ## ⚙️ Configuration
 
