@@ -1,14 +1,14 @@
-# ?? BMAD+ — Erweitertes KI-gestütztes Entwicklungs-Framework
+# ?? BMAD+ ï¿½ Erweitertes KI-gestï¿½tztes Entwicklungs-Framework
 
 [![Version](https://img.shields.io/badge/version-0.7.3-blue.svg)](../CHANGELOG.md)
 [![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD%20v6.2.0-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](../LICENSE)
 
 <div align="center">
-  <a href="../README.md">English</a> | <a href="README.fr.md">Français</a> | <a href="README.es.md">Español</a> | ?? <b>Deutsch</b>
+  <a href="../README.md">English</a> | <a href="README.fr.md">Franï¿½ais</a> | <a href="README.es.md">Espaï¿½ol</a> | ?? <b>Deutsch</b>
 </div>
 
-> Intelligenter Fork von [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 — Multirole-Agenten mit automatischer Aktivierung, Autopilot-Modus, überwachte parallele Ausführung und WhatsApp-Upstream-Monitoring.
+> Intelligenter Fork von [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 ï¿½ Multirole-Agenten mit automatischer Aktivierung, Autopilot-Modus, ï¿½berwachte parallele Ausfï¿½hrung und WhatsApp-Upstream-Monitoring.
 
 ---
 
@@ -20,7 +20,7 @@
 - [Die 5 Agenten](#-die-5-agenten)
 - [Pack-System](#-pack-system)
 - [Innovationen](#-innovationen)
-- [Unterstützte IDEs](#-unterstützte-ides)
+- [Unterstï¿½tzte IDEs](#-unterstï¿½tzte-ides)
 - [Upstream Monitoring](#-upstream-monitoring)
 - [Projektstruktur](#-projektstruktur)
 - [Konfiguration](#-konfiguration)
@@ -31,16 +31,16 @@
 
 ## ?? Warum BMAD+?
 
-BMAD-METHOD ist ein exzellentes Framework mit 9 spezialisierten Agenten. Für einen Solo-Entwickler oder ein kleines Team sind 9 Agenten jedoch zu fragmentiert. BMAD+ löst dieses Problem:
+BMAD-METHOD ist ein exzellentes Framework mit 9 spezialisierten Agenten. Fï¿½r einen Solo-Entwickler oder ein kleines Team sind 9 Agenten jedoch zu fragmentiert. BMAD+ lï¿½st dieses Problem:
 
 | BMAD-METHOD | BMAD+ |
 |---|---|
 | 9 spezialisierte Agenten | **5 Multirole-Agenten** (insgesamt 11 Rollen) |
 | Nur manuelle Aktivierung | **Intelligente automatische Aktivierung** auf 3 Ebenen |
 | Keine automatisierte Pipeline | **Autopilot-Modus**: Idee ? Fertigstellung |
-| Sequentielle Ausführung | **Überwachte parallele Ausführung** |
-| Kein Upstream-Tracking | **Wöchentliches Monitoring** mit WhatsApp |
-| 1-2 unterstützte IDEs | **5 IDEs** mit automatischer Erkennung |
+| Sequentielle Ausfï¿½hrung | **ï¿½berwachte parallele Ausfï¿½hrung** |
+| Kein Upstream-Tracking | **Wï¿½chentliches Monitoring** mit WhatsApp |
+| 1-2 unterstï¿½tzte IDEs | **5 IDEs** mit automatischer Erkennung |
 
 ---
 
@@ -56,21 +56,21 @@ Das Installationsprogramm:
 1. Erkennt automatisch installierte IDEs (Claude Code, Gemini CLI, Codex, usw.)
 2. Bietet Packs zur Installation an (Core, OSINT, Maker, Audit)
 3. Generiert angepasste Konfigurationsdateien
-4. Erstellt Ordner für Artefakte
+4. Erstellt Ordner fï¿½r Artefakte
 
 ### Verwendung nach der Installation
 
 #### ?? Mit wem soll ich sprechen?
 
-| Du möchtest... | Sprich mit | Beispiel |
+| Du mï¿½chtest... | Sprich mit | Beispiel |
 |---|---|---|
 | Eine Projektidee diskutieren | **Atlas** ?? | `Atlas, ich habe eine Projektidee: ein Abrechnungs-SaaS` |
-| Ein PRD / Product Brief erstellen | **Atlas** ?? | `Atlas, erstelle das PRD für mein Projekt` |
-| Die technische Architektur entwerfen | **Forge** ??? | `Forge, schlage eine Architektur für die App vor` |
+| Ein PRD / Product Brief erstellen | **Atlas** ?? | `Atlas, erstelle das PRD fï¿½r mein Projekt` |
+| Die technische Architektur entwerfen | **Forge** ??? | `Forge, schlage eine Architektur fï¿½r die App vor` |
 | Code implementieren | **Forge** ??? | `Forge, setze die Story AUTH-001 um` |
 | Dokumentation schreiben | **Forge** ??? | `Forge, dokumentiere die API` |
-| Testen / Code Review durchführen | **Sentinel** ?? | `Sentinel, überprüfe das Auth-Modul` |
-| Einen Sprint planen | **Nexus** ?? | `Nexus, erstelle Epics und Storys für das MVP` |
+| Testen / Code Review durchfï¿½hren | **Sentinel** ?? | `Sentinel, ï¿½berprï¿½fe das Auth-Modul` |
+| Einen Sprint planen | **Nexus** ?? | `Nexus, erstelle Epics und Storys fï¿½r das MVP` |
 | Alles von A bis Z automatisieren | **Nexus** ?? | `autopilot` und beschreibe dann dein Projekt |
 | Eine Person recherchieren (OSINT) | **Shadow** ?? | `Shadow, untersuche John Doe` |
 | Einen neuen BMAD+ Agenten erstellen | **Maker** ?? | `Maker, erstelle einen Kundensupport-Agenten` |
@@ -79,7 +79,7 @@ Das Installationsprogramm:
 
 ```
 1. "Atlas, mache ein Brainstorming zu meiner [Projekt]-Idee"
-   ? Atlas analysiert, stellt Fragen, schlägt Ansätze vor
+   ? Atlas analysiert, stellt Fragen, schlï¿½gt Ansï¿½tze vor
 
 2. "Atlas, erstelle den Product Brief"
    ? Artefakt: _bmad-output/discovery/product-brief.md
@@ -96,26 +96,59 @@ Das Installationsprogramm:
 6. "Forge, implementiere die Story [X]"
    ? Generierter Code + Tests
 
-7. "Sentinel, teste und überprüfe"
-   ? QA-Bericht + Vorschläge
+7. "Sentinel, teste und ï¿½berprï¿½fe"
+   ? QA-Bericht + Vorschlï¿½ge
 ```
 
 #### ? Automatischer Workflow (Autopilot-Modus)
 
 ```
 > autopilot
-> "Ein Abrechnungs-SaaS für KMUs mit Angebotsverwaltung"
+> "Ein Abrechnungs-SaaS fï¿½r KMUs mit Angebotsverwaltung"
 ```
 
-Nexus orchestriert alles automatisch mit Checkpoints für deine Genehmigung.
+Nexus orchestriert alles automatisch mit Checkpoints fï¿½r deine Genehmigung.
 
 #### ?? Wichtige Befehle
 
 | Befehl | Beschreibung |
 |----------|-------------|
-| `bmad-help` | Alle verfügbaren Agenten und Skills anzeigen |
-| `autopilot` | Nexus übernimmt die Kontrolle über die gesamte Pipeline |
-| `parallel` | Multirole-Agenten-Ausführung parallel starten |
+| `bmad-help` | Alle verfï¿½gbaren Agenten und Skills anzeigen |
+| `autopilot` | Nexus ï¿½bernimmt die Kontrolle ï¿½ber die gesamte Pipeline |
+| `parallel` | Multirole-Agenten-Ausfï¿½hrung parallel starten |
+
+
+#### ðŸ”§ CLI-Befehle
+
+| Command | Description |
+|---------|-------------|
+| `npx bmad-plus install` | Interaktiver Installer mit Pack-Auswahl und IDE-Erkennung |
+| `npx bmad-plus scan [pfad]` | Projekte im globalen Gehirn entdecken und indexieren |
+| `npx bmad-plus memory status` | Speicher-Gesundheitsbericht (Projekt + globales Gehirn) |
+| `npx bmad-plus memory export` | Gehirn als portables Markdown-Archiv exportieren |
+| `npx bmad-plus doctor` | InstallationsintegritÃ¤t prÃ¼fen |
+| `npx bmad-plus update` | Agenten und Skills aktualisieren (Config bleibt) |
+| `npx bmad-plus uninstall` | BMAD+ vom aktuellen Projekt entfernen |
+
+#### ðŸ”¬ Erweiterte Installationsoptionen
+
+```bash
+npx bmad-plus install --packs all --yes
+npx bmad-plus install --tools none
+npx bmad-plus install --packs core,memory,osint
+```
+
+> **ðŸ’¡ Dogfooding-Tipp:** Verwende `--tools none` bei der Installation von BMAD+ in einem Projekt mit manuellen IDE-Config-Dateien. So werden Agenten, Skills und Speicher installiert, ohne deine bestehenden `CLAUDE.md`, `GEMINI.md` oder `AGENTS.md` zu Ã¼berschreiben.
+
+#### ðŸ” Scan-Optionen
+
+```bash
+npx bmad-plus scan D:\DEV
+npx bmad-plus scan . --active-days 7 --paused-days 90
+npx bmad-plus scan D:\DEV --yes --depth 6
+```
+
+> Legende: ðŸŸ¢ **aktiv** (Ã¤nderung < 30 Tage), ðŸŸ¡ **pausiert** (30â€“180 Tage), âšª **archiviert** (> 180 Tage). Schwellenwerte anpassbar mit `--active-days` und `--paused-days`.
 
 ---
 
@@ -135,7 +168,7 @@ graph TB
     end
 
     subgraph Audit["??? Audit Pack"]
-        SD["Shield ???<br/>(demnächst verfügbar)"]
+        SD["Shield ???<br/>(demnï¿½chst verfï¿½gbar)"]
     end
 
     NX -->|orchestriert| AT
@@ -168,98 +201,98 @@ graph TB
 
 ## ?? Die 5 Agenten
 
-### Atlas — Strategist ??
+### Atlas ï¿½ Strategist ??
 
 **Verschmilzt:** Analyst (Mary) + Product Manager (John)
 
-| Rolle | Spezialität | Automatische Aktivierung |
+| Rolle | Spezialitï¿½t | Automatische Aktivierung |
 |------|-----------|-----------------|
 | **Analyst** | Marktforschung, SWOT, Benchmarks | "analysieren", "Markt", "Benchmark", neues Projekt |
 | **Product Manager** | PRD, Product Briefs, User Stories, Roadmaps | "PRD", "Roadmap", "MVP", Planungsphase |
 
-**Fähigkeiten (Capabilities):** Brainstorming (BP), Market Research (MR), Domain Research (DR), Technical Research (TR), Product Brief (CB), PRD (PR), UX Design (CU), Document Project (DP)
+**Fï¿½higkeiten (Capabilities):** Brainstorming (BP), Market Research (MR), Domain Research (DR), Technical Research (TR), Product Brief (CB), PRD (PR), UX Design (CU), Document Project (DP)
 
 ---
 
-### Forge — Architect-Dev ???
+### Forge ï¿½ Architect-Dev ???
 
 **Verschmilzt:** Architect (Winston) + Developer (Amelia) + Tech Writer (Paige)
 
-| Rolle | Spezialität | Automatische Aktivierung |
+| Rolle | Spezialitï¿½t | Automatische Aktivierung |
 |------|-----------|-----------------|
-| **Architect** | Technisches Design, API, Skalierbarkeit, Stack-Wahl | "Architektur", "API", "Schema", +5 Dateien geändert |
+| **Architect** | Technisches Design, API, Skalierbarkeit, Stack-Wahl | "Architektur", "API", "Schema", +5 Dateien geï¿½ndert |
 | **Developer** | TDD-Implementierung, Code Review, Story-Umsetzung | "implementieren", "Code", "Fix", nach Architektur |
 | **Tech Writer** | Dokumentation, Mermaid-Diagramme, Changelogs | "dokumentieren", "README", nach Implementierung |
 
-**Fähigkeiten:** Architecture (CA), Implementation Readiness (IR), Dev Story (DS), Code Review (CR), Quick Spec (QS), Quick Dev (QD), Document Project (DP)
+**Fï¿½higkeiten:** Architecture (CA), Implementation Readiness (IR), Dev Story (DS), Code Review (CR), Quick Spec (QS), Quick Dev (QD), Document Project (DP)
 
 ---
 
-### Sentinel — Quality ??
+### Sentinel ï¿½ Quality ??
 
 **Verschmilzt:** QA Engineer (Quinn) + UX Designer (Sally)
 
-| Rolle | Spezialität | Automatische Aktivierung |
+| Rolle | Spezialitï¿½t | Automatische Aktivierung |
 |------|-----------|-----------------|
 | **QA Engineer** | API/E2E-Tests, Edge Cases, Coverage, Code Review | "Test", "QA", "Bug", nach Implementierung |
-| **UX Reviewer** | UX-Bewertung, Barrierefreiheit, Interaction Design | "UX", "Interface", "Responsive", Frontend-Änderungen |
+| **UX Reviewer** | UX-Bewertung, Barrierefreiheit, Interaction Design | "UX", "Interface", "Responsive", Frontend-ï¿½nderungen |
 
-**Fähigkeiten:** QA Tests (QA), Code Review (CR), UX Design (CU)
+**Fï¿½higkeiten:** QA Tests (QA), Code Review (CR), UX Design (CU)
 
 ---
 
-### Nexus — Orchestrator ??
+### Nexus ï¿½ Orchestrator ??
 
 **Verschmilzt:** Scrum Master (Bob) + Quick-Flow Solo Dev (Barry) + **Autopilot** (neu) + **Parallel Supervisor** (neu)
 
-| Rolle | Spezialität | Automatische Aktivierung |
+| Rolle | Spezialitï¿½t | Automatische Aktivierung |
 |------|-----------|-----------------|
 | **Scrum Master** | Sprint Planning, Stories, Retrospektiven, Kurskorrektur | "Sprint", "Planung", "Backlog" |
 | **Quick Flow** | Schnelle Spezifikationen, Hotfixes, minimaler Aufwand | "schnell", "Hotfix", "kleiner Fix" |
 | **Autopilot** | Automatisierte Pipeline Idee?Fertigstellung mit Checkpoints | "Autopilot", "alles verwalten", Autopilot-Modus |
-| **Parallel Supervisor** | Gleichzeitige Multirole-Entwicklung, Konflikterkennung | "parallel", unabhängige Aufgaben erkannt |
+| **Parallel Supervisor** | Gleichzeitige Multirole-Entwicklung, Konflikterkennung | "parallel", unabhï¿½ngige Aufgaben erkannt |
 
-**Fähigkeiten:** Sprint Planning (SP), Create Story (CS), Epics & Stories (ES), Retrospective (ER), Course Correction (CC), Sprint Status (SS), Quick Spec (QS), Quick Dev (QD), **Autopilot (AP)**, **Parallel (PL)**
+**Fï¿½higkeiten:** Sprint Planning (SP), Create Story (CS), Epics & Stories (ES), Retrospective (ER), Course Correction (CC), Sprint Status (SS), Quick Spec (QS), Quick Dev (QD), **Autopilot (AP)**, **Parallel (PL)**
 
 ---
 
-### Shadow — OSINT Intelligence ?? *(OSINT Pack)*
+### Shadow ï¿½ OSINT Intelligence ?? *(OSINT Pack)*
 
 **Umfassender OSINT-Untersuchungsagent.**
 
-| Fähigkeit | Beschreibung |
+| Fï¿½higkeit | Beschreibung |
 |-----------|-------------|
 | **INV** | Komplette Untersuchung Phase 0?6 mit bewertetem Dossier |
 | **QS** | Schnelle Multi-Engine-Suche |
 | **LI/IG/FB** | Scraping von LinkedIn, Instagram, Facebook |
 | **PP** | MBTI / Big Five Psychoprofil |
 | **CE** | Kontaktanreicherung (E-Mail, Telefon) |
-| **DG** | Diagnose verfügbarer Tools/APIs |
+| **DG** | Diagnose verfï¿½gbarer Tools/APIs |
 
 **Stack:** 55+ Apify Actors, 7 Such-APIs, 100% Python stdlib, Vertrauensgrade A/B/C/D
 
 ---
 
-### Maker — Agent Creator ?? *(Maker Pack)*
+### Maker ï¿½ Agent Creator ?? *(Maker Pack)*
 
 **Meta-Agent, der andere Agenten erstellt.** Gib ihm eine Beschreibung ? er generiert ein komplettes Paket.
 
 | Befehl | Beschreibung |
 |------|-------------|
-| **CA** | Create Agent — geführte Erstellung in 4 Phasen |
-| **QA** | Quick Agent — schnelle Erstellung mit sinnvollen Vorgaben |
-| **EA** | Edit Agent — eine bestehende SKILL.md ändern |
-| **VA** | Validate Agent — BMAD+-Konformität prüfen |
-| **PA** | Package Agent — den Integrations-Ordner generieren |
+| **CA** | Create Agent ï¿½ gefï¿½hrte Erstellung in 4 Phasen |
+| **QA** | Quick Agent ï¿½ schnelle Erstellung mit sinnvollen Vorgaben |
+| **EA** | Edit Agent ï¿½ eine bestehende SKILL.md ï¿½ndern |
+| **VA** | Validate Agent ï¿½ BMAD+-Konformitï¿½t prï¿½fen |
+| **PA** | Package Agent ï¿½ den Integrations-Ordner generieren |
 
 **Pipeline:** Discovery ? Design (Benutzerfreigabe) ? Generierung ? Validierung
-**Ausgabe:** `_bmad-output/ready-to-integrate/` — bereit zum Kopieren in BMAD+
+**Ausgabe:** `_bmad-output/ready-to-integrate/` ï¿½ bereit zum Kopieren in BMAD+
 
 ---
 
 ## ?? Pack-System
 
-BMAD+ verwendet ein modulares Pack-System. Core ist immer installiert, zusätzliche Packs sind optional.
+BMAD+ verwendet ein modulares Pack-System. Core ist immer installiert, zusï¿½tzliche Packs sind optional.
 
 ```
 npx bmad-plus install
@@ -267,23 +300,23 @@ npx bmad-plus install
 ???  Welche Packs sollen installiert werden?
    Core (Atlas, Forge, Sentinel, Nexus) ist immer enthalten.
 
-   ?? OSINT — Shadow (Untersuchung, Scraping, Psychoprofil)
-   ?? Agent Creator — Maker (Design, Build, Package)
-   ??? Sicherheitsaudit — Shield (Schwachstellen-Scan) [demnächst]
+   ?? OSINT ï¿½ Shadow (Untersuchung, Scraping, Psychoprofil)
+   ?? Agent Creator ï¿½ Maker (Design, Build, Package)
+   ??? Sicherheitsaudit ï¿½ Shield (Schwachstellen-Scan) [demnï¿½chst]
    ?? Alles installieren
-   Keine — Nur Core
+   Keine ï¿½ Nur Core
 ```
 
 | Pack | Agenten | Skills | Status |
 |------|--------|--------|--------|
 | ?? **Core** | Atlas, Forge, Sentinel, Nexus | autopilot, parallel, sync | ? Stabil |
 | ?? **OSINT** | Shadow | bmad-osint-investigate | ? Stabil |
-| ?? **Maker** | Maker | — | ? Stabil |
-| ??? **Audit** | Shield | bmad-audit-scan, bmad-audit-report | ?? Demnächst |
+| ?? **Maker** | Maker | ï¿½ | ? Stabil |
+| ??? **Audit** | Shield | bmad-audit-scan, bmad-audit-report | ?? Demnï¿½chst |
 
 Jedes Pack definiert:
-- Seine Agenten und Fähigkeiten
-- Erforderliche/optionale API-Schlüssel
+- Seine Agenten und Fï¿½higkeiten
+- Erforderliche/optionale API-Schlï¿½ssel
 - Das externe Paket (falls zutreffend)
 
 ---
@@ -296,11 +329,11 @@ Jeder Agent kann **automatisch** seine Rolle wechseln, wenn der Kontext dies erf
 
 | Stufe | Mechanismus | Beispiel |
 |--------|-----------|---------|
-| ?? **Muster** | Schlüsselwörter in der Anfrage | "review" ? QA aktiviert |
-| ?? **Kontextuell** | Bei der Arbeit erkannte Domäne | Finanzielle Berechnungen ? QA nach dem Code automatisch aktiviert |
-| ?? **Logik** | Logikketten während der Ausführung | Architektur-Inkonsistenz ? Architekt automatisch aktiviert |
+| ?? **Muster** | Schlï¿½sselwï¿½rter in der Anfrage | "review" ? QA aktiviert |
+| ?? **Kontextuell** | Bei der Arbeit erkannte Domï¿½ne | Finanzielle Berechnungen ? QA nach dem Code automatisch aktiviert |
+| ?? **Logik** | Logikketten wï¿½hrend der Ausfï¿½hrung | Architektur-Inkonsistenz ? Architekt automatisch aktiviert |
 
-Der Agent **kündigt** seine automatische Aktivierung an: *"?? I'm switching to QA mode — financial calculations detected. Say 'skip' to stay in current mode."*
+Der Agent **kï¿½ndigt** seine automatische Aktivierung an: *"?? I'm switching to QA mode ï¿½ financial calculations detected. Say 'skip' to stay in current mode."*
 
 ### 2. Autopilot-Modus
 
@@ -314,17 +347,17 @@ Eine Projektidee eingeben ? Nexus orchestriert die komplette Pipeline:
 
 (Rest des Pipelines entspricht dem Standard-Prozess)
 
-### 3. Überwachte parallele Ausführung
+### 3. ï¿½berwachte parallele Ausfï¿½hrung
 
 | Parallelisierbar ? | Sequentiell ?? |
 |---|---|
-| Stories ohne Abhängigkeiten | Gleiche Datei geändert |
-| Research + technisches Audit | Story B hängt von Story A ab |
+| Stories ohne Abhï¿½ngigkeiten | Gleiche Datei geï¿½ndert |
+| Research + technisches Audit | Story B hï¿½ngt von Story A ab |
 | Tests + Dokumentation | Architektur vor Code |
 
 ---
 
-## ??? Unterstützte IDEs
+## ??? Unterstï¿½tzte IDEs
 
 Das Installationsprogramm erkennt IDEs automatisch und generiert Konfigurationen:
 
@@ -340,11 +373,11 @@ Das Installationsprogramm erkennt IDEs automatisch und generiert Konfigurationen
 
 ## ?? Upstream Monitoring
 
-### Wöchentliche Pipeline (VPS Cron, Montag 9 Uhr)
+### Wï¿½chentliche Pipeline (VPS Cron, Montag 9 Uhr)
 
 ```
 1. holt BMAD-METHOD-Updates
-2. Diff-Analyse über KI der Dateien (Gemini AI)
+2. Diff-Analyse ï¿½ber KI der Dateien (Gemini AI)
 3. WhatsApp Benachrichtigung & GH PR Log
 ```
 
@@ -355,7 +388,7 @@ Das Installationsprogramm erkennt IDEs automatisch und generiert Konfigurationen
 ```
 BMAD+/
 +-- README.md                      ? Diese Datei (Englisch)
-+-- readme-international/          ? Übersetzte READMEs (fr, es, de)
++-- readme-international/          ? ï¿½bersetzte READMEs (fr, es, de)
 +-- CHANGELOG.md                   ? Versionierung
 +-- CLAUDE.md / GEMINI.md / AGENTS.md ? IDE-Konfigurationen
 ```
@@ -376,15 +409,15 @@ BMAD+/
 
 | Version | Datum | Beschreibung |
 |---------|------|-------------|
-| **0.1.0** | 2026-03-17 | ?? Foundation — 6 Agenten (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 Skills, Pack-System, Monitoring, IDE Support |
+| **0.1.0** | 2026-03-17 | ?? Foundation ï¿½ 6 Agenten (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 Skills, Pack-System, Monitoring, IDE Support |
 
-Siehe [CHANGELOG.md](../CHANGELOG.md) für vollständige Details.
+Siehe [CHANGELOG.md](../CHANGELOG.md) fï¿½r vollstï¿½ndige Details.
 
 ---
 
 ## ?? Lizenz
 
-MIT — Basierend auf [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) (MIT)
+MIT ï¿½ Basierend auf [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) (MIT)
 
 ### Danksagungen
 - **BMAD-METHOD** von [bmad-code-org](https://github.com/bmad-code-org)

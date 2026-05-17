@@ -247,6 +247,8 @@ module.exports = {
 
     if (detectedIDEs.length > 0) {
       clack.log.info(`${i.detected_ides}: ${detectedIDEs.map(id => IDE_CONFIGS[id].name).join(', ')}`);
+    } else if (options.tools === 'none' || options.tools === 'skip') {
+      clack.log.info(pc.dim('⏭️  IDE config skipped (--tools none) — existing configs preserved'));
     }
 
     // ── Step 3: User Config ──

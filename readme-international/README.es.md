@@ -1,81 +1,81 @@
-# ?? BMAD+ — Framework de Desarrollo Impulsado por IA Aumentada
+# ?? BMAD+ ï¿½ Framework de Desarrollo Impulsado por IA Aumentada
 
 [![Version](https://img.shields.io/badge/version-0.7.3-blue.svg)](../CHANGELOG.md)
 [![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD%20v6.2.0-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](../LICENSE)
 
 <div align="center">
-  <a href="../README.md">English</a> | <a href="README.fr.md">Français</a> | ?? <b>Español</b> | <a href="README.de.md">Deutsch</a>
+  <a href="../README.md">English</a> | <a href="README.fr.md">Franï¿½ais</a> | ?? <b>Espaï¿½ol</b> | <a href="README.de.md">Deutsch</a>
 </div>
 
-> Fork inteligente de [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 — Agentes multirrol con auto-activación, modo Autopilot, ejecución paralela supervisada y monitorización upstream por WhatsApp.
+> Fork inteligente de [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 ï¿½ Agentes multirrol con auto-activaciï¿½n, modo Autopilot, ejecuciï¿½n paralela supervisada y monitorizaciï¿½n upstream por WhatsApp.
 
 ---
 
 ## ?? Tabla de contenidos
 
-- [¿Por qué BMAD+?](#-por-qué-bmad-)
-- [Inicio Rápido](#-inicio-rápido)
+- [ï¿½Por quï¿½ BMAD+?](#-por-quï¿½-bmad-)
+- [Inicio Rï¿½pido](#-inicio-rï¿½pido)
 - [Arquitectura](#-arquitectura)
 - [Los 5 Agentes](#-los-5-agentes)
 - [Sistema de Packs](#-sistema-de-packs)
 - [Innovaciones](#-innovaciones)
 - [IDE Soportados](#-ide-soportados)
-- [Monitorización Upstream](#-monitorización-upstream)
+- [Monitorizaciï¿½n Upstream](#-monitorizaciï¿½n-upstream)
 - [Estructura del Proyecto](#-estructura-del-proyecto)
-- [Configuración](#-configuración)
+- [Configuraciï¿½n](#-configuraciï¿½n)
 - [Historial de Versiones](#-historial-de-versiones)
 - [Licencia](#-licencia)
 
 ---
 
-## ?? ¿Por qué BMAD+?
+## ?? ï¿½Por quï¿½ BMAD+?
 
-BMAD-METHOD es un excelente framework con 9 agentes especializados. Pero para un desarrollador en solitario o un equipo pequeño, 9 agentes está demasiado fragmentado. BMAD+ resuelve este problema:
+BMAD-METHOD es un excelente framework con 9 agentes especializados. Pero para un desarrollador en solitario o un equipo pequeï¿½o, 9 agentes estï¿½ demasiado fragmentado. BMAD+ resuelve este problema:
 
 | BMAD-METHOD | BMAD+ |
 |---|---|
 | 9 agentes especializados | **5 agentes multirrol** (11 roles en total) |
-| Activación manual únicamente | **Auto-activación inteligente** en 3 niveles |
+| Activaciï¿½n manual ï¿½nicamente | **Auto-activaciï¿½n inteligente** en 3 niveles |
 | Sin pipeline automatizado | **Modo Autopilot**: idea ? entrega |
-| Ejecución secuencial | **Paralelismo supervisado** |
-| Sin seguimiento upstream | **Monitorización semanal** con WhatsApp |
-| 1-2 IDEs soportados | **5 IDEs** con auto-detección |
+| Ejecuciï¿½n secuencial | **Paralelismo supervisado** |
+| Sin seguimiento upstream | **Monitorizaciï¿½n semanal** con WhatsApp |
+| 1-2 IDEs soportados | **5 IDEs** con auto-detecciï¿½n |
 
 ---
 
-## ? Inicio Rápido
+## ? Inicio Rï¿½pido
 
-### Instalación en un proyecto existente
+### Instalaciï¿½n en un proyecto existente
 
 ```bash
 npx bmad-plus install
 ```
 
 El instalador:
-1. Detecta automáticamente los IDE instalados (Claude Code, Gemini CLI, Codex, etc.)
+1. Detecta automï¿½ticamente los IDE instalados (Claude Code, Gemini CLI, Codex, etc.)
 2. Ofrece los packs a instalar (Core, OSINT, Maker, Audit)
-3. Genera los archivos de configuración adaptados
+3. Genera los archivos de configuraciï¿½n adaptados
 4. Crea las carpetas de artefactos
 
-### Uso después de la instalación
+### Uso despuï¿½s de la instalaciï¿½n
 
-#### ?? ¿Con quién hablar?
+#### ?? ï¿½Con quiï¿½n hablar?
 
 | Quieres... | Habla con | Ejemplo |
 |---|---|---|
-| Discutir una idea de proyecto | **Atlas** ?? | `Atlas, tengo una idea de proyecto: un SaaS de facturación` |
+| Discutir una idea de proyecto | **Atlas** ?? | `Atlas, tengo una idea de proyecto: un SaaS de facturaciï¿½n` |
 | Crear un PRD / Product Brief | **Atlas** ?? | `Atlas, crea el PRD para mi proyecto` |
-| Diseñar la arquitectura técnica | **Forge** ??? | `Forge, propón una arquitectura para la app` |
-| Implementar código | **Forge** ??? | `Forge, implementa la historia AUTH-001` |
-| Redactar documentación | **Forge** ??? | `Forge, documenta la API` |
-| Probar / realizar revisión de código | **Sentinel** ?? | `Sentinel, revisa el módulo auth` |
-| Planificar un sprint | **Nexus** ?? | `Nexus, crea épicas e historias para el MVP` |
+| Diseï¿½ar la arquitectura tï¿½cnica | **Forge** ??? | `Forge, propï¿½n una arquitectura para la app` |
+| Implementar cï¿½digo | **Forge** ??? | `Forge, implementa la historia AUTH-001` |
+| Redactar documentaciï¿½n | **Forge** ??? | `Forge, documenta la API` |
+| Probar / realizar revisiï¿½n de cï¿½digo | **Sentinel** ?? | `Sentinel, revisa el mï¿½dulo auth` |
+| Planificar un sprint | **Nexus** ?? | `Nexus, crea ï¿½picas e historias para el MVP` |
 | Automatizar todo de la A a la Z | **Nexus** ?? | `autopilot` luego describe tu proyecto |
 | Investigar a una persona (OSINT) | **Shadow** ?? | `Shadow, investiga a John Doe` |
 | Crear un nuevo agente BMAD+ | **Maker** ?? | `Maker, crea un agente de soporte al cliente` |
 
-#### ?? Flujo de trabajo típico (modo manual)
+#### ?? Flujo de trabajo tï¿½pico (modo manual)
 
 ```
 1. "Atlas, haz una lluvia de ideas sobre mi [proyecto]"
@@ -87,35 +87,68 @@ El instalador:
 3. "Atlas, redacta el PRD"
    ? Entregable: _bmad-output/discovery/prd.md
 
-4. "Forge, propón la arquitectura"
+4. "Forge, propï¿½n la arquitectura"
    ? Entregable: _bmad-output/discovery/architecture.md
 
-5. "Nexus, divide en épicas e historias"
+5. "Nexus, divide en ï¿½picas e historias"
    ? Entregable: _bmad-output/build/stories/
 
 6. "Forge, implementa la historia [X]"
-   ? Código generado + pruebas
+   ? Cï¿½digo generado + pruebas
 
 7. "Sentinel, prueba y revisa"
    ? Informe de QA + sugerencias
 ```
 
-#### ? Flujo de trabajo automático (modo autopilot)
+#### ? Flujo de trabajo automï¿½tico (modo autopilot)
 
 ```
 > autopilot
-> "Un SaaS de facturación para pymes con gestión de presupuestos"
+> "Un SaaS de facturaciï¿½n para pymes con gestiï¿½n de presupuestos"
 ```
 
-Nexus orquesta todo automáticamente con puntos de control (checkpoints) para tu aprobación.
+Nexus orquesta todo automï¿½ticamente con puntos de control (checkpoints) para tu aprobaciï¿½n.
 
 #### ?? Comandos clave
 
-| Comando | Descripción |
+| Comando | Descripciï¿½n |
 |----------|-------------|
 | `bmad-help` | Ver todos los agentes y habilidades disponibles |
 | `autopilot` | Nexus toma el control del pipeline completo |
-| `parallel` | Iniciar ejecución multi-agente en paralelo |
+| `parallel` | Iniciar ejecuciï¿½n multi-agente en paralelo |
+
+
+#### ðŸ”§ Comandos CLI
+
+| Command | Description |
+|---------|-------------|
+| `npx bmad-plus install` | Instalador interactivo con selecciÃ³n de packs y detecciÃ³n de IDE |
+| `npx bmad-plus scan [ruta]` | Descubrir e indexar proyectos en el cerebro global |
+| `npx bmad-plus memory status` | Informe de salud de memoria (proyecto + cerebro global) |
+| `npx bmad-plus memory export` | Exportar cerebro como archivo Markdown portable |
+| `npx bmad-plus doctor` | Verificar integridad de la instalaciÃ³n |
+| `npx bmad-plus update` | Actualizar agentes y skills (conserva config) |
+| `npx bmad-plus uninstall` | Eliminar BMAD+ del proyecto actual |
+
+#### ðŸ”¬ Opciones de instalaciÃ³n avanzadas
+
+```bash
+npx bmad-plus install --packs all --yes
+npx bmad-plus install --tools none
+npx bmad-plus install --packs core,memory,osint
+```
+
+> **ðŸ’¡ Consejo dogfooding:** Usa `--tools none` al instalar BMAD+ en un proyecto con archivos de config IDE manuales. Instala agentes, skills y memoria sin sobrescribir tus `CLAUDE.md`, `GEMINI.md` o `AGENTS.md`.
+
+#### ðŸ” Opciones de escaneo
+
+```bash
+npx bmad-plus scan D:\DEV
+npx bmad-plus scan . --active-days 7 --paused-days 90
+npx bmad-plus scan D:\DEV --yes --depth 6
+```
+
+> Leyenda: ðŸŸ¢ **activo** (modificado < 30 dÃ­as), ðŸŸ¡ **pausado** (30â€“180 dÃ­as), âšª **archivado** (> 180 dÃ­as). Umbrales personalizables con `--active-days` y `--paused-days`.
 
 ---
 
@@ -168,32 +201,32 @@ graph TB
 
 ## ?? Los 5 Agentes
 
-### Atlas — Strategist ??
+### Atlas ï¿½ Strategist ??
 
 **Fusiona:** Analyst (Mary) + Product Manager (John)
 
-| Rol | Especialidad | Auto-activación |
+| Rol | Especialidad | Auto-activaciï¿½n |
 |------|-----------|-----------------|
-| **Analyst** | Investigación de mercado, FODA, benchmarks | "analiza", "mercado", "benchmark", nuevo proyecto |
-| **Product Manager** | PRD, product briefs, historias de usuario, roadmaps | "PRD", "roadmap", "MVP", fase de planificación |
+| **Analyst** | Investigaciï¿½n de mercado, FODA, benchmarks | "analiza", "mercado", "benchmark", nuevo proyecto |
+| **Product Manager** | PRD, product briefs, historias de usuario, roadmaps | "PRD", "roadmap", "MVP", fase de planificaciï¿½n |
 
 **Capacidades:** Brainstorming (BP), Market Research (MR), Domain Research (DR), Technical Research (TR), Product Brief (CB), PRD (PR), UX Design (CU), Document Project (DP)
 
 ---
 
-### Forge — Architect-Dev ???
+### Forge ï¿½ Architect-Dev ???
 
 **Fusiona:** Architect (Winston) + Developer (Amelia) + Tech Writer (Paige)
 
-| Rol | Especialidad | Auto-activación |
+| Rol | Especialidad | Auto-activaciï¿½n |
 |------|-----------|-----------------|
-| **Architect** | Diseño técnico, API, escalabilidad, elección de stack | "arquitectura", "API", "schema", +5 archivos modificados |
-| **Developer** | Implementación TDD, revisión de código, historias | "implementa", "código", "fix", post-arquitectura |
-| **Tech Writer** | Documentación, diagramas Mermaid, changelogs | "documenta", "README", post-implementación |
+| **Architect** | Diseï¿½o tï¿½cnico, API, escalabilidad, elecciï¿½n de stack | "arquitectura", "API", "schema", +5 archivos modificados |
+| **Developer** | Implementaciï¿½n TDD, revisiï¿½n de cï¿½digo, historias | "implementa", "cï¿½digo", "fix", post-arquitectura |
+| **Tech Writer** | Documentaciï¿½n, diagramas Mermaid, changelogs | "documenta", "README", post-implementaciï¿½n |
 
 **Capacidades:** Architecture (CA), Implementation Readiness (IR), Dev Story (DS), Code Review (CR), Quick Spec (QS), Quick Dev (QD), Document Project (DP)
 
-**Acciones críticas (rol Dev):**
+**Acciones crï¿½ticas (rol Dev):**
 - Leer TODA la historia ANTES de implementar
 - Ejecutar las tareas EN ORDEN
 - 100% pruebas aprobadas ANTES de avanzar
@@ -201,90 +234,90 @@ graph TB
 
 ---
 
-### Sentinel — Quality ??
+### Sentinel ï¿½ Quality ??
 
 **Fusiona:** QA Engineer (Quinn) + UX Designer (Sally)
 
-| Rol | Especialidad | Auto-activación |
+| Rol | Especialidad | Auto-activaciï¿½n |
 |------|-----------|-----------------|
-| **QA Engineer** | Pruebas API/E2E, edge cases, cobertura, revisión de código | "prueba", "QA", "bug", post-implementación |
-| **UX Reviewer** | Evaluación de UX, accesibilidad, diseño de interacción | "UX", "interfaz", "responsive", cambios frontend |
+| **QA Engineer** | Pruebas API/E2E, edge cases, cobertura, revisiï¿½n de cï¿½digo | "prueba", "QA", "bug", post-implementaciï¿½n |
+| **UX Reviewer** | Evaluaciï¿½n de UX, accesibilidad, diseï¿½o de interacciï¿½n | "UX", "interfaz", "responsive", cambios frontend |
 
 **Capacidades:** QA Tests (QA), Code Review (CR), UX Design (CU)
 
 ---
 
-### Nexus — Orchestrator ??
+### Nexus ï¿½ Orchestrator ??
 
 **Fusiona:** Scrum Master (Bob) + Quick-Flow Solo Dev (Barry) + **Autopilot** (nuevo) + **Parallel Supervisor** (nuevo)
 
-| Rol | Especialidad | Auto-activación |
+| Rol | Especialidad | Auto-activaciï¿½n |
 |------|-----------|-----------------|
-| **Scrum Master** | Planificación de sprints, historias, retrospectivas | "sprint", "planificación", "backlog" |
-| **Quick Flow** | Specs rápidas, hotfixes, mínima ceremonia | "rápido", "hotfix", "pequeño fix" |
+| **Scrum Master** | Planificaciï¿½n de sprints, historias, retrospectivas | "sprint", "planificaciï¿½n", "backlog" |
+| **Quick Flow** | Specs rï¿½pidas, hotfixes, mï¿½nima ceremonia | "rï¿½pido", "hotfix", "pequeï¿½o fix" |
 | **Autopilot** | Pipeline automatizado idea?entrega con checkpoints | "autopilot", "gestiona todo", modo autopilot |
-| **Parallel Supervisor** | Múltiples agentes en concurrencia, reasignación | "paralelo", tareas independientes detectadas |
+| **Parallel Supervisor** | Mï¿½ltiples agentes en concurrencia, reasignaciï¿½n | "paralelo", tareas independientes detectadas |
 
 **Capacidades:** Sprint Planning (SP), Create Story (CS), Epics & Stories (ES), Retrospective (ER), Course Correction (CC), Sprint Status (SS), Quick Spec (QS), Quick Dev (QD), **Autopilot (AP)**, **Parallel (PL)**
 
 ---
 
-### Shadow — OSINT Intelligence ?? *(Pack OSINT)*
+### Shadow ï¿½ OSINT Intelligence ?? *(Pack OSINT)*
 
-**Agente completo de investigación OSINT.**
+**Agente completo de investigaciï¿½n OSINT.**
 
-| Capacidad | Descripción |
+| Capacidad | Descripciï¿½n |
 |-----------|-------------|
-| **INV** | Investigación completa Fase 0?6 con informe puntuado |
-| **QS** | Búsqueda rápida multi-motor |
+| **INV** | Investigaciï¿½n completa Fase 0?6 con informe puntuado |
+| **QS** | Bï¿½squeda rï¿½pida multi-motor |
 | **LI/IG/FB** | Scraping de LinkedIn, Instagram, Facebook |
 | **PP** | Psicoperfil MBTI / Big Five |
-| **CE** | Enriquecimiento de contactos (email, teléfono) |
-| **DG** | Diagnóstico de herramientas/APIs disponibles |
+| **CE** | Enriquecimiento de contactos (email, telï¿½fono) |
+| **DG** | Diagnï¿½stico de herramientas/APIs disponibles |
 
-**Tecnología:** MÁS de 55 actores de Apify, 7 APIs de búsqueda, python estándar 100%, grados A/B/C/D
+**Tecnologï¿½a:** Mï¿½S de 55 actores de Apify, 7 APIs de bï¿½squeda, python estï¿½ndar 100%, grados A/B/C/D
 
 ---
 
-### Maker — Agent Creator ?? *(Pack Maker)*
+### Maker ï¿½ Agent Creator ?? *(Pack Maker)*
 
-**Meta-agente que crea otros agentes.** Dale una descripción ? genera un paquete completo.
+**Meta-agente que crea otros agentes.** Dale una descripciï¿½n ? genera un paquete completo.
 
-| Capacidad | Descripción |
+| Capacidad | Descripciï¿½n |
 |------|-------------|
-| **CA** | Create Agent — creación guiada en 4 fases |
-| **QA** | Quick Agent — creación rápida con valores por defecto con sentido |
-| **EA** | Edit Agent — modificar un SKILL.md existente |
-| **VA** | Validate Agent — verificar cumplimiento BMAD+ |
-| **PA** | Package Agent — generar carpeta de integración |
+| **CA** | Create Agent ï¿½ creaciï¿½n guiada en 4 fases |
+| **QA** | Quick Agent ï¿½ creaciï¿½n rï¿½pida con valores por defecto con sentido |
+| **EA** | Edit Agent ï¿½ modificar un SKILL.md existente |
+| **VA** | Validate Agent ï¿½ verificar cumplimiento BMAD+ |
+| **PA** | Package Agent ï¿½ generar carpeta de integraciï¿½n |
 
-**Pipeline:** Discovery ? Design (aprobación del usuario) ? Generación ? Validación
-**Salida:** `_bmad-output/ready-to-integrate/` — listo para copiar a BMAD+
+**Pipeline:** Discovery ? Design (aprobaciï¿½n del usuario) ? Generaciï¿½n ? Validaciï¿½n
+**Salida:** `_bmad-output/ready-to-integrate/` ï¿½ listo para copiar a BMAD+
 
 ---
 
 ## ?? Sistema de Packs
 
-BMAD+ utiliza un sistema modular por packs. El Core siempre está instalado, y los demás packs son opcionales.
+BMAD+ utiliza un sistema modular por packs. El Core siempre estï¿½ instalado, y los demï¿½s packs son opcionales.
 
 ```
 npx bmad-plus install
 
-???  ¿Qué packs instalar?
+???  ï¿½Quï¿½ packs instalar?
    Core (Atlas, Forge, Sentinel, Nexus) siempre incluido.
 
-   ?? OSINT — Shadow (investigación, scraping, psicoperfil)
-   ?? Agent Creator — Maker (diseño, desarrollo, empaque)
-   ??? Auditoría de Seguridad — Shield (muy pronto)
+   ?? OSINT ï¿½ Shadow (investigaciï¿½n, scraping, psicoperfil)
+   ?? Agent Creator ï¿½ Maker (diseï¿½o, desarrollo, empaque)
+   ??? Auditorï¿½a de Seguridad ï¿½ Shield (muy pronto)
    ?? Instalar todo
-   Ninguno — Solo Core
+   Ninguno ï¿½ Solo Core
 ```
 
 | Pack | Agentes | Habilidades | Estado |
 |------|--------|--------|--------|
 | ?? **Core** | Atlas, Forge, Sentinel, Nexus | autopilot, parallel, sync | ? Estable |
 | ?? **OSINT** | Shadow | bmad-osint-investigate | ? Estable |
-| ?? **Maker** | Maker | — | ? Estable |
+| ?? **Maker** | Maker | ï¿½ | ? Estable |
 | ??? **Audit** | Shield | bmad-audit-scan, bmad-audit-report | ?? Muy pronto |
 
 Cada pack define:
@@ -296,91 +329,91 @@ Cada pack define:
 
 ## ? Innovaciones
 
-### 1. Auto-Activación Inteligente a 3 Niveles
+### 1. Auto-Activaciï¿½n Inteligente a 3 Niveles
 
-Cada agente puede **automáticamente** cambiar de rol según el contexto:
+Cada agente puede **automï¿½ticamente** cambiar de rol segï¿½n el contexto:
 
 | Nivel | Mecanismo | Ejemplo |
 |--------|-----------|---------|
-| ?? **Patrón** | Palabras clave en el pedido | "revisa" ? QA activado |
-| ?? **Contexto** | Detecta el tipo de tarea | Cálculos financieros detectados ? QA auto-activado tras escribir código |
-| ?? **Razonamiento** | Cadena lógica | Inconsistencia de arquitectura ? Architec auto-activado |
+| ?? **Patrï¿½n** | Palabras clave en el pedido | "revisa" ? QA activado |
+| ?? **Contexto** | Detecta el tipo de tarea | Cï¿½lculos financieros detectados ? QA auto-activado tras escribir cï¿½digo |
+| ?? **Razonamiento** | Cadena lï¿½gica | Inconsistencia de arquitectura ? Architec auto-activado |
 
-El agente **anuncia** el cambio: *"?? I'm switching to QA mode — financial calculations detected. Say 'skip' to stay in current mode."*
+El agente **anuncia** el cambio: *"?? I'm switching to QA mode ï¿½ financial calculations detected. Say 'skip' to stay in current mode."*
 
-Configuración: `src/bmad-plus/data/role-triggers.yaml`
+Configuraciï¿½n: `src/bmad-plus/data/role-triggers.yaml`
 
 ### 2. Modo Autopilot
 
-Introduce una idea ? Nexus gestionará todo:
+Introduce una idea ? Nexus gestionarï¿½ todo:
 
 ```
 ?? Discovery (Atlas)
   +? Brainstorming ? Product Brief ? PRD ? UX Design
-  ?? CHECKPOINT: Aprobación del PRD
+  ?? CHECKPOINT: Aprobaciï¿½n del PRD
 
 ??? Build (Forge + Sentinel)
-  +? Arquitectura ? Épicas ? Historias ? Sprint
-  ?? CHECKPOINT: Aprobación de Arquitectura
-  +? Por historia: Código ? Pruebas ? (reintentos si falla, máximo 3)
+  +? Arquitectura ? ï¿½picas ? Historias ? Sprint
+  ?? CHECKPOINT: Aprobaciï¿½n de Arquitectura
+  +? Por historia: Cï¿½digo ? Pruebas ? (reintentos si falla, mï¿½ximo 3)
   ?? NOTIFY: Estado de la historia
 
 ?? Ship (Sentinel + Forge)
-  +? Revisión de Código ? UX ? Documentación ? Retrospectiva
-  ?? CHECKPOINT: Aprobación final
+  +? Revisiï¿½n de Cï¿½digo ? UX ? Documentaciï¿½n ? Retrospectiva
+  ?? CHECKPOINT: Aprobaciï¿½n final
 ```
 
 **Puntos de control (checkpoints) configurables:**
-- `require_approval` (??) — Pausa, notifica por WhatsApp, espera
-- `notify_only` (??) — Notifica, continúa (a menos que el usuario intervenga)
-- `auto` (??) — Totalmente automático
+- `require_approval` (??) ï¿½ Pausa, notifica por WhatsApp, espera
+- `notify_only` (??) ï¿½ Notifica, continï¿½a (a menos que el usuario intervenga)
+- `auto` (??) ï¿½ Totalmente automï¿½tico
 
-### 3. Ejecución Paralela Supervisada
+### 3. Ejecuciï¿½n Paralela Supervisada
 
-El orquestador divide las tareas asíncronas para ejecutarlas de forma paralela:
+El orquestador divide las tareas asï¿½ncronas para ejecutarlas de forma paralela:
 
 | Proceso paralelo ? | Proceso secuencial ?? |
 |---|---|
-| Múltiples historias sin dependencia | Tareas en el mismo archivo |
-| Research + revisión técnica de arquitectura | Historia B depende de A |
-| Tests QA + documentación en docs | Arquitectura antes que el código |
+| Mï¿½ltiples historias sin dependencia | Tareas en el mismo archivo |
+| Research + revisiï¿½n tï¿½cnica de arquitectura | Historia B depende de A |
+| Tests QA + documentaciï¿½n en docs | Arquitectura antes que el cï¿½digo |
 
-**Supervisión en ejecución:** Iniciar, Detener, Reiniciar, Escalar (si un agente falla más de 3 veces, avisa al desarrollador)
+**Supervisiï¿½n en ejecuciï¿½n:** Iniciar, Detener, Reiniciar, Escalar (si un agente falla mï¿½s de 3 veces, avisa al desarrollador)
 
 ---
 
 ## ??? IDE Soportados
 
-El instalador detecta automáticamente el IDE actual para generar la configuración nativa que conecte a BMAD+:
+El instalador detecta automï¿½ticamente el IDE actual para generar la configuraciï¿½n nativa que conecte a BMAD+:
 
-| IDE | Archivo de Config. | Detección (carpeta) |
+| IDE | Archivo de Config. | Detecciï¿½n (carpeta) |
 |-----|---------------|-----------|
 | Claude Code | `CLAUDE.md` | `.claude/` |
 | Gemini CLI | `GEMINI.md` | `.gemini/` |
-| Antigravity | `.gemini/` + `.agents/` | Antigravity Extensión |
+| Antigravity | `.gemini/` + `.agents/` | Antigravity Extensiï¿½n |
 | Codex CLI | `AGENTS.md` | `.codex/` |
 | OpenCode | `OPENCODE.md` | Opciones de opencode |
 
 ---
 
-## ?? Monitorización Upstream
+## ?? Monitorizaciï¿½n Upstream
 
 ### Pipeline semanal (cron VPS, lunes 9 AM)
 
 ```
-1. Obtiene actualizaciones del proyecto raíz BMAD-METHOD
-2. Análisis "diff" sobre los archivos locales
+1. Obtiene actualizaciones del proyecto raï¿½z BMAD-METHOD
+2. Anï¿½lisis "diff" sobre los archivos locales
 3. Procesado por Inteligencia Artificial "Gemini API"
    ?? Compatible | ?? Revisar manualmente | ?? Incompatible o "Breaking Change"
-4. Envía la actualización usando el WhatsApp registrado (Evolution API)
+4. Envï¿½a la actualizaciï¿½n usando el WhatsApp registrado (Evolution API)
 5. Auto-PR en GH
 ```
 
 ### Stack
-- **weekly-check.py** — Archivo base usado mediante cron semanal
-- **ai_analyzer.py** — LLM de análisis (Gemini 2.0 Flash)
-- **notifier.py** — WhatsApp (API Evolution auto-hosteado) / fallback a correo local
-- **mcp_bridge.py** — Acceso Server para las API operativas.
+- **weekly-check.py** ï¿½ Archivo base usado mediante cron semanal
+- **ai_analyzer.py** ï¿½ LLM de anï¿½lisis (Gemini 2.0 Flash)
+- **notifier.py** ï¿½ WhatsApp (API Evolution auto-hosteado) / fallback a correo local
+- **mcp_bridge.py** ï¿½ Acceso Server para las API operativas.
 
 ---
 
@@ -388,60 +421,60 @@ El instalador detecta automáticamente el IDE actual para generar la configuració
 
 ```
 BMAD+/
-+-- README.md                      ? Este archivo (Inglés)
++-- README.md                      ? Este archivo (Inglï¿½s)
 +-- readme-international/          ? Versiones traducidas (es, fr, de)
 +-- CHANGELOG.md                   ? Versiones de proyecto
 +-- CLAUDE.md                      ? Config IDE: Claude
 +-- GEMINI.md                      ? Config IDE: Gemini
 +-- AGENTS.md                      ? Config IDE: Codex / Opencode
 +-- .gitignore
-¦
+ï¿½
 +-- src/
-¦   +-- bmad-plus/                 ? MODULO PERSONALIZADO
-¦       +-- module.yaml            ? Packs de entorno BMAD
-¦       +-- module-help.csv        ? Ayuda rápida base de datos
-¦       +-- agents/
-¦       ¦   +-- agent-strategist/  ? Atlas (analyst + pm)
-¦       ¦   +-- agent-architect-dev/ ? Forge (architect + dev + tw)
-¦       ¦   +-- agent-quality/     ? Sentinel (qa + ux)
-¦       ¦   +-- agent-orchestrator/ ? Nexus (sm + qf + autopilot + parallel)
-¦       ¦   +-- agent-maker/       ? Maker (meta-agente creativo) [pack: maker]
-¦       ¦   +-- agent-shadow/      ? Shadow (osint) [pack: osint]
-¦       +-- skills/
-¦       ¦   +-- bmad-plus-autopilot/ ? Orquestación completa
-¦       ¦   +-- bmad-plus-parallel/  ? Supervisión concurrente
-¦       ¦   +-- bmad-plus-sync/      ? Sicronización automatizada código
-¦       +-- data/
-¦           +-- role-triggers.yaml ? Lógica de variables y keywords
-¦
+ï¿½   +-- bmad-plus/                 ? MODULO PERSONALIZADO
+ï¿½       +-- module.yaml            ? Packs de entorno BMAD
+ï¿½       +-- module-help.csv        ? Ayuda rï¿½pida base de datos
+ï¿½       +-- agents/
+ï¿½       ï¿½   +-- agent-strategist/  ? Atlas (analyst + pm)
+ï¿½       ï¿½   +-- agent-architect-dev/ ? Forge (architect + dev + tw)
+ï¿½       ï¿½   +-- agent-quality/     ? Sentinel (qa + ux)
+ï¿½       ï¿½   +-- agent-orchestrator/ ? Nexus (sm + qf + autopilot + parallel)
+ï¿½       ï¿½   +-- agent-maker/       ? Maker (meta-agente creativo) [pack: maker]
+ï¿½       ï¿½   +-- agent-shadow/      ? Shadow (osint) [pack: osint]
+ï¿½       +-- skills/
+ï¿½       ï¿½   +-- bmad-plus-autopilot/ ? Orquestaciï¿½n completa
+ï¿½       ï¿½   +-- bmad-plus-parallel/  ? Supervisiï¿½n concurrente
+ï¿½       ï¿½   +-- bmad-plus-sync/      ? Sicronizaciï¿½n automatizada cï¿½digo
+ï¿½       +-- data/
+ï¿½           +-- role-triggers.yaml ? Lï¿½gica de variables y keywords
+ï¿½
 +-- monitor/                       ?? CONTROL PARA VPS DE CAMBIOS DE BMAD-METHOD
-¦   +-- weekly-check.py            ? Base Cron
-¦   +-- ai_analyzer.py             ? IA Análisis (Gemini API)
-¦   +-- notifier.py                ? WhatsApp (Evolution API) y correos
-¦   +-- mcp_bridge.py              ? Puerto de servidor
-¦   +-- config.example.yaml        ? Base de las contraseñas
-¦   +-- docker-compose.yml         ? Config para arrancar Evolution API
-¦
+ï¿½   +-- weekly-check.py            ? Base Cron
+ï¿½   +-- ai_analyzer.py             ? IA Anï¿½lisis (Gemini API)
+ï¿½   +-- notifier.py                ? WhatsApp (Evolution API) y correos
+ï¿½   +-- mcp_bridge.py              ? Puerto de servidor
+ï¿½   +-- config.example.yaml        ? Base de las contraseï¿½as
+ï¿½   +-- docker-compose.yml         ? Config para arrancar Evolution API
+ï¿½
 +-- mcp-server/                    ??? AUDITOR / MCP BRIDGE
-¦   +-- server.py                  ? Acceso general y de herramientas.
-¦   +-- tools/                     ? git, github operations
-¦
+ï¿½   +-- server.py                  ? Acceso general y de herramientas.
+ï¿½   +-- tools/                     ? git, github operations
+ï¿½
 +-- osint-agent-package/           ?? MODULO INDEPENDIENTE DE OSINT
-¦   +-- agents/                    ? Agente Shadow (version root)
-¦   +-- skills/                    ? Apify actores 55+
-¦   +-- install.ps1                ? Script de instalación
-¦
+ï¿½   +-- agents/                    ? Agente Shadow (version root)
+ï¿½   +-- skills/                    ? Apify actores 55+
+ï¿½   +-- install.ps1                ? Script de instalaciï¿½n
+ï¿½
 +-- upstream/                      ?? CLONE ORIGINAL (EXCLUIDO DEL REGISTRO LOCAL)
     +-- (BMAD-METHOD original)
 ```
 
 ---
 
-## ?? Configuración Módulo Central
+## ?? Configuraciï¿½n Mï¿½dulo Central
 
 ### Archivo principal (`module.yaml`)
 
-| Variable | Descripción | Valores Disponibles |
+| Variable | Descripciï¿½n | Valores Disponibles |
 |----------|-------------|---------|
 | `project_name` | Nombre el proyecto | Autodetectado |
 | `user_skill_level` | Nivel del equipo/persona | beginner, intermediate, expert |
@@ -450,35 +483,35 @@ BMAD+/
 | `parallel_execution` | Trabajos Multiagente | true, false |
 | `install_packs` | Packs Seleccionados a Integrar | core, osint, maker, audit, all |
 
-### Integración Personalizada (Apikey/Hooks)
+### Integraciï¿½n Personalizada (Apikey/Hooks)
 
-| KEY Sistema | Entorno / Pack | Actuación |
+| KEY Sistema | Entorno / Pack | Actuaciï¿½n |
 |-----|------|-------|
-| `GEMINI_API_KEY` | Monitor | Comparación lógica de ramas Upstream |
+| `GEMINI_API_KEY` | Monitor | Comparaciï¿½n lï¿½gica de ramas Upstream |
 | `EVOLUTION_API_KEY` | Monitor | Sistema WhatsApp Notifier Server |
-| `APIFY_API_TOKEN` | OSINT | Extracción, Web Mining |
+| `APIFY_API_TOKEN` | OSINT | Extracciï¿½n, Web Mining |
 | `PERPLEXITY_API_KEY` | OSINT | Buscador Complejo AI |
 
 ---
 
 ## ?? Historial de Versiones
 
-| Versión | Fecha | Descripción |
+| Versiï¿½n | Fecha | Descripciï¿½n |
 |---------|------|-------------|
-| **0.1.0** | 2026-03-17 | ?? Fundación base de proyecto (6 agentes / 3 entornos de skills / Auto-detección IDEs locales). Se incorporó el Maker y paquete OSINT |
+| **0.1.0** | 2026-03-17 | ?? Fundaciï¿½n base de proyecto (6 agentes / 3 entornos de skills / Auto-detecciï¿½n IDEs locales). Se incorporï¿½ el Maker y paquete OSINT |
 
-Más descripciones a fondo en el archivo: [CHANGELOG.md](../CHANGELOG.md).
+Mï¿½s descripciones a fondo en el archivo: [CHANGELOG.md](../CHANGELOG.md).
 
 ---
 
 ## ?? Licencias Integradas
 
-Proyecto BMAD+ (Adaptación: MIT)
+Proyecto BMAD+ (Adaptaciï¿½n: MIT)
 
 Basado nativamente en el repositorio: [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) (MIT LIC)
 
 ### Reconocimientos especiales
 
-- **BMAD-METHOD Core** por [bmad-code-org](https://github.com/bmad-code-org) — Framework base
-- **OSINT Pipeline Tool** Adaptación de [smixs/osint-skill](https://github.com/smixs/osint-skill) (MIT LIC)
+- **BMAD-METHOD Core** por [bmad-code-org](https://github.com/bmad-code-org) ï¿½ Framework base
+- **OSINT Pipeline Tool** Adaptaciï¿½n de [smixs/osint-skill](https://github.com/smixs/osint-skill) (MIT LIC)
 - **Apify Actor Runner Base** integrado desde el original de [apify/agent-skills](https://github.com/apify/agent-skills) (MIT LIC)
