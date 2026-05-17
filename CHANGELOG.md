@@ -5,6 +5,18 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.3] — 2026-05-17
+
+### 🎨 Scan UX Improvements
+
+### Added
+- **Scan legend** — Color-coded status legend displayed before the project table
+- **`--active-days <n>`** — Custom threshold for "active" status (default: 30 days)
+- **`--paused-days <n>`** — Custom threshold for "paused" status (default: 180 days)
+
+### Fixed
+- Scan now accepts positional path argument (`npx bmad-plus scan D:\path`)
+
 ## [0.7.1] — 2026-05-17
 
 ### 🛠️ CLI Commands & Guardrails Injection

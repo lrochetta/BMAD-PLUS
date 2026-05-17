@@ -51,12 +51,12 @@ const SKIP_DIRS = new Set([
   'AppData', 'Recovery', 'PerfLogs',
 ]);
 
-function getProjectStatus(dir) {
+function getProjectStatus(dir, activeDays = 30, pausedDays = 180) {
   try {
     const stat = fs.statSync(dir);
     const daysSince = (Date.now() - stat.mtimeMs) / (1000 * 60 * 60 * 24);
-    if (daysSince < 30) return 'active';
-    if (daysSince < 180) return 'paused';
+    if (daysSince < activeDays) return 'active';
+    if (daysSince < pausedDays) return 'paused';
     return 'archived';
   } catch { return 'unknown'; }
 }
@@ -86,7 +86,7 @@ function hasBmadInstalled(dir) {
          fs.existsSync(path.join(dir, '_bmad'));
 }
 
-function scanDirectory(rootDir, maxDepth = 4, currentDepth = 0) {
+function scanDirectory(rootDir, maxDepth = 4, currentDepth = 0, activeDays = 30, pausedDays = 180) {
   const projects = [];
 
   if (currentDepth > maxDepth) return projects;
@@ -106,7 +106,7 @@ function scanDirectory(rootDir, maxDepth = 4, currentDepth = 0) {
         path: rootDir,
         name: getProjectName(rootDir),
         stack,
-        status: getProjectStatus(rootDir),
+        status: getProjectStatus(rootDir, activeDays, pausedDays),
         bmad: hasBmadInstalled(rootDir),
         hasAgentsMd: fs.existsSync(path.join(rootDir, 'AGENTS.md')),
         hasGit: fs.existsSync(path.join(rootDir, '.git')),
@@ -121,7 +121,7 @@ function scanDirectory(rootDir, maxDepth = 4, currentDepth = 0) {
       path: rootDir,
       name: getProjectName(rootDir),
       stack: 'Unknown',
-      status: getProjectStatus(rootDir),
+      status: getProjectStatus(rootDir, activeDays, pausedDays),
       bmad: hasBmadInstalled(rootDir),
       hasAgentsMd: fs.existsSync(path.join(rootDir, 'AGENTS.md')),
       hasGit: true,
@@ -136,7 +136,7 @@ function scanDirectory(rootDir, maxDepth = 4, currentDepth = 0) {
     if (entry.name.startsWith('.') && entry.name !== '.git') continue;
 
     const subPath = path.join(rootDir, entry.name);
-    const subProjects = scanDirectory(subPath, maxDepth, currentDepth + 1);
+    const subProjects = scanDirectory(subPath, maxDepth, currentDepth + 1, activeDays, pausedDays);
     projects.push(...subProjects);
   }
 
@@ -149,11 +149,15 @@ module.exports = {
   options: [
     ['-d, --directory <path>', 'Directory to scan (default: current directory)'],
     ['--depth <n>', 'Max depth to scan (default: 4)', '4'],
+    ['--active-days <n>', 'Days since last modified to consider a project "active" (default: 30)', '30'],
+    ['--paused-days <n>', 'Days since last modified to consider a project "paused" (default: 180)', '180'],
     ['-y, --yes', 'Index all projects without prompting'],
   ],
   action: async (options) => {
     const scanDir = path.resolve(options.directory || process.cwd());
     const maxDepth = parseInt(options.depth) || 4;
+    const activeDays = parseInt(options.activeDays) || 30;
+    const pausedDays = parseInt(options.pausedDays) || 180;
 
     clack.intro(pc.bgMagenta(pc.white(' 🧠 BMAD+ Project Scanner ')));
 
@@ -168,7 +172,7 @@ module.exports = {
     const spinner = clack.spinner();
     spinner.start(`Scanning ${scanDir} (depth: ${maxDepth})...`);
 
-    const projects = scanDirectory(scanDir, maxDepth);
+    const projects = scanDirectory(scanDir, maxDepth, 0, activeDays, pausedDays);
 
     if (projects.length === 0) {
       spinner.stop('No projects found.');
@@ -178,9 +182,20 @@ module.exports = {
 
     spinner.stop(`Found ${pc.bold(projects.length)} project(s)`);
 
-    // Display table
+    // Display legend
+    const activeCount = projects.filter(p => p.status === 'active').length;
+    const pausedCount = projects.filter(p => p.status === 'paused').length;
+    const archivedCount = projects.filter(p => p.status === 'archived').length;
+
     clack.log.info('');
-    clack.log.info(pc.bold('  #   Status  BMAD+  Stack             Name                  Path'));
+    clack.log.info(pc.dim('  Legend:'));
+    clack.log.info(`    ${pc.green('●')} active    modified < ${activeDays} days ago     ${pc.dim(`(${activeCount} found)`)}`);
+    clack.log.info(`    ${pc.yellow('◐')} paused    modified ${activeDays}–${pausedDays} days ago   ${pc.dim(`(${pausedCount} found)`)}`);
+    clack.log.info(`    ${pc.dim('○')} archived  modified > ${pausedDays} days ago    ${pc.dim(`(${archivedCount} found)`)}`);
+    clack.log.info('');
+
+    // Display table
+    clack.log.info(pc.bold('  #   Status    BMAD+  Stack             Name                  Path'));
     clack.log.info(pc.dim('  ' + '─'.repeat(90)));
 
     projects.forEach((p, i) => {
