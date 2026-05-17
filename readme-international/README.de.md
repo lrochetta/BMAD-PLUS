@@ -36,7 +36,7 @@ BMAD-METHOD ist ein exzellentes Framework mit 9 spezialisierten Agenten. Für ei
 
 | BMAD-METHOD | BMAD+ |
 |---|---|
-| 9 spezialisierte Agenten | **6 Multirole-Agenten** (insgesamt 12 Rollen) |
+| 9 spezialisierte Agenten | **56+ Agenten** (insgesamt 12 Rollen) |
 | Nur manuelle Aktivierung | **Intelligente automatische Aktivierung** auf 3 Ebenen |
 | Keine automatisierte Pipeline | **Autopilot-Modus**: Idee → Fertigstellung |
 | Sequentielle Ausführung | **Überwachte parallele Ausführung** |
@@ -203,44 +203,36 @@ npx bmad-plus scan D:\DEV --yes --depth 6
 ```mermaid
 graph TB
     subgraph Core["⚙️ Core Pack"]
-        AT[Atlas 🎯<br/>Strategist]
-        FG[Forge 🏗️<br/>Architect-Dev]
-        SN[Sentinel 🔍<br/>Quality]
-        NX[Nexus 🎼<br/>Orchestrator]
+        AT["Atlas 🎯"]
+        FG["Forge 🏗️"]
+        SN["Sentinel 🔍"]
+        NX["Nexus 🎼"]
     end
 
-    subgraph OSINT["🔍 OSINT Pack"]
-        SH[Shadow 🔍<br/>OSINT Intel]
+    subgraph Packs["📦 Modular Packs"]
+        SH["Shadow 🕵️ OSINT"]
+        MK["Maker 🧬"]
+        ZC["Zecher 🧠 Memory"]
+        SD["Shield 🛡️ GRC 38 agents"]
+        DS["Dev Studio 🏗️ SDLC 56+ agents"]
+        SEO["SEO Engine 🔎 3 agents"]
+        BK["Backup 🗂️"]
+        AN["Animated 🎬"]
     end
 
-    subgraph Audit["🛡️ Audit Pack"]
-        SD["Shield 🛡️<br/>(demnächst verfügbar)"]
-    end
-
-    NX -->|orchestriert| AT
-    NX -->|orchestriert| FG
-    NX -->|orchestriert| SN
-    NX -->|kann aufrufen| SH
-
-    subgraph Skills["Custom Skills"]
+    subgraph Skills["⚡ Core Skills"]
         AP[Autopilot]
         PL[Parallel]
-        SY[Sync]
     end
 
+    NX -->|orchestrates| AT
+    NX -->|orchestrates| FG
+    NX -->|orchestrates| SN
+    NX -->|invokes| SH
+    NX -->|invokes| MK
     NX --> AP
     NX --> PL
-    NX --> SY
-
-    subgraph VPS["VPS-Infrastruktur"]
-        MCP[MCP Server<br/>35 tools]
-        EVO[Evolution API<br/>WhatsApp]
-        MON[Weekly Monitor]
-    end
-
-    SY --> MCP
-    MON --> EVO
-    MON --> MCP
+    ZC -.->|context| NX
 ```
 
 ---

@@ -17,7 +17,7 @@
 
 - [What is BMAD+?](#-what-is-bmad)
 - [Quick Start](#-quick-start)
-- [The 6 Agents](#-the-6-agents)
+- [The 56+ Agents](#-the-6-agents)
 - [Pack System](#-pack-system)
 - [Key Features](#-innovations)
 - [CLI Reference](#-cli-commands)
@@ -39,7 +39,7 @@ BMAD+ is a **multi-agent AI framework** that turns your AI coding assistant into
 │  🚀 BMAD+ — What You Get                                          │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
-│  6 Agents        Talk to Atlas, Forge, Sentinel, Nexus,            │
+│  56+ Agents        Talk to Atlas, Forge, Sentinel, Nexus,            │
 │                  Shadow, Zecher — each handles multiple roles       │
 │                                                                     │
 │  9 Packs         Core dev · OSINT · GRC compliance · SDLC          │
@@ -83,7 +83,7 @@ BMAD+ is a **multi-agent AI framework** that turns your AI coding assistant into
 
 | BMAD-METHOD | BMAD+ |
 |---|---|
-| 9 specialized agents | **6 multi-role agents** (12 roles total) |
+| 9 specialized agents | **56+ agents** (12 roles total) |
 | Manual activation only | **Intelligent auto-activation** at 3 levels |
 | No automated pipeline | **Autopilot Mode**: idea → delivery |
 | Sequential execution | **Supervised parallelism** |
@@ -252,49 +252,41 @@ npx bmad-plus scan D:\DEV --yes --depth 6
 ```mermaid
 graph TB
     subgraph Core["⚙️ Core Pack"]
-        AT[Atlas 🎯<br/>Strategist]
-        FG[Forge 🏗️<br/>Architect-Dev]
-        SN[Sentinel 🔍<br/>Quality]
-        NX[Nexus 🎼<br/>Orchestrator]
+        AT["Atlas 🎯<br/>Strategy & Product"]
+        FG["Forge 🏗️<br/>Architecture & Code"]
+        SN["Sentinel 🔍<br/>QA & UX Review"]
+        NX["Nexus 🎼<br/>Orchestrator"]
     end
 
-    subgraph OSINT["🔍 OSINT Pack"]
-        SH[Shadow 🔍<br/>OSINT Intel]
+    subgraph Packs["📦 Modular Packs"]
+        SH["Shadow 🕵️<br/>OSINT Intelligence"]
+        MK["Maker 🧬<br/>Agent Creator"]
+        ZC["Zecher 🧠<br/>Memory Guardian"]
+        SD["Shield 🛡️<br/>GRC Compliance (38 agents)"]
+        DS["Dev Studio 🏗️<br/>Full SDLC (56+ agents)"]
+        SEO["SEO Engine 🔎<br/>3 agents · 6 phases"]
+        BK["Backup 🗂️<br/>Smart Archive"]
+        AN["Animated 🎬<br/>Scroll-Driven Sites"]
     end
 
-    subgraph Audit["🛡️ Audit Pack"]
-        SD["Shield 🛡️<br/>(coming soon)"]
+    subgraph Skills["⚡ Core Skills"]
+        AP[Autopilot]
+        PL[Parallel]
     end
 
     NX -->|orchestrates| AT
     NX -->|orchestrates| FG
     NX -->|orchestrates| SN
-    NX -->|can invoke| SH
-
-    subgraph Skills["Custom Skills"]
-        AP[Autopilot]
-        PL[Parallel]
-        SY[Sync]
-    end
-
+    NX -->|invokes| SH
+    NX -->|invokes| MK
     NX --> AP
     NX --> PL
-    NX --> SY
-
-    subgraph VPS["VPS Infrastructure"]
-        MCP[MCP Server<br/>35 tools]
-        EVO[Evolution API<br/>WhatsApp]
-        MON[Weekly Monitor]
-    end
-
-    SY --> MCP
-    MON --> EVO
-    MON --> MCP
+    ZC -.->|context| NX
 ```
 
 ---
 
-## 🎭 The 6 Agents
+## 🎭 The 56+ Agents
 
 ### Atlas — Strategist 🎯
 
@@ -542,7 +534,7 @@ The installer automatically detects IDEs and generates configs:
 
 | Version | Date | Description |
 |---------|------|-------------|
-| **0.1.0** | 2026-03-17 | 🎉 Foundation — 6 agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, monitoring, multi-IDE support |
+| **0.1.0** | 2026-03-17 | 🎉 Foundation — 56+ agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, monitoring, multi-IDE support |
 | **0.2.0** | 2026-03-18 | 🔀 Oveanet Fusion — 3 new utility packs: SEO Audit 360, Universal Backup, Animated Website |
 | **0.3.0** | 2026-03-19 | 🚀 SEO Engine v2.0 — 3 multi-role agents, 4 Python scripts, 6-phase workflow, PageSpeed loop, GEO analysis |
 | **0.4.0** | 2026-03-19 | 🏢 SEO Engine v2.1 — SKILL.md orchestrator, Google APIs, HTML reports, competitor benchmark, 50 tests, GSC + GA4 extensions |

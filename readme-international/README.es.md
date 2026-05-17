@@ -36,7 +36,7 @@ BMAD-METHOD es un excelente framework con 9 agentes especializados. Pero para un
 
 | BMAD-METHOD | BMAD+ |
 |---|---|
-| 9 agentes especializados | **6 agentes multirrol** (12 roles en total) |
+| 9 agentes especializados | **56+ agentes** (12 roles en total) |
 | Activación manual únicamente | **Auto-activación inteligente** en 3 niveles |
 | Sin pipeline automatizado | **Modo Autopilot**: idea → entrega |
 | Ejecución secuencial | **Paralelismo supervisado** |
@@ -203,44 +203,36 @@ npx bmad-plus scan D:\DEV --yes --depth 6
 ```mermaid
 graph TB
     subgraph Core["⚙️ Core Pack"]
-        AT[Atlas 🎯<br/>Strategist]
-        FG[Forge 🏗️<br/>Architect-Dev]
-        SN[Sentinel 🔍<br/>Quality]
-        NX[Nexus 🎼<br/>Orchestrator]
+        AT["Atlas 🎯"]
+        FG["Forge 🏗️"]
+        SN["Sentinel 🔍"]
+        NX["Nexus 🎼"]
     end
 
-    subgraph OSINT["🔍 OSINT Pack"]
-        SH[Shadow 🔍<br/>OSINT Intel]
+    subgraph Packs["📦 Modular Packs"]
+        SH["Shadow 🕵️ OSINT"]
+        MK["Maker 🧬"]
+        ZC["Zecher 🧠 Memory"]
+        SD["Shield 🛡️ GRC 38 agents"]
+        DS["Dev Studio 🏗️ SDLC 56+ agents"]
+        SEO["SEO Engine 🔎 3 agents"]
+        BK["Backup 🗂️"]
+        AN["Animated 🎬"]
     end
 
-    subgraph Audit["🛡️ Audit Pack"]
-        SD["Shield 🛡️<br/>(muy pronto)"]
-    end
-
-    NX -->|orquesta| AT
-    NX -->|orquesta| FG
-    NX -->|orquesta| SN
-    NX -->|puede invocar| SH
-
-    subgraph Skills["Custom Skills"]
+    subgraph Skills["⚡ Core Skills"]
         AP[Autopilot]
         PL[Parallel]
-        SY[Sync]
     end
 
+    NX -->|orchestrates| AT
+    NX -->|orchestrates| FG
+    NX -->|orchestrates| SN
+    NX -->|invokes| SH
+    NX -->|invokes| MK
     NX --> AP
     NX --> PL
-    NX --> SY
-
-    subgraph VPS["Infraestructura VPS"]
-        MCP[MCP Server<br/>35 tools]
-        EVO[Evolution API<br/>WhatsApp]
-        MON[Weekly Monitor]
-    end
-
-    SY --> MCP
-    MON --> EVO
-    MON --> MCP
+    ZC -.->|context| NX
 ```
 
 ---

@@ -8,7 +8,7 @@
   <a href="../README.md">English</a> | 🌐 <b>Français</b> | <a href="README.es.md">Español</a> | <a href="README.de.md">Deutsch</a>
 </div>
 
-> **6 agents multi-rôles · 9 packs modulaires · Mode Autopilot · Exécution parallèle · 143 tests**
+> **56+ agents multi-rôles · 9 packs modulaires · Mode Autopilot · Exécution parallèle · 143 tests**
 > Fork intelligent de [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) — Agents auto-activables avec détection contextuelle 3 niveaux, conformité GRC (Shield), pipeline SDLC complet (Dev Studio), intelligence OSINT, audit SEO, mémoire persistante cross-session, et installeur CLI 10 langues.
 
 ---
@@ -18,7 +18,7 @@
 - [Pourquoi BMAD+ ?](#-pourquoi-bmad-)
 - [Quick Start](#-quick-start)
 - [Architecture](#-architecture)
-- [Les 6 Agents](#-les-6-agents)
+- [Les 56+ Agents](#-les-6-agents)
 - [Système de Packs](#-système-de-packs)
 - [Innovations](#-innovations)
 - [IDE Supportés](#-ide-supportés)
@@ -36,7 +36,7 @@ BMAD-METHOD est un framework excellent avec 9 agents spécialisés. Mais pour un
 
 | BMAD-METHOD | BMAD+ |
 |---|---|
-| 9 agents spécialisés | **6 agents multi-rôles** (12 rôles au total) |
+| 9 agents spécialisés | **56+ agents** (12 rôles au total) |
 | Activation manuelle uniquement | **Auto-activation intelligente** à 3 niveaux |
 | Pas de pipeline automatisé | **Mode Autopilot** : idée → livraison |
 | Exécution séquentielle | **Parallélisme supervisé** |
@@ -203,49 +203,41 @@ npx bmad-plus scan D:\DEV --yes --depth 6
 ```mermaid
 graph TB
     subgraph Core["⚙️ Core Pack"]
-        AT[Atlas 🎯<br/>Strategist]
-        FG[Forge 🏗️<br/>Architect-Dev]
-        SN[Sentinel 🔍<br/>Quality]
-        NX[Nexus 🎼<br/>Orchestrator]
+        AT["Atlas 🎯"]
+        FG["Forge 🏗️"]
+        SN["Sentinel 🔍"]
+        NX["Nexus 🎼"]
     end
 
-    subgraph OSINT["🔍 OSINT Pack"]
-        SH[Shadow 🔍<br/>OSINT Intel]
+    subgraph Packs["📦 Modular Packs"]
+        SH["Shadow 🕵️ OSINT"]
+        MK["Maker 🧬"]
+        ZC["Zecher 🧠 Memory"]
+        SD["Shield 🛡️ GRC 38 agents"]
+        DS["Dev Studio 🏗️ SDLC 56+ agents"]
+        SEO["SEO Engine 🔎 3 agents"]
+        BK["Backup 🗂️"]
+        AN["Animated 🎬"]
     end
 
-    subgraph Audit["🛡️ Audit Pack"]
-        SD["Shield 🛡️<br/>(coming soon)"]
-    end
-
-    NX -->|orchestre| AT
-    NX -->|orchestre| FG
-    NX -->|orchestre| SN
-    NX -->|peut invoquer| SH
-
-    subgraph Skills["Custom Skills"]
+    subgraph Skills["⚡ Core Skills"]
         AP[Autopilot]
         PL[Parallel]
-        SY[Sync]
     end
 
+    NX -->|orchestrates| AT
+    NX -->|orchestrates| FG
+    NX -->|orchestrates| SN
+    NX -->|invokes| SH
+    NX -->|invokes| MK
     NX --> AP
     NX --> PL
-    NX --> SY
-
-    subgraph VPS["VPS Infrastructure"]
-        MCP[MCP Server<br/>35 tools]
-        EVO[Evolution API<br/>WhatsApp]
-        MON[Weekly Monitor]
-    end
-
-    SY --> MCP
-    MON --> EVO
-    MON --> MCP
+    ZC -.->|context| NX
 ```
 
 ---
 
-## 🎭 Les 6 Agents
+## 🎭 Les 56+ Agents
 
 ### Atlas — Strategist 🎯
 
@@ -379,7 +371,7 @@ npx bmad-plus install
 | 🔍 **OSINT** | Shadow | Investigation, scraping social, psychoprofil (55+ acteurs Apify) | ✅ Stable |
 | 🧬 **Maker** | Maker | Concevoir, construire, valider et packager de nouveaux agents BMAD+ | ✅ Stable |
 | 🛡️ **Shield** | 38 agents de conformité | GRC sur 25+ frameworks : GDPR, ISO 27001, SOC 2, HIPAA, PCI DSS, EU AI Act, DORA, NIS2 | ✅ Stable |
-| 🏗️ **Dev Studio** | 6 agents Torah-named | SDLC complet : brainstorm → PRD → architecture → TDD → review (30 workflows) | ✅ Stable |
+| 🏗️ **Dev Studio** | 56+ agents Torah-named | SDLC complet : brainstorm → PRD → architecture → TDD → review (30 workflows) | ✅ Stable |
 | 🔍 **SEO** | Scout, Chief, Judge | Audit SEO 6 phases, boucle PageSpeed, APIs Google, benchmark concurrentiel | ✅ Stable |
 | 🗂️ **Backup** | Backup Agent | ZIP horodaté avec exclusions intelligentes | ✅ Stable |
 | 🎬 **Animated** | Animated Website Agent | Site web luxe scroll-driven à partir de vidéo | ✅ Stable |
@@ -564,9 +556,9 @@ BMAD+/
 
 | Version | Date | Description |
 |---------|------|-------------|
-| **0.1.0** | 2026-03-17 | 🎉 Foundation — 6 agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, monitoring, multi-IDE support |
+| **0.1.0** | 2026-03-17 | 🎉 Foundation — 56+ agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, monitoring, multi-IDE support |
 | **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 agents de conformité GRC |
-| **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 agents Torah-named + 30 workflows SDLC |
+| **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 56+ agents Torah-named + 30 workflows SDLC |
 | **0.7.5** | 2026-05-17 | 🩺 **Qualité & Compliance** — MIT LICENSE, 143 tests, scan, autoconfig, mémoire globale |
 
 Voir [CHANGELOG.md](../CHANGELOG.md) pour le détail complet.

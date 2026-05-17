@@ -18,7 +18,7 @@
 - [Why BMAD+?](#-why-bmad-)
 - [Quick Start](#-quick-start)
 - [Architecture](#-architecture)
-- [The 5 Agents](#-the-5-agents)
+- [The 56+ Agents](#-the-6-agents)
 - [Pack System](#-pack-system)
 - [Innovations](#-innovations)
 - [Supported IDEs](#-supported-ides)
@@ -35,10 +35,11 @@ BMAD-METHOD is an excellent framework with 9 specialized agents. But for a solo 
 
 | BMAD-METHOD | BMAD+ |
 |---|---|
-| 9 specialized agents | **5 multi-role agents** (11 roles total) |
+| 9 specialized agents | **56+ agents** across 9 packs |
 | Manual activation only | **Intelligent auto-activation** at 3 levels |
 | No automated pipeline | **Autopilot Mode**: idea → delivery |
 | Sequential execution | **Supervised parallelism** |
+| No persistent memory | **Cross-session brain** with project scanner |
 | 1-2 IDEs supported | **5 IDEs** with auto-detection |
 
 ---
@@ -201,37 +202,41 @@ npx bmad-plus scan D:\DEV --yes --depth 6
 ```mermaid
 graph TB
     subgraph Core["⚙️ Core Pack"]
-        AT[Atlas 🎯<br/>Strategist]
-        FG[Forge 🏗️<br/>Architect-Dev]
-        SN[Sentinel 🔍<br/>Quality]
-        NX[Nexus 🎼<br/>Orchestrator]
+        AT["Atlas 🎯"]
+        FG["Forge 🏗️"]
+        SN["Sentinel 🔍"]
+        NX["Nexus 🎼"]
     end
 
-    subgraph OSINT["🔍 OSINT Pack"]
-        SH[Shadow 🔍<br/>OSINT Intel]
+    subgraph Packs["📦 Modular Packs"]
+        SH["Shadow 🕵️ OSINT"]
+        MK["Maker 🧬"]
+        ZC["Zecher 🧠 Memory"]
+        SD["Shield 🛡️ GRC 38 agents"]
+        DS["Dev Studio 🏗️ SDLC 56+ agents"]
+        SEO["SEO Engine 🔎 3 agents"]
+        BK["Backup 🗂️"]
+        AN["Animated 🎬"]
     end
 
-    subgraph Audit["🛡️ Audit Pack"]
-        SD["Shield 🛡️<br/>(coming soon)"]
+    subgraph Skills["⚡ Core Skills"]
+        AP[Autopilot]
+        PL[Parallel]
     end
 
     NX -->|orchestrates| AT
     NX -->|orchestrates| FG
     NX -->|orchestrates| SN
-    NX -->|can invoke| SH
-
-    subgraph Skills["Custom Skills"]
-        AP[Autopilot]
-        PL[Parallel]
-    end
-
+    NX -->|invokes| SH
+    NX -->|invokes| MK
     NX --> AP
     NX --> PL
+    ZC -.->|context| NX
 ```
 
 ---
 
-## 🎭 The 5 Agents
+## 🎭 The 56+ Agents
 
 ### Atlas — Strategist 🎯
 
@@ -345,12 +350,17 @@ npx bmad-plus install
    None — Core only
 ```
 
-| Pack | Agents | Skills | Status |
-|------|--------|--------|--------|
-| ⚙️ **Core** | Atlas, Forge, Sentinel, Nexus | autopilot, parallel | ✅ Stable |
-| 🔍 **OSINT** | Shadow | bmad-osint-investigate | ✅ Stable |
-| 🧬 **Maker** | Maker | — | ✅ Stable |
-| 🛡️ **Audit** | Shield | bmad-audit-scan, bmad-audit-report | 🔜 Coming soon |
+| Pack | Agents | Description | Status |
+|------|--------|-------------|--------|
+| ⚙️ **Core** | Atlas, Forge, Sentinel, Nexus | Strategy, dev, QA, orchestration | ✅ Stable |
+| 🔍 **OSINT** | Shadow | OSINT intelligence, 55+ Apify actors, 7 APIs | ✅ Stable |
+| 🧬 **Maker** | Maker | Design, build, validate new BMAD+ agents | ✅ Stable |
+| 🛡️ **Shield** | 38 GRC agents | GDPR, ISO 27001, SOC 2, HIPAA, EU AI Act | ✅ Stable |
+| 🏗️ **Dev Studio** | 6 SDLC agents | Full lifecycle: design to deploy | ✅ Stable |
+| 🔎 **SEO** | Scout, Chief, Judge | 6-phase audit, PageSpeed loop, Google APIs | ✅ Stable |
+| 🧠 **Memory** | Zecher | Cross-session brain, decision recall, handoffs | ✅ Stable |
+| 🗂️ **Backup** | Backup Agent | Smart archive with versioning | ✅ Stable |
+| 🎬 **Animated** | Creative Agent | Scroll-driven animated websites | ✅ Stable |
 
 Each pack defines:
 - Its agents and skills
@@ -498,7 +508,7 @@ BMAD+/
 
 | Version | Date | Description |
 |---------|------|-------------|
-| **0.1.0** | 2026-03-17 | 🎉 Foundation — 6 agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, multi-IDE support |
+| **0.1.0** | 2026-03-17 | 🎉 Foundation — 56+ agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, multi-IDE support |
 | **0.2.0** | 2026-03-18 | 🔀 Oveanet Fusion — 3 new utility packs: SEO Audit 360, Universal Backup, Animated Website |
 | **0.3.0** | 2026-03-19 | 🚀 SEO Engine v2.0 — 3 multi-role agents, 4 Python scripts, 6-phase workflow, PageSpeed loop, GEO analysis |
 | **0.4.0** | 2026-03-19 | 🏢 SEO Engine v2.1 — SKILL.md orchestrator, Google APIs, HTML reports, competitor benchmark, 50 tests, GSC + GA4 extensions |
