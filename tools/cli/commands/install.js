@@ -440,6 +440,10 @@ module.exports = {
       agentGuide.push(`  ${(i.guide_shield || '🛡️ GRC Compliance').padEnd(28)} →  "Shield, audit my SaaS for GDPR"`);
     }
 
+    if (selectedPacks.includes('dev-studio')) {
+      agentGuide.push(`  ${(i.guide_dev_studio || '🏗️ Dev Studio').padEnd(28)} →  "Miriam, brainstorm my app idea"`);
+    }
+
     agentGuide.push(
       '',
       i.guide_workflow,
@@ -479,6 +483,13 @@ module.exports = {
         `  ${i.guide_example_shield_1 || '🛡️ GRC: "Shield, audit my app for GDPR compliance"'}`,
         `  ${i.guide_example_shield_2 || '🛡️ GRC: "Shield, gap analysis ISO 27001 vs NIST CSF"'}`,
         `  ${i.guide_example_shield_3 || '🛡️ GRC: "Shield, generate SOC 2 evidence checklist"'}`,
+      );
+    }
+    if (selectedPacks.includes('dev-studio')) {
+      examples.push(
+        `  ${i.guide_example_dev_studio_1 || '🏗️ Dev Studio: "Miriam, brainstorm a productivity app"'}`,
+        `  ${i.guide_example_dev_studio_2 || '🏗️ Dev Studio: "Bezalel, design the architecture"'}`,
+        `  ${i.guide_example_dev_studio_3 || '🏗️ Dev Studio: "Oholiab, implement story S1"'}`,
       );
     }
 
