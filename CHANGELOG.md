@@ -5,6 +5,29 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] — 2026-05-17
+
+### 🏗️ Pack Dev Studio — Full Software Development Lifecycle
+
+### Added
+- **Pack Dev Studio** — 6 specialized agents + 30 workflows covering the complete SDLC
+  - 📊 **Analysis** (8): Miriam (Business Analyst), Huldah (Tech Writer), Product Brief, PRFAQ, Market/Domain/Technical Research
+  - 📋 **Planning** (7): Yosef (Product Manager), Rachel (UX Designer), PRD Create/Edit/Validate, UX Design
+  - 🏗️ **Architecture** (5+9 steps): Bezalel (System Architect), Create Architecture (8-step workflow), Epics & Stories, Readiness Check
+  - 💻 **Implementation** (12): Oholiab (Senior Engineer), Sprint Planning, Dev Story (TDD cycle), Code Review, Quick Dev, Investigate
+  - 🔧 **Utilities** (12): Distillator, Party Mode, Adversarial Review, Edge Case Hunter, Editorial Reviews, Advanced Elicitation
+- **BWML** (BMAD+ Workflow Markup Language) — Proprietary DSL extending BMAD v6 XML with 12 new primitives:
+  `<agent>`, `<parallel>`, `<loop>`, `<validate>`, `<guard>`, `<emit>`, `<context>`, `<memory>`, `<escalate>`, `<retry>`, `<fallback>`, `<metric>`
+- **Dev Studio Orchestrator** — Intelligent routing across 5 phases with BWML-powered workflow definitions
+- **Torah-named Personas** — Agents named after Torah figures matching their roles: Miriam, Huldah, Yosef, Rachel, Bezalel, Oholiab
+- **Upstream Sync** — Tracking config for BMAD-METHOD v6.6.0 updates (commit `0f852a3`)
+- **64 files** — 59 .md skills, module-help.csv, BWML spec, orchestrator, README, upstream-sync
+
+### Changed
+- **module.yaml** — Added dev-studio pack with 5 categories and cohabitation warning for Core pack
+- **install.js** — IDE configs now include 6 Torah-named agents when Dev Studio is selected
+- **Version reference** — Updated from BMAD-METHOD v6.2.0 to v6.6.0
+
 ## [0.5.0] — 2026-05-17
 
 ### 🛡️ Pack Shield — GRC Compliance (38 agents)

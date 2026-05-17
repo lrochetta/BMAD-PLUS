@@ -511,11 +511,20 @@ function generateIDEConfig(userName, language, packs) {
     agents.push('- **Shield** (GRC) — 38 compliance agents (GDPR, ISO 27001, SOC 2, HIPAA, EU AI Act, DORA, NIS2...)');
   }
 
+  if (packs.includes('dev-studio')) {
+    agents.push('- **Miriam** (מרים) — Business Analyst — Strategic analysis, research, product briefs');
+    agents.push('- **Huldah** (חולדה) — Technical Writer — Documentation, diagrams, editorial review');
+    agents.push('- **Yosef** (יוסף) — Product Manager — PRD, requirements, feature prioritization');
+    agents.push('- **Rachel** (רחל) — UX Designer — User experience, wireframes, empathy mapping');
+    agents.push('- **Bezalel** (בצלאל) — System Architect — Architecture, ADRs, epics & stories');
+    agents.push('- **Oholiab** (אהליאב) — Senior Engineer — TDD, sprint, code review, implementation');
+  }
+
   return `# BMAD+ — AI Agent Configuration
 
 ## Project Context
 This project uses BMAD+, an augmented AI-driven development framework.
-Based on BMAD-METHOD v6.2.0 with multi-role agents, autopilot mode, and parallel execution.
+Based on BMAD-METHOD v6.6.0 with multi-role agents, autopilot mode, and parallel execution.
 
 ## Agents
 To activate an agent, say its name or persona:

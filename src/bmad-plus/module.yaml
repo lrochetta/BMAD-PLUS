@@ -100,6 +100,37 @@ packs:
         icon: "📋"
         agents: [dpia-sentinel, breach-sentinel, legitimate-interest, privacy-advisor, privacy-notice-gen, privacy-policy-gen, cookie-policy-gen, ai-act-classifier, ai-act-roles, ai-act-fria, ai-act-incidents]
 
+  dev-studio:
+    name: "Dev Studio — Full SDLC"
+    icon: "🏗️"
+    description: "6 specialized agents (Torah-named) + 30 workflows covering Analysis → Planning → Architecture → Implementation → Review. Adapted from BMAD-METHOD v6.6.0."
+    required: false
+    packDir: pack-dev-studio
+    packSrcDir: packs
+    orchestrator: dev-studio-orchestrator
+    cohabitation_warning: "Dev Studio agents overlap with Core agents (Atlas/Forge/Sentinel/Nexus). Both can be installed — Dev Studio offers more specialized, phase-specific workflows."
+    categories:
+      - id: analysis
+        name: "Analysis"
+        icon: "📊"
+        agents: [analyst-agent, tech-writer-agent, product-brief, prfaq, document-project, market-research, domain-research, technical-research]
+      - id: planning
+        name: "Planning"
+        icon: "📋"
+        agents: [pm-agent, ux-designer-agent, create-prd, prd, edit-prd, validate-prd, create-ux-design]
+      - id: architecture
+        name: "Architecture"
+        icon: "🏗️"
+        agents: [architect-agent, create-architecture, create-epics-stories, implementation-readiness, generate-project-context]
+      - id: implementation
+        name: "Implementation"
+        icon: "💻"
+        agents: [dev-agent, sprint-planning, create-story, dev-story, code-review, quick-dev, sprint-status, retrospective, correct-course, investigate, checkpoint-preview, qa-e2e-tests]
+      - id: utilities
+        name: "Utilities"
+        icon: "🔧"
+        agents: [distillator, party-mode, brainstorming, adversarial-review, edge-case-hunter, editorial-review-prose, editorial-review-structure, advanced-elicitation, shard-doc, index-docs, bmad-help, customize]
+
   seo:
     name: "SEO Audit 360"
     icon: "🔍"
@@ -142,6 +173,8 @@ install_packs:
       label: "🧬 Agent Creator — Créer de nouveaux agents BMAD+ compatibles"
     - value: "shield"
       label: "🛡️ Shield GRC — 38 agents de conformité (GDPR, ISO 27001, SOC 2, EU AI Act...)"
+    - value: "dev-studio"
+      label: "🏗️ Dev Studio — 6 agents + 30 workflows SDLC complet (Miriam, Yosef, Bezalel, Oholiab...)"
     - value: "seo"
       label: "🔍 SEO Audit 360 — 3 agents (Scout, Chief, Judge)"
     - value: "backup"

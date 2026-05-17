@@ -1,0 +1,81 @@
+# Pack Dev Studio — upstream-sync.yaml
+# Tracks the source commit and version from BMAD-METHOD for future updates
+
+upstream:
+  repository: https://github.com/bmad-code-org/BMAD-METHOD
+  version: "6.6.0"
+  commit: "0f852a38ac7c0ac30340b3aedc3aba4505b7c14a"
+  synced_at: "2026-05-17"
+  license: MIT
+
+adaptations:
+  format: "BMAD+ BWML (Workflow Markup Language)"
+  personas:
+    Mary: Miriam (מרים)
+    Paige: Huldah (חולדה)
+    John: Yosef (יוסף)
+    Sally: Rachel (רחל)
+    Winston: Bezalel (בצלאל)
+    Amelia: Oholiab (אהליאב)
+  removed_dependencies:
+    - customize.toml (3-layer TOML config system)
+    - resolve_customization.py (Python variable resolver)
+    - resolve_config.py (Python config merger)
+    - analyze_sources.py (Python source analyzer)
+    - config.yaml (per-project config)
+  added:
+    - BWML specification (shared/bwml-spec.md)
+    - Dev Studio orchestrator
+    - Torah-inspired persona naming
+    - BMAD+ pack integration (module.yaml, CLI, i18n)
+
+source_mapping:
+  categories/analysis:
+    - src/bmm-skills/1-analysis/bmad-agent-analyst → analyst-agent.md
+    - src/bmm-skills/1-analysis/bmad-agent-tech-writer → tech-writer-agent.md
+    - src/bmm-skills/1-analysis/bmad-product-brief → product-brief.md
+    - src/bmm-skills/1-analysis/bmad-prfaq → prfaq.md
+    - src/bmm-skills/1-analysis/bmad-document-project → document-project.md
+    - src/bmm-skills/1-analysis/research/bmad-market-research → market-research.md
+    - src/bmm-skills/1-analysis/research/bmad-domain-research → domain-research.md
+    - src/bmm-skills/1-analysis/research/bmad-technical-research → technical-research.md
+  categories/planning:
+    - src/bmm-skills/2-plan-workflows/bmad-agent-pm → pm-agent.md
+    - src/bmm-skills/2-plan-workflows/bmad-agent-ux-designer → ux-designer-agent.md
+    - src/bmm-skills/2-plan-workflows/bmad-create-prd → create-prd.md
+    - src/bmm-skills/2-plan-workflows/bmad-create-ux-design → create-ux-design.md
+    - src/bmm-skills/2-plan-workflows/bmad-edit-prd → edit-prd.md
+    - src/bmm-skills/2-plan-workflows/bmad-prd → prd.md
+    - src/bmm-skills/2-plan-workflows/bmad-validate-prd → validate-prd.md
+  categories/architecture:
+    - src/bmm-skills/3-solutioning/bmad-agent-architect → architect-agent.md
+    - src/bmm-skills/3-solutioning/bmad-create-architecture → create-architecture.md + steps/
+    - src/bmm-skills/3-solutioning/bmad-create-epics-and-stories → create-epics-stories.md
+    - src/bmm-skills/3-solutioning/bmad-check-implementation-readiness → implementation-readiness.md
+    - src/bmm-skills/3-solutioning/bmad-generate-project-context → generate-project-context.md
+  categories/implementation:
+    - src/bmm-skills/4-implementation/bmad-agent-dev → dev-agent.md
+    - src/bmm-skills/4-implementation/bmad-dev-story → dev-story.md + checklist
+    - src/bmm-skills/4-implementation/bmad-create-story → create-story.md
+    - src/bmm-skills/4-implementation/bmad-sprint-planning → sprint-planning.md
+    - src/bmm-skills/4-implementation/bmad-sprint-status → sprint-status.md
+    - src/bmm-skills/4-implementation/bmad-code-review → code-review.md + steps/
+    - src/bmm-skills/4-implementation/bmad-quick-dev → quick-dev.md
+    - src/bmm-skills/4-implementation/bmad-correct-course → correct-course.md
+    - src/bmm-skills/4-implementation/bmad-checkpoint-preview → checkpoint-preview.md
+    - src/bmm-skills/4-implementation/bmad-investigate → investigate.md
+    - src/bmm-skills/4-implementation/bmad-qa-generate-e2e-tests → qa-e2e-tests.md
+    - src/bmm-skills/4-implementation/bmad-retrospective → retrospective.md
+  categories/utilities:
+    - src/core-skills/bmad-distillator → distillator.md
+    - src/core-skills/bmad-party-mode → party-mode.md
+    - src/core-skills/bmad-brainstorming → brainstorming.md
+    - src/core-skills/bmad-editorial-review-prose → editorial-review-prose.md
+    - src/core-skills/bmad-editorial-review-structure → editorial-review-structure.md
+    - src/core-skills/bmad-review-adversarial-general → adversarial-review.md
+    - src/core-skills/bmad-review-edge-case-hunter → edge-case-hunter.md
+    - src/core-skills/bmad-advanced-elicitation → advanced-elicitation.md
+    - src/core-skills/bmad-shard-doc → shard-doc.md
+    - src/core-skills/bmad-index-docs → index-docs.md
+    - src/core-skills/bmad-help → bmad-help.md
+    - src/core-skills/bmad-customize → customize.md

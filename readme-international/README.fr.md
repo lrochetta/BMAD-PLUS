@@ -1,6 +1,6 @@
 ﻿# 🚀 BMAD+ — Augmented AI-Driven Development Framework
 
-[![Version](https://img.shields.io/badge/version-0.5.0-blue.svg)](../CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.6.0-blue.svg)](../CHANGELOG.md)
 [![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD%20v6.2.0-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](../LICENSE)
 
