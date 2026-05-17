@@ -1,4 +1,4 @@
-# 🚀 BMAD+ — Augmented AI-Driven Development Framework
+# 🚀 BMAD+ — Augmented Multi-Agent AI Framework
 
 [![Version](https://img.shields.io/badge/version-0.7.5-blue.svg)](CHANGELOG.md)
 [![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD%20v6.2.0-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
@@ -8,7 +8,8 @@
   🌐 <b>English</b> | <a href="readme-international/README.fr.md">Français</a> | <a href="readme-international/README.es.md">Español</a> | <a href="readme-international/README.de.md">Deutsch</a>
 </div>
 
-> Smart fork of [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 — Multi-role self-activating agents, Autopilot mode, supervised parallel execution, and a modular pack system.
+> **6 multi-role agents · 9 modular packs · Autopilot mode · Parallel execution · 143 tests**
+> Smart fork of [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) — Self-activating agents with 3-level context detection, GRC compliance (Shield), full SDLC pipeline (Dev Studio), OSINT intelligence, SEO audit, persistent cross-session memory, and a 10-language CLI installer.
 
 ---
 
@@ -60,18 +61,49 @@ The installer:
 
 #### 💬 Who to talk to?
 
+**📊 Strategy & Discovery**
+
 | You want to... | Talk to | Example |
 |---|---|---|
-| Discuss a project idea | **Atlas** 🎯 | `Atlas, I have a project idea: a billing SaaS` |
+| Brainstorm a project idea | **Atlas** 🎯 | `Atlas, I have a project idea: a billing SaaS` |
+| Market/domain research | **Atlas** 🎯 | `Atlas, analyze the market for AI note-taking apps` |
 | Create a PRD / Product Brief | **Atlas** 🎯 | `Atlas, create the PRD for my project` |
-| Design the technical architecture | **Forge** 🏗️ | `Forge, propose an architecture for the app` |
-| Implement code | **Forge** 🏗️ | `Forge, implement story AUTH-001` |
-| Write documentation | **Forge** 🏗️ | `Forge, document the API` |
-| Test / do a code review | **Sentinel** 🔍 | `Sentinel, review the auth module` |
+| Design UX wireframes | **Atlas** 🎯 | `Atlas, design the UX for the onboarding flow` |
+
+**🏗️ Architecture & Development**
+
+| You want to... | Talk to | Example |
+|---|---|---|
+| Design technical architecture | **Forge** 🏗️ | `Forge, propose an architecture for the app` |
+| Implement a user story | **Forge** 🏗️ | `Forge, implement story AUTH-001` |
+| Write/update documentation | **Forge** 🏗️ | `Forge, document the API` |
+| Quick hotfix or small change | **Forge** 🏗️ | `Forge, quick dev: add a loading spinner` |
+
+**🔍 Quality & Review**
+
+| You want to... | Talk to | Example |
+|---|---|---|
+| Code review | **Sentinel** 🔍 | `Sentinel, review the auth module` |
+| Write tests (unit/E2E) | **Sentinel** 🔍 | `Sentinel, write E2E tests for checkout` |
+| UX/accessibility audit | **Sentinel** 🔍 | `Sentinel, review the UX of the dashboard` |
+
+**🎼 Project Management**
+
+| You want to... | Talk to | Example |
+|---|---|---|
 | Plan a sprint | **Nexus** 🎼 | `Nexus, create epics and stories for the MVP` |
-| Automate everything from A to Z | **Nexus** 🎼 | `autopilot` then describe your project |
-| Investigate a person (OSINT) | **Shadow** 🔍 | `Shadow, investigate John Doe` |
+| Automate everything (A to Z) | **Nexus** 🎼 | `autopilot` then describe your project |
+| Run tasks in parallel | **Nexus** 🎼 | `parallel` — auto-detects independent tasks |
+| Sprint retrospective | **Nexus** 🎼 | `Nexus, run a retrospective on Sprint 3` |
+
+**🕵️ Intelligence & Specialized Packs**
+
+| You want to... | Talk to | Example |
+|---|---|---|
+| Investigate a person (OSINT) | **Shadow** 🕵️ | `Shadow, investigate John Doe` |
 | Create a new BMAD+ agent | **Maker** 🧬 | `Maker, create a customer support agent` |
+| Recall past decisions/context | **Zecher** 🧠 | `Zecher, what did we decide about the auth strategy?` |
+| Session handoff summary | **Zecher** 🧠 | `Zecher, create a handoff for the next session` |
 
 #### 🚀 Typical Workflow (manual mode)
 

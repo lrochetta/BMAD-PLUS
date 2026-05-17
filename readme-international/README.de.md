@@ -1,4 +1,4 @@
-# 🚀 BMAD+ — Erweitertes KI-gestütztes Entwicklungs-Framework
+# 🚀 BMAD+ — Erweitertes Multi-Agent KI-Framework
 
 [![Version](https://img.shields.io/badge/version-0.7.5-blue.svg)](../CHANGELOG.md)
 [![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD%20v6.2.0-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
@@ -8,7 +8,8 @@
   <a href="../README.md">English</a> | <a href="README.fr.md">Français</a> | <a href="README.es.md">Español</a> | 🌐 <b>Deutsch</b>
 </div>
 
-> Intelligenter Fork von [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 — Multirole-Agenten mit automatischer Aktivierung, Autopilot-Modus, überwachte parallele Ausführung und modulares Pack-System.
+> **6 Multirole-Agenten · 9 modulare Packs · Autopilot-Modus · Parallele Ausführung · 143 Tests**
+> Intelligenter Fork von [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) — Selbstaktivierende Agenten mit 3-Stufen-Kontexterkennung, GRC-Compliance (Shield), vollständige SDLC-Pipeline (Dev Studio), OSINT-Intelligence, SEO-Audit, persistentes Cross-Session-Gedächtnis und 10-Sprachen CLI-Installer.
 
 ---
 
@@ -62,18 +63,49 @@ Das Installationsprogramm:
 
 #### 💬 Mit wem soll ich sprechen?
 
+**📊 Strategie & Entdeckung**
+
 | Du möchtest... | Sprich mit | Beispiel |
 |---|---|---|
-| Eine Projektidee diskutieren | **Atlas** 🎯 | `Atlas, ich habe eine Projektidee: ein Abrechnungs-SaaS` |
+| Eine Projektidee brainstormen | **Atlas** 🎯 | `Atlas, ich habe eine Projektidee: ein Abrechnungs-SaaS` |
+| Markt-/Domänenforschung | **Atlas** 🎯 | `Atlas, analysiere den Markt für KI-Notiz-Apps` |
 | Ein PRD / Product Brief erstellen | **Atlas** 🎯 | `Atlas, erstelle das PRD für mein Projekt` |
-| Die technische Architektur entwerfen | **Forge** 🏗️ | `Forge, schlage eine Architektur für die App vor` |
-| Code implementieren | **Forge** 🏗️ | `Forge, setze die Story AUTH-001 um` |
-| Dokumentation schreiben | **Forge** 🏗️ | `Forge, dokumentiere die API` |
-| Testen / Code Review durchführen | **Sentinel** 🔍 | `Sentinel, überprüfe das Auth-Modul` |
+| UX-Wireframes entwerfen | **Atlas** 🎯 | `Atlas, entwirf die UX für den Onboarding-Flow` |
+
+**🏗️ Architektur & Entwicklung**
+
+| Du möchtest... | Sprich mit | Beispiel |
+|---|---|---|
+| Technische Architektur entwerfen | **Forge** 🏗️ | `Forge, schlage eine Architektur für die App vor` |
+| Eine User Story umsetzen | **Forge** 🏗️ | `Forge, setze die Story AUTH-001 um` |
+| Dokumentation schreiben/aktualisieren | **Forge** 🏗️ | `Forge, dokumentiere die API` |
+| Schneller Hotfix oder kleine Änderung | **Forge** 🏗️ | `Forge, quick dev: füge einen Lade-Spinner hinzu` |
+
+**🔍 Qualität & Review**
+
+| Du möchtest... | Sprich mit | Beispiel |
+|---|---|---|
+| Code Review | **Sentinel** 🔍 | `Sentinel, überprüfe das Auth-Modul` |
+| Tests schreiben (Unit/E2E) | **Sentinel** 🔍 | `Sentinel, schreibe E2E-Tests für den Checkout` |
+| UX-/Barrierefreiheits-Audit | **Sentinel** 🔍 | `Sentinel, überprüfe die UX des Dashboards` |
+
+**🎼 Projektmanagement**
+
+| Du möchtest... | Sprich mit | Beispiel |
+|---|---|---|
 | Einen Sprint planen | **Nexus** 🎼 | `Nexus, erstelle Epics und Storys für das MVP` |
-| Alles von A bis Z automatisieren | **Nexus** 🎼 | `autopilot` und beschreibe dann dein Projekt |
-| Eine Person recherchieren (OSINT) | **Shadow** 🔍 | `Shadow, untersuche John Doe` |
+| Alles automatisieren (A bis Z) | **Nexus** 🎼 | `autopilot` und beschreibe dann dein Projekt |
+| Aufgaben parallel ausführen | **Nexus** 🎼 | `parallel` — erkennt automatisch unabhängige Aufgaben |
+| Sprint-Retrospektive | **Nexus** 🎼 | `Nexus, starte eine Retro für Sprint 3` |
+
+**🕵️ Intelligence & Spezialisierte Packs**
+
+| Du möchtest... | Sprich mit | Beispiel |
+|---|---|---|
+| Eine Person recherchieren (OSINT) | **Shadow** 🕵️ | `Shadow, untersuche John Doe` |
 | Einen neuen BMAD+ Agenten erstellen | **Maker** 🧬 | `Maker, erstelle einen Kundensupport-Agenten` |
+| Vergangene Entscheidungen abrufen | **Zecher** 🧠 | `Zecher, was haben wir zur Auth-Strategie entschieden?` |
+| Sitzungs-Zusammenfassung (Handoff) | **Zecher** 🧠 | `Zecher, erstelle einen Handoff für die nächste Sitzung` |
 
 #### 🚀 Typischer Workflow (manueller Modus)
 
