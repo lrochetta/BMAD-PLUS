@@ -177,7 +177,7 @@ module.exports = {
       if (requested.includes('all')) {
         selectedPacks = Object.keys(PACKS).filter(k => !PACKS[k].disabled);
       } else {
-        selectedPacks = ['core', ...requested.filter(p => PACKS[p] && !PACKS[p].disabled)];
+        selectedPacks = [...new Set(['core', ...requested.filter(p => PACKS[p] && !PACKS[p].disabled)])];
       }
     } else if (!options.yes) {
       const packChoice = await clack.multiselect({

@@ -88,6 +88,17 @@ for (const option of memory.options || []) {
 }
 memoryCmd.action(memory.action);
 
+// Autoconfig command
+const autoconfig = require('./commands/autoconfig');
+const autoconfigCmd = program
+  .command('autoconfig')
+  .description('Smart project bootstrap — auto-detect, install, and configure');
+
+for (const option of autoconfig.options || []) {
+  autoconfigCmd.option(...option);
+}
+autoconfigCmd.action(autoconfig.action);
+
 program.parse(process.argv);
 
 if (process.argv.slice(2).length === 0) {

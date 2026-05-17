@@ -1,6 +1,6 @@
 # ?? BMAD+ � Framework de Desarrollo Impulsado por IA Aumentada
 
-[![Version](https://img.shields.io/badge/version-0.7.3-blue.svg)](../CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.7.4-blue.svg)](../CHANGELOG.md)
 [![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD%20v6.2.0-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](../LICENSE)
 
@@ -129,6 +129,7 @@ Nexus orquesta todo autom�ticamente con puntos de control (checkpoints) para t
 | `npx bmad-plus doctor` | Verificar integridad de la instalación |
 | `npx bmad-plus update` | Actualizar agentes y skills (conserva config) |
 | `npx bmad-plus uninstall` | Eliminar BMAD+ del proyecto actual |
+| `npx bmad-plus autoconfig` | Bootstrap inteligente — auto-detección, instalación y configuración |
 
 #### 🔬 Opciones de instalación avanzadas
 

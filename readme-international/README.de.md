@@ -1,6 +1,6 @@
 # ?? BMAD+ � Erweitertes KI-gest�tztes Entwicklungs-Framework
 
-[![Version](https://img.shields.io/badge/version-0.7.3-blue.svg)](../CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.7.4-blue.svg)](../CHANGELOG.md)
 [![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD%20v6.2.0-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](../LICENSE)
 
@@ -129,6 +129,7 @@ Nexus orchestriert alles automatisch mit Checkpoints f�r deine Genehmigung.
 | `npx bmad-plus doctor` | Installationsintegrität prüfen |
 | `npx bmad-plus update` | Agenten und Skills aktualisieren (Config bleibt) |
 | `npx bmad-plus uninstall` | BMAD+ vom aktuellen Projekt entfernen |
+| `npx bmad-plus autoconfig` | Smart-Bootstrap — Auto-Erkennung, Installation und Konfiguration |
 
 #### 🔬 Erweiterte Installationsoptionen
 

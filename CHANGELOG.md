@@ -5,6 +5,21 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.4] — 2026-05-17
+
+### 🧠 Smart Autoconfig
+
+### Added
+- **`npx bmad-plus autoconfig`** — Smart project bootstrap:
+  - **Existing projects**: analyzes stack, structure, health; auto-selects packs; populates memory
+  - **New projects**: interactive wizard (type + description); initializes everything
+  - Auto-preserves existing IDE configs (`--tools none` when configs detected)
+  - Writes `context.md` with full project analysis for agent continuity
+  - Shows contextual recommendations ("Talk to Forge to...", "Talk to Sentinel to...")
+
+### Fixed
+- `--tools none` installer crash (undefined IDE name)
+
 ## [0.7.3] — 2026-05-17
 
 ### 🎨 Scan UX Improvements
