@@ -17,7 +17,7 @@
 - [Pourquoi BMAD+ ?](#-pourquoi-bmad-)
 - [Quick Start](#-quick-start)
 - [Architecture](#-architecture)
-- [Les 5 Agents](#-les-5-agents)
+- [Les 6 Agents](#-les-6-agents)
 - [Système de Packs](#-système-de-packs)
 - [Innovations](#-innovations)
 - [IDE Supportés](#-ide-supportés)
@@ -213,7 +213,7 @@ graph TB
 
 ---
 
-## 🎭 Les 5 Agents
+## 🎭 Les 6 Agents
 
 ### Atlas — Strategist 🎯
 
@@ -310,6 +310,20 @@ graph TB
 
 ---
 
+### Zecher — Gardien de la Mémoire 🧠 *(Pack Memory)*
+
+**Agent de mémoire persistante cross-sessions.** Maintient les connaissances projet entre les conversations.
+
+| Capacité | Description |
+|-----------|-------------|
+| **Session Handoff** | Crée automatiquement des résumés de session avec décisions, patterns et leçons |
+| **Context Recall** | Récupère les décisions/patterns pertinents au début de chaque conversation |
+| **Brain Health** | Surveille l'intégrité des fichiers mémoire et détecte l'obsolescence |
+| **Cross-Project** | Lie la mémoire projet au cerveau global (`~/.bmad-plus/brain/`) |
+| **Karpathy Guardrails** | Empêche les mémoires hallucinées — chaque entrée nécessite une preuve source |
+
+**Fichiers mémoire :** `decisions.md`, `lessons.md`, `patterns.md`, `context.md`, `sessions/`
+
 ## 📦 Système de Packs
 
 BMAD+ utilise un système modulaire par packs. Le Core est toujours installé, les packs additionnels sont optionnels.
@@ -327,17 +341,23 @@ npx bmad-plus install
    Aucun — Core uniquement
 ```
 
-| Pack | Agents | Skills | Status |
-|------|--------|--------|--------|
-| ⚙️ **Core** | Atlas, Forge, Sentinel, Nexus | autopilot, parallel, sync | ✅ Stable |
-| 🔍 **OSINT** | Shadow | bmad-osint-investigate | ✅ Stable |
-| 🧬 **Maker** | Maker | — | ✅ Stable |
-| 🛡️ **Audit** | Shield | bmad-audit-scan, bmad-audit-report | 🔜 Coming soon |
+| Pack | Agents | Description | Statut |
+|------|--------|-------------|--------|
+| ⚙️ **Core** | Atlas, Forge, Sentinel, Nexus | Cycle de vie dev complet : stratégie → architecture → code → QA | ✅ Stable |
+| 🔍 **OSINT** | Shadow | Investigation, scraping social, psychoprofil (55+ acteurs Apify) | ✅ Stable |
+| 🧬 **Maker** | Maker | Concevoir, construire, valider et packager de nouveaux agents BMAD+ | ✅ Stable |
+| 🛡️ **Shield** | 38 agents de conformité | GRC sur 25+ frameworks : GDPR, ISO 27001, SOC 2, HIPAA, PCI DSS, EU AI Act, DORA, NIS2 | ✅ Stable |
+| 🏗️ **Dev Studio** | 6 agents Torah-named | SDLC complet : brainstorm → PRD → architecture → TDD → review (30 workflows) | ✅ Stable |
+| 🔍 **SEO** | Scout, Chief, Judge | Audit SEO 6 phases, boucle PageSpeed, APIs Google, benchmark concurrentiel | ✅ Stable |
+| 🗂️ **Backup** | Backup Agent | ZIP horodaté avec exclusions intelligentes | ✅ Stable |
+| 🎬 **Animated** | Animated Website Agent | Site web luxe scroll-driven à partir de vidéo | ✅ Stable |
+| 🧠 **Memory** | Zecher | Cerveau cross-session, scanner de projets, guardrails Karpathy | ✅ Stable |
 
 Chaque pack définit :
-- Ses agents et skills
+- Ses agents, skills et workflows
 - Ses clés API requises/optionnelles
 - Son package externe (si applicable)
+- Ses règles de cohabitation avec les autres packs
 
 ---
 

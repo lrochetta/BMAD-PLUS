@@ -17,7 +17,7 @@
 - [Warum BMAD+?](#-warum-bmad-)
 - [Schnellstart](#-schnellstart)
 - [Architektur](#-architektur)
-- [Die 5 Agenten](#-die-5-agenten)
+- [Die 6 Agenten](#-die-6-agenten)
 - [Pack-System](#-pack-system)
 - [Innovationen](#-innovationen)
 - [Unterstützte IDEs](#-unterstützte-ides)
@@ -213,7 +213,7 @@ graph TB
 
 ---
 
-## 🎭 Die 5 Agenten
+## 🎭 Die 6 Agenten
 
 ### Atlas — Strategist 🎯
 
@@ -304,6 +304,22 @@ graph TB
 
 ---
 
+### Zecher — Gedächtniswächter 🧠 *(Memory Pack)*
+
+**Persistenter Cross-Session-Gedächtnis-Agent.** Bewahrt Projektwissen über Gespräche hinweg.
+
+| Fähigkeit | Beschreibung |
+|-----------|-------------|
+| **Session Handoff** | Erstellt automatisch Sitzungszusammenfassungen mit Entscheidungen, Mustern und Lektionen |
+| **Context Recall** | Ruft relevante vergangene Entscheidungen/Muster am Gesprächsbeginn ab |
+| **Brain Health** | Überwacht die Integrität der Gedächtnisdateien und erkennt Veraltung |
+| **Cross-Project** | Verbindet das Projektgedächtnis mit dem globalen Gehirn (`~/.bmad-plus/brain/`) |
+| **Karpathy Guardrails** | Verhindert halluzinierte Erinnerungen — jeder Eintrag benötigt Quellennachweise |
+
+**Gedächtnisdateien:** `decisions.md`, `lessons.md`, `patterns.md`, `context.md`, `sessions/`
+
+---
+
 ## 📦 Pack-System
 
 BMAD+ verwendet ein modulares Pack-System. Core ist immer installiert, zusätzliche Packs sind optional.
@@ -316,22 +332,33 @@ npx bmad-plus install
 
    🔍 OSINT — Shadow (Untersuchung, Scraping, Psychoprofil)
    🧬 Agent Creator — Maker (Design, Build, Package)
-   🛡️ Sicherheitsaudit — Shield (Schwachstellen-Scan) [demnächst]
+   🛡️ Shield GRC — 38 Compliance-Agenten
+   🏗️ Dev Studio — 6 Agenten + 30 SDLC-Workflows
+   🔍 SEO Audit 360 — 3 Agenten (Scout, Chief, Judge)
+   🗂️ Universal Backup — Intelligentes ZIP-Backup
+   🎬 Animated Website — Luxus scroll-driven Seite aus Video
+   🧠 Memory — Persistentes Gehirn + Projektscanner
    🤖 Alles installieren
    Keine — Nur Core
 ```
 
-| Pack | Agenten | Skills | Status |
-|------|--------|--------|--------|
-| ⚙️ **Core** | Atlas, Forge, Sentinel, Nexus | autopilot, parallel, sync | ✅ Stabil |
-| 🔍 **OSINT** | Shadow | bmad-osint-investigate | ✅ Stabil |
-| 🧬 **Maker** | Maker | — | ✅ Stabil |
-| 🛡️ **Audit** | Shield | bmad-audit-scan, bmad-audit-report | 🔜 Demnächst |
+| Pack | Agenten | Beschreibung | Status |
+|------|--------|-------------|--------|
+| ⚙️ **Core** | Atlas, Forge, Sentinel, Nexus | Vollständiger Dev-Lebenszyklus: Strategie → Architektur → Code → QA | ✅ Stabil |
+| 🔍 **OSINT** | Shadow | Personenermittlung, Social Scraping, Psychoprofil (55+ Apify Actors) | ✅ Stabil |
+| 🧬 **Maker** | Maker | Neue BMAD+-Agenten entwerfen, bauen, validieren und verpacken | ✅ Stabil |
+| 🛡️ **Shield** | 38 Compliance-Agenten | GRC über 25+ Frameworks: DSGVO, ISO 27001, SOC 2, HIPAA, PCI DSS, EU AI Act, DORA, NIS2 | ✅ Stabil |
+| 🏗️ **Dev Studio** | 6 Torah-benannte Agenten | Vollständiger SDLC: Brainstorm → PRD → Architektur → TDD → Review (30 Workflows) | ✅ Stabil |
+| 🔍 **SEO** | Scout, Chief, Judge | 6-Phasen SEO-Audit, PageSpeed-Schleife, Google APIs, Wettbewerbs-Benchmark | ✅ Stabil |
+| 🗂️ **Backup** | Backup Agent | Zeitgestempeltes ZIP mit intelligenten Ausschlüssen | ✅ Stabil |
+| 🎬 **Animated** | Animated Website Agent | Luxus scroll-driven Website aus Videoeingabe | ✅ Stabil |
+| 🧠 **Memory** | Zecher | Cross-Session-Gehirn, Projektscanner, Karpathy-Leitplanken | ✅ Stabil |
 
 Jedes Pack definiert:
-- Seine Agenten und Fähigkeiten
+- Seine Agenten, Fähigkeiten und Workflows
 - Erforderliche/optionale API-Schlüssel
-- Das externe Paket (falls zutreffend)
+- Externes Paket (falls zutreffend)
+- Kohabitations-Regeln mit anderen Packs
 
 ---
 

@@ -17,7 +17,7 @@
 - [Why BMAD+?](#-why-bmad-)
 - [Quick Start](#-quick-start)
 - [Architecture](#-architecture)
-- [The 5 Agents](#-the-5-agents)
+- [The 6 Agents](#-the-6-agents)
 - [Pack System](#-pack-system)
 - [Innovations](#-innovations)
 - [Supported IDEs](#-supported-ides)
@@ -35,12 +35,13 @@ BMAD-METHOD is an excellent framework with 9 specialized agents. But for a solo 
 
 | BMAD-METHOD | BMAD+ |
 |---|---|
-| 9 specialized agents | **5 multi-role agents** (11 roles total) |
+| 9 specialized agents | **6 multi-role agents** (12 roles total) |
 | Manual activation only | **Intelligent auto-activation** at 3 levels |
 | No automated pipeline | **Autopilot Mode**: idea → delivery |
 | Sequential execution | **Supervised parallelism** |
-| No upstream tracking | **Weekly monitoring** with WhatsApp |
+| No persistent memory | **Cross-session brain** with project scanner |
 | 1-2 IDEs supported | **5 IDEs** with auto-detection |
+| 1 module | **8 modular packs** (Core, OSINT, Shield, Dev Studio, SEO, Memory...) |
 
 ---
 
@@ -213,7 +214,7 @@ graph TB
 
 ---
 
-## 🎭 The 5 Agents
+## 🎭 The 6 Agents
 
 ### Atlas — Strategist 🎯
 
@@ -310,6 +311,22 @@ graph TB
 
 ---
 
+### Zecher — Memory Guardian 🧠 *(Memory Pack)*
+
+**Persistent cross-session brain agent.** Maintains project knowledge across conversations.
+
+| Capability | Description |
+|-----------|-------------|
+| **Session Handoff** | Auto-creates session summaries with decisions, patterns, and lessons learned |
+| **Context Recall** | Retrieves relevant past decisions/patterns at conversation start |
+| **Brain Health** | Monitors memory files integrity and detects staleness |
+| **Cross-Project** | Links project memory to the global brain (`~/.bmad-plus/brain/`) |
+| **Karpathy Guardrails** | Prevents hallucinated memories — every entry needs source evidence |
+
+**Memory files:** `decisions.md`, `lessons.md`, `patterns.md`, `context.md`, `sessions/`
+
+---
+
 ## 📦 Pack System
 
 BMAD+ uses a modular pack system. Core is always installed, additional packs are optional.
@@ -327,17 +344,23 @@ npx bmad-plus install
    None — Core only
 ```
 
-| Pack | Agents | Skills | Status |
-|------|--------|--------|--------|
-| ⚙️ **Core** | Atlas, Forge, Sentinel, Nexus | autopilot, parallel, sync | ✅ Stable |
-| 🔍 **OSINT** | Shadow | bmad-osint-investigate | ✅ Stable |
-| 🧬 **Maker** | Maker | — | ✅ Stable |
-| 🛡️ **Audit** | Shield | bmad-audit-scan, bmad-audit-report | 🔜 Coming soon |
+| Pack | Agents | What it does | Status |
+|------|--------|-------------|--------|
+| ⚙️ **Core** | Atlas, Forge, Sentinel, Nexus | Full dev lifecycle: strategy → architecture → code → QA | ✅ Stable |
+| 🔍 **OSINT** | Shadow | Person investigation, social scraping, psychoprofiling (55+ Apify actors) | ✅ Stable |
+| 🧬 **Maker** | Maker | Design, build, validate, and package new BMAD+ agents | ✅ Stable |
+| 🛡️ **Shield** | 38 compliance agents | GRC across 25+ frameworks: GDPR, ISO 27001, SOC 2, HIPAA, PCI DSS, EU AI Act, DORA, NIS2 | ✅ Stable |
+| 🏗️ **Dev Studio** | 6 Torah-named agents | Full SDLC: brainstorm → PRD → architecture → TDD → review (30 workflows, BWML DSL) | ✅ Stable |
+| 🔍 **SEO** | Scout, Chief, Judge | 6-phase SEO audit, PageSpeed perfection loop, Google APIs, competitor benchmark | ✅ Stable |
+| 🗂️ **Backup** | Backup Agent | Timestamped ZIP with smart exclusions (node_modules, .git, dist...) | ✅ Stable |
+| 🎬 **Animated** | Animated Website Agent | Luxury scroll-driven website from video input | ✅ Stable |
+| 🧠 **Memory** | Zecher | Cross-session brain, project scanner, Karpathy guardrails | ✅ Stable |
 
 Each pack defines:
-- Its agents and skills
-- Its required/optional API keys
-- Its external package (if applicable)
+- Its agents, skills, and workflows
+- Required/optional API keys
+- External packages (if applicable)
+- Cohabitation rules with other packs
 
 ---
 
@@ -545,7 +568,7 @@ BMAD+/
 | **0.4.4** | 2026-05-17 | 🔧 UTF-8 encoding fix, complete i18n 10 languages, 62 unit tests |
 | **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 GRC compliance agents, 7 categories, 25+ frameworks (GDPR, ISO 27001, SOC 2, EU AI Act...) |
 | **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 Torah-named agents (Miriam, Yosef, Bezalel...) + 30 SDLC workflows, BWML DSL |
-| **0.7.5** | 2026-05-17 | 🩺 **Quality & Compliance** — MIT LICENSE, PACKS↔module.yaml sync validation, 97 unit tests, global brain consolidation |
+| **0.7.5** | 2026-05-17 | 🩺 **Quality & Compliance** — MIT LICENSE, 143 tests (46 functional), scan, autoconfig, memory CLI, i18n sync |
 
 See [CHANGELOG.md](CHANGELOG.md) for full details.
 
