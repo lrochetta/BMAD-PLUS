@@ -44,13 +44,14 @@ def init():
 def start_actor(token, actor_id, input_json):
     """Start an Apify actor and return (run_id, dataset_id)."""
     api_actor = actor_id.replace("/", "~")
-    url = f"{BASE}/acts/{api_actor}/runs?token={token}"
+    url = f"{BASE}/acts/{api_actor}/runs"
     try:
         input_data = json.loads(input_json) if isinstance(input_json, str) else input_json
     except json.JSONDecodeError as e:
         print(f"ERROR: Invalid JSON input: {e}", file=sys.stderr)
         sys.exit(1)
-    data = api_post(url, input_data)
+    auth_headers = {"Authorization": f"Bearer {token}"}
+    data = api_post(url, input_data, headers=auth_headers)
     if not data:
         sys.exit(1)
     run_data = data.get("data", data)
@@ -59,12 +60,13 @@ def start_actor(token, actor_id, input_json):
 
 def poll_until_complete(token, run_id, timeout=600, interval=5):
     """Poll actor run until complete. Returns final status."""
-    url = f"{BASE}/actor-runs/{run_id}?token={token}"
+    url = f"{BASE}/actor-runs/{run_id}"
+    auth_headers = {"Authorization": f"Bearer {token}"}
     start_time = time.time()
     last_status = None
 
     while True:
-        data = api_get(url)
+        data = api_get(url, headers=auth_headers)
         if not data:
             print("ERROR: Failed to get run status", file=sys.stderr)
             sys.exit(1)
@@ -83,8 +85,9 @@ def poll_until_complete(token, run_id, timeout=600, interval=5):
 
 def download_results(token, dataset_id, output_path=None, fmt="json"):
     """Download actor results. If no output_path, display top 5."""
-    url = f"{BASE}/datasets/{dataset_id}/items?token={token}&format=json"
-    data = api_get(url)
+    url = f"{BASE}/datasets/{dataset_id}/items?format=json"
+    auth_headers = {"Authorization": f"Bearer {token}"}
+    data = api_get(url, headers=auth_headers)
     if not data:
         return
     items = data if isinstance(data, list) else [data]
@@ -158,14 +161,16 @@ def run_actor(token, actor_id, input_json, output=None, fmt="json", timeout=600)
 
 def get_results(token, run_id):
     """Get results from a completed run."""
-    data = api_get(f"{BASE}/actor-runs/{run_id}/dataset/items?token={token}")
+    auth_headers = {"Authorization": f"Bearer {token}"}
+    data = api_get(f"{BASE}/actor-runs/{run_id}/dataset/items", headers=auth_headers)
     if data:
         print(json.dumps(data, indent=2, ensure_ascii=False)[:5000])
 
 
 def get_status(token, run_id):
     """Check run status."""
-    data = api_get(f"{BASE}/actor-runs/{run_id}?token={token}")
+    auth_headers = {"Authorization": f"Bearer {token}"}
+    data = api_get(f"{BASE}/actor-runs/{run_id}", headers=auth_headers)
     if data:
         print(json.dumps(data, indent=2, ensure_ascii=False)[:2000])
 
@@ -173,7 +178,8 @@ def get_status(token, run_id):
 def store_search(token, query):
     """Search the Apify actor store."""
     from urllib.parse import quote
-    data = api_get(f"{BASE}/store?token={token}&limit=10&search={quote(query)}")
+    auth_headers = {"Authorization": f"Bearer {token}"}
+    data = api_get(f"{BASE}/store?limit=10&search={quote(query)}", headers=auth_headers)
     if data:
         items = data.get("data", {}).get("items", data if isinstance(data, list) else [])
         for item in items[:10]:

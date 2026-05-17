@@ -46,7 +46,7 @@ const PACKS = {
   shield: {
     name: 'Pack Shield (GRC)',
     icon: '🛡️',
-    description: '27 compliance agents — GDPR, ISO 27001, SOC 2, PCI DSS, EU AI Act...',
+    description: '38 compliance agents — GDPR, ISO 27001, SOC 2, PCI DSS, EU AI Act...',
     required: false,
     agents: [],
     skills: [],

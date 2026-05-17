@@ -22,8 +22,8 @@ from mcp.server.fastmcp import FastMCP
 from mcp.server.fastmcp.server import TransportSecuritySettings
 
 security = TransportSecuritySettings(
-    allowed_hosts=["*", "89.167.54.204", "89.167.54.204:8000", "0.0.0.0"],
-    enable_dns_rebinding_protection=False
+    allowed_hosts=["89.167.54.204", "89.167.54.204:8000", "localhost", "127.0.0.1"],
+    enable_dns_rebinding_protection=True
 )
 mcp = FastMCP("audit360-tools", transport_security=security)
 
@@ -93,7 +93,7 @@ async def dashboard(request):
                 return HTMLResponse(f.read())
         return HTMLResponse("<h1>Dashboard HTML missing</h1>", status_code=404)
     except Exception as e:
-        return HTMLResponse(f"<h1>Error</h1><p>{str(e)}</p>", status_code=500)
+        return HTMLResponse("<h1>Internal Server Error</h1><p>An unexpected error occurred. Check server logs.</p>", status_code=500)
 
 
 async def audit_api(request):
@@ -130,15 +130,24 @@ async def audit_detail_api(request):
     client = request.path_params['client']
     project = request.path_params['project']
     filename = request.path_params['filename']
+
+    # Security: sanitize path components — reject traversal attempts
+    import re
+    safe_pattern = re.compile(r'^[a-zA-Z0-9_][a-zA-Z0-9_.\-]*$')
+    for param_name, param_val in [('client', client), ('project', project), ('filename', filename)]:
+        if not safe_pattern.match(param_val):
+            return JSONResponse({"error": f"Invalid {param_name}: contains forbidden characters"}, status_code=400)
+
     filepath = Path(f"reports/{client}/{project}/{filename}")
 
     try:
-        filepath.resolve().relative_to(Path("reports").resolve())
+        resolved = filepath.resolve()
+        resolved.relative_to(Path("reports").resolve())
     except ValueError:
         return JSONResponse({"error": "Invalid path"}, status_code=403)
 
-    if filepath.exists():
-        with open(filepath, "r", encoding="utf-8") as f:
+    if resolved.exists():
+        with open(resolved, "r", encoding="utf-8") as f:
             return JSONResponse(json.load(f))
     return JSONResponse({"error": "Audit not found"}, status_code=404)
 

@@ -4,9 +4,25 @@ Run tests, security scans, and deployments on the VPS.
 """
 import os
 import subprocess
+import shlex
 import json
+import re
 from pathlib import Path
 from datetime import datetime
+
+# Security: only these commands are allowed (prefix match)
+ALLOWED_COMMANDS = [
+    "npm test", "npm run", "npx ", "node ",
+    "python -m pytest", "python -m unittest", "python -c",
+    "make ", "cargo test", "cargo build",
+    "go test", "go build",
+    "git status", "git log", "git diff",
+    "cat ", "ls ", "find ", "wc ", "head ", "tail ",
+    "echo ",
+]
+
+# Repos must be under this directory
+ALLOWED_REPO_ROOT = os.getenv("ALLOWED_REPO_ROOT", "/opt/repos")
 
 
 def register(mcp):
@@ -29,17 +45,25 @@ def register(mcp):
         if not os.path.isdir(repo_path):
             return f"❌ Directory not found: {repo_path}"
 
-        # Security: block dangerous commands
-        blocked = ["rm -rf /", "mkfs", "dd if=", "> /dev/", ":(){ ", "fork"]
-        for b in blocked:
-            if b in command:
-                return f"❌ Blocked command: contains '{b}'"
+        # Security: validate repo_path is under allowed root
+        try:
+            resolved = os.path.realpath(repo_path)
+            if not resolved.startswith(os.path.realpath(ALLOWED_REPO_ROOT)):
+                return f"❌ Access denied: repo_path must be under {ALLOWED_REPO_ROOT}"
+        except Exception:
+            return f"❌ Invalid repo_path: {repo_path}"
+
+        # Security: allowlist-based command validation
+        if not any(command.strip().startswith(prefix) for prefix in ALLOWED_COMMANDS):
+            return f"❌ Command not allowed. Permitted prefixes: {', '.join(ALLOWED_COMMANDS[:5])}..."
 
         timeout = min(timeout, 300)
 
         try:
+            # Security: shell=False prevents injection
+            cmd_parts = shlex.split(command)
             result = subprocess.run(
-                command, shell=True, cwd=repo_path,
+                cmd_parts, shell=False, cwd=repo_path,
                 capture_output=True, text=True, timeout=timeout
             )
             output = result.stdout[-3000:] if len(result.stdout) > 3000 else result.stdout
@@ -214,8 +238,9 @@ def register(mcp):
                 return f"❌ No deploy script found. Provide a custom script or create scripts/deploy-{target}.sh"
 
         try:
+            cmd_parts = shlex.split(script)
             result = subprocess.run(
-                script, shell=True, cwd=repo_path,
+                cmd_parts, shell=False, cwd=repo_path,
                 capture_output=True, text=True, timeout=300
             )
             output = result.stdout[-2000:] if result.stdout else ""
