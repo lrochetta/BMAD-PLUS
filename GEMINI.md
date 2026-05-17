@@ -2,7 +2,7 @@
 
 ## Project Context
 This is BMAD+, an augmented AI-driven development framework.
-Based on BMAD-METHOD v6.2.0 with multi-role agents, autopilot mode, and parallel execution.
+Based on BMAD-METHOD with multi-role agents, autopilot mode, and parallel execution.
 
 ## Agents
 To activate an agent, say its name or persona:

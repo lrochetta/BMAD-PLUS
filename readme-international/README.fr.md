@@ -1,7 +1,7 @@
 # 🚀 BMAD+ — Framework Multi-Agent IA Augmenté
 
 [![Version](https://img.shields.io/badge/version-0.7.5-blue.svg)](../CHANGELOG.md)
-[![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD%20v6.2.0-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
+[![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](../LICENSE)
 
 <div align="center">
