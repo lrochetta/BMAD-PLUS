@@ -5,6 +5,26 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] — 2026-05-17
+
+### 🧠 Pack Memory — Persistent Brain
+
+### Added
+- **Pack Memory** — Persistent cross-session memory system with brain detection
+  - 🧠 **Zecher Agent** (זכר, "remembrance") — Memory archivist for consolidation, project scanning, context recall
+  - 📁 **Project Memory** (`.agents/memory/`) — decisions.md, lessons.md, patterns.md, context.md, sessions/
+  - 🌐 **Global Brain** (`~/.bmad-plus/brain/`) — Cross-project knowledge, identity, project index
+  - 🔍 **Project Scanner** — Scan directories/disks, detect stacks, interactive validation, auto-index
+  - 🛡️ **Karpathy Guardrails** — 4 behavioral principles (Think, Simplify, Surgical, Goal-driven) woven into agents
+  - 📋 **Memory Protocol** — Complete read/write rules for when agents use memory
+  - 🔗 **Brain Detection** — Detects existing `_brain/`, `~/.claude/memory/`, links instead of overwrites
+  - 📝 **6 templates** — decisions, lessons, patterns, context, session-handoff, identity.yaml
+
+### Changed
+- CLI installer: brain detection step (4.5) with merge-safe logic
+- IDE config generation: Zecher agent listed when memory pack selected
+- Install guide: memory-specific examples (Zecher commands)
+
 ## [0.6.0] — 2026-05-17
 
 ### 🏗️ Pack Dev Studio — Full Software Development Lifecycle

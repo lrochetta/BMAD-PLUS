@@ -160,6 +160,17 @@ packs:
     agents:
       - animated-website-agent
 
+  memory:
+    name: "Memory — Persistent Brain"
+    icon: "🧠"
+    description: "Cross-session memory + project scanner + Karpathy guardrails"
+    required: false
+    packDir: pack-memory
+    packSrcDir: packs
+    agents:
+      - zecher
+    cohabitation_warning: "Memory can detect and link to existing brain directories (_brain/, ~/.claude/memory/). It will NEVER overwrite existing memory files."
+
 install_packs:
   prompt:
     - "Quels packs additionnels souhaites-tu installer ?"
@@ -181,6 +192,8 @@ install_packs:
       label: "🗂️ Universal Backup — Backup ZIP intelligent"
     - value: "animated"
       label: "🎬 Animated Website — Luxury scroll-driven site from video"
+    - value: "memory"
+      label: "🧠 Memory — Cerveau persistant + scanner de projets + guardrails Karpathy"
     - value: "all"
       label: "🤖 Tout installer"
     - value: "none"
