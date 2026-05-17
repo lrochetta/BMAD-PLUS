@@ -486,4 +486,13 @@ module.exports = {
 
     clack.outro(pc.green('Autoconfig complete! 🚀'));
   },
+  // Exported for functional testing (not part of the public API)
+  _internal: {
+    detectStack,
+    analyzeStructure,
+    calculateHealth,
+    recommendPacks,
+    generateRecommendations,
+    getProjectName,
+  },
 };

@@ -347,4 +347,14 @@ module.exports = {
 
     clack.outro(pc.green('Scan complete! 🧠'));
   },
+  // Exported for functional testing (not part of the public API)
+  _internal: {
+    PROJECT_MARKERS,
+    SKIP_DIRS,
+    getProjectStatus,
+    getStatusIcon,
+    getProjectName,
+    hasBmadInstalled,
+    scanDirectory,
+  },
 };

@@ -8,7 +8,7 @@
   <a href="../README.md">English</a> | 🌐 <b>Français</b> | <a href="README.es.md">Español</a> | <a href="README.de.md">Deutsch</a>
 </div>
 
-> Fork intelligent de [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 — Agents multi-rôles auto-activables, mode Autopilot, exécution parallèle supervisée, et monitoring upstream WhatsApp.
+> Fork intelligent de [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 — Agents multi-rôles auto-activables, mode Autopilot, exécution parallèle supervisée, et système modulaire de packs.
 
 ---
 
@@ -35,7 +35,7 @@ BMAD-METHOD est un framework excellent avec 9 agents spécialisés. Mais pour un
 
 | BMAD-METHOD | BMAD+ |
 |---|---|
-| 9 agents spécialisés | **5 agents multi-rôles** (11 rôles au total) |
+| 9 agents spécialisés | **6 agents multi-rôles** (12 rôles au total) |
 | Activation manuelle uniquement | **Auto-activation intelligente** à 3 niveaux |
 | Pas de pipeline automatisé | **Mode Autopilot** : idée → livraison |
 | Exécution séquentielle | **Parallélisme supervisé** |
@@ -109,13 +109,60 @@ L'installeur :
 
 Nexus orchestre tout automatiquement avec des checkpoints pour ton approbation.
 
-#### 🔑 Commandes clés
+#### 💬 Commandes clés
 
 | Commande | Description |
 |----------|-------------|
 | `bmad-help` | Voir tous les agents et skills disponibles |
 | `autopilot` | Nexus prend le contrôle du pipeline complet |
 | `parallel` | Lancer l'exécution multi-agents en parallèle |
+
+
+#### 🔧 Commandes CLI
+
+| Commande | Description |
+|---------|-------------|
+| `npx bmad-plus install` | Installeur interactif avec sélection de packs et détection IDE |
+| `npx bmad-plus scan [chemin]` | Découvrir et indexer les projets dans le cerveau global |
+| `npx bmad-plus memory status` | Rapport de santé mémoire (projet + cerveau global) |
+| `npx bmad-plus memory export` | Export du cerveau en archive Markdown portable |
+| `npx bmad-plus doctor` | Vérifier l'intégrité de l'installation |
+| `npx bmad-plus update` | Mettre à jour agents et skills (préserve la config) |
+| `npx bmad-plus uninstall` | Supprimer BMAD+ du projet actuel |
+| `npx bmad-plus autoconfig` | Bootstrap intelligent — détection auto, installation et configuration |
+
+#### 🔬 Options d'installation avancées
+
+```bash
+# Installation non-interactive — tous les packs, détection auto des IDE
+npx bmad-plus install --packs all --yes
+
+# Installer sans écraser les configs IDE (CLAUDE.md, GEMINI.md, etc.)
+npx bmad-plus install --tools none
+
+# Installer des packs spécifiques uniquement
+npx bmad-plus install --packs core,memory,osint
+
+# Installer dans un autre répertoire
+npx bmad-plus install --directory /chemin/vers/projet
+```
+
+> **💡 Astuce dogfooding :** Utilisez `--tools none` quand vous installez BMAD+ dans un projet qui a déjà des configs IDE manuelles. Cela installe agents, skills et mémoire sans écraser vos `CLAUDE.md`, `GEMINI.md` ou `AGENTS.md` existants.
+
+#### 🔍 Options de scan
+
+```bash
+# Scanner un disque ou répertoire
+npx bmad-plus scan D:\DEV
+
+# Seuils personnalisés pour le statut projet
+npx bmad-plus scan . --active-days 7 --paused-days 90
+
+# Auto-indexer tout sans confirmation
+npx bmad-plus scan D:\DEV --yes --depth 6
+```
+
+> Légende des statuts : 🟢 **actif** (modifié < 30 jours), 🟡 **en pause** (30–180 jours), ⚪ **archivé** (> 180 jours). Seuils personnalisables avec `--active-days` et `--paused-days`.
 
 ---
 
@@ -466,6 +513,9 @@ BMAD+/
 | Version | Date | Description |
 |---------|------|-------------|
 | **0.1.0** | 2026-03-17 | 🎉 Foundation — 6 agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, monitoring, multi-IDE support |
+| **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 agents de conformité GRC |
+| **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 agents Torah-named + 30 workflows SDLC |
+| **0.7.5** | 2026-05-17 | 🩺 **Qualité & Compliance** — MIT LICENSE, 143 tests, scan, autoconfig, mémoire globale |
 
 Voir [CHANGELOG.md](../CHANGELOG.md) pour le détail complet.
 

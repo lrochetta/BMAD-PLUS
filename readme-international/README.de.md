@@ -8,7 +8,7 @@
   <a href="../README.md">English</a> | <a href="README.fr.md">Français</a> | <a href="README.es.md">Español</a> | 🌐 <b>Deutsch</b>
 </div>
 
-> Intelligenter Fork von [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 — Multirole-Agenten mit automatischer Aktivierung, Autopilot-Modus, überwachte parallele Ausführung und WhatsApp-Upstream-Monitoring.
+> Intelligenter Fork von [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 — Multirole-Agenten mit automatischer Aktivierung, Autopilot-Modus, überwachte parallele Ausführung und modulares Pack-System.
 
 ---
 
@@ -35,7 +35,7 @@ BMAD-METHOD ist ein exzellentes Framework mit 9 spezialisierten Agenten. Für ei
 
 | BMAD-METHOD | BMAD+ |
 |---|---|
-| 9 spezialisierte Agenten | **5 Multirole-Agenten** (insgesamt 11 Rollen) |
+| 9 spezialisierte Agenten | **6 Multirole-Agenten** (insgesamt 12 Rollen) |
 | Nur manuelle Aktivierung | **Intelligente automatische Aktivierung** auf 3 Ebenen |
 | Keine automatisierte Pipeline | **Autopilot-Modus**: Idee → Fertigstellung |
 | Sequentielle Ausführung | **Überwachte parallele Ausführung** |
@@ -109,13 +109,60 @@ Das Installationsprogramm:
 
 Nexus orchestriert alles automatisch mit Checkpoints für deine Genehmigung.
 
-#### 🔑 Wichtige Befehle
+#### 💬 Wichtige Befehle
 
 | Befehl | Beschreibung |
 |----------|-------------|
 | `bmad-help` | Alle verfügbaren Agenten und Skills anzeigen |
 | `autopilot` | Nexus übernimmt die Kontrolle über die gesamte Pipeline |
 | `parallel` | Multirole-Agenten-Ausführung parallel starten |
+
+
+#### 🔧 CLI-Befehle
+
+| Befehl | Beschreibung |
+|---------|-------------|
+| `npx bmad-plus install` | Interaktives Installationsprogramm mit Pack-Auswahl und IDE-Erkennung |
+| `npx bmad-plus scan [Pfad]` | Projekte entdecken und im globalen Gedächtnis indexieren |
+| `npx bmad-plus memory status` | Statusbericht des Gedächtnisses (Projekt + globales Gehirn) |
+| `npx bmad-plus memory export` | Gehirn als portables Markdown-Archiv exportieren |
+| `npx bmad-plus doctor` | Installationsintegrität prüfen |
+| `npx bmad-plus update` | Agenten und Skills aktualisieren (Konfiguration bleibt erhalten) |
+| `npx bmad-plus uninstall` | BMAD+ vom aktuellen Projekt entfernen |
+| `npx bmad-plus autoconfig` | Intelligentes Bootstrap — Auto-Erkennung, Installation und Konfiguration |
+
+#### 🔬 Erweiterte Installationsoptionen
+
+```bash
+# Nicht-interaktive Installation — alle Packs, Auto-IDE-Erkennung
+npx bmad-plus install --packs all --yes
+
+# Installieren ohne IDE-Konfigurationen zu überschreiben (CLAUDE.md, GEMINI.md, usw.)
+npx bmad-plus install --tools none
+
+# Nur bestimmte Packs installieren
+npx bmad-plus install --packs core,memory,osint
+
+# In ein anderes Verzeichnis installieren
+npx bmad-plus install --directory /pfad/zum/projekt
+```
+
+> **💡 Dogfooding-Tipp:** Verwende `--tools none`, wenn BMAD+ in einem Projekt installiert wird, das bereits manuelle IDE-Konfigurationen hat. Es installiert Agenten, Skills und Gedächtnis, ohne deine `CLAUDE.md`, `GEMINI.md` oder `AGENTS.md` zu überschreiben.
+
+#### 🔍 Scan-Optionen
+
+```bash
+# Laufwerk oder Verzeichnis scannen
+npx bmad-plus scan D:\DEV
+
+# Benutzerdefinierte Schwellenwerte für den Projektstatus
+npx bmad-plus scan . --active-days 7 --paused-days 90
+
+# Alles ohne Bestätigung auto-indexieren
+npx bmad-plus scan D:\DEV --yes --depth 6
+```
+
+> Statuslegende: 🟢 **aktiv** (änderung < 30 Tage), 🟡 **pausiert** (30–180 Tage), ⚪ **archiviert** (> 180 Tage). Schwellenwerte mit `--active-days` und `--paused-days` anpassbar.
 
 ---
 
@@ -377,6 +424,9 @@ BMAD+/
 | Version | Datum | Beschreibung |
 |---------|------|-------------|
 | **0.1.0** | 2026-03-17 | 🎉 Foundation — 6 Agenten (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 Skills, Pack-System, Monitoring, IDE Support |
+| **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 GRC-Compliance-Agenten |
+| **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 Torah-benannte Agenten + 30 SDLC-Workflows |
+| **0.7.5** | 2026-05-17 | 🩺 **Qualität & Compliance** — MIT LICENSE, 143 Tests, Scan, Autoconfig, globales Gedächtnis |
 
 Siehe [CHANGELOG.md](../CHANGELOG.md) für vollständige Details.
 
