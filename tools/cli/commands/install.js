@@ -52,6 +52,16 @@ const PACKS = {
     packDir: 'pack-shield',
     packSrcDir: 'packs',
   },
+  'dev-studio': {
+    name: 'Dev Studio — Full SDLC',
+    icon: '🏗️',
+    description: '6 Torah-named agents + 30 workflows — Analysis → Architecture → Implementation',
+    required: false,
+    agents: [],
+    skills: [],
+    packDir: 'pack-dev-studio',
+    packSrcDir: 'packs',
+  },
   seo: {
     name: 'SEO Audit 360',
     icon: '🔍',
