@@ -1,14 +1,14 @@
-# ?? BMAD+ — Augmented AI-Driven Development Framework
+ï»¿# ?? BMAD+ â€” Augmented AI-Driven Development Framework
 
-[![Version](https://img.shields.io/badge/version-0.7.4-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.7.5-blue.svg)](CHANGELOG.md)
 [![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD%20v6.2.0-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 
 <div align="center">
-  ?? <b>English</b> | <a href="readme-international/README.fr.md">Français</a> | <a href="readme-international/README.es.md">Español</a> | <a href="readme-international/README.de.md">Deutsch</a>
+  ?? <b>English</b> | <a href="readme-international/README.fr.md">FranÃ§ais</a> | <a href="readme-international/README.es.md">EspaÃ±ol</a> | <a href="readme-international/README.de.md">Deutsch</a>
 </div>
 
-> Smart fork of [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 — Multi-role self-activating agents, Autopilot mode, supervised parallel execution, and a modular pack system.
+> Smart fork of [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.2.0 â€” Multi-role self-activating agents, Autopilot mode, supervised parallel execution, and a modular pack system.
 
 ---
 
@@ -154,7 +154,7 @@ graph TB
 
 ## ?? The 5 Agents
 
-### Atlas — Strategist ??
+### Atlas â€” Strategist ??
 
 **Fuses:** Analyst (Mary) + Product Manager (John)
 
@@ -167,7 +167,7 @@ graph TB
 
 ---
 
-### Forge — Architect-Dev ???
+### Forge â€” Architect-Dev ???
 
 **Fuses:** Architect (Winston) + Developer (Amelia) + Tech Writer (Paige)
 
@@ -187,7 +187,7 @@ graph TB
 
 ---
 
-### Sentinel — Quality ??
+### Sentinel â€” Quality ??
 
 **Fuses:** QA Engineer (Quinn) + UX Designer (Sally)
 
@@ -200,7 +200,7 @@ graph TB
 
 ---
 
-### Nexus — Orchestrator ??
+### Nexus â€” Orchestrator ??
 
 **Fuses:** Scrum Master (Bob) + Quick-Flow Solo Dev (Barry) + **Autopilot** (new) + **Parallel Supervisor** (new)
 
@@ -215,7 +215,7 @@ graph TB
 
 ---
 
-### Shadow — OSINT Intelligence ?? *(OSINT Pack)*
+### Shadow â€” OSINT Intelligence ?? *(OSINT Pack)*
 
 **Complete OSINT investigation agent.**
 
@@ -232,20 +232,20 @@ graph TB
 
 ---
 
-### Maker — Agent Creator ?? *(Maker Pack)*
+### Maker â€” Agent Creator ?? *(Maker Pack)*
 
 **Meta-agent that creates other agents.** Give it a description ? it generates a complete package.
 
 | Code | Description |
 |------|-------------|
-| **CA** | Create Agent — guided creation in 4 phases |
-| **QA** | Quick Agent — fast creation with sensible defaults |
-| **EA** | Edit Agent — modify an existing SKILL.md |
-| **VA** | Validate Agent — check BMAD+ compliance |
-| **PA** | Package Agent — generate the integration folder |
+| **CA** | Create Agent â€” guided creation in 4 phases |
+| **QA** | Quick Agent â€” fast creation with sensible defaults |
+| **EA** | Edit Agent â€” modify an existing SKILL.md |
+| **VA** | Validate Agent â€” check BMAD+ compliance |
+| **PA** | Package Agent â€” generate the integration folder |
 
 **Pipeline:** Discovery ? Design (user validation) ? Generation ? Validation
-**Output:** `_bmad-output/ready-to-integrate/` — ready to copy into BMAD+
+**Output:** `_bmad-output/ready-to-integrate/` â€” ready to copy into BMAD+
 
 ---
 
@@ -259,18 +259,18 @@ npx bmad-plus install
 ???  Which packs to install?
    Core (Atlas, Forge, Sentinel, Nexus) is always included.
 
-   ?? OSINT — Shadow (investigation, scraping, psychoprofiling)
-   ?? Agent Creator — Maker (design, build, package)
-   ??? Security Audit — Shield (vulnerability scan) [soon]
+   ?? OSINT â€” Shadow (investigation, scraping, psychoprofiling)
+   ?? Agent Creator â€” Maker (design, build, package)
+   ??? Security Audit â€” Shield (vulnerability scan) [soon]
    ?? Install everything
-   None — Core only
+   None â€” Core only
 ```
 
 | Pack | Agents | Skills | Status |
 |------|--------|--------|--------|
 | ?? **Core** | Atlas, Forge, Sentinel, Nexus | autopilot, parallel | ? Stable |
 | ?? **OSINT** | Shadow | bmad-osint-investigate | ? Stable |
-| ?? **Maker** | Maker | — | ? Stable |
+| ?? **Maker** | Maker | â€” | ? Stable |
 | ??? **Audit** | Shield | bmad-audit-scan, bmad-audit-report | ?? Coming soon |
 
 Each pack defines:
@@ -292,7 +292,7 @@ Each agent can **automatically** switch roles when the context requires it:
 | ?? **Contextual** | Domain detected during work | Financial calculations ? QA auto-activated after code |
 | ?? **Reasoning** | Logic chain during execution | Architecture inconsistency ? Architect auto-activated |
 
-The agent **announces** its auto-activations: *"?? I'm switching to QA mode — financial calculations detected. Say 'skip' to stay in current mode."*
+The agent **announces** its auto-activations: *"?? I'm switching to QA mode â€” financial calculations detected. Say 'skip' to stay in current mode."*
 
 Configuration: `src/bmad-plus/data/role-triggers.yaml`
 
@@ -317,9 +317,9 @@ Give a project idea ? Nexus orchestrates the complete pipeline:
 ```
 
 **Configurable checkpoints:**
-- `require_approval` (??) — Pause, wait for approval
-- `notify_only` (??) — Notification, continues unless intervened
-- `auto` (??) — Continues automatically
+- `require_approval` (??) â€” Pause, wait for approval
+- `notify_only` (??) â€” Notification, continues unless intervened
+- `auto` (??) â€” Continues automatically
 
 ### 3. Supervised Parallel Execution
 
@@ -360,33 +360,33 @@ BMAD+/
 +-- GEMINI.md                      ? Gemini CLI Config
 +-- AGENTS.md                      ? Codex CLI / OpenCode Config
 +-- .gitignore
-¦
+Â¦
 +-- src/
-¦   +-- bmad-plus/                 ? CUSTOM MODULE
-¦       +-- module.yaml            ? Module + packs config
-¦       +-- module-help.csv        ? Contextual help
-¦       +-- agents/
-¦       ¦   +-- agent-strategist/  ? Atlas (analyst + pm)
-¦       ¦   +-- agent-architect-dev/ ? Forge (architect + dev + tw)
-¦       ¦   +-- agent-quality/     ? Sentinel (qa + ux)
-¦       ¦   +-- agent-orchestrator/ ? Nexus (sm + qf + autopilot + parallel)
-¦       ¦   +-- agent-maker/       ? Maker (meta-agent) [pack: maker]
-¦       ¦   +-- agent-shadow/      ? Shadow (osint) [pack: osint]
-¦       +-- skills/
-¦       ¦   +-- bmad-plus-autopilot/ ? Automated pipeline
-¦       ¦   +-- bmad-plus-parallel/  ? Parallel execution
-¦       +-- data/
-¦           +-- role-triggers.yaml ? Auto-activation rules
-¦
+Â¦   +-- bmad-plus/                 ? CUSTOM MODULE
+Â¦       +-- module.yaml            ? Module + packs config
+Â¦       +-- module-help.csv        ? Contextual help
+Â¦       +-- agents/
+Â¦       Â¦   +-- agent-strategist/  ? Atlas (analyst + pm)
+Â¦       Â¦   +-- agent-architect-dev/ ? Forge (architect + dev + tw)
+Â¦       Â¦   +-- agent-quality/     ? Sentinel (qa + ux)
+Â¦       Â¦   +-- agent-orchestrator/ ? Nexus (sm + qf + autopilot + parallel)
+Â¦       Â¦   +-- agent-maker/       ? Maker (meta-agent) [pack: maker]
+Â¦       Â¦   +-- agent-shadow/      ? Shadow (osint) [pack: osint]
+Â¦       +-- skills/
+Â¦       Â¦   +-- bmad-plus-autopilot/ ? Automated pipeline
+Â¦       Â¦   +-- bmad-plus-parallel/  ? Parallel execution
+Â¦       +-- data/
+Â¦           +-- role-triggers.yaml ? Auto-activation rules
+Â¦
 +-- tools/
-¦   +-- cli/                       ??? NPX INSTALLER
-¦       +-- install.js             ? npx bmad-plus install
-¦
+Â¦   +-- cli/                       ??? NPX INSTALLER
+Â¦       +-- install.js             ? npx bmad-plus install
+Â¦
 +-- osint-agent-package/           ?? OSINT PACKAGE
-¦   +-- agents/                    ? Shadow Agent (OSINT investigator)
-¦   +-- skills/                    ? 55+ Apify actors
-¦   +-- install.ps1                ? Installation script
-¦
+Â¦   +-- agents/                    ? Shadow Agent (OSINT investigator)
+Â¦   +-- skills/                    ? 55+ Apify actors
+Â¦   +-- install.ps1                ? Installation script
+Â¦
 +-- upstream/                      ?? UPSTREAM REFERENCE
     +-- (clone of BMAD-METHOD)     ? Excluded from repo (.gitignore)
 ```
@@ -419,16 +419,17 @@ BMAD+/
 
 | Version | Date | Description |
 |---------|------|-------------|
-| **0.1.0** | 2026-03-17 | ?? Foundation — 6 agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, multi-IDE support |
-| **0.2.0** | 2026-03-18 | ?? Oveanet Fusion — 3 new utility packs: SEO Audit 360, Universal Backup, Animated Website |
-| **0.3.0** | 2026-03-19 | ?? SEO Engine v2.0 — 3 multi-role agents, 4 Python scripts, 6-phase workflow, PageSpeed loop, GEO analysis |
-| **0.4.0** | 2026-03-19 | ?? SEO Engine v2.1 — SKILL.md orchestrator, Google APIs, HTML reports, competitor benchmark, 50 tests, GSC + GA4 extensions |
+| **0.1.0** | 2026-03-17 | ?? Foundation â€” 6 agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, multi-IDE support |
+| **0.2.0** | 2026-03-18 | ?? Oveanet Fusion â€” 3 new utility packs: SEO Audit 360, Universal Backup, Animated Website |
+| **0.3.0** | 2026-03-19 | ?? SEO Engine v2.0 â€” 3 multi-role agents, 4 Python scripts, 6-phase workflow, PageSpeed loop, GEO analysis |
+| **0.4.0** | 2026-03-19 | ?? SEO Engine v2.1 â€” SKILL.md orchestrator, Google APIs, HTML reports, competitor benchmark, 50 tests, GSC + GA4 extensions |
 | **0.4.1** | 2026-03-19 |
 | **0.4.2** | 2026-03-19 |  Public packs  SEO/Backup/Animated agents now in npm package | ?? 10-language CLI, CI/CD pipeline, `.npmignore`, `/deploy` workflow, security hardening |
 | **0.4.3** | 2026-05-17 | ?? update + doctor commands, i18n complete, credits fix |
 | **0.4.4** | 2026-05-17 | ?? UTF-8 encoding fix, complete i18n 10 languages, 62 unit tests |
-| **0.6.0** | 2026-05-17 | ??? **Pack Dev Studio** — 6 Torah-named agents (Miriam, Yosef, Bezalel...) + 30 SDLC workflows, BWML DSL |
-| **0.5.0** | 2026-05-17 | ??? **Pack Shield** — 38 GRC compliance agents, 7 categories, 25+ frameworks (GDPR, ISO 27001, SOC 2, EU AI Act...) |
+| **0.6.0** | 2026-05-17 | ??? **Pack Dev Studio** â€” 6 Torah-named agents (Miriam, Yosef, Bezalel...) + 30 SDLC workflows, BWML DSL |
+| **0.5.0** | 2026-05-17 | ??? **Pack Shield** â€” 38 GRC compliance agents, 7 categories, 25+ frameworks (GDPR, ISO 27001, SOC 2, EU AI Act...) |
+| **0.7.5** | 2026-05-17 | MIT LICENSE, PACKS/module.yaml sync in doctor + tests, 97 unit tests, global brain consolidation |
 
 See [CHANGELOG.md](CHANGELOG.md) for full details.
 
@@ -436,11 +437,11 @@ See [CHANGELOG.md](CHANGELOG.md) for full details.
 
 ## ?? License
 
-MIT — Based on [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) (MIT)
+MIT â€” Based on [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) (MIT)
 
 ### Credits
 
 - **BMAD+** Created by [Laurent Rochetta](https://github.com/lrochetta) ([LinkedIn](https://www.linkedin.com/in/laurentrochetta/))
-- **BMAD-METHOD** by [bmad-code-org](https://github.com/bmad-code-org) — Base framework
+- **BMAD-METHOD** by [bmad-code-org](https://github.com/bmad-code-org) â€” Base framework
 - **OSINT Pipeline** based on [smixs/osint-skill](https://github.com/smixs/osint-skill) (MIT)
 - **Apify Actor Runner** integrated from [apify/agent-skills](https://github.com/apify/agent-skills) (MIT)

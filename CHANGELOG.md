@@ -5,6 +5,24 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.5] — 2026-05-17
+
+### 🩺 Quality & Compliance
+
+### Added
+- **MIT LICENSE** — Proper license file matching `package.json` declaration
+- **PACKS↔module.yaml sync check** — New Check 9 in `npx bmad-plus doctor` that cross-validates install.js PACKS object against module.yaml packs, preventing invisible pack bugs
+- **30 new unit tests** — Total now 97:
+  - `scan.js` module validation (markers, skip dirs, options)
+  - `autoconfig.js` function checks (detectStack, analyzeStructure, calculateHealth, recommendPacks)
+  - `memory.js` subcommand and health score validation
+  - PACKS↔module.yaml bidirectional sync (count + key match)
+  - LICENSE file integrity
+- **Global brain consolidation** — Promoted cross-project wisdom:
+  - 1 lesson (PowerShell UTF-8 corruption)
+  - 2 decisions (anti-regression protocol, i18n-first CLI)
+  - 2 patterns (dual-tier memory, surgical edit protocol)
+
 ## [0.7.4] — 2026-05-17
 
 ### 🧠 Smart Autoconfig

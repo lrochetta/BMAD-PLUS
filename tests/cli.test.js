@@ -339,3 +339,230 @@ describe('Version Consistency', () => {
     expect(readme).toContain(`version-${version}-blue`);
   });
 });
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// New Command Modules Tests (scan, autoconfig, memory)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+describe('New Command Modules', () => {
+  const commandsDir = path.join(__dirname, '..', 'tools', 'cli', 'commands');
+
+  const NEW_COMMANDS = [
+    { file: 'scan.js', command: 'scan' },
+    { file: 'autoconfig.js', command: 'autoconfig' },
+    { file: 'memory.js', command: 'memory' },
+  ];
+
+  for (const { file, command } of NEW_COMMANDS) {
+    test(`${file} should exist`, () => {
+      const filePath = path.join(commandsDir, file);
+      expect(fs.existsSync(filePath)).toBe(true);
+    });
+
+    test(`${file} should export command '${command}'`, () => {
+      const content = fs.readFileSync(path.join(commandsDir, file), 'utf8');
+      expect(content).toContain(`command: '${command}'`);
+    });
+
+    test(`${file} should export an action function`, () => {
+      const content = fs.readFileSync(path.join(commandsDir, file), 'utf8');
+      expect(content).toContain('action:');
+    });
+
+    test(`${file} should export a description`, () => {
+      const content = fs.readFileSync(path.join(commandsDir, file), 'utf8');
+      expect(content).toContain('description:');
+    });
+
+    test(`${file} should export options array`, () => {
+      const content = fs.readFileSync(path.join(commandsDir, file), 'utf8');
+      expect(content).toContain('options:');
+    });
+  }
+
+  test('scan.js should define PROJECT_MARKERS with common stacks', () => {
+    const content = fs.readFileSync(path.join(commandsDir, 'scan.js'), 'utf8');
+    expect(content).toContain('package.json');
+    expect(content).toContain('Cargo.toml');
+    expect(content).toContain('pyproject.toml');
+    expect(content).toContain('go.mod');
+    expect(content).toContain('composer.json');
+  });
+
+  test('scan.js should define SKIP_DIRS to exclude common directories', () => {
+    const content = fs.readFileSync(path.join(commandsDir, 'scan.js'), 'utf8');
+    expect(content).toContain('node_modules');
+    expect(content).toContain('__pycache__');
+    expect(content).toContain('.venv');
+  });
+
+  test('scan.js should support --active-days and --paused-days options', () => {
+    const content = fs.readFileSync(path.join(commandsDir, 'scan.js'), 'utf8');
+    expect(content).toContain('--active-days');
+    expect(content).toContain('--paused-days');
+  });
+
+  test('autoconfig.js should have detectStack function', () => {
+    const content = fs.readFileSync(path.join(commandsDir, 'autoconfig.js'), 'utf8');
+    expect(content).toContain('function detectStack');
+  });
+
+  test('autoconfig.js should have analyzeStructure function', () => {
+    const content = fs.readFileSync(path.join(commandsDir, 'autoconfig.js'), 'utf8');
+    expect(content).toContain('function analyzeStructure');
+  });
+
+  test('autoconfig.js should have calculateHealth function', () => {
+    const content = fs.readFileSync(path.join(commandsDir, 'autoconfig.js'), 'utf8');
+    expect(content).toContain('function calculateHealth');
+  });
+
+  test('autoconfig.js should have recommendPacks function', () => {
+    const content = fs.readFileSync(path.join(commandsDir, 'autoconfig.js'), 'utf8');
+    expect(content).toContain('function recommendPacks');
+  });
+
+  test('autoconfig.js should always recommend core and memory packs', () => {
+    const content = fs.readFileSync(path.join(commandsDir, 'autoconfig.js'), 'utf8');
+    expect(content).toContain("const packs = ['core', 'memory']");
+  });
+
+  test('autoconfig.js should handle both existing and new projects', () => {
+    const content = fs.readFileSync(path.join(commandsDir, 'autoconfig.js'), 'utf8');
+    expect(content).toContain('MODE A: Existing Project');
+    expect(content).toContain('MODE B: New Project');
+  });
+
+  test('autoconfig.js should write context.md', () => {
+    const content = fs.readFileSync(path.join(commandsDir, 'autoconfig.js'), 'utf8');
+    expect(content).toContain('context.md');
+    expect(content).toContain("'context.md'");
+  });
+
+  test('memory.js should support status and export subcommands', () => {
+    const content = fs.readFileSync(path.join(commandsDir, 'memory.js'), 'utf8');
+    expect(content).toContain("status:");
+    expect(content).toContain("export:");
+  });
+
+  test('memory.js should check both project and global brain', () => {
+    const content = fs.readFileSync(path.join(commandsDir, 'memory.js'), 'utf8');
+    expect(content).toContain('Project Memory');
+    expect(content).toContain('Global Brain');
+  });
+
+  test('memory.js should calculate health score', () => {
+    const content = fs.readFileSync(path.join(commandsDir, 'memory.js'), 'utf8');
+    expect(content).toContain('Health:');
+  });
+});
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PACKS ↔ module.yaml Sync Validation
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+describe('PACKS ↔ module.yaml Sync', () => {
+  const yaml = require('js-yaml');
+
+  test('every pack in module.yaml should exist in install.js PACKS', () => {
+    const moduleYamlPath = path.join(__dirname, '..', 'src', 'bmad-plus', 'module.yaml');
+    const installJsPath = path.join(__dirname, '..', 'tools', 'cli', 'commands', 'install.js');
+
+    const moduleContent = yaml.load(fs.readFileSync(moduleYamlPath, 'utf8'));
+    const modulePackIds = Object.keys(moduleContent.packs || {});
+
+    const installContent = fs.readFileSync(installJsPath, 'utf8');
+
+    for (const packId of modulePackIds) {
+      // Each module.yaml pack should appear as a key in install.js PACKS object
+      // Either as 'packId': { or packId: {
+      const hasKey = installContent.includes(`'${packId}':`) || installContent.includes(`${packId}:`);
+      expect(hasKey).toBe(true);
+    }
+  });
+
+  test('every pack in install.js PACKS should exist in module.yaml', () => {
+    const moduleYamlPath = path.join(__dirname, '..', 'src', 'bmad-plus', 'module.yaml');
+    const installJsPath = path.join(__dirname, '..', 'tools', 'cli', 'commands', 'install.js');
+
+    const moduleContent = yaml.load(fs.readFileSync(moduleYamlPath, 'utf8'));
+    const modulePackIds = Object.keys(moduleContent.packs || {});
+
+    // Extract only the PACKS block from install.js
+    const installContent = fs.readFileSync(installJsPath, 'utf8');
+    const packsStart = installContent.indexOf('const PACKS = {');
+    expect(packsStart).toBeGreaterThan(-1);
+
+    // Find the matching closing }; by counting braces
+    let braceCount = 0;
+    let packsEnd = packsStart;
+    for (let i = installContent.indexOf('{', packsStart); i < installContent.length; i++) {
+      if (installContent[i] === '{') braceCount++;
+      if (installContent[i] === '}') braceCount--;
+      if (braceCount === 0) { packsEnd = i; break; }
+    }
+    const packsBlock = installContent.substring(packsStart, packsEnd + 1);
+
+    // Match top-level keys in PACKS object (2-space indent)
+    const packKeyMatches = packsBlock.match(/^  '?([a-z][-a-z]*)'?\s*:\s*\{/gm);
+    expect(packKeyMatches).not.toBeNull();
+
+    const installPackIds = packKeyMatches.map(m =>
+      m.trim().replace(/[':{ ]/g, '')
+    );
+
+    for (const packId of installPackIds) {
+      expect(modulePackIds).toContain(packId);
+    }
+  });
+
+  test('pack count should match between module.yaml and install.js', () => {
+    const moduleYamlPath = path.join(__dirname, '..', 'src', 'bmad-plus', 'module.yaml');
+    const installJsPath = path.join(__dirname, '..', 'tools', 'cli', 'commands', 'install.js');
+
+    const moduleContent = yaml.load(fs.readFileSync(moduleYamlPath, 'utf8'));
+    const modulePackCount = Object.keys(moduleContent.packs || {}).length;
+
+    const installContent = fs.readFileSync(installJsPath, 'utf8');
+    const packsStart = installContent.indexOf('const PACKS = {');
+    let braceCount = 0;
+    let packsEnd = packsStart;
+    for (let i = installContent.indexOf('{', packsStart); i < installContent.length; i++) {
+      if (installContent[i] === '{') braceCount++;
+      if (installContent[i] === '}') braceCount--;
+      if (braceCount === 0) { packsEnd = i; break; }
+    }
+    const packsBlock = installContent.substring(packsStart, packsEnd + 1);
+    const packKeyMatches = packsBlock.match(/^  '?([a-z][-a-z]*)'?\s*:\s*\{/gm);
+    const installPackCount = packKeyMatches ? packKeyMatches.length : 0;
+
+    expect(installPackCount).toBe(modulePackCount);
+  });
+});
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// License File Tests
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+describe('License', () => {
+  test('LICENSE file should exist', () => {
+    const licensePath = path.join(__dirname, '..', 'LICENSE');
+    expect(fs.existsSync(licensePath)).toBe(true);
+  });
+
+  test('LICENSE should be MIT', () => {
+    const content = fs.readFileSync(path.join(__dirname, '..', 'LICENSE'), 'utf8');
+    expect(content).toContain('MIT License');
+  });
+
+  test('LICENSE should credit Laurent Rochetta', () => {
+    const content = fs.readFileSync(path.join(__dirname, '..', 'LICENSE'), 'utf8');
+    expect(content).toContain('Laurent Rochetta');
+  });
+
+  test('package.json license field should match LICENSE file', () => {
+    const pkg = require('../package.json');
+    expect(pkg.license).toBe('MIT');
+  });
+});
+

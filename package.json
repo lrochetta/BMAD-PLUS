@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "name": "bmad-plus",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "BMAD+ — Augmented AI-Driven Development Framework with multi-role agents, autopilot, and parallel execution",
   "keywords": [
     "bmad",

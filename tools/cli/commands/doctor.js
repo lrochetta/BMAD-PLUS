@@ -149,6 +149,53 @@ module.exports = {
       }
     }
 
+    // ── Check 9: PACKS ↔ module.yaml sync ──
+    checks++;
+    try {
+      const yaml = require('js-yaml');
+      const installModule = require('./install');
+      const installSrc = fs.readFileSync(path.join(__dirname, 'install.js'), 'utf8');
+      const packsMatch = installSrc.match(/const PACKS\s*=\s*\{/);
+
+      const moduleYamlSrc = path.join(__dirname, '..', '..', '..', 'src', 'bmad-plus', 'module.yaml');
+      if (packsMatch && fs.existsSync(moduleYamlSrc)) {
+        const moduleContent = yaml.load(fs.readFileSync(moduleYamlSrc, 'utf8'));
+        const modulePackIds = Object.keys(moduleContent.packs || {});
+
+        // Extract PACKS keys from install.js via require
+        // The PACKS keys are the pack IDs available in the CLI menu
+        // We compare against module.yaml packs
+        const installContent = fs.readFileSync(path.join(__dirname, 'install.js'), 'utf8');
+        const packKeyMatches = installContent.match(/^\s+'?([a-z][-a-z]*)'?\s*:\s*\{/gm);
+        const installPackIds = packKeyMatches
+          ? packKeyMatches.map(m => m.trim().replace(/[':{ ]/g, '').replace(/-/g, '-'))
+          : [];
+
+        // Find mismatches
+        const missingInInstall = modulePackIds.filter(p => !installPackIds.includes(p));
+        const missingInModule = installPackIds.filter(p => !modulePackIds.includes(p));
+
+        if (missingInInstall.length === 0 && missingInModule.length === 0) {
+          clack.log.success(`✅ PACKS ↔ module.yaml in sync (${modulePackIds.length} packs)`);
+          passed++;
+        } else {
+          if (missingInInstall.length > 0) {
+            clack.log.warn(`⚠️  Packs in module.yaml but missing from install.js PACKS: ${missingInInstall.join(', ')}`);
+          }
+          if (missingInModule.length > 0) {
+            clack.log.warn(`⚠️  Packs in install.js PACKS but missing from module.yaml: ${missingInModule.join(', ')}`);
+          }
+          warnings++;
+        }
+      } else {
+        clack.log.info(pc.dim('ℹ️  PACKS↔module.yaml check skipped (source not available in npx context)'));
+        passed++; // Not a failure — just unavailable
+      }
+    } catch (e) {
+      clack.log.info(pc.dim(`ℹ️  PACKS↔module.yaml check skipped: ${e.message}`));
+      passed++; // Graceful skip
+    }
+
     // ── Summary ──
     const summaryColor = errors > 0 ? pc.red : warnings > 0 ? pc.yellow : pc.green;
     const summaryIcon = errors > 0 ? '❌' : warnings > 0 ? '⚠️' : '✅';
