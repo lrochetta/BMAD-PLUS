@@ -70,13 +70,13 @@ doctorCmd.action(doctor.action);
 
 // Scan command
 const scanCmd = program
-  .command('scan')
+  .command('scan [path]')
   .description('Scan directories to discover and index projects in the global brain');
 
 for (const option of scan.options || []) {
   scanCmd.option(...option);
 }
-scanCmd.action(scan.action);
+scanCmd.action((scanPath, options) => scan.action({ ...options, directory: scanPath || options.directory }));
 
 // Memory command
 const memoryCmd = program
