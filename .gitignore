@@ -27,6 +27,11 @@ monitor/config.yaml
 upstream/
 monitor/.upstream-cache/
 
+# Dogfooding — BMAD+ installed on itself (instance ≠ source)
+.agents/
+_bmad/
+_bmad-output/
+
 # IDE-specific (user-generated during install)
 .vscode/
 .idea/

@@ -207,7 +207,11 @@ module.exports = {
     let detectedIDEs = [];
 
     if (options.tools) {
-      detectedIDEs = options.tools.split(',').map(t => t.trim());
+      if (options.tools === 'none' || options.tools === 'skip') {
+        detectedIDEs = [];
+      } else {
+        detectedIDEs = options.tools.split(',').map(t => t.trim()).filter(t => IDE_CONFIGS[t]);
+      }
     } else {
       // Auto-detect
       for (const [id, ide] of Object.entries(IDE_CONFIGS)) {
