@@ -56,7 +56,7 @@ const PACKS = {
   'dev-studio': {
     name: 'Dev Studio — Full SDLC',
     icon: '🏗️',
-    description: '6 Torah-named agents + 30 workflows — Analysis → Architecture → Implementation',
+    description: 'Full SDLC pipeline: brainstorm → PRD → architecture → TDD → code review → deploy',
     required: false,
     agents: [],
     skills: [],
