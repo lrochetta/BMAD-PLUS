@@ -62,17 +62,43 @@ packs:
       - agent-maker
     skills: []
 
-  audit:
-    name: "Audit Sécurité"
+  shield:
+    name: "Shield — GRC Compliance"
     icon: "🛡️"
-    description: "Scan vulnérabilités, audit code, compliance check (bientôt)"
+    description: "38 compliance agents covering 25+ regulatory frameworks (GDPR, ISO 27001, SOC 2, HIPAA, PCI DSS, EU AI Act, DORA, NIS2...)"
     required: false
-    status: coming_soon
-    agents:
-      - agent-shield
-    skills:
-      - bmad-audit-scan
-      - bmad-audit-report
+    packDir: pack-shield
+    packSrcDir: packs
+    orchestrator: shield-orchestrator
+    categories:
+      - id: data-privacy
+        name: "Data Privacy"
+        icon: "🔐"
+        agents: [gdpr-agent, ccpa-agent, lgpd-agent, dpdpa-agent, iso27701-agent]
+      - id: cybersecurity
+        name: "Cybersecurity"
+        icon: "🛡️"
+        agents: [iso27001-agent, nist-csf-agent, nist-800-53-agent, cis-controls-agent, nis2-agent, ism-agent]
+      - id: industry-compliance
+        name: "Industry Compliance"
+        icon: "🏢"
+        agents: [soc2-agent, pci-dss-agent, hipaa-agent, swift-csp-agent, dora-agent, fedramp-agent]
+      - id: defense-export
+        name: "Defense & Export Control"
+        icon: "🔒"
+        agents: [cmmc-agent, itar-agent, ear-agent, tsa-agent]
+      - id: ai-governance
+        name: "AI Governance"
+        icon: "🤖"
+        agents: [eu-ai-act-agent, iso42001-agent, nist-ai-rmf-agent]
+      - id: accessibility-esg
+        name: "Accessibility & ESG"
+        icon: "♿"
+        agents: [wcag-agent, section508-agent, csrd-agent]
+      - id: workflows
+        name: "GDPR & AI Act Workflows"
+        icon: "📋"
+        agents: [dpia-sentinel, breach-sentinel, legitimate-interest, privacy-advisor, privacy-notice-gen, privacy-policy-gen, cookie-policy-gen, ai-act-classifier, ai-act-roles, ai-act-fria, ai-act-incidents]
 
   seo:
     name: "SEO Audit 360"
@@ -114,9 +140,14 @@ install_packs:
       label: "🔍 OSINT — Agent Shadow (investigation, scraping, psychoprofil)"
     - value: "maker"
       label: "🧬 Agent Creator — Créer de nouveaux agents BMAD+ compatibles"
-    - value: "audit"
-      label: "🛡️ Audit Sécurité — Agent Shield (scan vulnérabilités) [bientôt]"
-      disabled: true
+    - value: "shield"
+      label: "🛡️ Shield GRC — 38 agents de conformité (GDPR, ISO 27001, SOC 2, EU AI Act...)"
+    - value: "seo"
+      label: "🔍 SEO Audit 360 — 3 agents (Scout, Chief, Judge)"
+    - value: "backup"
+      label: "🗂️ Universal Backup — Backup ZIP intelligent"
+    - value: "animated"
+      label: "🎬 Animated Website — Luxury scroll-driven site from video"
     - value: "all"
       label: "🤖 Tout installer"
     - value: "none"

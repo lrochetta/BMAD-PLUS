@@ -1,6 +1,6 @@
-# 🚀 BMAD+ — Augmented AI-Driven Development Framework
+﻿# 🚀 BMAD+ — Augmented AI-Driven Development Framework
 
-[![Version](https://img.shields.io/badge/version-0.4.4-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.5.0-blue.svg)](CHANGELOG.md)
 [![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD%20v6.2.0-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 
@@ -426,7 +426,7 @@ BMAD+/
 | **0.4.1** | 2026-03-19 |
 | **0.4.2** | 2026-03-19 |  Public packs  SEO/Backup/Animated agents now in npm package | 🌐 10-language CLI, CI/CD pipeline, `.npmignore`, `/deploy` workflow, security hardening |
 | **0.4.3** | 2026-05-17 | 🔧 update + doctor commands, i18n complete, credits fix |
-| **0.4.4** | 2026-05-17 | 🔧 `update` + `doctor` commands, i18n uninstall, enriched guide with CLI commands & examples, credits at startup, security hardening |
+| **0.5.0** | 2026-05-17 | 🔧 `update` + `doctor` commands, i18n uninstall, enriched guide with CLI commands & examples, credits at startup, security hardening |
 
 See [CHANGELOG.md](CHANGELOG.md) for full details.
 

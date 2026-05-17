@@ -42,14 +42,15 @@ const PACKS = {
     skills: [],
     data: [],
   },
-  audit: {
-    name: 'Audit Sécurité',
+  shield: {
+    name: 'Pack Shield (GRC)',
     icon: '🛡️',
-    description: 'Agent Shield — scan vulnérabilités (bientôt)',
+    description: '27 compliance agents — GDPR, ISO 27001, SOC 2, PCI DSS, EU AI Act...',
     required: false,
-    disabled: true,
     agents: [],
     skills: [],
+    packDir: 'pack-shield',
+    packSrcDir: 'packs',
   },
   seo: {
     name: 'SEO Audit 360',
@@ -318,9 +319,10 @@ module.exports = {
         }
       }
 
-      // Copy pack directory (SEO, Backup, Animated Website)
+      // Copy pack directory (SEO, Backup, Animated Website, Shield)
       if (pack.packDir) {
-        const packSrc = path.join(bmadSrc, 'agents', pack.packDir);
+        const srcParent = pack.packSrcDir || 'agents';
+        const packSrc = path.join(bmadSrc, srcParent, pack.packDir);
         const packDest = path.join(targetAgentsDir, pack.packDir);
         if (fs.existsSync(packSrc)) {
           fsExtra.copySync(packSrc, packDest, { overwrite: true });
@@ -424,6 +426,10 @@ module.exports = {
       agentGuide.push(`  ${i.guide_animated.padEnd(28)} →  "/animated build <video>"`);
     }
 
+    if (selectedPacks.includes('shield')) {
+      agentGuide.push(`  ${(i.guide_shield || '🛡️ GRC Compliance').padEnd(28)} →  "Shield, audit my SaaS for GDPR"`);
+    }
+
     agentGuide.push(
       '',
       i.guide_workflow,
@@ -457,6 +463,13 @@ module.exports = {
     }
     if (selectedPacks.includes('osint')) {
       examples.push(`  ${i.guide_example_osint || '🔍 OSINT: "Shadow, investigate John Doe"'}`);
+    }
+    if (selectedPacks.includes('shield')) {
+      examples.push(
+        `  ${i.guide_example_shield_1 || '🛡️ GRC: "Shield, audit my app for GDPR compliance"'}`,
+        `  ${i.guide_example_shield_2 || '🛡️ GRC: "Shield, gap analysis ISO 27001 vs NIST CSF"'}`,
+        `  ${i.guide_example_shield_3 || '🛡️ GRC: "Shield, generate SOC 2 evidence checklist"'}`,
+      );
     }
 
     if (examples.length > 0) {
@@ -494,8 +507,8 @@ function generateIDEConfig(userName, language, packs) {
     agents.push('- **Shadow** (OSINT) — Investigation + Scraping + Psychoprofiling');
   }
 
-  if (packs.includes('audit')) {
-    agents.push('- **Shield** (Audit) — Security scanning + Compliance');
+  if (packs.includes('shield')) {
+    agents.push('- **Shield** (GRC) — 38 compliance agents (GDPR, ISO 27001, SOC 2, HIPAA, EU AI Act, DORA, NIS2...)');
   }
 
   return `# BMAD+ — AI Agent Configuration

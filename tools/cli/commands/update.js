@@ -32,6 +32,7 @@ const PACKS = {
   seo: { agents: [], skills: [], packDir: 'pack-seo' },
   backup: { agents: [], skills: [], packDir: 'pack-backup' },
   animated: { agents: [], skills: [], packDir: 'pack-animated' },
+  shield: { agents: [], skills: [], packDir: 'pack-shield', packSrcDir: 'packs' },
 };
 
 module.exports = {
@@ -134,9 +135,10 @@ module.exports = {
         }
       }
 
-      // Update pack directory (SEO, Backup, Animated)
+      // Update pack directory (SEO, Backup, Animated, Shield)
       if (pack.packDir) {
-        const packSrc = path.join(bmadSrc, 'agents', pack.packDir);
+        const srcParent = pack.packSrcDir || 'agents';
+        const packSrc = path.join(bmadSrc, srcParent, pack.packDir);
         const packDest = path.join(targetAgentsDir, pack.packDir);
         if (fs.existsSync(packSrc)) {
           fsExtra.copySync(packSrc, packDest, { overwrite: true });

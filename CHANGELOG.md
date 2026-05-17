@@ -5,6 +5,37 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] — 2026-05-17
+
+### 🛡️ Pack Shield — GRC Compliance (38 agents)
+
+### Added
+- **Pack Shield** — 38 expert compliance agents covering 25+ regulatory frameworks
+  - 🔐 **Data Privacy** (5): GDPR, CCPA/CPRA, LGPD, DPDPA, ISO 27701
+  - 🛡️ **Cybersecurity** (6): ISO 27001, NIST CSF 2.0, NIST 800-53, CIS Controls v8, NIS2, ISM
+  - 🏢 **Industry Compliance** (6): SOC 2, PCI DSS v4.0, HIPAA, SWIFT CSP, DORA, FedRAMP
+  - 🔒 **Defense & Export** (4): CMMC 2.0, ITAR, EAR, TSA
+  - 🤖 **AI Governance** (3): EU AI Act, ISO 42001, NIST AI RMF
+  - ♿ **Accessibility & ESG** (3): WCAG, Section 508, CSRD
+  - 📋 **GDPR & AI Act Workflows** (11): DPIA, Breach Response, LIA, Privacy Notices/Policies, Cookie Compliance, AI Act Classification/Roles/FRIA/Incidents
+- **Shield Orchestrator** — Intelligent routing across all 38 agents with cross-framework mapping
+- **85 Reference Files** — Deep regulatory knowledge extracted from upstream Claude Skills archives
+- **3 Shared Templates** — Gap Analysis, Cross-Framework Mapper, Audit Report
+- **Upstream Sync System** — Tracking configuration for Sushegaad GRC skill updates
+- **module.yaml** — Full shield pack definition with 7 categories and per-category agent lists
+- **CLI Integration** — Shield pack selectable in `npx bmad-plus install` with 3 localized example commands
+- **IDE Config** — Shield agent advertised in generated AGENTS.md/GEMINI.md
+
+### Changed
+- **install_packs** — All packs now listed in multiselect (seo, backup, animated were missing)
+- **module.yaml** — Replaced old `audit` (coming_soon) stub with fully realized `shield` pack
+
+### Attribution
+- Based on [Claude Skills for GRC](https://github.com/Sushegaad/Claude-Skills-Governance-Risk-and-Compliance) by Hemant Naik — MIT License
+- GDPR/EU AI Act workflows inspired by [Lawve.ai](https://lawve.ai) professional skills catalog
+
+---
+
 ## [0.4.4] — 2026-05-17
 
 ### 🔧 Encoding Fix + i18n Complete + Tests
