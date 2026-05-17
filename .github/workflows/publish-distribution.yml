@@ -98,10 +98,9 @@ jobs:
 
           # Push to distribution repo using classic PAT auth
           git remote add distribution https://${DIST_PAT}@github.com/lrochetta/BMAD-PLUS.git
-          git push distribution HEAD:main --force
           git push distribution HEAD:master --force
 
-          echo "✅ Distribution repo updated (main + master)!"
+          echo "✅ Distribution repo updated (master)!"
 
       # ── NPM SETUP ────────────────────────────────────────────────
       - name: Setup Node.js
