@@ -1,6 +1,6 @@
 # 🚀 BMAD+ — Framework Multi-Agent IA Augmenté
 
-[![Version](https://img.shields.io/badge/version-0.7.5-blue.svg)](../CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.8.0-blue.svg)](../CHANGELOG.md)
 [![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](../LICENSE)
 
@@ -360,7 +360,7 @@ npx bmad-plus install
 
    🔍 OSINT — Shadow (investigation, scraping, psychoprofil)
    🧬 Agent Creator — Maker (design, build, package)
-   🛡️ Audit Sécurité — Shield (scan vulnérabilités) [bientôt]
+   🛡️ Audit Sécurité — Shield (scan vulnérabilités)
    🤖 Tout installer
    Aucun — Core uniquement
 ```
@@ -559,7 +559,7 @@ BMAD+/
 | **0.1.0** | 2026-03-17 | 🎉 Foundation — 56+ agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, monitoring, multi-IDE support |
 | **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 agents de conformité GRC |
 | **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 56+ agents specialized SDLC + 30 workflows SDLC |
-| **0.7.5** | 2026-05-17 | 🩺 **Qualité & Compliance** — MIT LICENSE, 143 tests, scan, autoconfig, mémoire globale |
+| **0.8.0** | 2026-06-24 | 🚀 **Augmenté & Sécurisé** — 3 nouveaux packs (animated, backup, seo), correction P0 sécurité, 143/143 tests |
 
 Voir [CHANGELOG.md](../CHANGELOG.md) pour le détail complet.
 

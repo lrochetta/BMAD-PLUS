@@ -1,6 +1,6 @@
 # 🚀 BMAD+ — Erweitertes Multi-Agent KI-Framework
 
-[![Version](https://img.shields.io/badge/version-0.7.5-blue.svg)](../CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.8.0-blue.svg)](../CHANGELOG.md)
 [![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](../LICENSE)
 
@@ -8,7 +8,7 @@
   <a href="../README.md">English</a> | <a href="README.fr.md">Français</a> | <a href="README.es.md">Español</a> | 🌐 <b>Deutsch</b>
 </div>
 
-> **6 Multirole-Agenten · 9 modulare Packs · Autopilot-Modus · Parallele Ausführung · 143 Tests**
+> **56+ Multirole-Agenten · 9 modulare Packs · Autopilot-Modus · Parallele Ausführung · 143 Tests**
 > Intelligenter Fork von [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) — Selbstaktivierende Agenten mit 3-Stufen-Kontexterkennung, GRC-Compliance (Shield), vollständige SDLC-Pipeline (Dev Studio), OSINT-Intelligence, SEO-Audit, persistentes Cross-Session-Gedächtnis und 10-Sprachen CLI-Installer.
 
 ---
@@ -18,7 +18,7 @@
 - [Warum BMAD+?](#-warum-bmad-)
 - [Schnellstart](#-schnellstart)
 - [Architektur](#-architektur)
-- [Die 6 Agenten](#die-6-agenten)
+- [Die 56+ Agenten](#die-56-agenten)
 - [Pack-System](#-pack-system)
 - [Innovationen](#-innovationen)
 - [Unterstützte IDEs](#-unterstützte-ides)
@@ -237,7 +237,7 @@ graph TB
 
 ---
 
-## 🎭 Die 6 Agenten
+## 🎭 Die 56+ Agenten
 
 ### Atlas — Strategist 🎯
 
@@ -356,7 +356,7 @@ npx bmad-plus install
 
    🔍 OSINT — Shadow (Untersuchung, Scraping, Psychoprofil)
    🧬 Agent Creator — Maker (Design, Build, Package)
-   🛡️ Sicherheits-Audit — Shield (Schwachstellenscan) [demnächst]
+   🛡️ Sicherheits-Audit — Shield (Schwachstellenscan)
    🤖 Alles installieren
    Keine — Nur Core
 ```
@@ -544,7 +544,7 @@ BMAD+/
 | **0.1.0** | 2026-03-17 | 🎉 Foundation — 6 Agenten (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 Skills, Pack-System, Monitoring, IDE Support |
 | **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 GRC-Compliance-Agenten |
 | **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 spezialisierte Agenten + 30 SDLC-Workflows |
-| **0.7.5** | 2026-05-17 | 🩺 **Qualität & Compliance** — MIT LICENSE, 143 Tests, Scan, Autoconfig, globales Gedächtnis |
+| **0.8.0** | 2026-06-24 | 🚀 **Erweitert & Sicher** — 3 neue Packs (animated, backup, seo), P0 Sicherheitsbehebung, 143/143 Tests |
 
 Siehe [CHANGELOG.md](../CHANGELOG.md) für vollständige Details.
 

@@ -1,6 +1,6 @@
 # 🚀 BMAD+ — Augmented Multi-Agent AI Framework
 
-[![Version](https://img.shields.io/badge/version-0.7.5-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.8.0-blue.svg)](CHANGELOG.md)
 [![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 
@@ -8,7 +8,7 @@
   🌐 <b>English</b> | <a href="readme-international/README.fr.md">Français</a> | <a href="readme-international/README.es.md">Español</a> | <a href="readme-international/README.de.md">Deutsch</a>
 </div>
 
-> **6 multi-role agents · 9 modular packs · Autopilot mode · Parallel execution · 143 tests**
+> **56+ multi-role agents · 9 modular packs · Autopilot mode · Parallel execution · 143 tests**
 > Smart fork of [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) — Self-activating agents with 3-level context detection, GRC compliance (Shield), full SDLC pipeline (Dev Studio), OSINT intelligence, SEO audit, persistent cross-session memory, and a 10-language CLI installer.
 
 ---
@@ -19,7 +19,7 @@
 - [Quick Start](#-quick-start)
 - [The 56+ Agents](#the-56-agents)
 - [Pack System](#-pack-system)
-- [Key Features](#-innovations)
+- [Innovations](#-innovations)
 - [CLI Reference](#-cli-commands)
 - [Supported IDEs](#-supported-ides)
 - [Configuration](#-configuration)
@@ -411,7 +411,7 @@ npx bmad-plus install
 
    🔍 OSINT — Shadow (investigation, scraping, psychoprofiling)
    🧬 Agent Creator — Maker (design, build, package)
-   🛡️ Security Audit — Shield (vulnerability scan) [soon]
+   🛡️ Security Audit — Shield (vulnerability scan)
    🤖 Install everything
    None — Core only
 ```
@@ -544,7 +544,7 @@ The installer automatically detects IDEs and generates configs:
 | **0.4.4** | 2026-05-17 | 🔧 UTF-8 encoding fix, complete i18n 10 languages, 62 unit tests |
 | **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 GRC compliance agents, 7 categories, 25+ frameworks (GDPR, ISO 27001, SOC 2, EU AI Act...) |
 | **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 SDLC agents (Miriam, Yosef, Bezalel...) + 30 SDLC workflows, BWML DSL |
-| **0.7.5** | 2026-05-17 | 🩺 **Quality & Compliance** — MIT LICENSE, 143 tests (46 functional), scan, autoconfig, memory CLI, i18n sync |
+| **0.8.0** | 2026-06-24 | 🚀 **Augmented & Secure** — 3 new packs (animated, backup, seo), P0 security remediation, 143/143 tests |
 
 See [CHANGELOG.md](CHANGELOG.md) for full details.
 

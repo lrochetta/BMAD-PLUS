@@ -5,6 +5,31 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] — 2026-06-24
+
+### Added
+- 3 new packs: pack-animated (web animation agent), pack-backup (universal backup agent), pack-seo (full SEO audit — 15 files with agents, refs, templates, playbooks)
+- `extract_frames.py` script for animated-website (263 lines, ffprobe/ffmpeg)
+
+### Security
+- P0 remediation: fix command injection, path traversal, token-in-URL, wildcard hosts, error leak (Shield GRC v2.0)
+- CI: add npm audit gate with continue-on-error, remove silent-fail pattern
+
+### Changed
+- README.de.md: full sync (+131 lines) — Pack System, Autopilot, Project Structure, Credits
+- All Torah-named references removed from Dev Studio, module.yaml, READMEs
+- Dev Studio: cleaned references in orchestrator, bwml-spec, upstream-sync
+- process-info.md: updated (oveanet-pack not in npm package)
+- CI: Windows %TEMP% → tmp/ in .npmignore and CI workflow
+- Badge shields: version 0.7.5 → 0.8.0 across all 5 READMEs
+
+### Fixed
+- Broken TOC anchor links across all 5 READMEs (#the-56-agents)
+- oveanet ↔ .agents mirror directories sync (31 files)
+
+### Tests
+- 143/143 tests passing ✅
+
 ## [0.7.5] — 2026-05-17
 
 ### 🩺 Quality & Compliance
