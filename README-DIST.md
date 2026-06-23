@@ -18,7 +18,7 @@
 - [Why BMAD+?](#-why-bmad-)
 - [Quick Start](#-quick-start)
 - [Architecture](#-architecture)
-- [The 56+ Agents](#-the-6-agents)
+- [The 56+ Agents](#the-56-agents)
 - [Pack System](#-pack-system)
 - [Innovations](#-innovations)
 - [Supported IDEs](#-supported-ides)

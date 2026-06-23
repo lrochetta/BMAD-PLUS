@@ -12,7 +12,7 @@ oveanet-pack/
 .agents/
 .venv/
 .pytest_cache/
-%TEMP%/
+tmp/
 docs/architecture/
 node_modules/
 

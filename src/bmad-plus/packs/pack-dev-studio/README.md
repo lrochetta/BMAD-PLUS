@@ -1,6 +1,6 @@
 # 🏗️ Pack Dev Studio — BMAD+
 
-> Full Software Development Lifecycle powered by 6 Torah-named AI agents
+> Full Software Development Lifecycle powered by 6 specialized AI agents
 
 **Source:** Adapted from [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.6.0 (47K+ ⭐)
 **Format:** BWML (BMAD+ Workflow Markup Language)
@@ -12,7 +12,7 @@
 
 Pack Dev Studio transforms your AI IDE into a complete software engineering team. Six specialized agents guide you through the entire development lifecycle — from brainstorming to deployment — with structured workflows, validation gates, and anti-regression guards.
 
-Unlike generic AI assistants, each agent embodies deep domain expertise with a distinct voice, methodology, and perspective. Named after figures from the Torah whose characteristics mirror their roles.
+Unlike generic AI assistants, each agent embodies deep domain expertise with a distinct voice, methodology, and perspective, drawing on historical figures whose characteristics mirror their roles.
 
 ## Agents
 
@@ -159,4 +159,4 @@ pack-dev-studio/
 ## Attribution
 
 Adapted from [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.6.0 by BMad Code, LLC (MIT License).
-Enhanced with BWML workflow language and Torah-inspired personas by [Laurent Rochetta](https://github.com/lrochetta/BMAD-PLUS).
+Enhanced with BWML workflow language and specialized personas by [Laurent Rochetta](https://github.com/lrochetta/BMAD-PLUS).

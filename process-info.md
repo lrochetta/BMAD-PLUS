@@ -89,4 +89,4 @@ Le dossier `oveanet-pack/` dans BMAD+ contient 3 agents utilitaires fusionnés d
 5. `gh workflow run publish-distribution.yml`
 
 ### Ce qui est inclus dans NPM
-Le tableau `files` de `package.json` inclut `oveanet-pack`, donc les 3 agents sont distribués avec `npx bmad-plus install`.
+Le tableau `files` de `package.json` n'inclut PAS `oveanet-pack`. Les 3 agents Oveanet (SEO, Backup, Animated) sont privés et intégrés uniquement via le GOLDEN repo — ils ne sont pas dans le package npm public.

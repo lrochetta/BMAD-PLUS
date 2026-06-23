@@ -26,7 +26,7 @@ adaptations:
   added:
     - BWML specification (shared/bwml-spec.md)
     - Dev Studio orchestrator
-    - Torah-inspired persona naming
+    - Specialized persona naming
     - BMAD+ pack integration (module.yaml, CLI, i18n)
 
 source_mapping:

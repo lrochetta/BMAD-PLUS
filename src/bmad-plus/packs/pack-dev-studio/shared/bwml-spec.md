@@ -93,7 +93,7 @@ Enables cross-agent orchestration without leaving the workflow.
   <expect>Architecture recommendation with trade-offs</expect>
 </agent>
 ```
-- `name` — BMAD+ agent to invoke (Torah personas or pack agents)
+- `name` — BMAD+ agent to invoke (specialist personas or pack agents)
 - `task` — What to ask the agent
 - `<context>` — What context to pass
 - `<expect>` — Expected output format

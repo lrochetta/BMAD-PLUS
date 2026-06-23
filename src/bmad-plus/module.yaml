@@ -103,7 +103,7 @@ packs:
   dev-studio:
     name: "Dev Studio — Full SDLC"
     icon: "🏗️"
-    description: "6 specialized agents (Torah-named) + 30 workflows covering Analysis → Planning → Architecture → Implementation → Review. Adapted from BMAD-METHOD v6.6.0."
+    description: "6 specialized agents + 30 workflows covering Analysis → Planning → Architecture → Implementation → Review. Adapted from BMAD-METHOD v6.6.0."
     required: false
     packDir: pack-dev-studio
     packSrcDir: packs
@@ -137,6 +137,7 @@ packs:
     description: "3 agents (Scout, Chief, Judge) + 6-phase audit + PageSpeed loop"
     required: false
     packDir: pack-seo
+    packSrcDir: packs
     agents:
       - seo-scout
       - seo-chief
@@ -148,6 +149,7 @@ packs:
     description: "Timestamped ZIP backup with smart exclusions"
     required: false
     packDir: pack-backup
+    packSrcDir: packs
     agents:
       - backup-agent
 
@@ -157,6 +159,7 @@ packs:
     description: "Luxury scroll-driven website from video"
     required: false
     packDir: pack-animated
+    packSrcDir: packs
     agents:
       - animated-website-agent
 

@@ -18,7 +18,7 @@
 - [Warum BMAD+?](#-warum-bmad-)
 - [Schnellstart](#-schnellstart)
 - [Architektur](#-architektur)
-- [Die 6 Agenten](#-die-6-agenten)
+- [Die 6 Agenten](#die-6-agenten)
 - [Pack-System](#-pack-system)
 - [Innovationen](#-innovationen)
 - [Unterstützte IDEs](#-unterstützte-ides)
@@ -356,12 +356,7 @@ npx bmad-plus install
 
    🔍 OSINT — Shadow (Untersuchung, Scraping, Psychoprofil)
    🧬 Agent Creator — Maker (Design, Build, Package)
-   🛡️ Shield GRC — 38 Compliance-Agenten
-   🏗️ Dev Studio — 6 Agenten + 30 SDLC-Workflows
-   🔍 SEO Audit 360 — 3 Agenten (Scout, Chief, Judge)
-   🗂️ Universal Backup — Intelligentes ZIP-Backup
-   🎬 Animated Website — Luxus scroll-driven Seite aus Video
-   🧠 Memory — Persistentes Gehirn + Projektscanner
+   🛡️ Sicherheits-Audit — Shield (Schwachstellenscan) [demnächst]
    🤖 Alles installieren
    Keine — Nur Core
 ```
@@ -372,7 +367,7 @@ npx bmad-plus install
 | 🔍 **OSINT** | Shadow | Personenermittlung, Social Scraping, Psychoprofil (55+ Apify Actors) | ✅ Stabil |
 | 🧬 **Maker** | Maker | Neue BMAD+-Agenten entwerfen, bauen, validieren und verpacken | ✅ Stabil |
 | 🛡️ **Shield** | 38 Compliance-Agenten | GRC über 25+ Frameworks: DSGVO, ISO 27001, SOC 2, HIPAA, PCI DSS, EU AI Act, DORA, NIS2 | ✅ Stabil |
-| 🏗️ **Dev Studio** | 6 Torah-benannte Agenten | Vollständiger SDLC: Brainstorm → PRD → Architektur → TDD → Review (30 Workflows) | ✅ Stabil |
+| 🏗️ **Dev Studio** | 6 spezialisierte Agenten | Vollständiger SDLC: Brainstorm → PRD → Architektur → TDD → Review (30 Workflows) | ✅ Stabil |
 | 🔍 **SEO** | Scout, Chief, Judge | 6-Phasen SEO-Audit, PageSpeed-Schleife, Google APIs, Wettbewerbs-Benchmark | ✅ Stabil |
 | 🗂️ **Backup** | Backup Agent | Zeitgestempeltes ZIP mit intelligenten Ausschlüssen | ✅ Stabil |
 | 🎬 **Animated** | Animated Website Agent | Luxus scroll-driven Website aus Videoeingabe | ✅ Stabil |
@@ -400,6 +395,8 @@ Jeder Agent kann **automatisch** seine Rolle wechseln, wenn der Kontext dies erf
 
 Der Agent **kündigt** seine automatische Aktivierung an: *"💡 I'm switching to QA mode — financial calculations detected. Say 'skip' to stay in current mode."*
 
+Konfiguration: `src/bmad-plus/data/role-triggers.yaml`
+
 ### 2. Autopilot-Modus
 
 Eine Projektidee eingeben → Nexus orchestriert die komplette Pipeline:
@@ -408,9 +405,22 @@ Eine Projektidee eingeben → Nexus orchestriert die komplette Pipeline:
 📋 Discovery (Atlas)
   └→ Brainstorming → Product Brief → PRD → UX Design
   🔴 CHECKPOINT: PRD-Genehmigung
+
+🏗️ Build (Forge + Sentinel)
+  └→ Architektur → Epics → Stories → Sprint
+  🔴 CHECKPOINT: Architektur-Genehmigung
+  └→ Für jede Story: Code → Tests → (Wiederholung bei Fehler, max. 3)
+  🟡 BENACHRICHTIGUNG: Story-Status
+
+🚀 Ship (Sentinel + Forge)
+  └→ Code Review → UX Review → Dokumentation → Retro
+  🔴 CHECKPOINT: Endgültige Genehmigung
 ```
 
-(Rest des Pipelines entspricht dem Standard-Prozess)
+**Konfigurierbare Checkpoints:**
+- `require_approval` (🔴) — Pause, WhatsApp-Benachrichtigung, warten
+- `notify_only` (🟡) — Benachrichtigung, wird fortgesetzt, sofern nicht eingegriffen wird
+- `auto` (🟢) — Wird automatisch fortgesetzt
 
 ### 3. Überwachte parallele Ausführung
 
@@ -419,6 +429,8 @@ Eine Projektidee eingeben → Nexus orchestriert die komplette Pipeline:
 | Stories ohne Abhängigkeiten | Gleiche Datei geändert |
 | Research + technisches Audit | Story B hängt von Story A ab |
 | Tests + Dokumentation | Architektur vor Code |
+
+**Supervisions-Aktionen:** Starten, Überwachen, Stoppen, Neustarten, Neuverteilen, Eskalieren (3 Fehler → menschliche Benachrichtigung)
 
 ---
 
@@ -452,21 +464,76 @@ Das Installationsprogramm erkennt IDEs automatisch und generiert Konfigurationen
 
 ```
 BMAD+/
-├── README.md                      ← Diese Datei (Englisch)
-├── readme-international/          ← Übersetzte READMEs (fr, es, de)
-├── CHANGELOG.md                   ← Versionierung
-├── CLAUDE.md / GEMINI.md / AGENTS.md ← IDE-Konfigurationen
+├── README.md                      ← Diese Datei (Deutsch)
+├── readme-international/          ← Übersetzungen in andere Sprachen
+├── CHANGELOG.md                   ← Versionshistorie
+├── CLAUDE.md                      ← Claude Code Konfiguration
+├── GEMINI.md                      ← Gemini CLI Konfiguration
+├── AGENTS.md                      ← Codex CLI / OpenCode Konfiguration
+├── .gitignore
+│
+├── src/
+│   └── bmad-plus/                 ⭐ BENUTZERDEFINIERTES MODUL
+│       ├── module.yaml            ← Modulkonfiguration + Packs
+│       ├── module-help.csv        ← Kontexthilfe
+│       ├── agents/
+│       │   ├── agent-strategist/  ← Atlas (Analyst + PM)
+│       │   ├── agent-architect-dev/ ← Forge (Architekt + Dev + TW)
+│       │   ├── agent-quality/     ← Sentinel (QA + UX)
+│       │   ├── agent-orchestrator/ ← Nexus (SM + QF + Autopilot + Parallel)
+│       │   ├── agent-maker/       ← Maker (Meta-Agent) [Pack: Maker]
+│       │   └── agent-shadow/      ← Shadow (OSINT) [Pack: OSINT]
+│       ├── skills/
+│       │   ├── bmad-plus-autopilot/ ← Automatisierte Pipeline
+│       │   ├── bmad-plus-parallel/  ← Parallele Ausführung
+│       │   └── bmad-plus-sync/      ← Upstream-Synchronisation
+│       └── data/
+│           └── role-triggers.yaml ← Auto-Aktivierungsregeln
+│
+├── monitor/                       🤖 VPS-ÜBERWACHUNG
+│   ├── weekly-check.py            ← Hauptskript (Cron)
+│   ├── ai_analyzer.py             ← KI-Analyse (Gemini API)
+│   ├── notifier.py                ← WhatsApp + E-Mail
+│   ├── mcp_bridge.py              ← Brücke zum MCP-Server
+│   ├── config.example.yaml        ← Konfigurationsvorlage
+│   └── docker-compose.yml         ← Evolution API
+│
+├── mcp-server/                    🛡️ AUDIT 360° MCP
+│   ├── server.py                  ← 35 Tools, 7 Module
+│   └── tools/                     ← git_ops, github_ops, usw.
+│
+├── osint-agent-package/           🔍 OSINT-PAKET
+│   ├── agents/                    ← Shadow-Agent (Original)
+│   ├── skills/                    ← 55+ Apify-Actors
+│   └── install.ps1                ← Installationsskript
+│
+└── upstream/                      📦 UPSTREAM-REFERENZ
+    └── (Klon von BMAD-METHOD)     ← Vom Repo ausgeschlossen (.gitignore)
 ```
-
-(Detaillierte interne Struktur befindet sich in der Hauptbibliothek)
 
 ---
 
-## ⚙️ Konfiguration (module.yaml)
+## ⚙️ Konfiguration
 
-- `project_name` (Name des Projekts)
-- `execution_mode` (manual, autopilot, hybrid)
-- API Keys: `GEMINI_API_KEY`, `EVOLUTION_API_KEY`, `APIFY_API_TOKEN`, usw.
+### Modulvariablen (`module.yaml`)
+
+| Variable | Beschreibung | Werte |
+|----------|-------------|---------|
+| `project_name` | Projektname | Automatisch erkannt |
+| `user_skill_level` | Entwicklungslevel | beginner, intermediate, expert |
+| `execution_mode` | Ausführungsmodus | manual, autopilot, hybrid |
+| `auto_role_activation` | Automatischer Rollenwechsel | true, false |
+| `parallel_execution` | Parallelverarbeitung | true, false |
+| `install_packs` | Installierte Packs | core, osint, maker, audit, all |
+
+### API-Schlüssel (abhängig von den Packs)
+
+| Schlüssel | Pack | Verwendung |
+|-----|------|-------|
+| `GEMINI_API_KEY` | Monitor | KI-Analyse von Upstream-Änderungen |
+| `EVOLUTION_API_KEY` | Monitor | WhatsApp-Benachrichtigungen |
+| `APIFY_API_TOKEN` | OSINT | Social-Media-Scraping |
+| `PERPLEXITY_API_KEY` | OSINT | Angereicherte Suche |
 
 ---
 
@@ -476,7 +543,7 @@ BMAD+/
 |---------|------|-------------|
 | **0.1.0** | 2026-03-17 | 🎉 Foundation — 6 Agenten (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 Skills, Pack-System, Monitoring, IDE Support |
 | **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 GRC-Compliance-Agenten |
-| **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 Torah-benannte Agenten + 30 SDLC-Workflows |
+| **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 spezialisierte Agenten + 30 SDLC-Workflows |
 | **0.7.5** | 2026-05-17 | 🩺 **Qualität & Compliance** — MIT LICENSE, 143 Tests, Scan, Autoconfig, globales Gedächtnis |
 
 Siehe [CHANGELOG.md](../CHANGELOG.md) für vollständige Details.
@@ -487,7 +554,23 @@ Siehe [CHANGELOG.md](../CHANGELOG.md) für vollständige Details.
 
 MIT — Basierend auf [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) (MIT)
 
-### Danksagungen
-- **BMAD-METHOD** von [bmad-code-org](https://github.com/bmad-code-org)
-- **OSINT Pipeline** von [smixs/osint-skill](https://github.com/smixs/osint-skill) (MIT)
-- **Apify Actor Runner** von [apify/agent-skills](https://github.com/apify/agent-skills) (MIT)
+### Credits
+
+**Ersteller**
+- **BMAD+** Erstellt von [Laurent Rochetta](https://github.com/lrochetta) ([LinkedIn](https://www.linkedin.com/in/laurentrochetta/))
+
+**Original-Packs** (erstellt von Laurent Rochetta)
+- **Dev Studio** — 6 spezialisierte SDLC-Agenten: Miriam (Business Analyst), Huldah (Tech Writer), Yosef (Product Manager), Rachel (UX-Designerin), Bezalel (Systemarchitekt), Oholiab (Senior Engineer) — 44 Workflows, die den gesamten Lebenszyklus vom Brainstorming bis zur Bereitstellung abdecken
+- **SEO Engine** — 3 Agenten (Scout, Chief, Judge), 6-Phasen-Audit-Pipeline, PageSpeed-Perfektionsschleife, Google Search Console & GA4-Integrationen
+- **Memory Pack** — Zecher-Agent für persistentes Cross-Session-Gehirn mit Projektscanner
+
+**Externe Quellen & Inspirationen**
+- **BMAD-METHOD** von [bmad-code-org](https://github.com/bmad-code-org) — Ursprüngliche Multi-Agenten-Methodik (MIT)
+- **Shield GRC** — 38 Compliance-Agenten basierend auf öffentlichen Regulierungstexten (DSGVO, ISO 27001, SOC 2, HIPAA, EU AI Act, DORA, NIST, CMMC, usw.)
+- **OSINT Pipeline** basierend auf [smixs/osint-skill](https://github.com/smixs/osint-skill) (MIT)
+- **Apify Actor Runner** integriert von [apify/agent-skills](https://github.com/apify/agent-skills) (MIT)
+- **Karpathy Guardrails** adaptiert von [Andrej Karpathy](https://github.com/multica-ai/andrej-karpathy-skills) (MIT) — Verhaltensregeln für das Memory Pack
+
+**Werkzeuge & Infrastruktur**
+- [Evolution API](https://github.com/EvolutionAPI/evolution-api) — WhatsApp-Benachrichtigungen für Upstream-Überwachung
+- [Gemini API](https://ai.google.dev/) — KI-Analyse zur Klassifizierung von Upstream-Änderungen

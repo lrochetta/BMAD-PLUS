@@ -117,4 +117,4 @@ This pack uses **BWML** (BMAD+ Workflow Markup Language), our proprietary DSL th
 ## Attribution
 
 Adapted from [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) v6.6.0 by BMad Code, LLC (MIT License).
-Agents renamed with Torah-inspired personas, workflows enhanced with BWML extensions.
+Agents renamed with specialized personas, workflows enhanced with BWML extensions.

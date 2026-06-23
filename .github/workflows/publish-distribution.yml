@@ -49,7 +49,7 @@ jobs:
           rm -rf .venv/
           rm -rf .pytest_cache/
           rm -rf node_modules/
-          rm -rf '%TEMP%'/
+          rm -rf tmp/
           rm -rf .github/                # Don't copy CI/CD to public
           rm -rf .agents/                # Don't copy agent workflows
           rm -rf docs/architecture/      # Private architecture docs
@@ -111,10 +111,12 @@ jobs:
 
       # ── SECURITY AUDIT ─────────────────────────────────────────
       - name: Security audit
+        continue-on-error: true
         run: |
           echo "🔒 Running npm audit..."
           npm install --omit=dev --ignore-scripts
-          npm audit --audit-level=high || echo "⚠️ Audit found vulnerabilities — review before publishing"
+          npm audit --audit-level=high
+          echo "⚠️ Audit found vulnerabilities — review before publishing"
           echo "✅ Security audit completed"
 
       # ── NPM PUBLISH ──────────────────────────────────────────────
