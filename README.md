@@ -8,82 +8,34 @@
   🌐 <b>English</b> | <a href="readme-international/README.fr.md">Français</a> | <a href="readme-international/README.es.md">Español</a> | <a href="readme-international/README.de.md">Deutsch</a>
 </div>
 
-> **56+ multi-role agents · 9 modular packs · Autopilot mode · Parallel execution · 143 tests**
+> **56+ agents · 9 modular packs · Autopilot mode · Parallel execution · 143 tests**
 > Smart fork of [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) — Self-activating agents with 3-level context detection, GRC compliance (Shield), full SDLC pipeline (Dev Studio), OSINT intelligence, SEO audit, persistent cross-session memory, and a 10-language CLI installer.
 
 ---
 
 ## 📋 Table of Contents
 
-- [What is BMAD+?](#-what-is-bmad)
+- [Why BMAD+?](#-why-bmad-)
 - [Quick Start](#-quick-start)
+- [Architecture](#-architecture)
 - [The 56+ Agents](#the-56-agents)
 - [Pack System](#-pack-system)
 - [Innovations](#-innovations)
-- [CLI Reference](#-cli-commands)
 - [Supported IDEs](#-supported-ides)
+- [Project Structure](#-project-structure)
 - [Configuration](#-configuration)
 - [Version History](#-version-history)
 - [License](#-license)
 
 ---
 
-## 💡 What is BMAD+?
+## 💡 Why BMAD+?
 
-BMAD+ is a **multi-agent AI framework** that turns your AI coding assistant into a full team. Install it in any project, talk to specialized agents by name, and let them handle strategy, architecture, code, testing, compliance, OSINT, SEO — everything from idea to production.
-
-### At a Glance
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│  🚀 BMAD+ — What You Get                                          │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│  56+ Agents        Talk to Atlas, Forge, Sentinel, Nexus,            │
-│                  Shadow, Zecher — each handles multiple roles       │
-│                                                                     │
-│  9 Packs         Core dev · OSINT · GRC compliance · SDLC          │
-│                  · SEO audit · Memory · Backup · Maker · Animated  │
-│                                                                     │
-│  Autopilot       Say "autopilot" → Nexus orchestrates              │
-│                  idea → PRD → architecture → code → tests → ship   │
-│                                                                     │
-│  Parallel        Independent tasks run concurrently                 │
-│                  with conflict detection and supervision            │
-│                                                                     │
-│  Memory          Persistent brain across sessions                   │
-│                  with project scanner and Karpathy guardrails       │
-│                                                                     │
-│  5 IDEs          Claude Code · Gemini CLI · Antigravity            │
-│                  · Codex CLI · OpenCode — auto-detected             │
-│                                                                     │
-│  10 Languages    CLI installer in EN, FR, ES, DE, IT, PT,          │
-│                  NL, RU, ZH, JA                                     │
-│                                                                     │
-│  143 Tests       Full functional + unit test coverage               │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### Not Just Development
-
-| Domain | What BMAD+ Does | Agent/Pack |
-|--------|----------------|------------|
-| 📊 **Strategy** | Market research, SWOT, product briefs, PRDs, UX design | Atlas (Core) |
-| 🏗️ **Development** | Architecture, TDD, code generation, documentation | Forge (Core) |
-| 🔍 **Quality** | Code review, E2E tests, UX audit, accessibility | Sentinel (Core) |
-| 🎼 **Management** | Sprint planning, story breakdown, retrospectives | Nexus (Core) |
-| 🕵️ **OSINT** | Person investigation, social scraping, psychoprofiling | Shadow (OSINT Pack) |
-| 🛡️ **Compliance** | GDPR, ISO 27001, SOC 2, HIPAA, EU AI Act — 25+ frameworks | 38 agents (Shield Pack) |
-| 🔎 **SEO** | 6-phase audit, PageSpeed loop, Google APIs, competitor analysis | Scout/Chief/Judge (SEO Pack) |
-| 🧠 **Memory** | Cross-session brain, decision recall, session handoffs | Zecher (Memory Pack) |
-| 🧬 **Agent Creation** | Design, build, validate and package new agents | Maker (Maker Pack) |
-
-### Why BMAD+ over BMAD-METHOD?
+BMAD-METHOD is an excellent framework with 9 specialized agents. But for a solo developer or a small team, 9 agents is too fragmented. BMAD+ solves this problem:
 
 | BMAD-METHOD | BMAD+ |
 |---|---|
-| 9 specialized agents | **56+ agents** (12 roles total) |
+| 9 specialized agents | **56+ agents** across 9 packs |
 | Manual activation only | **Intelligent auto-activation** at 3 levels |
 | No automated pipeline | **Autopilot Mode**: idea → delivery |
 | Sequential execution | **Supervised parallelism** |
@@ -154,7 +106,6 @@ The installer:
 | Create a new BMAD+ agent | **Maker** 🧬 | `Maker, create a customer support agent` |
 | Recall past decisions/context | **Zecher** 🧠 | `Zecher, what did we decide about the auth strategy?` |
 | Session handoff summary | **Zecher** 🧠 | `Zecher, create a handoff for the next session` |
-
 
 #### 🚀 Typical Workflow (manual mode)
 
@@ -252,21 +203,21 @@ npx bmad-plus scan D:\DEV --yes --depth 6
 ```mermaid
 graph TB
     subgraph Core["⚙️ Core Pack"]
-        AT["Atlas 🎯<br/>Strategy & Product"]
-        FG["Forge 🏗️<br/>Architecture & Code"]
-        SN["Sentinel 🔍<br/>QA & UX Review"]
-        NX["Nexus 🎼<br/>Orchestrator"]
+        AT["Atlas 🎯"]
+        FG["Forge 🏗️"]
+        SN["Sentinel 🔍"]
+        NX["Nexus 🎼"]
     end
 
     subgraph Packs["📦 Modular Packs"]
-        SH["Shadow 🕵️<br/>OSINT Intelligence"]
-        MK["Maker 🧬<br/>Agent Creator"]
-        ZC["Zecher 🧠<br/>Memory Guardian"]
-        SD["Shield 🛡️<br/>GRC Compliance (38 agents)"]
-        DS["Dev Studio 🏗️<br/>Full SDLC (6 agents)"]
-        SEO["SEO Engine 🔎<br/>3 agents · 6 phases"]
-        BK["Backup 🗂️<br/>Smart Archive"]
-        AN["Animated 🎬<br/>Scroll-Driven Sites"]
+        SH["Shadow 🕵️ OSINT"]
+        MK["Maker 🧬"]
+        ZC["Zecher 🧠 Memory"]
+        SD["Shield 🛡️ GRC 38 agents"]
+        DS["Dev Studio 🏗️ SDLC 6 agents"]
+        SEO["SEO Engine 🔎 3 agents"]
+        BK["Backup 🗂️"]
+        AN["Animated 🎬"]
     end
 
     subgraph Skills["⚡ Core Skills"]
@@ -383,22 +334,6 @@ graph TB
 
 ---
 
-### Zecher — Memory Guardian 🧠 *(Memory Pack)*
-
-**Persistent cross-session brain agent.** Maintains project knowledge across conversations.
-
-| Capability | Description |
-|-----------|-------------|
-| **Session Handoff** | Auto-creates session summaries with decisions, patterns, and lessons learned |
-| **Context Recall** | Retrieves relevant past decisions/patterns at conversation start |
-| **Brain Health** | Monitors memory files integrity and detects staleness |
-| **Cross-Project** | Links project memory to the global brain (`~/.bmad-plus/brain/`) |
-| **Karpathy Guardrails** | Prevents hallucinated memories — every entry needs source evidence |
-
-**Memory files:** `decisions.md`, `lessons.md`, `patterns.md`, `context.md`, `sessions/`
-
----
-
 ## 📦 Pack System
 
 BMAD+ uses a modular pack system. Core is always installed, additional packs are optional.
@@ -411,28 +346,32 @@ npx bmad-plus install
 
    🔍 OSINT — Shadow (investigation, scraping, psychoprofiling)
    🧬 Agent Creator — Maker (design, build, package)
-   🛡️ Security Audit — Shield (vulnerability scan)
+   🛡️ Shield GRC — 38 compliance agents (GDPR, ISO 27001, SOC 2, HIPAA...)
+   🏗️ Dev Studio — 6 SDLC agents (full lifecycle: design to deploy)
+   🔎 SEO Engine — Scout, Chief, Judge (6-phase audit, PageSpeed)
+   🧠 Memory — Zecher (persistent brain, session handoffs)
+   🗂️ Backup — Smart archive with versioning
+   🎬 Animated — Scroll-driven animated websites
    🤖 Install everything
    None — Core only
 ```
 
-| Pack | Agents | What it does | Status |
+| Pack | Agents | Description | Status |
 |------|--------|-------------|--------|
-| ⚙️ **Core** | Atlas, Forge, Sentinel, Nexus | Full dev lifecycle: strategy → architecture → code → QA | ✅ Stable |
-| 🔍 **OSINT** | Shadow | Person investigation, social scraping, psychoprofiling (55+ Apify actors) | ✅ Stable |
-| 🧬 **Maker** | Maker | Design, build, validate, and package new BMAD+ agents | ✅ Stable |
-| 🛡️ **Shield** | 38 compliance agents | GRC across 25+ frameworks: GDPR, ISO 27001, SOC 2, HIPAA, PCI DSS, EU AI Act, DORA, NIS2 | ✅ Stable |
-| 🏗️ **Dev Studio** | 6 specialized SDLC agents | Full SDLC: brainstorm → PRD → architecture → TDD → review (30 workflows, BWML DSL) | ✅ Stable |
-| 🔍 **SEO** | Scout, Chief, Judge | 6-phase SEO audit, PageSpeed perfection loop, Google APIs, competitor benchmark | ✅ Stable |
-| 🗂️ **Backup** | Backup Agent | Timestamped ZIP with smart exclusions (node_modules, .git, dist...) | ✅ Stable |
-| 🎬 **Animated** | Animated Website Agent | Luxury scroll-driven website from video input | ✅ Stable |
-| 🧠 **Memory** | Zecher | Cross-session brain, project scanner, Karpathy guardrails | ✅ Stable |
+| ⚙️ **Core** | Atlas, Forge, Sentinel, Nexus | Strategy, dev, QA, orchestration | ✅ Stable |
+| 🔍 **OSINT** | Shadow | OSINT intelligence, 55+ Apify actors, 7 APIs | ✅ Stable |
+| 🧬 **Maker** | Maker | Design, build, validate new BMAD+ agents | ✅ Stable |
+| 🛡️ **Shield** | 38 GRC agents | GDPR, ISO 27001, SOC 2, HIPAA, EU AI Act | ✅ Stable |
+| 🏗️ **Dev Studio** | 6 SDLC agents | Full lifecycle: design to deploy | ✅ Stable |
+| 🔎 **SEO** | Scout, Chief, Judge | 6-phase audit, PageSpeed loop, Google APIs | ✅ Stable |
+| 🧠 **Memory** | Zecher | Cross-session brain, decision recall, handoffs | ✅ Stable |
+| 🗂️ **Backup** | Backup Agent | Smart archive with versioning | ✅ Stable |
+| 🎬 **Animated** | Creative Agent | Scroll-driven animated websites | ✅ Stable |
 
 Each pack defines:
-- Its agents, skills, and workflows
-- Required/optional API keys
-- External packages (if applicable)
-- Cohabitation rules with other packs
+- Its agents and skills
+- Its required/optional API keys
+- Its external package (if applicable)
 
 ---
 
@@ -473,7 +412,7 @@ Give a project idea → Nexus orchestrates the complete pipeline:
 ```
 
 **Configurable checkpoints:**
-- `require_approval` (🔴) — Pause, WhatsApp notification, wait
+- `require_approval` (🔴) — Pause, wait for approval
 - `notify_only` (🟡) — Notification, continues unless intervened
 - `auto` (🟢) — Continues automatically
 
@@ -503,8 +442,51 @@ The installer automatically detects IDEs and generates configs:
 | Codex CLI | `AGENTS.md` | `.codex/` folder |
 | OpenCode | `OPENCODE.md` | opencode config |
 
+---
 
+## 📁 Project Structure
 
+```
+BMAD+/
+├── README.md                      ← This file (English)
+├── readme-international/          ← Translated READMEs (fr, es, de)
+├── CHANGELOG.md                   ← Version history
+├── CLAUDE.md                      ← Claude Code Config
+├── GEMINI.md                      ← Gemini CLI Config
+├── AGENTS.md                      ← Codex CLI / OpenCode Config
+├── .gitignore
+│
+├── src/
+│   └── bmad-plus/                 ⭐ CUSTOM MODULE
+│       ├── module.yaml            ← Module + packs config
+│       ├── module-help.csv        ← Contextual help
+│       ├── agents/
+│       │   ├── agent-strategist/  ← Atlas (analyst + pm)
+│       │   ├── agent-architect-dev/ ← Forge (architect + dev + tw)
+│       │   ├── agent-quality/     ← Sentinel (qa + ux)
+│       │   ├── agent-orchestrator/ ← Nexus (sm + qf + autopilot + parallel)
+│       │   ├── agent-maker/       ← Maker (meta-agent) [pack: maker]
+│       │   └── agent-shadow/      ← Shadow (osint) [pack: osint]
+│       ├── skills/
+│       │   ├── bmad-plus-autopilot/ ← Automated pipeline
+│       │   └── bmad-plus-parallel/  ← Parallel execution
+│       └── data/
+│           └── role-triggers.yaml ← Auto-activation rules
+│
+├── tools/
+│   └── cli/                       🛠️ NPX INSTALLER
+│       └── install.js             ← npx bmad-plus install
+│
+├── osint-agent-package/           🔍 OSINT PACKAGE
+│   ├── agents/                    ← Shadow Agent (OSINT investigator)
+│   ├── skills/                    ← 55+ Apify actors
+│   └── install.ps1                ← Installation script
+│
+└── upstream/                      📦 UPSTREAM REFERENCE
+    └── (clone of BMAD-METHOD)     ← Excluded from repo (.gitignore)
+```
+
+---
 
 ## ⚙️ Configuration
 
@@ -523,8 +505,6 @@ The installer automatically detects IDEs and generates configs:
 
 | Key | Pack | Usage |
 |-----|------|-------|
-| `GEMINI_API_KEY` | Monitor | AI Analysis of upstream diffs |
-| `EVOLUTION_API_KEY` | Monitor | WhatsApp Notifications |
 | `APIFY_API_TOKEN` | OSINT | Social media scraping |
 | `PERPLEXITY_API_KEY` | OSINT | Enriched search |
 
@@ -534,7 +514,7 @@ The installer automatically detects IDEs and generates configs:
 
 | Version | Date | Description |
 |---------|------|-------------|
-| **0.1.0** | 2026-03-17 | 🎉 Foundation — 56+ agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, monitoring, multi-IDE support |
+| **0.1.0** | 2026-03-17 | 🎉 Foundation — 56+ agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, multi-IDE support |
 | **0.2.0** | 2026-03-18 | 🔀 Oveanet Fusion — 3 new utility packs: SEO Audit 360, Universal Backup, Animated Website |
 | **0.3.0** | 2026-03-19 | 🚀 SEO Engine v2.0 — 3 multi-role agents, 4 Python scripts, 6-phase workflow, PageSpeed loop, GEO analysis |
 | **0.4.0** | 2026-03-19 | 🏢 SEO Engine v2.1 — SKILL.md orchestrator, Google APIs, HTML reports, competitor benchmark, 50 tests, GSC + GA4 extensions |
