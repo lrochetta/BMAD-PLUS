@@ -1,6 +1,6 @@
 # 🚀 BMAD+ — Framework Multi-Agent IA Augmenté
 
-[![Version](https://img.shields.io/badge/version-0.8.0-blue.svg)](../CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.9.0-blue.svg)](../CHANGELOG.md)
 [![Based on](https://img.shields.io/badge/based%20on-BMAD--METHOD-green.svg)](https://github.com/bmad-code-org/BMAD-METHOD)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](../LICENSE)
 
@@ -566,6 +566,7 @@ BMAD+/
 | **0.4.4** | 2026-05-17 | 🔧 Correction encodage UTF-8, i18n complète 10 langues, 62 tests unitaires |
 | **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 agents de conformité GRC |
 | **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 agents spécialisés SDLC + 30 workflows SDLC |
+| **0.9.0** | 2026-06-24 | 🚀 **Augmenté & Sécurisé** — 3 nouveaux packs (animated, backup, seo), correction P0 sécurité, 143/143 tests |
 | **0.8.0** | 2026-06-24 | 🚀 **Augmenté & Sécurisé** — 3 nouveaux packs (animated, backup, seo), correction P0 sécurité, 143/143 tests |
 
 Voir [CHANGELOG.md](../CHANGELOG.md) pour le détail complet.

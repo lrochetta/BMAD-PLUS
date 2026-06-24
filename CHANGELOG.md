@@ -5,6 +5,34 @@ All notable changes to BMAD+ will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.0] — 2026-06-24
+
+### Security
+- Full audit remediation: 64/64 findings fixed, score C- → A+
+- P0: Command injection eliminated (execSync → spawnSync in CLI entry point)
+- P0: MCP Server authentication added (token-validated middleware on all endpoints)
+- CI/CD hardened: PAT removed, force-push eliminated, npm audit gate blocking
+- MCP allowlist hardened, path traversal protection, URL hostname validation
+- VPS IP → env var, TLS deployment docs, SSRF/XXE protection
+- 0 npm audit vulnerabilities
+
+### Changed
+- Shared PACKS module — single source of truth for all 9 packs
+- install.js 740→300 lines: extracted memory-init.js + pack-copy.js
+- print() → logging, time.sleep → asyncio.sleep, empty catch blocks filled
+- Dynamic version in i18n.js (reads from package.json)
+
+### Removed
+- Duplicate agents/pack-{seo,animated,backup}/ directories
+
+### Documentation
+- Maker + Zecher in all config files, CHANGELOG v0.7.2 added
+- French README fix, version history synced to all translations
+- 7 audit reports in audit/ folder
+
+### Tests
+- 143/143 tests passing
+
 ## [0.8.0] — 2026-06-24
 
 ### Added
