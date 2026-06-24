@@ -58,19 +58,11 @@ def run_pagespeed(url: str, strategy: str = "mobile", categories: Optional[list]
         "url": url,
         "key": API_KEY,
         "strategy": strategy,
+        "category": categories,
     }
-    for cat in categories:
-        params.setdefault("category", [])
-        if isinstance(params["category"], list):
-            params["category"].append(cat)
-
-    # requests needs category as repeated param
-    param_str = f"url={url}&key={API_KEY}&strategy={strategy}"
-    for cat in categories:
-        param_str += f"&category={cat}"
 
     try:
-        response = requests.get(f"{PSI_ENDPOINT}?{param_str}", timeout=120)
+        response = requests.get(PSI_ENDPOINT, params=params, timeout=120)
         response.raise_for_status()
         data = response.json()
     except requests.RequestException as e:

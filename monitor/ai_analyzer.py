@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 BMAD+ AI Diff Analyzer
 Uses Gemini API to analyze upstream changes and classify compatibility.
@@ -11,6 +10,11 @@ try:
 except ImportError:
     genai = None
 
+
+# Truncation limits
+MAX_PROMPT_COMMITS = 3000
+MAX_PROMPT_DIFF_STAT = 2000
+MAX_PROMPT_DIFF_CONTENT = 5000
 
 ANALYSIS_PROMPT = """You are an expert code analyst for the BMAD-METHOD framework.
 Analyze the following upstream changes and produce a structured compatibility report for BMAD+, a custom fork.
@@ -61,9 +65,9 @@ def analyze_diff_with_ai(commits, diff_stat, diff_content, api_key, prev_version
 
     prompt = ANALYSIS_PROMPT.format(
         prev_version=prev_version,
-        commits=commits[:3000],
-        diff_stat=diff_stat[:2000],
-        diff_content=diff_content[:5000]
+        commits=commits[:MAX_PROMPT_COMMITS],
+        diff_stat=diff_stat[:MAX_PROMPT_DIFF_STAT],
+        diff_content=diff_content[:MAX_PROMPT_DIFF_CONTENT]
     )
 
     try:

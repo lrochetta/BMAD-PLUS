@@ -11,6 +11,8 @@ To activate an agent, say its name or persona:
 - **Sentinel** (Quality) — QA + UX review
 - **Nexus** (Orchestrator) — Sprint management + Autopilot + Parallel execution
 - **Shadow** (OSINT) — Investigation + Scraping + Psychoprofiling (if OSINT pack installed)
+- **Maker** (Agent Creator) — Design, build, validate, and package new BMAD+ agents
+- **Zecher** (Memory Guardian) — Persistent cross-session memory, context recall, session handoffs
 
 ## Skills
 - Load skills from `src/bmad-plus/skills/` and `src/bmad-plus/agents/`
@@ -21,6 +23,8 @@ To activate an agent, say its name or persona:
 - `bmad-help` — Show all available agents and skills
 - `autopilot` — Launch Nexus in full pipeline mode
 - `parallel` — Enable parallel multi-agent execution
+
+> **Note:** `bmad-help` is a built-in CLI command, not a standalone skill file. It dynamically lists available agents and skills from the installed module configuration (`module.yaml`, `module-help.csv`). It does not have a corresponding skill file in `src/bmad-plus/skills/`.
 
 ## Project Structure
 - `src/bmad-plus/` — Custom module (agents, skills, data)

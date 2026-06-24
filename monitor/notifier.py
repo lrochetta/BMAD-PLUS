@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 BMAD+ Notification System
 Supports WhatsApp (via Evolution API) with email fallback.

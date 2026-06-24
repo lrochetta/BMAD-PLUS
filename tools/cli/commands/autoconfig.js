@@ -53,7 +53,9 @@ function detectStack(dir) {
       else if (fs.existsSync(path.join(dir, 'yarn.lock'))) result.packageManager = 'yarn';
       else if (fs.existsSync(path.join(dir, 'bun.lockb'))) result.packageManager = 'bun';
       else result.packageManager = 'npm';
-    } catch {}
+    } catch (e) {
+        console.warn('autoconfig: Failed to parse package.json in detectStack', e.message);
+      }
   }
 
   // Other languages
@@ -115,7 +117,9 @@ function analyzeStructure(dir) {
 
     // Check for .git directory
     if (fs.existsSync(path.join(dir, '.git'))) structure.hasGit = true;
-  } catch {}
+  } catch (e) {
+    console.warn('autoconfig: Failed to analyze directory structure', e.message);
+  }
 
   return structure;
 }
@@ -203,7 +207,9 @@ function getProjectName(dir) {
       const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
       if (pkg.name) return pkg.name;
     }
-  } catch {}
+  } catch (e) {
+    console.warn('autoconfig: Failed to read package.json in getProjectName', e.message);
+  }
   return path.basename(dir);
 }
 
@@ -250,7 +256,7 @@ module.exports = {
 
     // Check if directory has content
     let entries = [];
-    try { entries = fs.readdirSync(projectDir).filter(e => !e.startsWith('.')); } catch {}
+    try { entries = fs.readdirSync(projectDir).filter(e => !e.startsWith('.')); } catch (e) { console.warn('autoconfig: Failed to list directory', e.message); }
 
     const isExistingProject = entries.length > 0;
 
@@ -343,7 +349,8 @@ module.exports = {
           tools: toolsArg,
         });
       } catch (e) {
-        // Install may have its own output, that's fine
+        clack.log.error(`Autoconfig install failed: ${e.message}`);
+        throw e;
       }
 
       spinner2.stop('Installation complete');
@@ -442,7 +449,10 @@ module.exports = {
           packs: packs.join(','),
           yes: true,
         });
-      } catch {}
+      } catch (e) {
+        clack.log.error(`Autoconfig install failed: ${e.message}`);
+        throw e;
+      }
 
       // Write initial context
       const contextPath = path.join(projectDir, '.agents', 'memory', 'context.md');

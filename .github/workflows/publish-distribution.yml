@@ -96,9 +96,10 @@ jobs:
           git add -A
           git commit -m "Release v${{ steps.version.outputs.VERSION }} — automated distribution build" --allow-empty
 
-          # Push to distribution repo using classic PAT auth
-          git remote add distribution https://${DIST_PAT}@github.com/lrochetta/BMAD-PLUS.git
-          git push distribution HEAD:master --force
+          # Push to distribution repo using headers-based auth (no token in URL)
+          git remote add distribution https://github.com/lrochetta/BMAD-PLUS.git
+          git config http.https://github.com/.extraheader "Authorization: basic $(echo -n :$DIST_PAT | base64)"
+          git push distribution HEAD:master
 
           echo "✅ Distribution repo updated (master)!"
 
@@ -111,7 +112,6 @@ jobs:
 
       # ── SECURITY AUDIT ─────────────────────────────────────────
       - name: Security audit
-        continue-on-error: true
         run: |
           echo "🔒 Running npm audit..."
           npm install --omit=dev --ignore-scripts
@@ -125,6 +125,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           echo "📦 Publishing to npm..."
-          npm publish --access public 2>&1 || echo "⚠️ npm publish failed — check token permissions"
+          npm publish --access public --registry=https://registry.npmjs.org 2>&1 || echo "⚠️ npm publish failed — check token permissions"
           echo "npm publish step completed"
 

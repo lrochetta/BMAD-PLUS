@@ -13,94 +13,11 @@ const fsExtra = require('fs-extra');
 const clack = require('@clack/prompts');
 const pc = require('picocolors');
 const { t, getLanguageOptions, getCommLanguageOptions } = require('../i18n');
+const { PACKS } = require('../lib/packs');
+const { copyPackFiles } = require('../lib/pack-copy');
+const { initMemory } = require('../lib/memory-init');
 
-// Pack definitions
-const PACKS = {
-  core: {
-    name: 'Core Development',
-    icon: '⚙️',
-    description: '4 multi-role agents (Atlas, Forge, Sentinel, Nexus)',
-    required: true,
-    agents: ['agent-strategist', 'agent-architect-dev', 'agent-quality', 'agent-orchestrator'],
-    skills: ['bmad-plus-autopilot', 'bmad-plus-parallel', 'bmad-plus-sync'],
-    data: ['role-triggers.yaml'],
-  },
-  osint: {
-    name: 'OSINT Intelligence',
-    icon: '🔍',
-    description: 'Agent Shadow — investigation, scraping, psychoprofil',
-    required: false,
-    agents: ['agent-shadow'],
-    skills: [],
-    externalPackage: 'osint-agent-package',
-  },
-  maker: {
-    name: 'Agent Creator',
-    icon: '🧬',
-    description: 'Maker — design, build, and package new BMAD+ agents',
-    required: false,
-    agents: ['agent-maker'],
-    skills: [],
-    data: [],
-  },
-  shield: {
-    name: 'Pack Shield (GRC)',
-    icon: '🛡️',
-    description: '38 compliance agents — GDPR, ISO 27001, SOC 2, PCI DSS, EU AI Act...',
-    required: false,
-    agents: [],
-    skills: [],
-    packDir: 'pack-shield',
-    packSrcDir: 'packs',
-  },
-  'dev-studio': {
-    name: 'Dev Studio — Full SDLC',
-    icon: '🏗️',
-    description: 'Full SDLC pipeline: brainstorm → PRD → architecture → TDD → code review → deploy',
-    required: false,
-    agents: [],
-    skills: [],
-    packDir: 'pack-dev-studio',
-    packSrcDir: 'packs',
-  },
-  seo: {
-    name: 'SEO Audit 360',
-    icon: '🔍',
-    description: '3 agents (Scout, Chief, Judge) + 6-phase audit + PageSpeed loop',
-    required: false,
-    agents: [],
-    skills: [],
-    packDir: 'pack-seo',
-  },
-  backup: {
-    name: 'Universal Backup',
-    icon: '🗂️',
-    description: 'Timestamped ZIP backup with smart exclusions',
-    required: false,
-    agents: [],
-    skills: [],
-    packDir: 'pack-backup',
-  },
-  animated: {
-    name: 'Animated Website',
-    icon: '🎬',
-    description: 'Luxury scroll-driven website from video',
-    required: false,
-    agents: [],
-    skills: [],
-    packDir: 'pack-animated',
-  },
-  memory: {
-    name: 'Memory — Persistent Brain',
-    icon: '🧠',
-    description: 'Cross-session memory + project scanner + Karpathy guardrails. Agents learn.',
-    required: false,
-    agents: [],
-    skills: [],
-    packDir: 'pack-memory',
-    packSrcDir: 'packs',
-  },
-};
+// Pack definitions are imported from the shared module: require('../lib/packs').PACKS
 
 // IDE configurations
 const IDE_CONFIGS = {
@@ -153,7 +70,7 @@ module.exports = {
 
       if (clack.isCancel(langChoice)) {
         clack.cancel('Installation cancelled.');
-        process.exit(0);
+        throw new Error('Installation cancelled.');
       }
       lang = langChoice;
     }
@@ -164,7 +81,7 @@ module.exports = {
     if (!fs.existsSync(bmadSrc)) {
       clack.log.error(`${i.source_not_found}: ${bmadSrc}`);
       clack.outro(pc.red(i.failed));
-      process.exit(1);
+      throw new Error(`Source not found: ${bmadSrc}`);
     }
 
     clack.log.info(`${i.installing_to}: ${pc.cyan(projectDir)}`);
@@ -187,7 +104,7 @@ module.exports = {
           .map(([key, pack]) => ({
             value: key,
             label: `${pack.icon} ${pack.name}`,
-            hint: pack.disabled ? i.soon : pack.description,
+            hint: pack.disabled ? i.soon : (pack.desc || pack.description || ''),
             disabled: pack.disabled,
           })),
         required: false,
@@ -195,7 +112,7 @@ module.exports = {
 
       if (clack.isCancel(packChoice)) {
         clack.cancel(i.cancelled);
-        process.exit(0);
+        throw new Error(i.cancelled);
       }
 
       selectedPacks = [...new Set(['core', ...packChoice])];
@@ -278,10 +195,24 @@ module.exports = {
 
       if (clack.isCancel(userConfig)) {
         clack.cancel(i.cancelled);
-        process.exit(0);
+        throw new Error(i.cancelled);
       }
 
-      userName = userConfig.userName;
+      // Validate user-provided name
+      const rawName = userConfig.userName;
+      const SHELL_META = /[;&|`$(){}[\]!#~<>*?\\\n\r]/;
+      if (!rawName || rawName.trim().length === 0) {
+        clack.log.warn('Name cannot be empty. Using default.');
+        userName = process.env.USER || process.env.USERNAME || 'Developer';
+      } else if (rawName.length > 100) {
+        clack.log.warn('Name too long (>100 chars). Truncating.');
+        userName = rawName.slice(0, 100);
+      } else if (SHELL_META.test(rawName)) {
+        clack.log.warn('Name contains shell metacharacters. Using sanitized version.');
+        userName = rawName.replace(SHELL_META, '').trim() || 'Developer';
+      } else {
+        userName = rawName;
+      }
       commLang = userConfig.commLang;
     }
 
@@ -302,148 +233,26 @@ module.exports = {
     let copiedSkills = 0;
     let copiedFiles = 0;
 
+    const projectRoot = path.join(bmadSrc, '..', '..');
+
     for (const packId of selectedPacks) {
       const pack = PACKS[packId];
       if (!pack || pack.disabled) continue;
 
-      // Copy agents
-      for (const agent of pack.agents) {
-        const src = path.join(bmadSrc, 'agents', agent);
-        const dest = path.join(targetAgentsDir, agent);
-        if (fs.existsSync(src)) {
-          fsExtra.copySync(src, dest, { overwrite: true });
-          copiedAgents++;
-        }
-      }
-
-      // Copy skills
-      for (const skill of pack.skills) {
-        const src = path.join(bmadSrc, 'skills', skill);
-        const dest = path.join(targetAgentsDir, skill);
-        if (fs.existsSync(src)) {
-          fsExtra.copySync(src, dest, { overwrite: true });
-          copiedSkills++;
-        }
-      }
-
-      // Copy data files
-      for (const dataFile of (pack.data || [])) {
-        const src = path.join(bmadSrc, 'data', dataFile);
-        const dest = path.join(targetDataDir, dataFile);
-        if (fs.existsSync(src)) {
-          fsExtra.copySync(src, dest, { overwrite: true });
-          copiedFiles++;
-        }
-      }
-
-      // Copy external package (OSINT)
-      if (pack.externalPackage) {
-        const extSrc = path.join(__dirname, '..', '..', '..', pack.externalPackage, 'skills');
-        const extDest = path.join(targetAgentsDir);
-        if (fs.existsSync(extSrc)) {
-          fsExtra.copySync(extSrc, extDest, { overwrite: true });
-          copiedSkills++;
-        }
-      }
-
-      // Copy pack directory (SEO, Backup, Animated Website, Shield)
-      if (pack.packDir) {
-        const srcParent = pack.packSrcDir || 'agents';
-        const packSrc = path.join(bmadSrc, srcParent, pack.packDir);
-        const packDest = path.join(targetAgentsDir, pack.packDir);
-        if (fs.existsSync(packSrc)) {
-          fsExtra.copySync(packSrc, packDest, { overwrite: true });
-          copiedAgents++;
-          copiedFiles++;
-        }
-      }
+      const result = copyPackFiles({
+        bmadSrc,
+        targetAgentsDir,
+        targetDataDir,
+        projectRoot,
+        pack,
+      });
+      copiedAgents += result.copiedAgents;
+      copiedSkills += result.copiedSkills;
+      copiedFiles += result.copiedFiles;
 
       // Memory pack: initialize brain with existing brain detection
       if (packId === 'memory' && pack.packDir) {
-        const memoryDir = path.join(projectDir, '.agents', 'memory');
-        const sessionsDir = path.join(memoryDir, 'sessions');
-        const globalBrainDir = path.join(os.homedir(), '.bmad-plus', 'brain', 'projects');
-        const templateDir = path.join(bmadSrc, 'packs', 'pack-memory', 'templates');
-
-        // Create project memory (never overwrite existing)
-        fsExtra.ensureDirSync(sessionsDir);
-        const memoryFiles = ['decisions.md', 'lessons.md', 'patterns.md', 'context.md'];
-        for (const mf of memoryFiles) {
-          const dest = path.join(memoryDir, mf);
-          if (!fs.existsSync(dest)) {
-            const src = path.join(templateDir, mf);
-            if (fs.existsSync(src)) {
-              let content = fs.readFileSync(src, 'utf8');
-              content = content.replace(/\{\{date\}\}/g, new Date().toISOString().slice(0, 10));
-              content = content.replace(/\{\{project_name\}\}/g, path.basename(projectDir));
-              content = content.replace(/\{\{project_path\}\}/g, projectDir);
-              fs.writeFileSync(dest, content, 'utf8');
-            }
-          }
-        }
-
-        // Detect existing brain directories
-        const brainCandidates = [
-          path.join(os.homedir(), '.bmad-plus', 'brain'),
-          path.join(projectDir, '_brain'),
-          path.join(os.homedir(), '.claude', 'memory'),
-        ];
-        const existingBrain = brainCandidates.find(p => fs.existsSync(p));
-
-        if (existingBrain) {
-          clack.log.info(`🧠 ${i.brain_detected || 'Existing brain detected'}: ${existingBrain}`);
-          // Write brain link pointer
-          fs.writeFileSync(
-            path.join(memoryDir, '.brain-link'),
-            JSON.stringify({ linked_brain: existingBrain, linked_at: new Date().toISOString() }, null, 2),
-            'utf8'
-          );
-        } else {
-          // Create fresh global brain
-          fsExtra.ensureDirSync(globalBrainDir);
-          const identitySrc = path.join(templateDir, 'identity.yaml');
-          const identityDest = path.join(os.homedir(), '.bmad-plus', 'brain', 'identity.yaml');
-          if (fs.existsSync(identitySrc) && !fs.existsSync(identityDest)) {
-            let content = fs.readFileSync(identitySrc, 'utf8');
-            content = content.replace(/\{\{user_name\}\}/g, userName);
-            content = content.replace(/\{\{language\}\}/g, commLang);
-            content = content.replace(/\{\{date\}\}/g, new Date().toISOString().slice(0, 10));
-            fs.writeFileSync(identityDest, content, 'utf8');
-          }
-          // Copy global memory templates
-          for (const gf of ['decisions.md', 'lessons.md', 'patterns.md']) {
-            const dest = path.join(os.homedir(), '.bmad-plus', 'brain', gf);
-            if (!fs.existsSync(dest)) {
-              const src = path.join(templateDir, gf);
-              if (fs.existsSync(src)) {
-                let content = fs.readFileSync(src, 'utf8');
-                content = content.replace(/\{\{date\}\}/g, new Date().toISOString().slice(0, 10));
-                content = content.replace(/\{\{project_name\}\}/g, 'Global Brain');
-                fs.writeFileSync(dest, content, 'utf8');
-              }
-            }
-          }
-          clack.log.info(`🧠 ${i.brain_created || 'Global brain created'}: ${path.join(os.homedir(), '.bmad-plus', 'brain')}`);
-        }
-
-        // Index this project in global brain
-        const crypto = require('node:crypto');
-        const projHash = crypto.createHash('sha256').update(projectDir).digest('hex').slice(0, 8);
-        const projMeta = {
-          path: projectDir,
-          name: path.basename(projectDir),
-          hash: projHash,
-          status: 'active',
-          bmad_installed: true,
-          packs_installed: selectedPacks,
-          last_scanned: new Date().toISOString().slice(0, 10),
-        };
-        fsExtra.ensureDirSync(globalBrainDir);
-        fs.writeFileSync(
-          path.join(globalBrainDir, `${projHash}.yaml`),
-          Object.entries(projMeta).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join('\n'),
-          'utf8'
-        );
+        initMemory({ projectDir, bmadSrc, userName, commLang, selectedPacks });
       }
     }
 

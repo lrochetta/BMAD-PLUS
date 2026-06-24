@@ -3,8 +3,8 @@ Gamma Report Module — MCP Server v2.0
 Professional PDF report generation via Gamma API.
 5 tools: generate, check status, download PDF, list templates, check credits.
 """
+import asyncio
 import os
-import time
 import requests
 
 
@@ -20,7 +20,7 @@ def register(mcp):
     """Register all gamma_report tools with the MCP server."""
 
     @mcp.tool()
-    def gamma_generate_report(
+    async def gamma_generate_report(
         markdown_content: str,
         title: str,
         template_id: str = "g_4ct71y71u2jc2i5",
@@ -75,9 +75,15 @@ def register(mcp):
                 if not gen_id:
                     return f"✅ Rapport instantané: {result.get('gammaUrl', 'N/A')}"
 
-                # Poll for completion (max 600s = 10 minutes)
-                for i in range(60):
-                    time.sleep(10)
+                # Poll for completion with exponential backoff (max ~10 minutes)
+                _delay = 2
+                _max_delay = 60
+                _elapsed = 0
+                _timeout = 600
+                while _elapsed < _timeout:
+                    await asyncio.sleep(_delay)
+                    _elapsed += _delay
+                    _delay = min(_delay * 1.5, _max_delay)
                     poll = requests.get(
                         f"{GAMMA_BASE_URL}/generations/{gen_id}",
                         headers={"X-API-KEY": GAMMA_API_KEY}, timeout=10

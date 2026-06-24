@@ -3,6 +3,7 @@ import os
 import shutil
 import json
 import logging
+from urllib.parse import urlparse
 import chromadb
 from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer
@@ -14,6 +15,21 @@ KNOWLEDGE_DIR = "knowledge"
 SOURCES_FILE = os.path.join(KNOWLEDGE_DIR, "sources.json")
 CHROMA_PATH = "chroma_db"
 
+# URL allowlist — only these domains are permitted for source cloning
+ALLOWED_SOURCE_DOMAINS = {
+    "github.com",
+    "raw.githubusercontent.com",
+    "gitlab.com",
+    "bitbucket.org",
+    "gitlab.freedesktop.org",
+    "git.kernel.org",
+    "git.savannah.gnu.org",
+    "git.savannah.nongnu.org",
+    "go.googlesource.com",
+    "chromium.googlesource.com",
+    "android.googlesource.com",
+}
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("RAG-Ingest")
 
@@ -23,6 +39,21 @@ class RAGIngester:
         self.chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
         self.collection = self.chroma_client.get_or_create_collection(name="industrial_audit_norms")
         
+    def _validate_source_url(self, url: str, name: str) -> bool:
+        """Validate that the source URL points to an allowed domain."""
+        parsed = urlparse(url)
+        hostname = parsed.hostname
+        if not hostname:
+            logger.error(f"Source '{name}' has no hostname in URL: {url}")
+            return False
+        if hostname not in ALLOWED_SOURCE_DOMAINS:
+            logger.error(
+                f"Source '{name}' URL hostname '{hostname}' is not in the allowlist. "
+                f"Allowed: {', '.join(sorted(ALLOWED_SOURCE_DOMAINS))}"
+            )
+            return False
+        return True
+
     def fetch_sources(self):
         """Clone or Pull repositories defined in sources.json"""
         if not os.path.exists(SOURCES_FILE):
@@ -35,7 +66,11 @@ class RAGIngester:
         for source in config['sources']:
             logger.info(f"Processing source: {source['name']}")
             repo_path = os.path.join(KNOWLEDGE_DIR, "repos", source['id'])
-            
+
+            # URL allowlist check before any network operation
+            if not self._validate_source_url(source['url'], source['name']):
+                continue
+
             if os.path.exists(repo_path):
                 logger.info(f"  -> Pulling updates for {source['name']}...")
                 try:

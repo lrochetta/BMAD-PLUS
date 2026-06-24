@@ -5,7 +5,7 @@
  * Ensures proper execution when run via npx from npm registry
  */
 
-const { execSync } = require('node:child_process');
+const { spawnSync } = require('node:child_process');
 const path = require('node:path');
 const fs = require('node:fs');
 
@@ -21,10 +21,8 @@ if (isNpxExecution) {
   }
 
   try {
-    execSync(`node "${cliPath}" ${args.join(' ')}`, {
-      stdio: 'inherit',
-      cwd: process.cwd(),
-    });
+    const result = spawnSync('node', [cliPath, ...args], { stdio: 'inherit' });
+    if (result.status !== 0) process.exit(result.status);
   } catch (error) {
     process.exit(error.status || 1);
   }

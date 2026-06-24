@@ -11,6 +11,8 @@ To activate an agent, say its name or persona:
 - **Sentinel** (Quality) — QA + UX review
 - **Nexus** (Orchestrator) — Sprint management + Autopilot + Parallel execution
 - **Shadow** (OSINT) — Investigation + Scraping + Psychoprofiling (if OSINT pack installed)
+- **Maker** (Agent Creator) — Design, build, validate, and package new BMAD+ agents
+- **Zecher** (Memory Guardian) — Persistent cross-session memory, context recall, session handoffs
 
 ## Skills
 - Load skills from `src/bmad-plus/skills/` and `src/bmad-plus/agents/`
@@ -32,6 +34,9 @@ To activate an agent, say its name or persona:
 ## Communication
 Default language: French for user-facing content, English for code and technical docs.
 
+## Commit Rules
+- NEVER add "Co-Authored-By: Claude" or any AI co-author attribution.
+- The sole author is Laurent Rochetta.
 
 ## Repository Maintenance Rule
 When updating the main README.md (English), you MUST synchronously update all translations in the readme-international/ directory (fr, es, de).

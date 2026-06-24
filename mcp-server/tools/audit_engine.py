@@ -36,6 +36,11 @@ def register(mcp):
         clone_dir = Path(tempfile.gettempdir()) / "audit-repos" / project_name
         if clone_dir.exists():
             import shutil
+            # Safety check: ensure clone_dir is within the temp directory, not / or home
+            resolved = clone_dir.resolve()
+            temp_parent = Path(tempfile.gettempdir()).resolve()
+            if temp_parent not in resolved.parents and resolved != temp_parent:
+                return f"❌ Safety check failed: clone_dir {clone_dir} is outside temp directory"
             shutil.rmtree(clone_dir)
 
         try:

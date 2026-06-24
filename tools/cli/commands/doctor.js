@@ -10,6 +10,7 @@ const fs = require('node:fs');
 const clack = require('@clack/prompts');
 const pc = require('picocolors');
 const { t } = require('../i18n');
+const { PACKS, EXPECTED_AGENTS } = require('../lib/packs');
 
 module.exports = {
   command: 'doctor',
@@ -62,25 +63,31 @@ module.exports = {
       clack.log.success(`✅ ${agentDirs.length} agent/skill directories found`);
       passed++;
 
-      // Check each expected agent from manifest packs
-      const expectedAgents = {
-        core: ['agent-strategist', 'agent-architect-dev', 'agent-quality', 'agent-orchestrator'],
-        osint: ['agent-shadow'],
-        maker: ['agent-maker'],
-        seo: ['pack-seo'],
-        backup: ['pack-backup'],
-        animated: ['pack-animated'],
-      };
-
+      // Check each expected agent from manifest packs using shared EXPECTED_AGENTS module
       for (const pack of (manifest.packs || ['core'])) {
-        const expected = expectedAgents[pack] || [];
-        for (const agent of expected) {
+        const entry = EXPECTED_AGENTS[pack];
+        if (!entry) continue;
+
+        // Check individual agent directories
+        for (const agent of (entry.agents || [])) {
           checks++;
           const agentPath = path.join(agentsDir, agent);
           if (fs.existsSync(agentPath)) {
             passed++;
           } else {
             clack.log.warn(`⚠️  Missing agent: ${agent} (pack: ${pack})`);
+            warnings++;
+          }
+        }
+
+        // Check pack directory if applicable
+        if (entry.packDir) {
+          checks++;
+          const packPath = path.join(agentsDir, entry.packDir);
+          if (fs.existsSync(packPath)) {
+            passed++;
+          } else {
+            clack.log.warn(`⚠️  Missing pack directory: ${entry.packDir} (pack: ${pack})`);
             warnings++;
           }
         }
@@ -153,37 +160,27 @@ module.exports = {
     checks++;
     try {
       const yaml = require('js-yaml');
-      const installModule = require('./install');
-      const installSrc = fs.readFileSync(path.join(__dirname, 'install.js'), 'utf8');
-      const packsMatch = installSrc.match(/const PACKS\s*=\s*\{/);
-
       const moduleYamlSrc = path.join(__dirname, '..', '..', '..', 'src', 'bmad-plus', 'module.yaml');
-      if (packsMatch && fs.existsSync(moduleYamlSrc)) {
+      if (fs.existsSync(moduleYamlSrc)) {
         const moduleContent = yaml.load(fs.readFileSync(moduleYamlSrc, 'utf8'));
         const modulePackIds = Object.keys(moduleContent.packs || {});
 
-        // Extract PACKS keys from install.js via require
-        // The PACKS keys are the pack IDs available in the CLI menu
-        // We compare against module.yaml packs
-        const installContent = fs.readFileSync(path.join(__dirname, 'install.js'), 'utf8');
-        const packKeyMatches = installContent.match(/^\s+'?([a-z][-a-z]*)'?\s*:\s*\{/gm);
-        const installPackIds = packKeyMatches
-          ? packKeyMatches.map(m => m.trim().replace(/[':{ ]/g, '').replace(/-/g, '-'))
-          : [];
+        // Use shared PACKS module instead of fragile regex on install.js source
+        const cliPackIds = Object.keys(PACKS);
 
         // Find mismatches
-        const missingInInstall = modulePackIds.filter(p => !installPackIds.includes(p));
-        const missingInModule = installPackIds.filter(p => !modulePackIds.includes(p));
+        const missingInCLI = modulePackIds.filter(p => !cliPackIds.includes(p));
+        const missingInModule = cliPackIds.filter(p => !modulePackIds.includes(p));
 
-        if (missingInInstall.length === 0 && missingInModule.length === 0) {
+        if (missingInCLI.length === 0 && missingInModule.length === 0) {
           clack.log.success(`✅ PACKS ↔ module.yaml in sync (${modulePackIds.length} packs)`);
           passed++;
         } else {
-          if (missingInInstall.length > 0) {
-            clack.log.warn(`⚠️  Packs in module.yaml but missing from install.js PACKS: ${missingInInstall.join(', ')}`);
+          if (missingInCLI.length > 0) {
+            clack.log.warn(`⚠️  Packs in module.yaml but missing from CLI PACKS: ${missingInCLI.join(', ')}`);
           }
           if (missingInModule.length > 0) {
-            clack.log.warn(`⚠️  Packs in install.js PACKS but missing from module.yaml: ${missingInModule.join(', ')}`);
+            clack.log.warn(`⚠️  Packs in CLI PACKS but missing from module.yaml: ${missingInModule.join(', ')}`);
           }
           warnings++;
         }

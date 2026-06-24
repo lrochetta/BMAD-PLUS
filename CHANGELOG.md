@@ -72,8 +72,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`--active-days <n>`** — Custom threshold for "active" status (default: 30 days)
 - **`--paused-days <n>`** — Custom threshold for "paused" status (default: 180 days)
 
+## [0.7.2] - 2026-06-XX
 ### Fixed
-- Scan now accepts positional path argument (`npx bmad-plus scan D:\path`)
+- `scan` command: `bmad-plus scan <path>` now accepts a positional path argument
 
 ## [0.7.1] — 2026-05-17
 

@@ -71,10 +71,13 @@ def is_safe_url(url: str) -> bool:
         return False
 
     try:
-        resolved_ip = socket.gethostbyname(hostname)
-        ip = ipaddress.ip_address(resolved_ip)
-        if ip.is_private or ip.is_loopback or ip.is_reserved or ip.is_link_local:
-            return False
+        # Resolve ALL IP addresses (IPv4 and IPv6) via getaddrinfo
+        addrinfo = socket.getaddrinfo(hostname, None)
+        for entry in addrinfo:
+            ip_str = entry[4][0]  # sockaddr[0] contains the IP string
+            ip = ipaddress.ip_address(ip_str)
+            if ip.is_private or ip.is_loopback or ip.is_reserved or ip.is_link_local:
+                return False
     except (socket.gaierror, ValueError):
         pass  # DNS failure handled by requests
 
@@ -122,7 +125,9 @@ def fetch_page(
     if not is_safe_url(url):
         resolved = "unknown"
         try:
-            resolved = socket.gethostbyname(parsed.hostname)
+            # Use getaddrinfo for consistent multi-address resolution
+            addrinfo = socket.getaddrinfo(parsed.hostname, None)
+            resolved = ", ".join(set(entry[4][0] for entry in addrinfo))
         except Exception:
             pass
         result["error"] = f"Blocked: URL resolves to private/internal IP ({resolved})"

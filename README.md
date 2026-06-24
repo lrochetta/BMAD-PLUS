@@ -263,7 +263,7 @@ graph TB
         MK["Maker 🧬<br/>Agent Creator"]
         ZC["Zecher 🧠<br/>Memory Guardian"]
         SD["Shield 🛡️<br/>GRC Compliance (38 agents)"]
-        DS["Dev Studio 🏗️<br/>Full SDLC (56+ agents)"]
+        DS["Dev Studio 🏗️<br/>Full SDLC (6 agents)"]
         SEO["SEO Engine 🔎<br/>3 agents · 6 phases"]
         BK["Backup 🗂️<br/>Smart Archive"]
         AN["Animated 🎬<br/>Scroll-Driven Sites"]

@@ -11,29 +11,10 @@ const fsExtra = require('fs-extra');
 const clack = require('@clack/prompts');
 const pc = require('picocolors');
 const { t } = require('../i18n');
+const { PACKS } = require('../lib/packs');
+const { copyPackFiles } = require('../lib/pack-copy');
 
-// Same pack definitions as install.js — keep in sync
-const PACKS = {
-  core: {
-    agents: ['agent-strategist', 'agent-architect-dev', 'agent-quality', 'agent-orchestrator'],
-    skills: ['bmad-plus-autopilot', 'bmad-plus-parallel', 'bmad-plus-sync'],
-    data: ['role-triggers.yaml'],
-  },
-  osint: {
-    agents: ['agent-shadow'],
-    skills: [],
-    externalPackage: 'osint-agent-package',
-  },
-  maker: {
-    agents: ['agent-maker'],
-    skills: [],
-    data: [],
-  },
-  seo: { agents: [], skills: [], packDir: 'pack-seo' },
-  backup: { agents: [], skills: [], packDir: 'pack-backup' },
-  animated: { agents: [], skills: [], packDir: 'pack-animated' },
-  shield: { agents: [], skills: [], packDir: 'pack-shield', packSrcDir: 'packs' },
-};
+// Pack definitions imported from shared module: require('../lib/packs').PACKS
 
 module.exports = {
   command: 'update',
@@ -92,59 +73,20 @@ module.exports = {
 
     let updated = 0;
 
+    const projectRoot = path.join(bmadSrc, '..', '..');
+
     for (const packId of selectedPacks) {
       const pack = PACKS[packId];
       if (!pack) continue;
 
-      // Update agents
-      for (const agent of (pack.agents || [])) {
-        const src = path.join(bmadSrc, 'agents', agent);
-        const dest = path.join(targetAgentsDir, agent);
-        if (fs.existsSync(src)) {
-          fsExtra.copySync(src, dest, { overwrite: true });
-          updated++;
-        }
-      }
-
-      // Update skills
-      for (const skill of (pack.skills || [])) {
-        const src = path.join(bmadSrc, 'skills', skill);
-        const dest = path.join(targetAgentsDir, skill);
-        if (fs.existsSync(src)) {
-          fsExtra.copySync(src, dest, { overwrite: true });
-          updated++;
-        }
-      }
-
-      // Update data files
-      for (const dataFile of (pack.data || [])) {
-        const src = path.join(bmadSrc, 'data', dataFile);
-        const dest = path.join(targetDataDir, dataFile);
-        if (fs.existsSync(src)) {
-          fsExtra.copySync(src, dest, { overwrite: true });
-          updated++;
-        }
-      }
-
-      // Update external package (OSINT)
-      if (pack.externalPackage) {
-        const extSrc = path.join(__dirname, '..', '..', '..', pack.externalPackage, 'skills');
-        if (fs.existsSync(extSrc)) {
-          fsExtra.copySync(extSrc, targetAgentsDir, { overwrite: true });
-          updated++;
-        }
-      }
-
-      // Update pack directory (SEO, Backup, Animated, Shield)
-      if (pack.packDir) {
-        const srcParent = pack.packSrcDir || 'agents';
-        const packSrc = path.join(bmadSrc, srcParent, pack.packDir);
-        const packDest = path.join(targetAgentsDir, pack.packDir);
-        if (fs.existsSync(packSrc)) {
-          fsExtra.copySync(packSrc, packDest, { overwrite: true });
-          updated++;
-        }
-      }
+      const result = copyPackFiles({
+        bmadSrc,
+        targetAgentsDir,
+        targetDataDir,
+        projectRoot,
+        pack,
+      });
+      updated += result.copiedAgents + result.copiedSkills + result.copiedFiles;
     }
 
     // Update module config (always)

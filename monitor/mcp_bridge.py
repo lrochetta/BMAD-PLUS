@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 BMAD+ MCP Bridge
 Uses the existing Audit 360° MCP Server (VPS) for git/github operations.
@@ -106,6 +105,6 @@ class MCPBridge:
 def create_bridge(config: dict) -> MCPBridge:
     """Create a MCPBridge from config dict."""
     return MCPBridge(
-        mcp_url=config.get("mcp_url", "http://89.167.54.204:8000"),
+        mcp_url=config.get("mcp_url", f"http://{os.environ.get('VPS_HOST', 'localhost:8000')}"),
         mcp_token=config.get("mcp_token", "")
     )

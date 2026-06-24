@@ -41,7 +41,7 @@ def register(mcp):
         import requests
 
         GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-        GITHUB_USER = os.getenv("GITHUB_USER", "lrochetta")
+        GITHUB_USER = os.environ.get("GITHUB_USER", "")
 
         log = []
         log.append(f"🚀 Starting full audit: {client_name}/{project_name}")

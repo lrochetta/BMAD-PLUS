@@ -17,7 +17,29 @@ import argparse
 import json
 import re
 import sys
-import xml.etree.ElementTree as ET
+try:
+    from defusedxml import ElementTree as ET
+except ImportError:
+    import xml.etree.ElementTree as _ET
+    # Secure fallback: disable entity resolution to prevent XXE
+    from xml.etree.ElementTree import XMLParser as _XMLParser
+
+    class _SecureET:
+        """Wrapper that disables entity expansion and external entity loading."""
+        @staticmethod
+        def fromstring(data):
+            parser = _XMLParser()
+            parser.entity = {}  # Disable entity resolution
+            return _ET.fromstring(data, parser=parser)
+
+    ET = _SecureET
+
+try:
+    from bs4 import BeautifulSoup
+    HAS_BS4 = True
+except ImportError:
+    HAS_BS4 = False
+
 from collections import defaultdict
 from typing import Optional, Set
 from urllib.parse import urljoin, urlparse
@@ -131,19 +153,31 @@ class SEOCrawler:
             pass
 
     def extract_links(self, html: str, page_url: str) -> list:
-        """Extract internal links from HTML."""
+        """Extract internal links from HTML using BeautifulSoup (fallback to regex)."""
         links = []
-        # Simple regex for links (avoids BS4 dependency for crawler)
-        for match in re.finditer(r'href=["\']([^"\']+)["\']', html):
-            href = match.group(1)
-            if href.startswith("#") or href.startswith("javascript:") or href.startswith("mailto:"):
-                continue
 
-            full_url = urljoin(page_url, href)
-            if self.is_internal(full_url):
-                normalized = self.normalize_url(full_url)
-                links.append(normalized)
-                self.link_graph[page_url].add(normalized)
+        if HAS_BS4:
+            soup = BeautifulSoup(html, "html.parser")
+            for a_tag in soup.find_all("a", href=True):
+                href = a_tag["href"]
+                if href.startswith("#") or href.startswith("javascript:") or href.startswith("mailto:"):
+                    continue
+                full_url = urljoin(page_url, href)
+                if self.is_internal(full_url):
+                    normalized = self.normalize_url(full_url)
+                    links.append(normalized)
+                    self.link_graph[page_url].add(normalized)
+        else:
+            # Fallback: regex (less robust, no BS4 dependency)
+            for match in re.finditer(r'href=["\']([^"\']+)["\']', html):
+                href = match.group(1)
+                if href.startswith("#") or href.startswith("javascript:") or href.startswith("mailto:"):
+                    continue
+                full_url = urljoin(page_url, href)
+                if self.is_internal(full_url):
+                    normalized = self.normalize_url(full_url)
+                    links.append(normalized)
+                    self.link_graph[page_url].add(normalized)
 
         return links
 

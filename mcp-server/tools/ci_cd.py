@@ -12,11 +12,13 @@ from datetime import datetime
 
 # Security: only these commands are allowed (prefix match)
 ALLOWED_COMMANDS = [
-    "npm test", "npm run", "npx ", "node ",
-    "python -m pytest", "python -m unittest", "python -c",
-    "make ", "cargo test", "cargo build",
+    "npm test", "npm run build", "npm run lint", "npm run format",
+    "npx ",
+    "python -m pytest", "python -m unittest",
+    "make build", "make test", "make lint",
+    "cargo test", "cargo build",
     "go test", "go build",
-    "git status", "git log", "git diff",
+    "git status", "git log --oneline -10", "git diff --stat",
     "cat ", "ls ", "find ", "wc ", "head ", "tail ",
     "echo ",
 ]
@@ -153,7 +155,7 @@ def register(mcp):
         # Python: requirements.txt / setup.py / pyproject.toml
         req_files = list(repo.glob("**/requirements*.txt"))
         for rf in req_files:
-            with open(rf, "r") as f:
+            with open(rf, "r", encoding="utf-8") as f:
                 for line in f:
                     line = line.strip()
                     if line and not line.startswith("#"):
@@ -163,7 +165,7 @@ def register(mcp):
         pkg_files = list(repo.glob("**/package.json"))
         for pf in pkg_files:
             try:
-                with open(pf, "r") as f:
+                with open(pf, "r", encoding="utf-8") as f:
                     data = json.load(f)
                 for dep, ver in {**data.get("dependencies", {}), **data.get("devDependencies", {})}.items():
                     sbom["dependencies"].append({"type": "npm", "source": pf.name, "spec": f"{dep}@{ver}"})
@@ -173,7 +175,7 @@ def register(mcp):
         # Go: go.mod
         go_files = list(repo.glob("**/go.mod"))
         for gf in go_files:
-            with open(gf, "r") as f:
+            with open(gf, "r", encoding="utf-8") as f:
                 for line in f:
                     if line.strip().startswith("require") or "\t" in line:
                         parts = line.strip().split()
@@ -183,7 +185,7 @@ def register(mcp):
         # Docker: Dockerfile
         dockerfiles = list(repo.glob("**/Dockerfile*"))
         for df in dockerfiles:
-            with open(df, "r") as f:
+            with open(df, "r", encoding="utf-8") as f:
                 for line in f:
                     if line.strip().upper().startswith("FROM"):
                         sbom["dependencies"].append({"type": "docker", "source": df.name, "spec": line.strip()})
@@ -236,6 +238,10 @@ def register(mcp):
 
             if not script:
                 return f"❌ No deploy script found. Provide a custom script or create scripts/deploy-{target}.sh"
+
+        # Security: allowlist-based command validation for deploy scripts
+        if not any(script.strip().startswith(prefix) for prefix in ALLOWED_COMMANDS):
+            return f"❌ Deploy command not allowed. Permitted prefixes: {', '.join(ALLOWED_COMMANDS[:5])}..."
 
         try:
             cmd_parts = shlex.split(script)

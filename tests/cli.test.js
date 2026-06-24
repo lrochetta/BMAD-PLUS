@@ -956,80 +956,42 @@ describe('Autoconfig — Functional Tests', () => {
 
 describe('PACKS ↔ module.yaml Sync', () => {
   const yaml = require('js-yaml');
+  const { PACKS: sharedPacks } = require('../tools/cli/lib/packs');
 
-  test('every pack in module.yaml should exist in install.js PACKS', () => {
+  test('every pack in module.yaml should exist in packs.js PACKS', () => {
     const moduleYamlPath = path.join(__dirname, '..', 'src', 'bmad-plus', 'module.yaml');
-    const installJsPath = path.join(__dirname, '..', 'tools', 'cli', 'commands', 'install.js');
 
     const moduleContent = yaml.load(fs.readFileSync(moduleYamlPath, 'utf8'));
     const modulePackIds = Object.keys(moduleContent.packs || {});
 
-    const installContent = fs.readFileSync(installJsPath, 'utf8');
+    const sharedPackIds = Object.keys(sharedPacks);
 
     for (const packId of modulePackIds) {
-      // Each module.yaml pack should appear as a key in install.js PACKS object
-      // Either as 'packId': { or packId: {
-      const hasKey = installContent.includes(`'${packId}':`) || installContent.includes(`${packId}:`);
-      expect(hasKey).toBe(true);
+      expect(sharedPackIds).toContain(packId);
     }
   });
 
-  test('every pack in install.js PACKS should exist in module.yaml', () => {
+  test('every pack in packs.js PACKS should exist in module.yaml', () => {
     const moduleYamlPath = path.join(__dirname, '..', 'src', 'bmad-plus', 'module.yaml');
-    const installJsPath = path.join(__dirname, '..', 'tools', 'cli', 'commands', 'install.js');
 
     const moduleContent = yaml.load(fs.readFileSync(moduleYamlPath, 'utf8'));
     const modulePackIds = Object.keys(moduleContent.packs || {});
 
-    // Extract only the PACKS block from install.js
-    const installContent = fs.readFileSync(installJsPath, 'utf8');
-    const packsStart = installContent.indexOf('const PACKS = {');
-    expect(packsStart).toBeGreaterThan(-1);
+    const sharedPackIds = Object.keys(sharedPacks);
 
-    // Find the matching closing }; by counting braces
-    let braceCount = 0;
-    let packsEnd = packsStart;
-    for (let i = installContent.indexOf('{', packsStart); i < installContent.length; i++) {
-      if (installContent[i] === '{') braceCount++;
-      if (installContent[i] === '}') braceCount--;
-      if (braceCount === 0) { packsEnd = i; break; }
-    }
-    const packsBlock = installContent.substring(packsStart, packsEnd + 1);
-
-    // Match top-level keys in PACKS object (2-space indent)
-    const packKeyMatches = packsBlock.match(/^  '?([a-z][-a-z]*)'?\s*:\s*\{/gm);
-    expect(packKeyMatches).not.toBeNull();
-
-    const installPackIds = packKeyMatches.map(m =>
-      m.trim().replace(/[':{ ]/g, '')
-    );
-
-    for (const packId of installPackIds) {
+    for (const packId of sharedPackIds) {
       expect(modulePackIds).toContain(packId);
     }
   });
 
-  test('pack count should match between module.yaml and install.js', () => {
+  test('pack count should match between module.yaml and packs.js', () => {
     const moduleYamlPath = path.join(__dirname, '..', 'src', 'bmad-plus', 'module.yaml');
-    const installJsPath = path.join(__dirname, '..', 'tools', 'cli', 'commands', 'install.js');
 
     const moduleContent = yaml.load(fs.readFileSync(moduleYamlPath, 'utf8'));
     const modulePackCount = Object.keys(moduleContent.packs || {}).length;
+    const sharedPackCount = Object.keys(sharedPacks).length;
 
-    const installContent = fs.readFileSync(installJsPath, 'utf8');
-    const packsStart = installContent.indexOf('const PACKS = {');
-    let braceCount = 0;
-    let packsEnd = packsStart;
-    for (let i = installContent.indexOf('{', packsStart); i < installContent.length; i++) {
-      if (installContent[i] === '{') braceCount++;
-      if (installContent[i] === '}') braceCount--;
-      if (braceCount === 0) { packsEnd = i; break; }
-    }
-    const packsBlock = installContent.substring(packsStart, packsEnd + 1);
-    const packKeyMatches = packsBlock.match(/^  '?([a-z][-a-z]*)'?\s*:\s*\{/gm);
-    const installPackCount = packKeyMatches ? packKeyMatches.length : 0;
-
-    expect(installPackCount).toBe(modulePackCount);
+    expect(sharedPackCount).toBe(modulePackCount);
   });
 });
 

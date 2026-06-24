@@ -32,7 +32,7 @@
 
 ## 💡 Pourquoi BMAD+ ?
 
-BMAD-METHOD est un framework excellent avec 9 agents spécialisés. Mais pour un développeur solo ou une petite équipe, 9 agents c'est trop fragmenté. BMAD+ résout ce problème :
+BMAD-METHOD est un excellent framework avec 9 agents spécialisés. Mais pour un développeur solo ou une petite équipe, 9 agents c'est trop fragmenté. BMAD+ résout ce problème :
 
 | BMAD-METHOD | BMAD+ |
 |---|---|
@@ -214,7 +214,7 @@ graph TB
         MK["Maker 🧬"]
         ZC["Zecher 🧠 Memory"]
         SD["Shield 🛡️ GRC 38 agents"]
-        DS["Dev Studio 🏗️ SDLC 56+ agents"]
+        DS["Dev Studio 🏗️ SDLC 6 agents"]
         SEO["SEO Engine 🔎 3 agents"]
         BK["Backup 🗂️"]
         AN["Animated 🎬"]
@@ -371,7 +371,7 @@ npx bmad-plus install
 | 🔍 **OSINT** | Shadow | Investigation, scraping social, psychoprofil (55+ acteurs Apify) | ✅ Stable |
 | 🧬 **Maker** | Maker | Concevoir, construire, valider et packager de nouveaux agents BMAD+ | ✅ Stable |
 | 🛡️ **Shield** | 38 agents de conformité | GRC sur 25+ frameworks : GDPR, ISO 27001, SOC 2, HIPAA, PCI DSS, EU AI Act, DORA, NIS2 | ✅ Stable |
-| 🏗️ **Dev Studio** | 56+ agents specialized SDLC | SDLC complet : brainstorm → PRD → architecture → TDD → review (30 workflows) | ✅ Stable |
+| 🏗️ **Dev Studio** | 6 agents spécialisés SDLC | SDLC complet : brainstorm → PRD → architecture → TDD → review (30 workflows) | ✅ Stable |
 | 🔍 **SEO** | Scout, Chief, Judge | Audit SEO 6 phases, boucle PageSpeed, APIs Google, benchmark concurrentiel | ✅ Stable |
 | 🗂️ **Backup** | Backup Agent | ZIP horodaté avec exclusions intelligentes | ✅ Stable |
 | 🎬 **Animated** | Animated Website Agent | Site web luxe scroll-driven à partir de vidéo | ✅ Stable |
@@ -557,8 +557,15 @@ BMAD+/
 | Version | Date | Description |
 |---------|------|-------------|
 | **0.1.0** | 2026-03-17 | 🎉 Foundation — 56+ agents (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 skills, pack system, monitoring, multi-IDE support |
+| **0.2.0** | 2026-03-18 | 🔀 Fusion Oveanet — 3 nouveaux packs utilitaires : SEO Audit 360, Universal Backup, Animated Website |
+| **0.3.0** | 2026-03-19 | 🚀 SEO Engine v2.0 — 3 agents multi-rôles, 4 scripts Python, workflow 6 phases, boucle PageSpeed, analyse GEO |
+| **0.4.0** | 2026-03-19 | 🏢 SEO Engine v2.1 — Orchestrateur SKILL.md, APIs Google, rapports HTML, benchmark concurrentiel, 50 tests, extensions GSC + GA4 |
+| **0.4.1** | 2026-03-19 | 🌐 CLI 10 langues, pipeline CI/CD, `.npmignore`, durcissement sécurité |
+| **0.4.2** | 2026-03-19 | 📦 Packs publics — SEO/Backup/Animated dans npm |
+| **0.4.3** | 2026-05-17 | 🔧 Commandes update + doctor, i18n complète, correction crédits |
+| **0.4.4** | 2026-05-17 | 🔧 Correction encodage UTF-8, i18n complète 10 langues, 62 tests unitaires |
 | **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 agents de conformité GRC |
-| **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 56+ agents specialized SDLC + 30 workflows SDLC |
+| **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 agents spécialisés SDLC + 30 workflows SDLC |
 | **0.8.0** | 2026-06-24 | 🚀 **Augmenté & Sécurisé** — 3 nouveaux packs (animated, backup, seo), correction P0 sécurité, 143/143 tests |
 
 Voir [CHANGELOG.md](../CHANGELOG.md) pour le détail complet.
@@ -571,6 +578,21 @@ MIT — Basé sur [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) (M
 
 ### Crédits
 
-- **BMAD-METHOD** by [bmad-code-org](https://github.com/bmad-code-org) — Framework de base
+**Créateur**
+- **BMAD+** Créé par [Laurent Rochetta](https://github.com/lrochetta) ([LinkedIn](https://www.linkedin.com/in/laurentrochetta/))
+
+**Packs Originaux** (créés par Laurent Rochetta)
+- **Dev Studio** — 6 agents SDLC spécialisés : Miriam (analyste d'affaires), Huldah (rédactrice technique), Yosef (chef de produit), Rachel (designer UX), Bezalel (architecte système), Oholiab (ingénieur senior) — 44 workflows couvrant l'ensemble du cycle de vie du brainstorming au déploiement
+- **SEO Engine** — 3 agents (Scout, Chief, Judge), pipeline d'audit 6 phases, boucle PageSpeed, intégrations Google Search Console et GA4
+- **Memory Pack** — Agent Zecher pour cerveau persistant cross-session avec scanner de projets
+
+**Sources Externes et Inspirations**
+- **BMAD-METHOD** par [bmad-code-org](https://github.com/bmad-code-org/BMAD-METHOD) — Méthodologie multi-agents originale (MIT)
+- **Shield GRC** — 38 agents de conformité basés sur des textes réglementaires publics (RGPD, ISO 27001, SOC 2, HIPAA, EU AI Act, DORA, NIST, CMMC, etc.)
 - **OSINT Pipeline** basé sur [smixs/osint-skill](https://github.com/smixs/osint-skill) (MIT)
 - **Apify Actor Runner** intégré de [apify/agent-skills](https://github.com/apify/agent-skills) (MIT)
+- **Karpathy Guardrails** adapté de [Andrej Karpathy](https://github.com/multica-ai/andrej-karpathy-skills) (MIT) — Règles comportementales pour Memory Pack
+
+**Outils et Infrastructure**
+- [Evolution API](https://github.com/EvolutionAPI/evolution-api) — Notifications WhatsApp pour la surveillance upstream
+- [Gemini API](https://ai.google.dev/) — Analyse IA pour la classification des changements upstream

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Dual-use: can be run as a script or imported as a library module
 """
 BMAD+ Weekly Upstream Monitor
 Checks BMAD-METHOD upstream for changes and generates AI-analyzed reports.
@@ -22,11 +23,17 @@ from pathlib import Path
 from ai_analyzer import analyze_diff_with_ai
 from notifier import notify_whatsapp, notify_fallback
 
-# Configuration
+# Configuration (these can be overridden in config.yaml)
 CONFIG_FILE = Path(__file__).parent / "config.yaml"
 STATE_FILE = Path(__file__).parent / "last-synced.json"
 UPSTREAM_REPO = "https://github.com/bmad-code-org/BMAD-METHOD.git"
 UPSTREAM_DIR = Path(__file__).parent / ".upstream-cache"
+KEY_PATHS = ["src/", "tools/cli/", "package.json", "CHANGELOG.md"]
+MAX_COMMITS_DISPLAY = 10
+MAX_DIFF_PATH_LENGTH = 2000
+MAX_PROMPT_COMMITS = 3000
+MAX_PROMPT_DIFF_STAT = 2000
+MAX_PROMPT_DIFF_CONTENT = 5000
 
 
 def load_config():
@@ -107,12 +114,8 @@ def get_diff_stat(since_commit):
 
 def get_diff_content(since_commit):
     """Get actual diff content for AI analysis (limited to key files)."""
-    key_paths = [
-        "src/", "tools/cli/", "package.json", "CHANGELOG.md"
-    ]
-
     diffs = []
-    for path in key_paths:
+    for path in KEY_PATHS:
         if since_commit:
             cmd = ["git", "diff", f"{since_commit}..HEAD", "--", path]
         else:
@@ -122,8 +125,8 @@ def get_diff_content(since_commit):
             cmd, cwd=str(UPSTREAM_DIR), capture_output=True, text=True
         )
         if result.stdout.strip():
-            # Limit each diff to 2000 chars to avoid token explosion
-            diffs.append(f"--- {path} ---\n{result.stdout[:2000]}")
+            # Limit each diff to avoid token explosion
+            diffs.append(f"--- {path} ---\n{result.stdout[:MAX_DIFF_PATH_LENGTH]}")
 
     return "\n\n".join(diffs)
 
@@ -156,9 +159,9 @@ def build_report(state, commits, diff_stat, ai_analysis, version):
     if ai_analysis:
         report += ai_analysis + "\n\n"
 
-    if commit_count > 0 and commit_count <= 10:
+    if commit_count > 0 and commit_count <= MAX_COMMITS_DISPLAY:
         report += "📋 *Recent commits:*\n"
-        for line in commits.strip().split("\n")[:10]:
+        for line in commits.strip().split("\n")[:MAX_COMMITS_DISPLAY]:
             report += f"  • {line}\n"
 
     return report

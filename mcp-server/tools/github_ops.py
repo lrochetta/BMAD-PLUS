@@ -4,12 +4,12 @@ Enhanced GitHub repository management via REST API.
 7 tools for repo lifecycle, PRs, and collaboration.
 """
 import os
-import base64 as b64
+import base64
 import requests
 
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-DEFAULT_OWNER = os.getenv("GITHUB_USER", "lrochetta")
+DEFAULT_OWNER = os.environ.get("GITHUB_USER", "")
 GH_HEADERS = {
     "Authorization": f"token {GITHUB_TOKEN}",
     "Accept": "application/vnd.github.v3+json"
@@ -68,11 +68,35 @@ def register(mcp):
             binary_files: Dict of {path: base64_content} for binary files (images, PDFs)
         """
         owner = owner or DEFAULT_OWNER
+
+        # --- Path traversal protection (R23) ---
+        base_dir = os.path.abspath(os.getcwd())
+        all_paths = list(files.keys()) + list(binary_files.keys())
+        for path in all_paths:
+            if ".." in path.split("/"):
+                raise ValueError(
+                    f"Path traversal denied: '{path}' contains '..' segments. "
+                    f"All file paths must be within the repository tree."
+                )
+            if path.startswith("/"):
+                raise ValueError(
+                    f"Path traversal denied: '{path}' starts with '/'. "
+                    f"Use relative paths within the repository."
+                )
+            resolved = os.path.abspath(os.path.join(base_dir, path))
+            if not resolved.startswith(base_dir):
+                raise ValueError(
+                    f"Path traversal denied: resolved path '{resolved}' "
+                    f"is outside the allowed base directory '{base_dir}'. "
+                    f"All file paths must be within the repository tree."
+                )
+        # --- End path traversal protection ---
+
         results = []
 
         all_files = {}
         for path, content in files.items():
-            all_files[path] = b64.b64encode(content.encode("utf-8")).decode("ascii")
+            all_files[path] = base64.b64encode(content.encode("utf-8")).decode("ascii")
         for path, b64_content in binary_files.items():
             all_files[path] = b64_content  # Already base64
 

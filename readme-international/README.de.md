@@ -214,7 +214,7 @@ graph TB
         MK["Maker 🧬"]
         ZC["Zecher 🧠 Memory"]
         SD["Shield 🛡️ GRC 38 agents"]
-        DS["Dev Studio 🏗️ SDLC 56+ agents"]
+        DS["Dev Studio 🏗️ SDLC 6 agents"]
         SEO["SEO Engine 🔎 3 agents"]
         BK["Backup 🗂️"]
         AN["Animated 🎬"]
@@ -542,6 +542,13 @@ BMAD+/
 | Version | Datum | Beschreibung |
 |---------|------|-------------|
 | **0.1.0** | 2026-03-17 | 🎉 Foundation — 6 Agenten (Atlas, Forge, Sentinel, Nexus, Shadow, Maker), 3 Skills, Pack-System, Monitoring, IDE Support |
+| **0.2.0** | 2026-03-18 | 🔀 Oveanet Fusion — 3 neue Hilfspakete: SEO Audit 360, Universal Backup, Animated Website |
+| **0.3.0** | 2026-03-19 | 🚀 SEO Engine v2.0 — 3 Multi-Rolle-Agenten, 4 Python-Skripte, 6-Phasen-Workflow, PageSpeed-Schleife, GEO-Analyse |
+| **0.4.0** | 2026-03-19 | 🏢 SEO Engine v2.1 — SKILL.md-Orchestrator, Google APIs, HTML-Berichte, Wettbewerbsvergleich, 50 Tests, GSC + GA4-Erweiterungen |
+| **0.4.1** | 2026-03-19 | 🌐 10-Sprachen CLI, CI/CD-Pipeline, `.npmignore`, Sicherheitshärtung |
+| **0.4.2** | 2026-03-19 | 📦 Öffentliche Packs — SEO/Backup/Animated in npm |
+| **0.4.3** | 2026-05-17 | 🔧 update + doctor Befehle, i18n komplett, Credits-Korrektur |
+| **0.4.4** | 2026-05-17 | 🔧 UTF-8-Kodierungsfix, vollständige i18n 10 Sprachen, 62 Unit-Tests |
 | **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 GRC-Compliance-Agenten |
 | **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 spezialisierte Agenten + 30 SDLC-Workflows |
 | **0.8.0** | 2026-06-24 | 🚀 **Erweitert & Sicher** — 3 neue Packs (animated, backup, seo), P0 Sicherheitsbehebung, 143/143 Tests |

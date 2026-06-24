@@ -41,6 +41,7 @@ BMAD-METHOD is an excellent framework with 9 specialized agents. But for a solo 
 | Sequential execution | **Supervised parallelism** |
 | No persistent memory | **Cross-session brain** with project scanner |
 | 1-2 IDEs supported | **5 IDEs** with auto-detection |
+| 1 module | **9 modular packs** (Core, OSINT, Shield, Dev Studio, SEO, Memory...) |
 
 ---
 
@@ -213,7 +214,7 @@ graph TB
         MK["Maker 🧬"]
         ZC["Zecher 🧠 Memory"]
         SD["Shield 🛡️ GRC 38 agents"]
-        DS["Dev Studio 🏗️ SDLC 56+ agents"]
+        DS["Dev Studio 🏗️ SDLC 6 agents"]
         SEO["SEO Engine 🔎 3 agents"]
         BK["Backup 🗂️"]
         AN["Animated 🎬"]

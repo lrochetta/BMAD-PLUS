@@ -143,6 +143,31 @@ function scanDirectory(rootDir, maxDepth = 4, currentDepth = 0, activeDays = 30,
   return projects;
 }
 
+/**
+ * Index a single project in the global brain by writing its metadata YAML file.
+ * @param {object} project - Project metadata object
+ * @param {string} globalBrainDir - Path to the brain projects directory
+ * @returns {void}
+ */
+function indexProject(project, globalBrainDir) {
+  const hash = crypto.createHash('sha256').update(project.path).digest('hex').slice(0, 8);
+  const meta = {
+    path: project.path,
+    name: project.name,
+    hash,
+    stack: project.stack,
+    status: project.status,
+    bmad_installed: project.bmad,
+    has_git: project.hasGit,
+    last_scanned: new Date().toISOString().slice(0, 10),
+  };
+  fs.writeFileSync(
+    path.join(globalBrainDir, `${hash}.yaml`),
+    Object.entries(meta).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join('\n'),
+    'utf8'
+  );
+}
+
 module.exports = {
   command: 'scan',
   description: 'Scan directories to discover and index projects in the global brain',
@@ -155,9 +180,15 @@ module.exports = {
   ],
   action: async (options) => {
     const scanDir = path.resolve(options.directory || process.cwd());
-    const maxDepth = parseInt(options.depth) || 4;
-    const activeDays = parseInt(options.activeDays) || 30;
-    const pausedDays = parseInt(options.pausedDays) || 180;
+
+    const rawDepth = parseInt(options.depth, 10);
+    const maxDepth = (!isNaN(rawDepth) && rawDepth > 0) ? rawDepth : (() => { clack.log.warn(`Invalid --depth "${options.depth}", defaulting to 4`); return 4; })();
+
+    const rawActive = parseInt(options.activeDays, 10);
+    const activeDays = (!isNaN(rawActive) && rawActive > 0) ? rawActive : (() => { clack.log.warn(`Invalid --active-days "${options.activeDays}", defaulting to 30`); return 30; })();
+
+    const rawPaused = parseInt(options.pausedDays, 10);
+    const pausedDays = (!isNaN(rawPaused) && rawPaused > 0) ? rawPaused : (() => { clack.log.warn(`Invalid --paused-days "${options.pausedDays}", defaulting to 180`); return 180; })();
 
     clack.intro(pc.bgMagenta(pc.white(' 🧠 BMAD+ Project Scanner ')));
 
@@ -220,22 +251,7 @@ module.exports = {
 
       let indexed = 0;
       for (const proj of projects) {
-        const hash = crypto.createHash('sha256').update(proj.path).digest('hex').slice(0, 8);
-        const meta = {
-          path: proj.path,
-          name: proj.name,
-          hash,
-          stack: proj.stack,
-          status: proj.status,
-          bmad_installed: proj.bmad,
-          has_git: proj.hasGit,
-          last_scanned: new Date().toISOString().slice(0, 10),
-        };
-        fs.writeFileSync(
-          path.join(globalBrainDir, `${hash}.yaml`),
-          Object.entries(meta).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join('\n'),
-          'utf8'
-        );
+        indexProject(proj, globalBrainDir);
         indexed++;
       }
       clack.log.success(`✅ ${indexed} project(s) indexed in ${globalBrainDir}`);
@@ -281,22 +297,7 @@ module.exports = {
 
       let indexed = 0;
       for (const proj of toIndex) {
-        const hash = crypto.createHash('sha256').update(proj.path).digest('hex').slice(0, 8);
-        const meta = {
-          path: proj.path,
-          name: proj.name,
-          hash,
-          stack: proj.stack,
-          status: proj.status,
-          bmad_installed: proj.bmad,
-          has_git: proj.hasGit,
-          last_scanned: new Date().toISOString().slice(0, 10),
-        };
-        fs.writeFileSync(
-          path.join(globalBrainDir, `${hash}.yaml`),
-          Object.entries(meta).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join('\n'),
-          'utf8'
-        );
+        indexProject(proj, globalBrainDir);
         indexed++;
       }
 
@@ -356,5 +357,6 @@ module.exports = {
     getProjectName,
     hasBmadInstalled,
     scanDirectory,
+    indexProject,
   },
 };

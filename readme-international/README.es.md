@@ -214,7 +214,7 @@ graph TB
         MK["Maker 🧬"]
         ZC["Zecher 🧠 Memory"]
         SD["Shield 🛡️ GRC 38 agents"]
-        DS["Dev Studio 🏗️ SDLC 56+ agents"]
+        DS["Dev Studio 🏗️ SDLC 6 agents"]
         SEO["SEO Engine 🔎 3 agents"]
         BK["Backup 🗂️"]
         AN["Animated 🎬"]
@@ -395,7 +395,7 @@ Cada agente puede **automáticamente** cambiar de rol según el contexto:
 |--------|-----------|---------|
 | 🔤 **Patrón** | Palabras clave en el pedido | "revisa" → QA activado |
 | 🌐 **Contexto** | Detecta el tipo de tarea | Cálculos financieros detectados → QA auto-activado tras escribir código |
-| 🧠 **Razonamiento** | Cadena lógica | Inconsistencia de arquitectura → Architec auto-activado |
+| 🧠 **Razonamiento** | Cadena lógica | Inconsistencia de arquitectura → Architect auto-activado |
 
 El agente **anuncia** el cambio: *"💡 I'm switching to QA mode — financial calculations detected. Say 'skip' to stay in current mode."*
 
@@ -501,7 +501,7 @@ BMAD+/
 │       ├── skills/
 │       │   ├── bmad-plus-autopilot/ ← Orquestación completa
 │       │   ├── bmad-plus-parallel/  ← Supervisión concurrente
-│       │   └── bmad-plus-sync/      ← Sicronización automatizada código
+│       │   └── bmad-plus-sync/      ← Sincronización automatizada código
 │       └── data/
 │           └── role-triggers.yaml ← Lógica de variables y keywords
 │
@@ -534,7 +534,7 @@ BMAD+/
 
 | Variable | Descripción | Valores Disponibles |
 |----------|-------------|---------|
-| `project_name` | Nombre el proyecto | Autodetectado |
+| `project_name` | Nombre del proyecto | Autodetectado |
 | `user_skill_level` | Nivel del equipo/persona | beginner, intermediate, expert |
 | `execution_mode` | Modo de uso general | manual, autopilot, hybrid |
 | `auto_role_activation` | Cambio al predecir contexto | true, false |
@@ -557,6 +557,13 @@ BMAD+/
 | Versión | Fecha | Descripción |
 |---------|------|-------------|
 | **0.1.0** | 2026-03-17 | 🎉 Fundación base de proyecto (6 agentes / 3 entornos de skills / Auto-detección IDEs locales). Se incorporó el Maker y paquete OSINT |
+| **0.2.0** | 2026-03-18 | 🔀 Fusión Oveanet — 3 nuevos packs utilitarios: SEO Audit 360, Universal Backup, Animated Website |
+| **0.3.0** | 2026-03-19 | 🚀 SEO Engine v2.0 — 3 agentes multirrol, 4 scripts Python, flujo 6 fases, bucle PageSpeed, análisis GEO |
+| **0.4.0** | 2026-03-19 | 🏢 SEO Engine v2.1 — Orquestador SKILL.md, APIs Google, informes HTML, benchmark competitivo, 50 tests, extensiones GSC + GA4 |
+| **0.4.1** | 2026-03-19 | 🌐 CLI 10 idiomas, pipeline CI/CD, `.npmignore`, endurecimiento de seguridad |
+| **0.4.2** | 2026-03-19 | 📦 Packs públicos — SEO/Backup/Animated en npm |
+| **0.4.3** | 2026-05-17 | 🔧 Comandos update + doctor, i18n completa, corrección de créditos |
+| **0.4.4** | 2026-05-17 | 🔧 Corrección codificación UTF-8, i18n completa 10 idiomas, 62 tests unitarios |
 | **0.5.0** | 2026-05-17 | 🛡️ **Pack Shield** — 38 agentes de cumplimiento GRC |
 | **0.6.0** | 2026-05-17 | 🏗️ **Pack Dev Studio** — 6 agentes specialized SDLC + 30 workflows SDLC |
 | **0.8.0** | 2026-06-24 | 🚀 **Aumentado & Seguro** — 3 nuevos packs (animated, backup, seo), corrección P0 seguridad, 143/143 tests |
@@ -571,8 +578,23 @@ Proyecto BMAD+ (Adaptación: MIT)
 
 Basado nativamente en el repositorio: [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) (MIT LIC)
 
-### Reconocimientos especiales
+### Reconocimientos
 
-- **BMAD-METHOD Core** por [bmad-code-org](https://github.com/bmad-code-org) — Framework base
-- **OSINT Pipeline Tool** Adaptación de [smixs/osint-skill](https://github.com/smixs/osint-skill) (MIT LIC)
-- **Apify Actor Runner Base** integrado desde el original de [apify/agent-skills](https://github.com/apify/agent-skills) (MIT LIC)
+**Creador**
+- **BMAD+** Creado por [Laurent Rochetta](https://github.com/lrochetta) ([LinkedIn](https://www.linkedin.com/in/laurentrochetta/))
+
+**Packs Originales** (creados por Laurent Rochetta)
+- **Dev Studio** — 6 agentes SDLC especializados: Miriam (analista de negocios), Huldah (redactora técnica), Yosef (gerente de producto), Rachel (diseñadora UX), Bezalel (arquitecto de sistemas), Oholiab (ingeniero senior) — 44 workflows que cubren todo el ciclo de vida desde la lluvia de ideas hasta el despliegue
+- **SEO Engine** — 3 agentes (Scout, Chief, Judge), pipeline de auditoría de 6 fases, bucle PageSpeed, integraciones con Google Search Console y GA4
+- **Memory Pack** — Agente Zecher para cerebro persistente cross-session con escáner de proyectos
+
+**Fuentes Externas e Inspiraciones**
+- **BMAD-METHOD** por [bmad-code-org](https://github.com/bmad-code-org/BMAD-METHOD) — Metodología multi-agente original (MIT)
+- **Shield GRC** — 38 agentes de cumplimiento basados en textos regulatorios públicos (GDPR, ISO 27001, SOC 2, HIPAA, EU AI Act, DORA, NIST, CMMC, etc.)
+- **OSINT Pipeline** basado en [smixs/osint-skill](https://github.com/smixs/osint-skill) (MIT)
+- **Apify Actor Runner** integrado desde [apify/agent-skills](https://github.com/apify/agent-skills) (MIT)
+- **Karpathy Guardrails** adaptado de [Andrej Karpathy](https://github.com/multica-ai/andrej-karpathy-skills) (MIT) — Reglas de comportamiento para Memory Pack
+
+**Herramientas e Infraestructura**
+- [Evolution API](https://github.com/EvolutionAPI/evolution-api) — Notificaciones WhatsApp para monitoreo upstream
+- [Gemini API](https://ai.google.dev/) — Análisis IA para clasificación de cambios upstream
