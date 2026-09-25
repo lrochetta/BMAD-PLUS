@@ -1,0 +1,32 @@
+schema_version: 1
+id: sentinel/guarded-route
+pack: core
+agent: agent-quality
+agent_source: src/bmad-plus/agents/agent-quality/SKILL.md
+persona: Sentinel
+description: Prove a reachable cart defect without flagging a protected route.
+models: [claude, gpt, gemini, local]
+fixture: fixture
+task:
+  prompt: |
+    Review src/ for reachable correctness defects. Inspect the callers and guards
+    before accepting a suspected defect. Deliver review/findings.json as an array
+    with one object per demonstrated defect: file, severity (high/medium/low),
+    scenario, expected, actual, and correction. Add a node:test regression at
+    tests/regression.test.cjs which fails against the current buggy code and passes
+    after the minimal correction you describe. Do not change src/. Include a short
+    review/result.md explaining the actual checks and unresolved limits. Use only
+    Node 20+ and the standard library, with no package.json or new dependencies.
+  timeout_s: 300
+  allowed_writes: [review/, tests/]
+assertions:
+  - id: demonstrated-defect-and-counterfactual
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+    timeout_s: 30
+  - id: review-evidence
+    kind: file_exists
+    path: review/result.md
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}

@@ -1,0 +1,17 @@
+# BMAD+ SEO Engine — Python Dependencies
+# Install: pip install -r requirements.txt
+# Author: Laurent Rochetta
+
+# Core (required)
+requests>=2.34.2  # CVE-2024-35195: require patched line
+beautifulsoup4==4.15.0
+
+# Hardened XML parsing (SSRF / XXE / billion-laughs defense)
+defusedxml==0.7.1
+
+# Fast HTML parser (recommended)
+lxml==6.1.1
+
+# Screenshot capture (optional — only for seo_screenshot.py)
+# Uncomment and run: playwright install chromium
+# playwright>=1.40.0

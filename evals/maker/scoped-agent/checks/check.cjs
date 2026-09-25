@@ -1,0 +1,16 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const root = process.argv[2];
+const manifest = JSON.parse(fs.readFileSync(path.join(root, 'agent/manifest.json'), 'utf8'));
+assert.deepEqual(Object.keys(manifest).sort(), ['activation','allowed_writes','capabilities','entry','external_tools','id']);
+assert.equal(manifest.id, 'patch-notes');
+assert.equal(manifest.entry, 'SKILL.md');
+assert.deepEqual([...manifest.capabilities].sort(), ['CN', 'VR']);
+assert.deepEqual(manifest.allowed_writes, ['notes/']);
+assert.deepEqual(manifest.external_tools, []);
+assert.deepEqual(manifest.activation, { phrase: 'draft patch notes', context: 'repository-change' });
+const skill = fs.readFileSync(path.join(root, 'agent', manifest.entry), 'utf8');
+assert.match(skill, /^---\r?\nname: patch-notes\r?\ndescription: .+\r?\n---/);
+for (const requirement of [/\bCN\b/, /\bVR\b/, /notes\//, /missing.*diff/i, /never.*(publish|send)/i, /draft patch notes/, /repository-change/]) assert.match(skill, requirement);
+console.log('resource entry and activation/write boundaries passed');

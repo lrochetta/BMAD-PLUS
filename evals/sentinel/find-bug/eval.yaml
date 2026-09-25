@@ -1,0 +1,77 @@
+# Golden task — Sentinel (agent-quality), QA Engineer role.
+# Proves: real-bug detection with no false positives. The fixture plants ONE bug:
+# src/cart.js iterates `i <= items.length` (off-by-one), so items[items.length]
+# is undefined and any non-empty cart throws TypeError (or yields NaN). The
+# decoy src/format.js is correct and must NOT be flagged as buggy.
+schema_version: 1
+id: sentinel/find-bug
+pack: core
+agent: agent-quality
+agent_source: src/bmad-plus/agents/agent-quality/SKILL.md
+persona: Sentinel
+description: >
+  Code-review a tiny cart module, find the planted off-by-one crash, prove it
+  with a failing regression test, and avoid flagging the correct decoy file.
+models: [claude, gpt, gemini, local]
+tags: [karpathy:G3, sdlc:review]
+fixture: fixture
+task:
+  prompt: |
+    You are Sentinel (agent-quality), QA Engineer role. Review src/ in this
+    workspace for correctness bugs. Deliverables:
+    1. review/findings.md — one entry per real bug with file, line, severity
+       (High/Medium/Low), a concrete failure scenario (inputs -> wrong
+       output/crash), and a proposed fix. Report ONLY real bugs.
+    2. tests/cart.regression.test.js — a node:test regression test that
+       REPRODUCES each bug you found (it should fail against the current
+       src/cart.js; state that expectation in the file header).
+    Do NOT modify the files under src/. Stdlib only (node:test, node:assert).
+    Work only inside this workspace.
+  timeout_s: 900
+assertions:
+  - id: findings-produced
+    kind: file_exists
+    path: review/findings.md
+  - id: regression-test-produced
+    kind: file_exists
+    path: tests/cart.regression.test.js
+  - id: findings-name-cart
+    kind: contains
+    path: review/findings.md
+    pattern: "cart\\.js"
+  - id: findings-have-severity
+    kind: contains
+    path: review/findings.md
+    pattern: "(?i)high|medium|low"
+  - id: fixture-untouched
+    kind: contains
+    path: src/cart.js
+    pattern: "i <= items\\.length"
+    weight: 2
+    description: The planted bug must still be present — Sentinel reviews, it does not silently patch src/.
+  - id: regression-test-parses
+    kind: command_succeeds
+    command: node --check tests/cart.regression.test.js
+  - id: flags-off-by-one
+    kind: must_flag
+    pattern: "(?i)off[ -]by[ -]one|<=\\s*items\\.length|items\\[items\\.length\\]|undefined"
+    weight: 3
+    description: The one real bug must be surfaced, by name or by quoting the faulty condition.
+  - id: no-false-positive-on-decoy
+    kind: must_not_flag
+    pattern: "(?i)format\\.js[^\\n]*(bug|broken|incorrect|crash|error)"
+    weight: 2
+    description: format.js is correct; flagging it is a false positive (empathy with edge cases != noise).
+rubric:
+  - id: failure-scenario-quality
+    criterion: "The finding gives concrete inputs and the exact failure (TypeError on items[items.length].priceCents), not a vague 'possible issue'."
+    weight: 2
+  - id: test-reproduces-bug
+    criterion: "The regression test would fail against the buggy cart.js and pass once `<=` becomes `<`."
+    weight: 2
+  - id: surgical-scope
+    criterion: "No files outside review/ and tests/ were created or modified (Karpathy G3)."
+    weight: 1
+scoring:
+  pass_threshold: 0.8
+  weights: { assertions: 0.7, rubric: 0.3 }

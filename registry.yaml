@@ -1,0 +1,446 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# BMAD+ REGISTRY — SINGLE SOURCE OF TRUTH (Pillar 1, production)
+# ═══════════════════════════════════════════════════════════════════════════
+# This file is the ONE place where packs / agents / skills / ordering are
+# declared. `node tools/build/generate.js` GENERATES the downstream artifacts
+# from it: PACKS / PACK_ORDER / EXPECTED_AGENTS / DERIVED in tools/cli/lib/packs.js
+# and the pack metadata of src/bmad-plus/module.yaml.
+#
+# Derived from the north-star prototype (audit/2026-07-01/north-star/registry.yaml)
+# and RECONCILED to exactly match the current tools/cli/lib/packs.js so the
+# migration is provably lossless.
+#
+# Field semantics per pack:
+#   order          — install/display order (drives PACK_ORDER)
+#   cli            — the EXACT strings the CLI uses today (packs.js `name`,
+#                    `icon` glyph letter, `desc`). Display metadata for humans
+#                    lives in `display_name` / `icon_emoji` / `summary`.
+#   agents         — agent ids (roster). Loose packs install each id as a
+#                    directory under src/bmad-plus/agents/ (packs.js `agents`);
+#                    packaged packs ship their agents inside pack_dir instead.
+#   skills         — skill dirs the CLI installs (packs.js `skills`)
+#   data           — data files (only present when packs.js declares `data`;
+#                    presence/absence of this key is significant)
+#   external_package — extra npm-shipped directory (packs.js `externalPackage`)
+#   pack_dir / pack_src_dir — packaged-layout source dir (packs.js `packDir` /
+#                    `packSrcDir`). Every declared source path must exist:
+#                    `generate.js --check` fails on a missing one.
+#   required       — only `true` is emitted (packs.js omits the key otherwise)
+#   install_layout — `loose`   : agent DIRECTORIES copied into .agents/skills/
+#                    `packaged`: a single packDir copied; agent FILES live inside
+#                    (drives EXPECTED_AGENTS for `bmad-plus doctor`)
+#   doctor.pack_agents — agent FILENAMES inside packDir (packaged layout only)
+#   doctor.required_resources — additional required files relative to pack_dir
+#
+# Counts (agent totals, framework totals) are DERIVED by the generator from
+# the lists below. No human ever types a count → docs cannot drift or lie.
+# ═══════════════════════════════════════════════════════════════════════════
+
+schema_version: 1
+
+product:
+  # NOTE: `code` is subject to the trademark remediation (audit CG-01) — the
+  # distribution name may change; the generator makes a rename a one-command regen.
+  code: bmad-plus
+  display_name: "BMAD+"
+  version: 0.18.0 # `--check` asserts this == package.json version (kills XCUT-01 drift)
+  derived_from: "BMAD-METHOD v6.6.0"
+  attribution_required: true # upstream MIT notice must be retained (audit CG-04)
+
+# ── Portability spine (Pillar 5) ─────────────────────────────────────────────
+# Every capability must be expressible via the AGENTS.md spine or an MCP tool.
+# Adapters below are GENERATED, never hand-edited → they cannot drift.
+targets:
+  spine: AGENTS.md
+  # Describes BMAD+'s delivered integration, not capabilities of the host itself.
+  integration: { execution: host-managed, lifecycle_events: not-integrated }
+  optional_process_backend:
+    adapters: [command, codex-exec]
+    supervisor: foreground
+    launch: explicit-plan
+    collect: exact-attempt-receipt
+    cancellation: original-owner-direct-child
+    verification: independent-required
+    scheduling: none
+  adapters:
+    - { tool: claude-code, file: CLAUDE.md }
+    - { tool: gemini-cli, file: GEMINI.md }
+    - { tool: antigravity, file: GEMINI.md }
+    - { tool: cursor, file: .cursor/rules/bmad-plus.mdc }
+    - { tool: codex-cli, file: .codex/AGENTS.md }
+    - { tool: opencode, file: .opencode/AGENTS.md }
+    - { tool: aider, file: CONVENTIONS.md }
+  models_supported: [claude, gpt, gemini, local] # model-agnostic by contract
+
+# ── Runtimes (Pillar 2 — unified provisioning) ───────────────────────────────
+# Python provisioning is opt-in via --provision-python for declared Python packs.
+runtimes:
+  node: { min_version: "20.0.0" }
+  python: { min_version: "3.11", provisioner: uv, fallback: pipx }
+
+# ── Karpathy Learning Layer (Pillar 3) ───────────────────────────────────────
+memory:
+  scopes:
+    project: ".agents/memory/{decisions,lessons,patterns,context}.md"
+    portfolio: "D:/travail/DEV/_brain" # cross-project brain
+  index: { engine: chromadb, embedder: sentence-transformers } # reuse mcp-server/ RAG
+  guardrails: [G1-think-before-coding, G2-simplicity-first, G3-surgical-changes, G4-goal-driven]
+  reward_signal:
+    inputs: [eval_score, user_acceptance, ci_outcome]
+    applies_to: [retrieval_weights, playbooks, guardrail_thresholds] # prompt-level only
+    governed_by: shield # bounded self-modification, versioned & reversible
+
+# ── Quality proof (Pillar 4) ─────────────────────────────────────────────────
+eval:
+  suite_glob: "evals/*/*/eval.yaml"
+  gates:
+    pr:
+      mode: replay
+      blocking: true
+      require_all_packs: true
+      controls: [completion-only, interrupted]
+    model_upgrade:
+      mode: native-host
+      blocking: false
+      minimum_repetitions: 2
+      require_paired_variants: true
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PACKS — the one true list. `order` = install/display order.
+# ═══════════════════════════════════════════════════════════════════════════
+packs:
+  core:
+    order: 0
+    display_name: "Core Development"
+    icon_emoji: "⚙️"
+    cli: { name: "Core", icon: "b", desc: "Core agents & skills" }
+    required: true
+    runtime: [node]
+    summary: "Multi-role agents for the full development lifecycle."
+    agents: [agent-strategist, agent-architect-dev, agent-quality, agent-orchestrator]
+    personas:
+      - { id: agent-strategist, name: Atlas, role: Strategist, description: "Business analysis + Product management" }
+      - { id: agent-architect-dev, name: Forge, role: Architect-Dev, description: "Architecture + Development + Documentation" }
+      - { id: agent-quality, name: Sentinel, role: Quality, description: "QA + UX review" }
+      - { id: agent-orchestrator, name: Nexus, role: Orchestrator, description: "Sprint management + Autopilot + Parallel execution" }
+    skills: [bmad-plus-autopilot, bmad-plus-parallel, bmad-plus-sync, bmad-plus-uat]
+    data: [role-triggers.yaml]
+    install_layout: loose
+    compliance_tags: []
+
+  osint:
+    order: 1
+    display_name: "OSINT Intelligence"
+    icon_emoji: "🔍"
+    cli: { name: "OSINT", icon: "j", desc: "OSINT & investigation" }
+    required: false
+    runtime: [node]
+    summary: "Investigation & scraping (55+ Apify actors, 7 APIs)."
+    agents: [agent-shadow]
+    personas:
+      - { id: agent-shadow, name: Shadow, role: OSINT, description: "Investigation + Public-source research (governed, legal basis required)" }
+    # CLI installs no skill dirs for osint today (module.yaml lists
+    # bmad-osint-investigate, but packs.js — the runtime truth — ships none).
+    skills: []
+    external_package: osint-agent-package
+    install_layout: loose
+    # GOVERNANCE GATE (audit CG-02): psychoprofiling of named persons requires
+    # explicit lawful basis + consent + retention config before the pack runs.
+    governance:
+      requires_lawful_basis: true
+      pii_processing: true
+      consent_gate: true
+      templates: [ropa, dsar, retention-policy]
+    required_keys: [APIFY_API_TOKEN]
+    optional_keys: [PERPLEXITY_API_KEY, EXA_API_KEY, TAVILY_API_KEY, JINA_API_KEY]
+    compliance_tags: [GDPR, EU-AI-Act]
+
+  maker:
+    order: 2
+    display_name: "Agent Creator"
+    icon_emoji: "🧬"
+    cli: { name: "Maker", icon: "f", desc: "Agent creation toolkit" }
+    required: false
+    runtime: [node]
+    summary: "Design, build, validate, and package new BMAD+-compatible agents."
+    agents: [agent-maker]
+    personas:
+      - { id: agent-maker, name: Maker, role: Agent Creator, description: "Design, build, validate, and package new BMAD+ agents" }
+    skills: []
+    data: [] # packs.js declares an (empty) data key for maker — kept for parity
+    install_layout: loose
+    compliance_tags: []
+
+  shield:
+    order: 3
+    display_name: "Shield — GRC Compliance"
+    icon_emoji: "🛡️"
+    cli: { name: "Shield", icon: "m", desc_template: "GRC compliance ({framework_count} frameworks)" }
+    required: false
+    runtime: [node]
+    # summary count is GENERATED from the lists below, never typed.
+    summary_template: "{agent_count} compliance agents + {workflow_count} workflows across {framework_count}+ frameworks."
+    agents: [shield-orchestrator] # orchestrator entry point, shipped inside pack_dir
+    personas:
+      - { id: shield-orchestrator, name: Shield, role: GRC, description: "Compliance agents for GDPR, ISO 27001, SOC 2, HIPAA, EU AI Act, DORA, NIS2 and more" }
+    skills: []
+    orchestrator: shield-orchestrator
+    pack_dir: pack-shield
+    pack_src_dir: packs
+    install_layout: packaged
+    doctor:
+      pack_agents: [shield-orchestrator.md]
+      required_resources: [SKILL.md]
+    categories:
+      - {
+          id: data-privacy,
+          name: "Data Privacy",
+          agents: [gdpr-agent, ccpa-agent, lgpd-agent, dpdpa-agent, iso27701-agent],
+        }
+      - {
+          id: cybersecurity,
+          name: "Cybersecurity",
+          agents:
+            [iso27001-agent, nist-csf-agent, nist-800-53-agent, cis-controls-agent, nis2-agent, ism-agent],
+        }
+      - {
+          id: industry-compliance,
+          name: "Industry Compliance",
+          agents: [soc2-agent, pci-dss-agent, hipaa-agent, swift-csp-agent, dora-agent, fedramp-agent],
+        }
+      - {
+          id: defense-export,
+          name: "Defense & Export Control",
+          agents: [cmmc-agent, itar-agent, ear-agent, tsa-agent],
+        }
+      - {
+          id: ai-governance,
+          name: "AI Governance",
+          agents: [eu-ai-act-agent, iso42001-agent, nist-ai-rmf-agent],
+        }
+      - {
+          id: accessibility-esg,
+          name: "Accessibility & ESG",
+          agents: [wcag-agent, section508-agent, csrd-agent],
+        }
+    workflows:
+      [
+        dpia-sentinel,
+        breach-sentinel,
+        legitimate-interest,
+        privacy-advisor,
+        privacy-notice-gen,
+        privacy-policy-gen,
+        cookie-policy-gen,
+        ai-act-classifier,
+        ai-act-roles,
+        ai-act-fria,
+        ai-act-incidents,
+      ]
+    compliance_tags:
+      [
+        GDPR,
+        CCPA,
+        LGPD,
+        ISO27001,
+        ISO27701,
+        ISO42001,
+        SOC2,
+        PCI-DSS,
+        HIPAA,
+        EU-AI-Act,
+        DORA,
+        NIS2,
+        NIST-CSF,
+        NIST-800-53,
+        NIST-AI-RMF,
+        CIS,
+        CMMC,
+        ITAR,
+        EAR,
+        FedRAMP,
+        WCAG,
+        Section508,
+        CSRD,
+        SWIFT-CSP,
+        ISM,
+        TSA,
+      ]
+
+  seo:
+    order: 4
+    display_name: "SEO Audit 360"
+    icon_emoji: "🔍"
+    cli: { name: "SEO", icon: "k", desc: "SEO audit & optimization" }
+    required: false
+    runtime: [node, python] # In-pack toolkit; provisioning is opt-in.
+    summary_template: "{agent_count} agents (Scout, Chief, Judge) + 6-phase audit + PageSpeed loop."
+    agents: [seo-scout, seo-chief, seo-judge]
+    personas:
+      - { id: seo-scout, name: SEO Scout, role: Technical Scanner, description: "Crawling + technical inspection + performance" }
+      - { id: seo-chief, name: SEO Chief, role: Strategist & Reporter, description: "Scoring + strategy + reporting" }
+      - { id: seo-judge, name: SEO Judge, role: Content & AI Analyst, description: "Content quality + structured data + GEO analysis" }
+    skills: []
+    pack_dir: pack-seo
+    pack_src_dir: packs
+    install_layout: packaged
+    doctor:
+      pack_agents: [seo-scout.md, seo-chief.md, seo-judge.md]
+      required_resources: [SKILL.md]
+    python_package: src/bmad-plus/packs/pack-seo # scripts shipped in-pack (embarked) → reachable from npm
+    python_entry: scripts/seo_fetch.py
+    python_verify_modules: [requests, bs4, defusedxml, lxml]
+    compliance_tags: [GDPR] # pulls GA/GSC personal data → tagged for governance
+
+  memory:
+    order: 5
+    display_name: "Memory — Persistent Brain"
+    icon_emoji: "🧠"
+    cli: { name: "Memory", icon: "x", desc: "Persistent cross-session memory" }
+    required: false
+    runtime: [node] # File-based memory; separately deployed RAG is not in npm.
+    summary: "Cross-session memory + project scanner + Karpathy guardrails."
+    agents: [zecher]
+    personas:
+      - { id: zecher, name: Zecher, role: Memory Archivist, description: "Persistent cross-session memory, consolidation, project scanning, context recall, session handoffs", alias: "זכר, Memory Guardian" }
+    skills: []
+    pack_dir: pack-memory
+    pack_src_dir: packs
+    install_layout: packaged
+    doctor:
+      pack_agents: [zecher-agent.md, memory-orchestrator.md]
+    cohabitation_warning: "Detects and links existing brains (_brain/, ~/.claude/memory/); NEVER overwrites memory files."
+    compliance_tags: []
+
+  dev-studio:
+    order: 6
+    display_name: "Dev Studio — Full SDLC"
+    icon_emoji: "🏗️"
+    cli: { name: "Dev Studio", icon: "v", desc_template: "SDLC automation ({sub_agent_count} agents, specialized workflows)" }
+    required: false
+    runtime: [node]
+    # GENERATED: "{agent_count} agents + {workflow_count} workflows" — computed
+    # from the lists below (kills the "30 vs 44 workflows" contradiction DOC-06).
+    summary_template: "{agent_count} specialized agents + {workflow_count} workflows: Analysis → Planning → Architecture → Implementation → Review."
+    agents: [dev-studio-orchestrator] # what the CLI installs (the orchestrator entry point)
+    skills: [dev-studio]
+    orchestrator: dev-studio-orchestrator
+    pack_dir: pack-dev-studio
+    pack_src_dir: packs
+    install_layout: packaged
+    doctor:
+      pack_agents: [dev-studio-orchestrator.md]
+      # Public entry and shared contract, including the old UX continuation path.
+      required_resources:
+        - SKILL.md
+        - shared/catalog.json
+        - shared/execution.md
+        - categories/planning/create-ux-design.md
+        - categories/planning/steps/step-01-init.md
+    cohabitation_warning: "Dev Studio agents overlap with Core (Atlas/Forge/Sentinel/Nexus); both can coexist."
+    sub_agents:
+      [analyst-agent, tech-writer-agent, pm-agent, ux-designer-agent, architect-agent, dev-agent]
+    personas:
+      - { id: analyst-agent, name: Miriam, role: Business Analyst, description: "Strategic analysis, research, product briefs", alias: מרים }
+      - { id: tech-writer-agent, name: Huldah, role: Technical Writer, description: "Documentation, diagrams, editorial review", alias: חולדה }
+      - { id: pm-agent, name: Yosef, role: Product Manager, description: "PRD, requirements, feature prioritization", alias: יוסף }
+      - { id: ux-designer-agent, name: Rachel, role: UX Designer, description: "User experience, wireframes, empathy mapping", alias: רחל }
+      - { id: architect-agent, name: Bezalel, role: System Architect, description: "Architecture, ADRs, epics & stories", alias: בצלאל }
+      - { id: dev-agent, name: Oholiab, role: Senior Engineer, description: "TDD, sprint, code review, implementation", alias: אהליאב }
+    categories:
+      - {
+          id: analysis,
+          name: "Analysis",
+          workflows:
+            [product-brief, prfaq, document-project, market-research, domain-research, technical-research],
+        }
+      - {
+          id: planning,
+          name: "Planning",
+          workflows: [create-prd, prd, edit-prd, validate-prd, create-ux-design],
+        }
+      - {
+          id: architecture,
+          name: "Architecture",
+          workflows:
+            [create-architecture, create-epics-stories, implementation-readiness, generate-project-context],
+        }
+      - {
+          id: implementation,
+          name: "Implementation",
+          workflows:
+            [
+              sprint-planning,
+              create-story,
+              dev-story,
+              code-review,
+              quick-dev,
+              sprint-status,
+              retrospective,
+              correct-course,
+              investigate,
+              checkpoint-preview,
+              qa-e2e-tests,
+            ],
+        }
+      - {
+          id: utilities,
+          name: "Utilities",
+          workflows:
+            [
+              distillator,
+              party-mode,
+              brainstorming,
+              adversarial-review,
+              edge-case-hunter,
+              editorial-review-prose,
+              editorial-review-structure,
+              advanced-elicitation,
+              shard-doc,
+              index-docs,
+              bmad-help,
+              customize,
+            ],
+        }
+    compliance_tags: []
+
+  backup:
+    order: 7
+    display_name: "Universal Backup"
+    icon_emoji: "🗂️"
+    cli: { name: "Backup", icon: "y", desc: "Backup & restore" }
+    required: false
+    runtime: [node]
+    summary: "Timestamped ZIP backup with smart exclusions."
+    agents: [backup-agent]
+    personas:
+      - { id: backup-agent, name: Backup Manager, role: Backup & Restore, description: "Timestamped backups, restoration, and rotation" }
+    skills: []
+    pack_dir: pack-backup
+    pack_src_dir: packs
+    install_layout: packaged
+    doctor:
+      pack_agents: [backup-agent.md]
+    compliance_tags: []
+
+  animated:
+    order: 8
+    display_name: "Animated Website"
+    icon_emoji: "🎬"
+    cli: { name: "Animated", icon: "z", desc: "Animated website agents" }
+    required: false
+    runtime: [node]
+    summary: "Luxury scroll-driven website from video."
+    agents: [animated-website-agent]
+    personas:
+      - { id: animated-website-agent, name: Animated Website Creator, role: Website Builder, description: "Video-driven scrolling websites" }
+    skills: []
+    pack_dir: pack-animated
+    pack_src_dir: packs
+    install_layout: packaged
+    doctor:
+      pack_agents: [animated-website-agent.md]
+    compliance_tags: []
+# ═══════════════════════════════════════════════════════════════════════════
+# DERIVED is emitted in tools/cli/lib/packs.js by tools/build/generate.js.
+# ═══════════════════════════════════════════════════════════════════════════

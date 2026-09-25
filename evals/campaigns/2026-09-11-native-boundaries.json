@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "native-boundaries-2026-09-11",
+  "execution_mode": "native-host",
+  "specs": ["forge/customized-slug", "dev-studio/missing-acceptance", "sentinel/guarded-route"],
+  "variants": ["generic-control", "agent"],
+  "repetitions": 2,
+  "host_model": {
+    "alias": "gpt",
+    "concrete_model": null,
+    "selection": "Existing authenticated host with its inherited model; no model override or separate API call. Record concrete identity only if observed before preparing a revised campaign."
+  },
+  "budget": {
+    "maximum_attempts": 12,
+    "per_attempt_timeout_s": 300,
+    "separate_paid_api_calls": false,
+    "observed_cost": null,
+    "cost_enforcement": "The host exposes no trustworthy per-run cost; no monetary cap or zero-cost claim is inferred."
+  },
+  "measures": ["task acceptance", "critical regressions", "false-positive review behavior", "missing-input behavior", "preserved customization"],
+  "interruption": "Controller interruption and duplicate collection are independent deterministic failure controls. A real interrupted host run must be collected as interrupted and retained; it cannot be replaced silently or counted as successful recovery.",
+  "limits": ["Two repetitions are a small pilot, not a model-quality benchmark.", "No new model version or quality advantage is inferred from offline replay.", "The caller owns host permissions, isolation and deadline enforcement."]
+}

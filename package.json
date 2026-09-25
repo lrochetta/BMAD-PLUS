@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "bmad-plus",
+  "version": "0.18.0",
+  "description": "Project-local AI development workflows with clear roles, shared context, safe updates and coding-tool adapters",
+  "homepage": "https://bmad-plus.rochetta.fr",
+  "keywords": [
+    "bmad",
+    "ai",
+    "agents",
+    "development",
+    "autopilot",
+    "orchestrator",
+    "osint",
+    "multi-agent"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lrochetta/BMAD-PLUS.git"
+  },
+  "license": "MIT",
+  "author": "Laurent Rochetta",
+  "main": "tools/cli/bmad-plus-cli.js",
+  "bin": {
+    "bmad-plus": "tools/bmad-plus-npx.js"
+  },
+  "files": [
+    "tools/bmad-plus-npx.js",
+    "tools/cli",
+    "tools/build/adapters.config.js",
+    "tools/build/generate-adapters.js",
+    "tools/build/generate.js",
+    "tools/build/module.template.yaml",
+    "tools/build/pack-delivery.js",
+    "src/bmad-plus",
+    "osint-agent-package",
+    "readme-international",
+    "THIRD-PARTY-LICENSES.md",
+    "SECURITY.md",
+    "CHANGELOG.md",
+    "!**/__pycache__/**",
+    "!**/*.pyc",
+    "!**/*.pyo"
+  ],
+  "scripts": {
+    "install:bmad": "node tools/cli/bmad-plus-cli.js install",
+    "update:bmad": "node tools/cli/bmad-plus-cli.js update",
+    "doctor:bmad": "node tools/cli/bmad-plus-cli.js doctor",
+    "build": "node tools/build/generate.js --out tools/cli/lib/packs.js --module-out src/bmad-plus/module.yaml",
+    "build:check": "node tools/build/generate.js --check",
+    "check:counts": "node tools/build/check-counts.js",
+    "check:counts:full": "jest --coverage=false --silent --json --outputFile=coverage/jest-report.json && node tools/build/check-counts.js --jest-report coverage/jest-report.json",
+    "uat:spec": "node src/bmad-plus/skills/bmad-plus-uat/templates/uat-spec-present.mjs --dir recettes",
+    "uat:gate": "node src/bmad-plus/skills/bmad-plus-uat/templates/uat-release-gate.mjs --dir recettes --cli tools/cli/bmad-plus-cli.js",
+    "qa:uat-browser": "node tools/qa/uat-page-browser-check.js",
+    "lint": "eslint tools/ tests/",
+    "format": "prettier --write \"tools/**/*.js\" \"tests/**/*.js\"",
+    "format:check": "prettier --check \"tools/**/*.js\" \"tests/**/*.js\"",
+    "test": "jest --coverage",
+    "test:parallel": "jest --coverage=false --testPathIgnorePatterns \"(nexus(-cli|-process)?|memory-outcomes|upstream-candidate|npm-runner)\\.test\\.js$\"",
+    "test:serial": "jest --coverage=false --runInBand --testPathPatterns \"(nexus(-cli|-process)?|memory-outcomes|upstream-candidate|npm-runner)\\.test\\.js$\"",
+    "test:install-contract": "node tools/build/check-install-contract.js",
+    "prepare": "node -e \"try{require('node:child_process').execSync('husky',{stdio:'inherit'})}catch{console.warn('WARNING: husky did not install the git hooks, so the pre-push release gate is inactive in this checkout. Run npx husky to retry.')}\"",
+    "uninstall:bmad": "node tools/cli/bmad-plus-cli.js uninstall"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.4.0",
+    "commander": "^14.0.0",
+    "fs-extra": "^11.3.6",
+    "js-yaml": "^5.2.2",
+    "picocolors": "^1.1.1",
+    "semver": "^7.8.5"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "overrides": {
+    "@istanbuljs/load-nyc-config": {
+      "js-yaml": "4.3.2"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/tests",
+      "<rootDir>/tools"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/website/",
+      "/evals/"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "tools/**/*.js",
+      "!tools/build/generated-adapters/**"
+    ],
+    "coverageDirectory": "coverage",
+    "moduleNameMapper": {
+      "^@clack/prompts$": "<rootDir>/tests/__mocks__/clack-prompts.js"
+    },
+    "coverageThreshold": {
+      "global": {
+        "branches": 65,
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
+      },
+      "./tools/cli/commands/install.js": {
+        "lines": 65,
+        "statements": 65,
+        "functions": 45
+      },
+      "./tools/cli/commands/doctor.js": {
+        "lines": 60,
+        "functions": 60
+      },
+      "./tools/cli/commands/uninstall.js": {
+        "lines": 85,
+        "functions": 50
+      },
+      "./tools/cli/commands/update.js": {
+        "lines": 85,
+        "functions": 90
+      }
+    },
+    "coverageReporters": [
+      "text",
+      "lcov"
+    ],
+    "testEnvironment": "node"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.6.0",
+    "husky": "^9.0.0",
+    "jest": "^30.4.2",
+    "jsdom": "^26.1.0",
+    "prettier": "^3.4.0"
+  }
+}

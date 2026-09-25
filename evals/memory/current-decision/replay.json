@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "kind": "maintainer-authored-replay",
+  "transcript": "Maintainer-authored offline artifact example for memory/current-decision. Independent checks run after application; no model behavior is measured.",
+  "files": [
+    {
+      "path": "recall.json",
+      "content": "{\n  \"selected\": [\n    \"D2\"\n  ],\n  \"unresolved\": [\n    \"C1\",\n    \"C2\"\n  ],\n  \"excluded\": [\n    {\n      \"id\": \"D1\",\n      \"reason\": \"superseded\"\n    },\n    {\n      \"id\": \"D3\",\n      \"reason\": \"missing-source\"\n    },\n    {\n      \"id\": \"D4\",\n      \"reason\": \"irrelevant\"\n    }\n  ]\n}\n",
+      "sha256": "0acb83cea674de6f44d06504affbf4cb9ea5bb7d4707a4e96e8e4e262171f261"
+    }
+  ],
+  "bindings": {
+    "spec_sha256": "54e1dd0d9a65477ff38ef4243f80b87f07bf2528a0320857e69817d8940f950f",
+    "fixture": {
+      "sha256": "91dad4acae1ea8ac759507161f899ee573d5fea01e5e55b3a6d6125eb690e896",
+      "files": [
+        {
+          "path": "contract.md",
+          "sha256": "ac5748b5d8708c577217a2c682992dfd1cf02586f8c3a8ff77d4da034ab1caca",
+          "size_bytes": 414
+        },
+        {
+          "path": "corpus.json",
+          "sha256": "c778afcf14a66ceeb5f90a2040ea0a3c87b650f276c6f5471554ffb0f672a260",
+          "size_bytes": 759
+        }
+      ]
+    },
+    "checks": {
+      "sha256": "6de7d4194cba866fd0ffaf5dcad037ad7d72d95ae0555dd1d113da2a9d360e77",
+      "files": [
+        {
+          "path": "check.cjs",
+          "sha256": "6f6d23f5764f1f4ad5bc07915ffc23d10b7a009fdd945dc1bdce15fd225059a4",
+          "size_bytes": 581
+        }
+      ]
+    },
+    "agent_resources": {
+      "sha256": "03fef34700d12a75aba54ca4ab882c67ed11932f46da0394e8af5055674dbdad",
+      "files": [
+        {
+          "path": "src/bmad-plus/packs/pack-memory/zecher-agent.md",
+          "sha256": "50171b3e3212fecc198438fab6f325f9c4d966bb7c7f1e54edf1ee5d291ce2b7",
+          "size_bytes": 7807
+        },
+        {
+          "path": "src/bmad-plus/packs/pack-memory/shared/memory-protocol.md",
+          "sha256": "a37617a119732ba9b8c94c1c78057860bdff07fdc85cc518cb360d2b022d09ae",
+          "size_bytes": 7683
+        },
+        {
+          "path": "src/bmad-plus/packs/pack-memory/shared/karpathy-guardrails.md",
+          "sha256": "0e0860c9de8e8b376e538855fee2dc524cbf0fe50e78c01124e0ecfb0b24264e",
+          "size_bytes": 3664
+        }
+      ]
+    }
+  },
+  "review_note": "Reviewed: memory-protocol.md example project path changed from a personal Windows path to ~/dev/my-project; decision, provenance and contradiction rules are unchanged.",
+  "sealed_at": "2026-09-24T11:59:22.849708+00:00"
+}

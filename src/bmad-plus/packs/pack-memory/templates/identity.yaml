@@ -1,0 +1,39 @@
+# BMAD+ User Identity
+# This file stores your preferences across all BMAD+ projects.
+# It is read by agents at session start to personalize their behavior.
+# Location: ~/.bmad-plus/brain/identity.yaml
+
+user_name: "{{user_name}}"
+communication_language: "{{language}}"
+created: "{{date}}"
+
+# How you prefer agents to communicate
+style:
+  verbosity: "concise"           # concise | detailed | minimal
+  code_comments: "essential"     # essential | verbose | none
+  explain_level: "expert"        # beginner | intermediate | expert
+
+# Your default tech preferences
+stack:
+  # Agents will prefer these unless project-specific overrides exist
+  # Fill in as you work — agents will suggest additions
+  # Example:
+  # frontend: "Next.js 15"
+  # backend: "Node.js + Express"
+  # database: "PostgreSQL"
+  # hosting: "Hetzner VPS"
+
+# Known AI tools in your environment
+ai_tools: []
+  # - claude-code
+  # - antigravity
+  # - cursor
+  # - codex-cli
+
+# Anti-regression rules (agents MUST follow)
+rules:
+  - "Never rewrite entire files — surgical edits only"
+  - "Never delete existing code without explicit approval"
+  - "Always read existing file before modifying"
+  - "Dates in ISO 8601 (YYYY-MM-DD), never relative"
+  - "Never commit without explicit permission"

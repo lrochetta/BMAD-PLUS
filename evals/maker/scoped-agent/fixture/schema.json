@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "manifest_keys": ["id","entry","capabilities","allowed_writes","external_tools","activation"],
+  "entry": "SKILL.md",
+  "activation_keys": ["phrase","context"],
+  "capabilities": ["CN","VR"]
+}

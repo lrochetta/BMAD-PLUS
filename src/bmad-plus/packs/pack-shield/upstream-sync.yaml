@@ -1,0 +1,68 @@
+# Upstream Sync Configuration — Pack Shield
+# This file tracks the relationship between upstream GRC skills and BMAD+ agents
+# Used by: npx bmad-plus shield:sync
+
+upstream:
+  repo: "Sushegaad/Claude-Skills-Governance-Risk-and-Compliance"
+  branch: "main"
+  baseline_sha: "9dc17ada525ef2c3c89833e53ac574ce2f0d0fd8"
+  last_sync: "2026-05-17"
+  license: "MIT"
+  author: "Hemant Naik (Sushegaad)"
+
+sync_process:
+  description: |
+    1. Clone upstream repo to temporary directory
+    2. Compare SHA of each .skill file against baseline
+    3. For modified files:
+       a. Extract new SKILL.md from .skill archive
+       b. Diff against previous SKILL.md
+       c. Apply changes to corresponding BMAD+ agent (preserve BMAD+ header/metadata)
+    4. Check for new skills added upstream
+    5. Update this file with new SHA and timestamp
+    6. Generate changelog of modifications
+  preserve_on_merge:
+    - BMAD+ header block (lines 1-9 of each agent)
+    - Lawve.ai enrichments (Workflows 5-7 in GDPR agent)
+    - Custom BMAD+ sections not present in upstream
+
+# Skill-to-Agent Mapping (upstream path -> BMAD+ agent path)
+mapping:
+  # Data Privacy
+  "GDPR - Claude Skill/gdpr-compliance.skill": "categories/data-privacy/gdpr-agent.md"
+  "CCPA - Claude Skill/ccpa.skill": "categories/data-privacy/ccpa-agent.md"
+  "LGPD - Claude Skill/lgpd.skill": "categories/data-privacy/lgpd-agent.md"
+  "DPDPA - Claude Skill/dpdpa.skill": "categories/data-privacy/dpdpa-agent.md"
+  "ISO 27701 - Claude Skill/iso27701.skill": "categories/data-privacy/iso27701-agent.md"
+
+  # Cybersecurity
+  "ISO 27001 - Claude Skill/iso27001.skill": "categories/cybersecurity/iso27001-agent.md"
+  "NIST Cybersecurity Framework - Claude Skill/NIST Cybersecurity.skill": "categories/cybersecurity/nist-csf-agent.md"
+  "NIST 800-53 - Claude Skill/nist-800-53.skill": "categories/cybersecurity/nist-800-53-agent.md"
+  "CIS Controls - Claude Skill/cis-controls.skill": "categories/cybersecurity/cis-controls-agent.md"
+  "NIS2 - Claude Skill/nis2.skill": "categories/cybersecurity/nis2-agent.md"
+  "ISM - Claude Skill/ism.skill": "categories/cybersecurity/ism-agent.md"
+
+  # Industry Compliance
+  "SOC2 - Claude Skill/soc2.skill": "categories/industry-compliance/soc2-agent.md"
+  "PCI DSS - Claude Skill/PCI-Compliance.skill": "categories/industry-compliance/pci-dss-agent.md"
+  "HIPAA - Claude Skill/hipaa-compliance.skill": "categories/industry-compliance/hipaa-agent.md"
+  "SWIFT CSP - Claude Skill/swift-csp.skill": "categories/industry-compliance/swift-csp-agent.md"
+  "DORA - Claude Skill/dora.skill": "categories/industry-compliance/dora-agent.md"
+  "FedRAMP - Claude Skill/fedramp.skill": "categories/industry-compliance/fedramp-agent.md"
+
+  # Defense & Export
+  "CMMC - Claude Skill/cmmc.skill": "categories/defense-export/cmmc-agent.md"
+  "ITAR - Claude Skill/itar.skill": "categories/defense-export/itar-agent.md"
+  "EAR - Claude Skill/ear.skill": "categories/defense-export/ear-agent.md"
+  "TSA Compliance - Claude Skill/TSA-Compliance.skill": "categories/defense-export/tsa-agent.md"
+
+  # AI Governance
+  "EU AI Act - Claude Skill/eu-ai-act.skill": "categories/ai-governance/eu-ai-act-agent.md"
+  "ISO 42001 - Claude Skill/ISO-42001.skill": "categories/ai-governance/iso42001-agent.md"
+  "NIST AI RMF - Claude Skill/nist-ai-rmf.skill": "categories/ai-governance/nist-ai-rmf-agent.md"
+
+  # Accessibility & ESG
+  "WCAG - Claude Skill/wcag.skill": "categories/accessibility-esg/wcag-agent.md"
+  "Section 508 - Claude Skill/section-508.skill": "categories/accessibility-esg/section508-agent.md"
+  "CSRD - Claude Skill/csrd.skill": "categories/accessibility-esg/csrd-agent.md"

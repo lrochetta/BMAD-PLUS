@@ -1,0 +1,27 @@
+schema_version: 1
+id: animated/reduced-motion
+pack: animated
+agent: animated-website-agent
+agent_source: src/bmad-plus/packs/pack-animated/animated-website-agent.md
+description: Preserve reduced-motion and missing-frame behavior in an animation caller.
+models: [claude, gpt, gemini, local]
+gates: [pr]
+replay: replay.json
+tags: [motion-preference, missing-assets, executable-consumer]
+fixture: fixture
+task:
+  prompt: |
+    Fix src/motion.cjs for contract.md and add a Node regression test in tests/.
+    The existing page caller needs a frame index or null. Preserve reduced
+    motion and missing-asset behavior. Do not generate images, infer a video,
+    install packages or change the caller. This task covers the selection
+    logic; browser design and visual quality are outside its scope.
+  allowed_writes: [src/motion.cjs, tests/]
+  timeout_s: 300
+assertions:
+  - id: preference-aware-frame-selection
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}

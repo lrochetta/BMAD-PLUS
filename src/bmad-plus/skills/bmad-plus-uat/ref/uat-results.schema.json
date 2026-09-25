@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "bmad-plus/uat-results/2",
+  "title": "Human acceptance recipe — one run",
+  "description": "What the page writes: one document per run, never modified afterwards. A second pass is a second document. States use the evidence vocabulary of the framework: passed, failed, blocked (unavailable to the tester), skipped (optional step), null (unanswered).",
+  "type": "object",
+  "required": ["schema", "specId", "runId", "tester", "startedAt", "steps", "summary"],
+  "properties": {
+    "schema": { "const": "bmad-plus/uat-results/2" },
+    "specId": { "type": "string" },
+    "specSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Fingerprint of the spec the page was built from. Says WHICH revision the tester answered: if the spec was amended since, the run is stale and the affected steps are replayed."
+    },
+    "runId": { "type": "string", "pattern": "^[0-9a-z][0-9a-z-]{0,63}$", "description": "<YYYYMMDD>-<tester>-<4 chars>." },
+    "tester": { "type": "string" },
+    "observedVersion": { "type": "string", "description": "Version the tester actually saw on screen." },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "finishedAt": { "type": ["string", "null"], "format": "date-time" },
+    "overallNote": { "type": "string" },
+    "carriedFrom": {
+      "type": "object",
+      "description": "Present when the page continued a run that answered another revision of the recipe. The rule is fixed: an answer travelled only when its line was identical (same step, same letter, same text); every other line was asked again. The earlier run is left untouched.",
+      "required": ["runId", "kept", "toAnswer"],
+      "properties": {
+        "runId": { "type": "string", "description": "The run the answers came from." },
+        "specSha256": { "type": ["string", "null"], "description": "The revision that run answered; null when it carried no fingerprint." },
+        "kept": { "type": "integer", "description": "Answers that travelled." },
+        "toAnswer": { "type": "integer", "description": "Lines of this revision left unanswered by the carry." }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["passed", "failed", "blocked", "skipped", "unanswered"],
+      "properties": {
+        "passed": { "type": "integer" },
+        "failed": { "type": "integer" },
+        "blocked": { "type": "integer" },
+        "skipped": { "type": "integer" },
+        "unanswered": { "type": "integer" }
+      }
+    },
+    "steps": {
+      "type": "object",
+      "description": "Key = step id from the spec.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["expect"],
+        "properties": {
+          "title": { "type": "string" },
+          "state": { "enum": ["passed", "failed", "blocked", "skipped", null] },
+          "note": { "type": "string", "description": "Free remark for the whole step." },
+          "expect": {
+            "type": "object",
+            "description": "Key = expectation letter.",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "text": { "type": "string", "description": "Snapshot of the expectation as the tester read it." },
+                "state": { "enum": ["passed", "failed", "blocked", "skipped", null] },
+                "note": { "type": "string", "description": "What the tester saw instead, word for word — the most useful material there is." }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

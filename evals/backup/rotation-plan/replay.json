@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "kind": "maintainer-authored-replay",
+  "transcript": "Maintainer-authored offline artifact example for backup/rotation-plan. Independent checks run after application; no model behavior is measured.",
+  "files": [
+    {
+      "path": "src/rotation.cjs",
+      "content": "exports.deletionCandidates = (entries, keep) => {\n  if (!Number.isInteger(keep) || keep < 1) throw new TypeError('keep must be positive');\n  const counts = new Map();\n  for (const entry of entries) counts.set(entry.path, (counts.get(entry.path) || 0) + 1);\n  const valid = entries.filter((entry) => {\n    if (entry.owned !== true || entry.verified !== true || typeof entry.path !== 'string' || counts.get(entry.path) !== 1) return false;\n    if (!entry.path.endsWith('.zip') || /[\\\\/:]/.test(entry.path) || entry.path.includes('..')) return false;\n    if (typeof entry.created !== 'string' || !/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/.test(entry.created)) return false;\n    const timestamp = Date.parse(entry.created);\n    return Number.isFinite(timestamp) && new Date(timestamp).toISOString() === entry.created;\n  });\n  valid.sort((a, b) => a.created < b.created ? -1 : a.created > b.created ? 1 : a.path < b.path ? -1 : a.path > b.path ? 1 : 0);\n  return valid.slice(0, Math.max(0, valid.length - keep)).map((entry) => entry.path);\n};\n",
+      "sha256": "924ec0a3f9a0aecc2a5cb2e75afa29b2954d8ea346d477beb0f71b0da85822e2"
+    },
+    {
+      "path": "tests/rotation.test.cjs",
+      "content": "const test = require('node:test');\nconst assert = require('node:assert/strict');\nconst { plan } = require('../src/caller.cjs');\ntest('unverified backup is never a deletion candidate', () => {\n  const items = [{path:'old.zip',created:'2026-09-01T00:00:00.000Z',owned:true,verified:false},{path:'new.zip',created:'2026-09-02T00:00:00.000Z',owned:true,verified:true}];\n  assert.deepEqual(plan(items,1),{delete:[],executed:false});\n});\n",
+      "sha256": "059087a7c0f3f16e913a42747ae048b2e3dcf0bcebd867faeaf63323a4221924"
+    }
+  ],
+  "bindings": {
+    "spec_sha256": "43b438ec68b59cb4b3a6213a5d253e9ace1db7030861641b7fd2a3fae9633a72",
+    "fixture": {
+      "sha256": "c7e1331c778c9d2713e00c9fb3434eac28f0c0c2f8e1a90dbfa18d3ccb28bdad",
+      "files": [
+        {
+          "path": "contract.md",
+          "sha256": "9804bcd300807fd44950b172253b0166a2569572fe8b70b4e5ade0412eb759ad",
+          "size_bytes": 632
+        },
+        {
+          "path": "src/caller.cjs",
+          "sha256": "fa5b928e7113bbf429db4924285d1317f33a5181aeba6dc4f8fbe23be9578078",
+          "size_bytes": 158
+        },
+        {
+          "path": "src/rotation.cjs",
+          "sha256": "d88721f990c9c08687f054e0383cef3ca824edacdc02f8df1307569389236584",
+          "size_bytes": 100
+        }
+      ]
+    },
+    "checks": {
+      "sha256": "21ec1c2bb1b505918299395938c2da78ba98dcaf90342bdff02098dca88f9185",
+      "files": [
+        {
+          "path": "check.cjs",
+          "sha256": "c38bde5e3a5f9ce63d0a437bacb60cd029acea36c4ecbe30ff521ef94e7d816b",
+          "size_bytes": 1888
+        }
+      ]
+    },
+    "agent_resources": {
+      "sha256": "33665f22431c565d424aff17b898bdabe7e83907419051535d00346b1485e715",
+      "files": [
+        {
+          "path": "src/bmad-plus/packs/pack-backup/backup-agent.md",
+          "sha256": "3196c31a99f813921ae609c91a8030c73aba8cc0c9e061153d47bdf689adf6aa",
+          "size_bytes": 2917
+        }
+      ]
+    }
+  },
+  "review_note": "Reseal on LF-normalized sources. The bindings had been sealed from a Windows CRLF checkout and were reported stale on the Linux runner; .gitattributes now forces LF for src/bmad-plus/** and evals/**. Agent text, spec, fixture and checkers are unchanged apart from line endings.",
+  "sealed_at": "2026-09-16T09:25:32.848668+00:00"
+}

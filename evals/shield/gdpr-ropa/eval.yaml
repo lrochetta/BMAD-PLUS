@@ -1,0 +1,83 @@
+# Golden task — Shield GDPR agent (pack-shield / data-privacy category).
+# Proves: the agent produces a real Art. 30 RoPA from a data inventory, flags the
+# planted gaps (no DPAs, indefinite retention, pre-ticked consent, US transfers
+# without safeguards) and never rubber-stamps ("fully compliant").
+# The fixture inventory is FICTIONAL — no real persons or companies.
+schema_version: 1
+id: shield/gdpr-ropa
+pack: shield
+agent: gdpr-agent
+agent_source: src/bmad-plus/packs/pack-shield/categories/data-privacy/gdpr-agent.md
+persona: Shield
+description: >
+  Build a GDPR Article 30 Record of Processing Activities for a fictional B2B
+  SaaS ("MailReach") and surface every planted compliance gap.
+models: [claude, gpt, gemini, local]
+tags: [compliance:GDPR, shield:data-privacy]
+fixture: fixture
+task:
+  prompt: |
+    You are the Shield GDPR compliance agent. Read docs/data-inventory.md in
+    this workspace (fictional company, eval fixture). Produce
+    compliance/ropa.md: a Record of Processing Activities per GDPR Art. 30(1)
+    as a table with, per processing activity: purpose, categories of data
+    subjects, categories of personal data, lawful basis (with Art. 6 reference),
+    recipients/processors, third-country transfers + safeguard, retention
+    period, and security measures. Then append a "Gaps & Remediation" section
+    using the Shield findings table format (severity | article | issue |
+    recommendation). Do not invent facts absent from the inventory; mark
+    unknowns as TBD. Work only inside this workspace.
+  timeout_s: 900
+assertions:
+  - id: ropa-produced
+    kind: file_exists
+    path: compliance/ropa.md
+  - id: cites-art-30
+    kind: contains
+    path: compliance/ropa.md
+    pattern: "Art(icle)?\\.? ?30"
+  - id: lawful-basis-column
+    kind: contains
+    path: compliance/ropa.md
+    pattern: "(?i)lawful basis|Art\\.? ?6"
+    weight: 2
+  - id: retention-addressed
+    kind: contains
+    path: compliance/ropa.md
+    pattern: "(?i)retention"
+  - id: transfers-addressed
+    kind: contains
+    path: compliance/ropa.md
+    pattern: "(?i)SCC|standard contractual clauses|adequacy|Art\\.? ?4[4-9]"
+    description: US processors (Zendesk, Stripe, Mailchimp) require a transfer mechanism (Art. 44-49).
+  - id: flags-missing-dpas
+    kind: must_flag
+    pattern: "(?i)(Zendesk|Mailchimp)[^\\n]*(DPA|Art\\.? ?28|processor agreement)|(no|missing) DPA"
+    weight: 2
+    description: Inventory states no DPAs are on file — an Art. 28 violation the agent must surface.
+  - id: flags-indefinite-retention
+    kind: must_flag
+    pattern: "(?i)(indefinite|never delete)[^\\n]*(log|retention)|storage limitation|Art\\.? ?5\\(1\\)\\(e\\)"
+    weight: 2
+    description: The 'kept indefinitely' sending logs violate storage limitation (Art. 5(1)(e)).
+  - id: flags-pre-ticked-consent
+    kind: must_flag
+    pattern: "(?i)pre[- ]ticked|(invalid|not valid|no valid)[^\\n]*consent|Art\\.? ?7"
+    description: Pre-ticked newsletter checkbox is not valid consent (Art. 7, Planet49).
+  - id: no-rubber-stamp
+    kind: must_not_flag
+    pattern: "(?i)fully compliant|no (gaps|issues|violations) (found|identified)"
+    weight: 2
+rubric:
+  - id: legal-accuracy
+    criterion: "Every cited GDPR article actually supports the point it is attached to (no hallucinated article numbers)."
+    weight: 2
+  - id: ropa-completeness
+    criterion: "Each of the 6 inventory systems maps to at least one RoPA row with all Art. 30(1) columns filled or marked TBD."
+    weight: 2
+  - id: actionable-remediation
+    criterion: "Each gap has a concrete remediation step (e.g. 'sign Zendesk DPA + SCCs module 2'), not generic advice."
+    weight: 1
+scoring:
+  pass_threshold: 0.75
+  weights: { assertions: 0.7, rubric: 0.3 }

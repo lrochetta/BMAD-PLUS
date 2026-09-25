@@ -1,0 +1,10 @@
+{
+  "site": "https://fictional-catalog.test/",
+  "canonical": [
+    {"id":"H1","url":"https://fictional-catalog.test/item","canonical":"https://fictional-catalog.test/item"},
+    {"id":"H2","url":"https://fictional-catalog.test/item","canonical":"https://fictional-catalog.test/other"}
+  ],
+  "robots": {"status":"unknown","reason":"fixture has no response"},
+  "performance_measurements": [],
+  "indexing_observations": []
+}

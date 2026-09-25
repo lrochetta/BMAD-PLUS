@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="__LANGUAGE__" dir="__DIR__">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #f6f5f2; --card: #ffffff; --ink: #1b1d1f; --muted: #6b6f73; --line: #d9d7d1; --line-strong: #b9b6ae;
+    --accent: #0f6f74; --accent-ink: #ffffff; --accent-soft: #e2f0f0;
+    --ok: #1f7a3a; --ok-soft: #e4f2e8; --ko: #b3261e; --ko-soft: #f8e3e1; --warn: #b26a00; --warn-soft: #fbeeda;
+    --mono-bg: #edece7; --focus: #0f6f74;
+    --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --serif: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+    --mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #151719; --card: #1d2023; --ink: #e8e6e1; --muted: #a2a5a9; --line: #2c3034; --line-strong: #454a4f;
+      --accent: #4fb3b8; --accent-ink: #0c1516; --accent-soft: #163537;
+      --ok: #5fc27a; --ok-soft: #173321; --ko: #f08a80; --ko-soft: #3a1c19; --warn: #e0a24a; --warn-soft: #3a2a12;
+      --mono-bg: #24282c; --focus: #4fb3b8;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #151719; --card: #1d2023; --ink: #e8e6e1; --muted: #a2a5a9; --line: #2c3034; --line-strong: #454a4f;
+    --accent: #4fb3b8; --accent-ink: #0c1516; --accent-soft: #163537;
+    --ok: #5fc27a; --ok-soft: #173321; --ko: #f08a80; --ko-soft: #3a1c19; --warn: #e0a24a; --warn-soft: #3a2a12;
+    --mono-bg: #24282c; --focus: #4fb3b8;
+  }
+  * { box-sizing: border-box; }
+  code.cmd { cursor: copy; }
+  code.cmd.copied::after { content: " \2713 " attr(data-copied); font-family: var(--sans); color: var(--ok); }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.5; margin: 0; padding-inline: 16px; padding-block: 0 64px; }
+  h1, h2, h3 { font-family: var(--serif); text-wrap: balance; margin: 0; }
+  h1 { font-size: 1.7rem; font-weight: 600; }
+  h2 { font-size: 1.2rem; font-weight: 600; }
+  h2:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+  p { margin: 0; }
+  a { color: var(--accent); }
+  code, .ecran { font-family: var(--mono); font-size: 0.88em; background: var(--mono-bg); padding: 1px 6px; border-radius: 3px; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .bar { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); padding-block: 10px; margin-inline: -16px; padding-inline: 16px; }
+  .bar-in { max-width: 860px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+  .count { display: flex; flex-wrap: wrap; gap: 14px; font-variant-numeric: tabular-nums; font-size: 0.9rem; }
+  .count b { font-weight: 600; }
+  .count .ok { color: var(--ok); } .count .ko { color: var(--ko); } .count .warn { color: var(--warn); } .count .todo { color: var(--muted); } .count .pct { color: var(--ink); }
+  /* One segment per step: green seen, red not seen, orange blocked, grey skipped, empty to do. */
+  .strip { flex: 1 1 100%; display: flex; gap: 3px; min-height: 12px; }
+  .strip a { flex: 1 1 0; min-width: 10px; height: 12px; border-radius: 3px; background: var(--line); border: 1px solid transparent; }
+  .strip a:hover, .strip a:focus-visible { border-color: var(--ink); outline: none; }
+  .strip a[data-state="passed"] { background: var(--ok); }
+  .strip a[data-state="failed"] { background: var(--ko); }
+  .strip a[data-state="blocked"] { background: var(--warn); }
+  .strip a[data-state="skipped"] { background: var(--line-strong); }
+  .strip a[data-state="partial"] { background: linear-gradient(90deg, var(--ok) 50%, var(--line) 50%); }
+  [dir="rtl"] .strip a[data-state="partial"] { background: linear-gradient(270deg, var(--ok) 50%, var(--line) 50%); }
+  /* Share of lines answered — answered, not passed: a "not seen" advances the run as much as a "seen". */
+  .meter { flex: 1 1 100%; height: 5px; background: var(--line); border-radius: 3px; overflow: hidden; }
+  .meter i { display: block; height: 100%; width: 0; background: var(--accent); }
+  .state { font-size: 0.82rem; color: var(--muted); }
+  .state.saved { color: var(--ok); }
+  .state.failed { color: var(--ko); font-weight: 600; }
+  .run-note { flex: 1 1 100%; font-size: 0.82rem; color: var(--warn); }
+  .head { padding-block: 26px 18px; display: grid; gap: 10px; }
+  .head p { max-width: 65ch; }
+  .lang { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--muted); }
+  select { font: inherit; font-size: 0.85rem; color: var(--ink); background: var(--card); border: 1px solid var(--line-strong); border-radius: 4px; padding: 4px 8px; }
+  .startbox { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 16px; display: grid; gap: 12px; margin-block: 10px 22px; }
+  .startbox label { display: grid; gap: 6px; font-weight: 500; }
+  input[type="text"], textarea { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line-strong); border-radius: 4px; padding: 8px 10px; width: 100%; }
+  textarea { min-height: 64px; resize: vertical; }
+  input:focus-visible, textarea:focus-visible, button:focus-visible, select:focus-visible, .pill input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .btn { font: inherit; font-weight: 600; border-radius: 4px; padding: 8px 14px; border: 1px solid var(--line-strong); background: var(--card); color: var(--ink); cursor: pointer; }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .resume { display: grid; gap: 6px; }
+  .resume button { text-align: start; }
+  .resume .row { gap: 8px; }
+  .warn-box { border-inline-start: 3px solid var(--warn); background: var(--warn-soft); padding: 10px 12px; border-radius: 4px; }
+  .info-box { border-inline-start: 3px solid var(--accent); background: var(--accent-soft); padding: 10px 12px; border-radius: 4px; }
+  .warn-box .btn { margin-inline-start: 8px; }
+  .steps { display: grid; gap: 18px; }
+  .step { background: var(--card); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; scroll-margin-top: 150px; }
+  .step[data-state="passed"] { border-color: var(--ok); }
+  .step[data-state="failed"] { border-color: var(--ko); }
+  .step[data-state="blocked"] { border-color: var(--warn); }
+  .step-head { display: flex; gap: 12px; align-items: baseline; padding: 14px 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .num { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; color: var(--accent); min-width: 2ch; line-height: 1; }
+  .step-head h2 { flex: 1 1 260px; }
+  .duration { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+  .verdict { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 9px; border-radius: 12px; background: var(--mono-bg); color: var(--muted); }
+  .step[data-state="passed"] .verdict { background: var(--ok-soft); color: var(--ok); }
+  .step[data-state="failed"] .verdict { background: var(--ko-soft); color: var(--ko); }
+  .step[data-state="blocked"] .verdict { background: var(--warn-soft); color: var(--warn); }
+  .step-body { padding: 14px 16px 16px; display: grid; gap: 14px; }
+  .section { display: grid; gap: 6px; }
+  .section ol, .section ul { margin: 0; padding-inline-start: 22px; display: grid; gap: 5px; }
+  .section li { max-width: 68ch; }
+  .expects { display: grid; gap: 8px; }
+  .expect { display: grid; grid-template-columns: 1fr auto; gap: 8px 14px; align-items: start; padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px; }
+  .expect[data-state="passed"] { background: var(--ok-soft); border-color: transparent; }
+  .expect[data-state="failed"] { background: var(--ko-soft); border-color: transparent; }
+  .expect[data-state="blocked"] { background: var(--warn-soft); border-color: transparent; }
+  .expect[data-state="skipped"] { opacity: 0.6; }
+  .expect .text { max-width: 60ch; }
+  .expect .why { grid-column: 1 / -1; }
+  .expect .why label { font-size: 0.85rem; color: var(--muted); display: grid; gap: 4px; }
+  .choice { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+  .pill { position: relative; }
+  .pill input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .pill span { display: inline-block; font-size: 0.8rem; font-weight: 600; padding: 5px 10px; border-radius: 14px; border: 1px solid var(--line-strong); cursor: pointer; user-select: none; color: var(--muted); background: var(--card); }
+  .pill.passed input:checked + span { background: var(--ok); color: #fff; border-color: var(--ok); }
+  .pill.failed input:checked + span { background: var(--ko); color: #fff; border-color: var(--ko); }
+  .pill.blocked input:checked + span { background: var(--warn); color: #fff; border-color: var(--warn); }
+  .note label { font-size: 0.85rem; color: var(--muted); display: grid; gap: 4px; }
+  .end { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 16px; display: grid; gap: 12px; margin-top: 22px; }
+  .json { font-family: var(--mono); font-size: 0.8rem; min-height: 180px; white-space: pre; overflow: auto; direction: ltr; text-align: start; }
+  details > summary { cursor: pointer; font-weight: 600; }
+  @media (max-width: 480px) { .expect { grid-template-columns: 1fr; } .num { font-size: 1.25rem; } .step { scroll-margin-top: 190px; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  /* A class that sets display wins over the hidden attribute: without this rule the steps
+     showed before any run existed, and a tester's answers were silently discarded. It is
+     !important AND the last rule of the sheet, so it wins under a real cascade and under a
+     source-order one (jsdom resolves display by the last matching rule). The build refuses
+     a template where anything follows it. */
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="bar" id="bar" hidden>
+  <div class="bar-in">
+    <span class="eyebrow" id="bar-tester"></span>
+    <div class="count">
+      <span class="ok"><b id="c-passed">0</b> <span id="l-passed"></span></span>
+      <span class="ko"><b id="c-failed">0</b> <span id="l-failed"></span></span>
+      <span class="warn"><b id="c-blocked">0</b> <span id="l-blocked"></span></span>
+      <span class="todo"><b id="c-todo">0</b> <span id="l-todo"></span></span>
+      <span class="pct"><b id="c-pct">0 %</b> <span id="l-pct"></span></span>
+    </div>
+    <nav class="strip" id="strip"></nav>
+    <div class="meter" id="meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="meter-fill"></i></div>
+    <span class="state" id="save-state" role="status" aria-live="polite">—</span>
+    <span class="run-note" id="run-note" role="status" hidden></span>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="head" id="head"></header>
+  <p class="lang"><label for="lang" id="t-language"></label><select id="lang"></select></p>
+  <section class="startbox" id="startbox">
+    <h2 id="t-before"></h2>
+    <label for="tester"><span id="t-tester"></span><input type="text" id="tester" autocomplete="name"></label>
+    <div class="row">
+      <button class="btn primary" id="btn-start" type="button"></button>
+      <span class="state" id="start-state" role="status"></span>
+    </div>
+    <p class="warn-box" id="draft-problem" hidden><span id="t-draft-problem"></span><button class="btn" id="btn-save-raw" type="button"></button></p>
+    <div class="resume" id="resume" hidden>
+      <span class="eyebrow" id="t-resume"></span>
+      <div id="resume-list" class="resume"></div>
+    </div>
+    <p class="info-box" id="storage-note"></p>
+  </section>
+  <main class="steps" id="steps" hidden></main>
+  <section class="end" id="end" hidden>
+    <h2 id="t-finish"></h2>
+    <div id="closing" class="section"></div>
+    <label class="note" for="overall"><span id="t-overall"></span><textarea id="overall"></textarea></label>
+    <div class="row">
+      <button class="btn primary" id="btn-finish" type="button" disabled></button>
+      <button class="btn" id="btn-save" type="button" disabled></button>
+      <button class="btn" id="btn-copy" type="button" disabled></button>
+      <button class="btn" id="btn-another" type="button" disabled></button>
+      <span class="state" id="end-state" role="status"></span>
+    </div>
+    <p class="info-box" id="mode-note"></p>
+    <details><summary>JSON</summary><textarea class="json" id="json" readonly aria-label="JSON"></textarea></details>
+  </section>
+</div>
+
+<script id="uat-spec" type="application/json">__SPEC_JSON__</script>
+<script id="uat-strings" type="application/json">__STRINGS__</script>
+<script>
+(function () {
+  "use strict";
+  var SPEC = JSON.parse(document.getElementById("uat-spec").textContent);
+  var ALL = JSON.parse(document.getElementById("uat-strings").textContent);
+  var SPEC_SHA = "__SPEC_SHA__";
+  // The language the page was built for: the recipe's own, else the project's, else English.
+  var BUILT_LANG = document.documentElement.getAttribute("lang") || "";
+  var RESULTS_SCHEMA = "bmad-plus/uat-results/2";
+  var STATES = ["passed", "failed", "blocked", "skipped"];
+  var STEPS = SPEC.steps;
+  var KEY = "uat-" + SPEC.id;
+  var LARGE_BODY = 60000; // a keepalive request is refused above 64 KiB: never leave such a body pending
+
+  var run = null, runId = null, T = null, lang = null;
+  var db = null, dbDoc = null, unsub = null, downloads = null, serve = null;
+  var timer = null, pending = null, lastWritten = "", flushSeq = 0, listSeq = 0;
+  var localOk = true, remoteState = null, remoteAt = null, unreadable = null;
+  var runNote = null, confirmingFinish = false;
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (value) { return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); };
+  var lsGet = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  // A write is a write only once it reads back: a refused write (quota, private window,
+  // blocked storage) returns false, and the page never says "saved" on its own word.
+  var lsSet = function (k, v) { try { localStorage.setItem(k, v); return localStorage.getItem(k) === v; } catch (e) { return false; } };
+  var lsKeys = function () { var keys = []; try { for (var i = 0; i < localStorage.length; i++) keys.push(localStorage.key(i)); } catch (e) { /* storage unreadable: nothing to list */ } return keys; };
+  /** When a document was last saved, as a number; a missing or unreadable date is older than anything. */
+  function at(doc) { var t = Date.parse(doc && doc.updatedAt); return isNaN(t) ? -Infinity : t; }
+  function setText(el, text) { if (el.textContent !== text) el.textContent = text; }
+
+  // ── Language: the recipe's own, the tester's browser, or their choice ───
+  function pickLanguage() {
+    var saved = lsGet(KEY + "-lang");
+    if (saved && ALL[saved]) return saved;
+    if (SPEC.language && ALL[SPEC.language]) return SPEC.language;
+    if (BUILT_LANG && ALL[BUILT_LANG]) return BUILT_LANG;
+    var tags = (navigator.languages || [navigator.language || ""]).map(String);
+    for (var i = 0; i < tags.length; i++) {
+      var tag = tags[i];
+      if (ALL[tag]) return tag;
+      var base = tag.split("-")[0];
+      for (var code in ALL) { if (code === base || code.split("-")[0] === base) return code; }
+    }
+    return ALL.en ? "en" : Object.keys(ALL)[0];
+  }
+
+  function fillLanguageChoice() {
+    var select = $("lang");
+    select.innerHTML = "";
+    Object.keys(ALL).forEach(function (code) {
+      var option = document.createElement("option");
+      option.value = code;
+      option.textContent = ALL[code].name;
+      option.selected = code === lang;
+      select.appendChild(option);
+    });
+  }
+
+  function modeText() { return db ? T.dbMode : serve ? T.serveMode : T.localMode; }
+  function noteText() {
+    if (!runNote) return "";
+    if (runNote.kind === "carried") return T.carried.replace("{kept}", String(runNote.kept)).replace("{left}", String(runNote.left));
+    if (runNote.kind === "otherTab") return T.otherTab;
+    if (runNote.kind === "changedAfterFinish") return T.changedAfterFinish;
+    return "";
+  }
+  function showNote(note) {
+    runNote = note;
+    $("run-note").hidden = !note;
+    setText($("run-note"), noteText());
+  }
+
+  function applyLanguage(code) {
+    lang = ALL[code] ? code : "en";
+    T = ALL[lang];
+    lsSet(KEY + "-lang", lang);
+    document.documentElement.lang = lang;
+    document.documentElement.dir = T.dir || "ltr";
+    $("t-language").textContent = T.uiLanguage;
+    $("t-before").textContent = T.before;
+    $("t-tester").textContent = T.tester;
+    $("btn-start").textContent = T.start;
+    $("t-resume").textContent = T.resume;
+    $("t-finish").textContent = T.finish;
+    $("t-overall").textContent = T.overall;
+    $("btn-finish").textContent = run && run.finishedAt ? T.finished : confirmingFinish ? T.finishAnyway : T.finishRun;
+    $("btn-save").textContent = T.saveJson;
+    $("btn-copy").textContent = T.copyJson;
+    $("btn-another").textContent = T.another;
+    $("btn-save-raw").textContent = T.saveRaw;
+    $("t-draft-problem").textContent = T.draftUnreadable + " ";
+    $("l-passed").textContent = T.countSeen;
+    $("l-failed").textContent = T.countNotSeen;
+    $("l-blocked").textContent = T.countBlocked;
+    $("l-todo").textContent = T.todo;
+    $("l-pct").textContent = T.countAnswered;
+    $("meter").setAttribute("aria-label", T.progressLabel);
+    $("mode-note").textContent = modeText();
+    $("storage-note").textContent = modeText();
+    setText($("run-note"), noteText());
+    renderHead();
+    renderSteps();
+    renderStrip();
+    if (run) { reflect(); showSaveState(); }
+    listResumable();
+  }
+
+  function renderHead() {
+    var head = $("head");
+    head.innerHTML = "";
+    var subtitle = document.createElement("span");
+    subtitle.className = "eyebrow";
+    subtitle.textContent = SPEC.subtitle || (SPEC.product + " · " + SPEC.environment.name + " · " + SPEC.versions.join(" · ") + (SPEC.date ? " · " + SPEC.date : ""));
+    head.appendChild(subtitle);
+    var title = document.createElement("h1");
+    title.textContent = SPEC.title;
+    head.appendChild(title);
+    var summary = document.createElement("p");
+    summary.textContent = STEPS.length + " " + T.stepsLabel + (SPEC.estimate ? " · " + SPEC.estimate : "") + " · " + SPEC.environment.name + (SPEC.environment.url ? " — " + SPEC.environment.url : "");
+    head.appendChild(summary);
+    (SPEC.intro || []).forEach(function (text) { var p = document.createElement("p"); p.innerHTML = text; head.appendChild(p); });
+    (SPEC.warnings || []).forEach(function (text) { var p = document.createElement("p"); p.className = "warn-box"; p.innerHTML = text; head.appendChild(p); });
+    (SPEC.notes || []).forEach(function (text) { var p = document.createElement("p"); p.className = "info-box"; p.innerHTML = text; head.appendChild(p); });
+    var closing = $("closing");
+    closing.innerHTML = "";
+    ((SPEC.closing && SPEC.closing.text) || []).forEach(function (text) { var p = document.createElement("p"); p.innerHTML = text; closing.appendChild(p); });
+  }
+
+  function newRun(tester) {
+    var steps = {};
+    STEPS.forEach(function (step) {
+      var expect = {};
+      step.expect.forEach(function (e) { expect[e.id] = { text: e.text, state: null, note: "" }; });
+      steps[step.id] = { title: step.title, state: null, note: "", expect: expect };
+    });
+    var now = new Date().toISOString();
+    return {
+      schema: RESULTS_SCHEMA, specId: SPEC.id, specSha256: SPEC_SHA, runId: null, tester: tester,
+      startedAt: now, updatedAt: now, finishedAt: null, steps: steps, overallNote: "",
+      summary: { passed: 0, failed: 0, blocked: 0, skipped: 0, unanswered: 0 },
+    };
+  }
+  // The combining-mark range is written as escapes: a raw range survives only as long as every
+  // hop (editor, transfer, server charset) keeps the bytes intact, and one hop did not.
+  function slug(s) {
+    var latin = String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-+|-+$/g, "").toLowerCase().slice(0, 24);
+    if (latin) return latin;
+    // A name with no Latin letter (Hebrew, Cyrillic, CJK…) still signs its run: a stable hash, not "anonymous".
+    var h = 2166136261;
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+    return "t" + h.toString(36).slice(0, 7);
+  }
+  function newRunId(tester) {
+    var d = new Date(), p = function (n) { return String(n).padStart(2, "0"); };
+    // UTC, like every date the run carries: the file name and "finished on" name the same day.
+    return d.getUTCFullYear() + p(d.getUTCMonth() + 1) + p(d.getUTCDate()) + "-" + slug(tester) + "-" + (Math.random().toString(36) + "0000").slice(2, 6);
+  }
+  function stepState(step) {
+    var values = Object.keys(step.expect).map(function (k) { return step.expect[k].state; });
+    if (values.indexOf("failed") >= 0) return "failed";
+    if (values.indexOf("blocked") >= 0) return "blocked";
+    if (values.length && values.every(function (v) { return v === "skipped"; })) return "skipped";
+    if (values.length && values.every(function (v) { return v === "passed" || v === "skipped"; })) return "passed";
+    return null;
+  }
+  function recount() {
+    var s = { passed: 0, failed: 0, blocked: 0, skipped: 0, unanswered: 0 };
+    Object.keys(run.steps).forEach(function (id) {
+      var step = run.steps[id];
+      step.state = stepState(step);
+      Object.keys(step.expect).forEach(function (k) {
+        var v = step.expect[k].state;
+        if (v === null || v === undefined) s.unanswered++; else if (STATES.indexOf(v) >= 0) s[v]++; else s.unanswered++;
+      });
+    });
+    run.summary = s;
+  }
+  function answeredOf(doc) {
+    var total = 0, answered = 0;
+    Object.keys(doc.steps).forEach(function (id) {
+      Object.keys(doc.steps[id].expect).forEach(function (k) { total++; if (STATES.indexOf(doc.steps[id].expect[k].state) >= 0) answered++; });
+    });
+    return { answered: answered, total: total };
+  }
+
+  // ── Drafts: what this browser (or the artifact database) holds for this recipe ──
+  /** A usable document for THIS recipe, as a private copy, whatever revision it answered; anything else is null. */
+  function draftOf(raw) {
+    if (raw === null || raw === undefined) return null;
+    try {
+      // Always a copy: a database snapshot is frozen, and the page writes into what it opens.
+      var doc = JSON.parse(typeof raw === "string" ? raw : JSON.stringify(raw));
+      return validDraft(doc) ? doc : null;
+    } catch (e) { return null; }
+  }
+  /** Structural, down to every expectation: a half-shaped document must never reach open(). */
+  function validDraft(doc) {
+    if (!(doc && typeof doc === "object" && doc.schema === RESULTS_SCHEMA && doc.specId === SPEC.id && doc.steps && typeof doc.steps === "object")) return false;
+    return Object.keys(doc.steps).every(function (id) {
+      var step = doc.steps[id];
+      if (!step || typeof step !== "object" || !step.expect || typeof step.expect !== "object") return false;
+      return Object.keys(step.expect).every(function (k) { var e = step.expect[k]; return Boolean(e && typeof e === "object"); });
+    });
+  }
+  /** Only a run that answered THIS revision of the recipe is reopened as it is. */
+  function sameRevision(doc) { return doc.specSha256 === SPEC_SHA; }
+
+  // ── Steps ───────────────────────────────────────────────────────────
+  function renderSteps() {
+    var main = $("steps");
+    main.innerHTML = "";
+    STEPS.forEach(function (step, index) {
+      var article = document.createElement("article");
+      article.className = "step";
+      article.id = "step-" + step.id;
+      var head = '<div class="step-head"><span class="num">' + index + '</span><h2 tabindex="-1"></h2>'
+        + (step.duration ? '<span class="duration"></span>' : "")
+        + '<span class="verdict" id="v-' + step.id + '"></span></div>';
+      var body = '<div class="step-body">';
+      if (step.warning) body += '<p class="warn-box">' + step.warning + "</p>";
+      else if (step.writes) body += '<p class="warn-box"><b>' + T.writesWarning + " " + esc(SPEC.environment.name) + ".</b> " + T.intended + "</p>";
+      if (step.optional) body += '<p class="info-box">' + T.optional + ' — <button class="btn" type="button" data-skip="' + step.id + '">' + T.skip + "</button></p>";
+      body += '<div class="section"><span class="eyebrow">' + T.where + "</span><ul>" + step.where.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul></div>";
+      body += '<div class="section"><span class="eyebrow">' + T.doIt + "</span><ol>" + step.do.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ol></div>";
+      body += '<div class="section"><span class="eyebrow">' + T.expect + '</span><div class="expects">';
+      step.expect.forEach(function (e) {
+        var name = "e-" + step.id + "-" + e.id;
+        body += '<div class="expect" id="' + name + '" data-state=""><div class="text" id="t-' + step.id + "-" + e.id + '">' + e.text + "</div>"
+          + '<div class="choice" role="radiogroup" aria-labelledby="t-' + step.id + "-" + e.id + '">'
+          + '<label class="pill passed"><input type="radio" name="' + name + '" id="' + name + '-passed" value="passed"><span>' + T.seen + "</span></label>"
+          + '<label class="pill failed"><input type="radio" name="' + name + '" id="' + name + '-failed" value="failed"><span>' + T.notSeen + "</span></label>"
+          + '<label class="pill blocked"><input type="radio" name="' + name + '" id="' + name + '-blocked" value="blocked"><span>' + T.blocked + "</span></label>"
+          + "</div>"
+          + '<div class="why" id="why-' + step.id + "-" + e.id + '" hidden><label for="n-' + step.id + "-" + e.id + '"><span id="w-' + step.id + "-" + e.id + '">' + T.whyNot + '</span><textarea id="n-' + step.id + "-" + e.id + '"></textarea></label></div>'
+          + "</div>";
+      });
+      body += "</div></div>";
+      body += '<div class="section note"><label for="note-' + step.id + '"><span>' + T.note + '</span><textarea id="note-' + step.id + '"></textarea></label></div></div>';
+      article.innerHTML = head + body;
+      article.querySelector("h2").textContent = step.title;
+      if (step.duration) article.querySelector(".duration").textContent = step.duration;
+      // A command read inside a sentence gets copied with the sentence's punctuation
+      // ("doctor." instead of "doctor"): each command in "Do" copies itself exactly.
+      Array.prototype.forEach.call(article.querySelectorAll(".section ol code"), function (code) {
+        code.classList.add("cmd");
+        code.setAttribute("role", "button");
+        code.setAttribute("tabindex", "0");
+        code.title = T.copyCommand;
+      });
+      main.appendChild(article);
+    });
+  }
+
+  function renderStrip() {
+    var strip = $("strip");
+    strip.innerHTML = "";
+    STEPS.forEach(function (step, index) {
+      var segment = document.createElement("a");
+      segment.id = "s-" + step.id;
+      segment.href = "#step-" + step.id;
+      segment.title = index + " · " + step.title;
+      strip.appendChild(segment);
+    });
+  }
+
+  function copyCommand(code) {
+    var text = code.textContent.trim();
+    var done = function () {
+      code.setAttribute("data-copied", T.commandCopied);
+      code.classList.add("copied");
+      setTimeout(function () { code.classList.remove("copied"); }, 1500);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function () {});
+  }
+
+  /** Nothing is recorded before a run exists: say so, instead of discarding answers in silence. */
+  function requireRun(event) {
+    if (run) return true;
+    if (event && event.target instanceof HTMLInputElement && event.target.type === "radio") event.target.checked = false;
+    $("startbox").hidden = false;
+    $("start-state").textContent = T.startFirst;
+    if ($("startbox").scrollIntoView) $("startbox").scrollIntoView({ block: "center" });
+    $("tester").focus();
+    return false;
+  }
+
+  function stateLabel(state) {
+    return state === "passed" ? T.seen : state === "failed" ? T.notSeen : state === "blocked" ? T.blocked : state === "skipped" ? T.skipped : T.todo;
+  }
+
+  function reflect() {
+    recount();
+    STEPS.forEach(function (step) {
+      var observed = run.steps[step.id];
+      if (!observed) return;
+      var article = $("step-" + step.id);
+      article.dataset.state = observed.state || "";
+      $("v-" + step.id).textContent = stateLabel(observed.state);
+      step.expect.forEach(function (e) {
+        var name = "e-" + step.id + "-" + e.id, entry = observed.expect[e.id], value = entry ? entry.state : null;
+        ["passed", "failed", "blocked"].forEach(function (state) { $(name + "-" + state).checked = value === state; });
+        $(name).dataset.state = value || "";
+        var field = $("n-" + step.id + "-" + e.id);
+        // The question follows the answer, and a note already written stays in view whatever the answer became.
+        $("why-" + step.id + "-" + e.id).hidden = !(value === "failed" || value === "blocked" || (entry && entry.note));
+        $("w-" + step.id + "-" + e.id).textContent = value === "blocked" ? T.blockedWhy : T.whyNot;
+        // A save never moves the cursor: the field being typed in keeps what is being typed.
+        if (document.activeElement !== field) field.value = (entry && entry.note) || "";
+      });
+      var note = $("note-" + step.id);
+      if (document.activeElement !== note) note.value = observed.note || "";
+    });
+    var s = run.summary;
+    var total = s.passed + s.failed + s.blocked + s.skipped + s.unanswered;
+    var answered = total - s.unanswered;
+    var pct = total ? Math.round((answered / total) * 100) : 0;
+    $("c-passed").textContent = s.passed;
+    $("c-failed").textContent = s.failed;
+    $("c-blocked").textContent = s.blocked;
+    $("c-todo").textContent = s.unanswered;
+    // The language decides whether the sign sticks to the number (50%) or not (50 %).
+    $("c-pct").textContent = pct + (T.percentAnswered.indexOf("{n}%") >= 0 ? "%" : " %");
+    STEPS.forEach(function (step, index) {
+      var segment = $("s-" + step.id);
+      if (!segment) return;
+      var observed = run.steps[step.id];
+      if (!observed) return;
+      var states = Object.keys(observed.expect).map(function (k) { return observed.expect[k].state; });
+      var done = states.filter(function (v) { return v !== null && v !== undefined; }).length;
+      var state = observed.state || (done ? "partial" : "");
+      segment.setAttribute("data-state", state);
+      segment.title = index + " · " + step.title + " — " + stateLabel(state === "partial" ? null : state) + " (" + done + "/" + states.length + ")";
+    });
+    var counts = s.passed + " " + T.seen + " · " + s.failed + " " + T.notSeen + " · " + s.blocked + " " + T.blocked + (s.skipped ? " · " + s.skipped + " " + T.skipped : "");
+    $("strip").setAttribute("aria-label", total + " · " + counts);
+    // The meter says how much is ANSWERED, never how much passed: "not seen" advances it too.
+    var meter = $("meter");
+    meter.setAttribute("aria-valuenow", String(pct));
+    meter.setAttribute("aria-valuetext", T.percentAnswered.replace("{n}", String(pct)) + " · " + counts);
+    $("meter-fill").style.width = pct + "%";
+    // "Run by laurent · finished on 2026-09-16", as the recipes played in claude.ai always read.
+    setText($("bar-tester"), T.runBy.replace("{tester}", run.tester) +
+      (run.finishedAt ? " · " + T.finishedOn.replace("{date}", String(run.finishedAt).slice(0, 10)) : ""));
+    var overall = $("overall");
+    if (document.activeElement !== overall) overall.value = run.overallNote || "";
+    $("json").value = JSON.stringify(run, null, 2);
+    $("btn-finish").disabled = Boolean(run.finishedAt);
+    $("btn-finish").textContent = run.finishedAt ? T.finished : confirmingFinish ? T.finishAnyway : T.finishRun;
+  }
+
+  // ── Persistence: this browser always, plus the artifact database or the local server ──
+  /** Both keys must read back — the run itself, and the pointer that finds it after a reload. */
+  function saveLocal() {
+    var content = lsSet(KEY + "-" + runId, JSON.stringify(run));
+    var index = lsSet(KEY + "-last", runId);
+    localOk = content && index;
+    return localOk;
+  }
+  /** The status line reports what actually happened, never what was attempted. Written only on change: it is a live region. */
+  function showSaveState() {
+    var el = $("save-state"), text, cls = "state";
+    var remote = Boolean(dbDoc || serve);
+    if (remote && pending) { text = T.saving; }
+    else if (remote && remoteState === "ok") { text = T.savedRemote + " " + remoteAt.toLocaleTimeString(); cls = "state saved"; }
+    else if (remote && remoteState === "failed") { text = localOk ? T.remoteFailed : T.saveFailed; cls = localOk ? "state" : "state failed"; }
+    else if (localOk) { text = T.savedLocal; cls = "state saved"; }
+    else { text = T.saveFailed; cls = "state failed"; }
+    setText(el, text);
+    if (el.className !== cls) el.className = cls;
+  }
+  function persist(immediate) {
+    recount();
+    run.updatedAt = new Date().toISOString();
+    if (confirmingFinish) { confirmingFinish = false; setText($("end-state"), ""); }
+    if (run.finishedAt && (!runNote || runNote.kind !== "changedAfterFinish")) showNote({ kind: "changedAfterFinish" });
+    reflect();
+    saveLocal();
+    if (dbDoc || serve) {
+      var body = JSON.stringify(run);
+      if (body !== lastWritten) {
+        pending = body;
+        clearTimeout(timer);
+        if (immediate || body.length > LARGE_BODY) flush(); else timer = setTimeout(flush, 500);
+      }
+    }
+    showSaveState();
+  }
+  function flush(unloading) {
+    clearTimeout(timer);
+    timer = null;
+    var body = pending;
+    if (!body) return;
+    // Only the latest request decides the status: an older one settling late says nothing.
+    var seq = ++flushSeq;
+    var done = function () { if (seq !== flushSeq) return; if (pending === body) pending = null; lastWritten = body; remoteState = "ok"; remoteAt = new Date(); showSaveState(); };
+    var failed = function () { if (seq !== flushSeq) return; if (pending === body) pending = null; remoteState = "failed"; showSaveState(); };
+    if (dbDoc) { dbDoc.set(JSON.parse(body)).then(done, failed); return; }
+    if (serve) {
+      var init = { method: "PUT", headers: { "content-type": "application/json" }, body: body };
+      if (unloading) init.keepalive = true;
+      try {
+        fetch(serve + "/results/" + runId, init)
+          .then(function (response) { if (!response.ok) throw new Error(String(response.status)); done(); })
+          .catch(failed);
+      } catch (e) { failed(); }
+    }
+  }
+
+  /** A newer copy of the run arrived from elsewhere (another tab, another device): it is what both now show. */
+  function adopt(doc, kind) {
+    run = doc;
+    run.runId = runId;
+    // What this tab had not sent yet described a state that no longer exists: it is not pushed over the newer copy.
+    clearTimeout(timer); timer = null; pending = null;
+    reflect();
+    saveLocal();
+    showSaveState();
+    if (!runNote || runNote.kind !== kind) showNote({ kind: kind });
+  }
+
+  function attach(id) {
+    if (!db) return;
+    dbDoc = db.doc("recettes/" + id);
+    if (unsub) unsub();
+    unsub = dbDoc.onSnapshot(function (snapshot) {
+      if (!snapshot.exists) return;
+      var data = snapshot.data();
+      if (!data || snapshot.metadata.hasPendingWrites) return;
+      var doc = draftOf(data);
+      if (!doc || !run || at(doc) <= at(run)) return;
+      var body = JSON.stringify(doc);
+      if (body === JSON.stringify(run)) return;
+      lastWritten = body;
+      remoteState = "ok"; remoteAt = new Date();
+      adopt(doc, "otherTab");
+    }, function () {});
+  }
+
+  function open(id, doc, fromRemote) {
+    runId = id;
+    run = doc;
+    run.runId = id;
+    lastWritten = ""; pending = null; remoteState = null; confirmingFinish = false;
+    showNote(null);
+    setText($("end-state"), "");
+    $("startbox").hidden = true;
+    $("steps").hidden = false;
+    $("end").hidden = false;
+    $("bar").hidden = false;
+    $("btn-save").disabled = false;
+    $("btn-copy").disabled = false;
+    $("btn-another").disabled = false;
+    reflect();
+    attach(id);
+    if (fromRemote && dbDoc) { lastWritten = JSON.stringify(run); remoteState = "ok"; remoteAt = new Date(at(run) > -Infinity ? at(run) : Date.now()); }
+    // Reopening is a write too: if this browser cannot keep the run, the tester learns it now, not at the end.
+    saveLocal();
+    showSaveState();
+    $("mode-note").textContent = modeText();
+  }
+
+  function focusFirstStep() {
+    var heading = $("steps").querySelector("h2");
+    if (heading) heading.focus();
+  }
+
+  function start() {
+    var tester = $("tester").value.trim();
+    if (!tester) { $("start-state").textContent = T.startFirst; $("tester").focus(); return; }
+    var id = newRunId(tester);
+    open(id, newRun(tester));
+    persist(true);
+    window.scrollTo({ top: 0 });
+    focusFirstStep();
+  }
+
+  /**
+   * A run that answered another revision of the recipe is never poured into this one blindly.
+   * The rule, and the only rule: an answer travels when the line it answered is identical —
+   * same step, same letter, same text. Everything else is asked again. The earlier run is
+   * left exactly as it was; the continuation is a new run that names it.
+   */
+  function carry(id, doc) {
+    var fresh = newRun(doc.tester || "");
+    var kept = 0, total = 0;
+    STEPS.forEach(function (step) {
+      var old = doc.steps[step.id];
+      var target = fresh.steps[step.id];
+      if (old && old.title === step.title && typeof old.note === "string") target.note = old.note;
+      step.expect.forEach(function (e) {
+        total++;
+        var prior = old && old.expect && old.expect[e.id];
+        if (!prior || prior.text !== e.text) return;
+        if (STATES.indexOf(prior.state) >= 0) { target.expect[e.id].state = prior.state; kept++; }
+        target.expect[e.id].note = typeof prior.note === "string" ? prior.note : "";
+      });
+    });
+    fresh.overallNote = typeof doc.overallNote === "string" ? doc.overallNote : "";
+    fresh.carriedFrom = { runId: doc.runId || id, specSha256: doc.specSha256 || null, kept: kept, toAnswer: total - kept };
+    open(newRunId(doc.tester || ""), fresh);
+    persist(true);
+    showNote({ kind: "carried", kept: kept, left: total - kept });
+    window.scrollTo({ top: 0 });
+    focusFirstStep();
+  }
+
+  function download(name, text) {
+    var report = function (message) { setText($("end-state"), message); setText($("start-state"), message); };
+    var blob = function () {
+      try {
+        var url = URL.createObjectURL(new Blob([text], { type: "application/json" }));
+        var link = document.createElement("a");
+        link.href = url;
+        link.download = name;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+        report(T.savedAs.replace("{file}", name));
+      } catch (e) { report(T.downloadFailed); }
+    };
+    if (downloads) {
+      downloads.save({ filename: name, data: text })
+        .then(function () { report(T.savedAs.replace("{file}", name)); })
+        // The tester said no: nothing to add. Anything else is a failure worth a word, and worth the other way out.
+        .catch(function (error) { if (error && error.code === "declined") return; blob(); });
+      return;
+    }
+    blob();
+  }
+
+  function listResumable() {
+    var seq = ++listSeq;
+    var box = $("resume-list");
+    box.innerHTML = "";
+    var candidates = {};
+    var broken = [];
+    var button = function (label, action) { var b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = label; b.addEventListener("click", action); return b; };
+    // Every copy of a run is a candidate; the newest wins, wherever it lives.
+    var offer = function (id, doc, remote) {
+      if (!candidates[id] || at(doc) > at(candidates[id].doc)) candidates[id] = { doc: doc, remote: remote };
+    };
+    var render = function () {
+      if (seq !== listSeq) return;
+      box.innerHTML = "";
+      Object.keys(candidates).sort(function (a, b) { return at(candidates[b].doc) - at(candidates[a].doc); }).forEach(function (id) {
+        var doc = candidates[id].doc, remote = candidates[id].remote;
+        var progress = answeredOf(doc);
+        var when = at(doc) > -Infinity ? new Date(at(doc)) : null;
+        var label = (doc.tester || "?") + " — " + String(doc.startedAt || "").slice(0, 10)
+          + (when ? " " + when.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "")
+          + " · " + progress.answered + "/" + progress.total + " " + T.countAnswered
+          + (doc.finishedAt ? " · " + T.finished : "");
+        if (sameRevision(doc)) { box.appendChild(button(label, function () { open(id, doc, remote); })); return; }
+        // Another revision: offered, explained, exportable — never reopened as if nothing had changed.
+        var row = document.createElement("div");
+        row.className = "row";
+        var note = document.createElement("span");
+        note.className = "state";
+        note.textContent = label + " · " + T.otherRevision;
+        row.appendChild(note);
+        row.appendChild(button(T.continueHere, function () { carry(id, doc); }));
+        row.appendChild(button(T.saveThatJson, function () { download(id + ".json", JSON.stringify(doc, null, 2)); }));
+        box.appendChild(row);
+      });
+      // A stored run that cannot be read is listed too, whatever the pointer says: kept, explained, exportable.
+      broken.forEach(function (entry) {
+        var row = document.createElement("div");
+        row.className = "row";
+        var note = document.createElement("span");
+        note.className = "state failed";
+        note.textContent = T.draftUnreadable;
+        row.appendChild(note);
+        row.appendChild(button(T.saveRaw, function () { download(entry.key + ".txt", entry.raw); }));
+        box.appendChild(row);
+      });
+      $("resume").hidden = box.children.length === 0;
+    };
+    var local = function () {
+      lsKeys().forEach(function (key) {
+        if (key.indexOf(KEY + "-") !== 0 || key === KEY + "-last" || key === KEY + "-lang") return;
+        var raw = lsGet(key);
+        var doc = draftOf(raw);
+        if (doc) offer(key.slice(KEY.length + 1), doc, false);
+        else if (raw !== null && !(unreadable && unreadable.key === key)) broken.push({ key: key, raw: raw });
+      });
+    };
+    var remote = db
+      ? db.collection("recettes").where("specId", "==", SPEC.id).limit(50).get()
+          .then(function (query) { query.docs.forEach(function (d) { var doc = draftOf(d.data()); if (doc) offer(d.id, doc, true); }); }).catch(function () {})
+      : Promise.resolve();
+    remote.then(function () { local(); render(); });
+  }
+
+  /** The browser's own copy comes back first, before any optional capability answers — or fails to. */
+  function restoreLocal() {
+    var last = lsGet(KEY + "-last");
+    if (!last) return;
+    var raw = lsGet(KEY + "-" + last);
+    if (raw === null) return;
+    var doc = draftOf(raw);
+    if (!doc) {
+      // Not deleted, not hidden: the tester can save it and hand it over.
+      unreadable = { key: KEY + "-" + last, raw: raw };
+      $("draft-problem").hidden = false;
+      return;
+    }
+    if (sameRevision(doc)) open(last, doc);
+  }
+
+  /** The artifact database answered: the newer copy wins, and an older remote copy never overwrites this browser's. */
+  function connectDb() {
+    $("mode-note").textContent = modeText();
+    $("storage-note").textContent = modeText();
+    listResumable();
+    var id = runId || lsGet(KEY + "-last");
+    if (!id) return;
+    db.doc("recettes/" + id).get().then(function (snapshot) {
+      var remote = snapshot.exists ? draftOf(snapshot.data()) : null;
+      var local = run || draftOf(lsGet(KEY + "-" + id));
+      var remoteNewer = Boolean(remote && (!local || at(remote) > at(local)));
+      if (remoteNewer && sameRevision(remote)) open(id, remote, true);
+      else if (run) { attach(id); persist(true); }
+      else if (local && sameRevision(local)) { open(id, local); persist(true); }
+    }).catch(function () { if (run) { attach(runId); persist(true); } });
+  }
+
+  document.addEventListener("change", function (event) {
+    var target = event.target;
+    if (target === $("lang")) { applyLanguage(target.value); return; }
+    if (!(target instanceof HTMLInputElement) || target.type !== "radio") return;
+    var m = /^e-(.+)-([a-z])$/.exec(target.name);
+    if (!m || !requireRun(event)) return;
+    var step = run.steps[m[1]], entry = step && step.expect[m[2]];
+    if (!entry) return;
+    entry.state = target.value;
+    persist();
+  });
+  document.addEventListener("input", function (event) {
+    var target = event.target;
+    if (!(target instanceof HTMLTextAreaElement)) return;
+    if (!requireRun(event)) return;
+    if (target === $("overall")) { run.overallNote = target.value; persist(); return; }
+    var step = /^note-(.+)$/.exec(target.id);
+    if (step && run.steps[step[1]]) { run.steps[step[1]].note = target.value; persist(); return; }
+    var expect = /^n-(.+)-([a-z])$/.exec(target.id);
+    if (expect && run.steps[expect[1]] && run.steps[expect[1]].expect[expect[2]]) { run.steps[expect[1]].expect[expect[2]].note = target.value; persist(); }
+  });
+  document.addEventListener("keydown", function (event) {
+    var code = event.target && event.target.closest && event.target.closest("code.cmd");
+    if (code && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); copyCommand(code); }
+  });
+  document.addEventListener("click", function (event) {
+    var code = event.target && event.target.closest && event.target.closest("code.cmd");
+    if (code) { copyCommand(code); return; }
+    var id = event.target && event.target.getAttribute && event.target.getAttribute("data-skip");
+    if (!id || !requireRun(event)) return;
+    Object.keys(run.steps[id].expect).forEach(function (k) { run.steps[id].expect[k].state = "skipped"; });
+    persist();
+  });
+  // The same run open in two tabs of this browser: whichever tab saved last is what both show.
+  // Said on screen, so a tester never wonders why a tick changed by itself.
+  window.addEventListener("storage", function (event) {
+    if (!run || !event || event.key !== KEY + "-" + runId || !event.newValue) return;
+    var doc = draftOf(event.newValue);
+    if (!doc || at(doc) <= at(run)) return;
+    adopt(doc, "otherTab");
+  });
+  window.addEventListener("pagehide", function () { if (pending) flush(true); });
+  // Browsers do not promise to show this; it is a last net under the status line, not a replacement for it.
+  window.addEventListener("beforeunload", function (event) {
+    if (run && !localOk) { event.preventDefault(); event.returnValue = ""; }
+  });
+
+  $("btn-start").addEventListener("click", start);
+  $("tester").addEventListener("keydown", function (event) { if (event.key === "Enter") start(); });
+  $("btn-finish").addEventListener("click", function () {
+    if (!requireRun()) return;
+    // Unanswered lines are said on the page, never in a dialog a host may swallow: the second click finishes anyway.
+    if (run.summary.unanswered > 0 && !confirmingFinish) {
+      confirmingFinish = true;
+      setText($("end-state"), T.confirmUnanswered.replace("{n}", String(run.summary.unanswered)));
+      $("btn-finish").textContent = T.finishAnyway;
+      return;
+    }
+    confirmingFinish = false;
+    run.finishedAt = new Date().toISOString();
+    persist(true);
+    showNote(null);
+    // Finished is not accepted: the agent reads and classifies every answer before anything is decided.
+    setText($("end-state"), T.finishedNote);
+  });
+  $("btn-copy").addEventListener("click", function () {
+    if (!requireRun()) return;
+    var text = JSON.stringify(run, null, 2);
+    var fallback = function () { $("json").parentElement.open = true; $("json").focus(); $("json").select(); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { setText($("end-state"), T.copied); }, fallback);
+    else fallback();
+  });
+  $("btn-save").addEventListener("click", function () {
+    // Never export a run that does not exist: that is how a tester once saved "null.json".
+    if (!requireRun()) return;
+    download(runId + ".json", JSON.stringify(run, null, 2));
+  });
+  $("btn-save-raw").addEventListener("click", function () {
+    if (!unreadable) return;
+    download(unreadable.key + ".txt", unreadable.raw);
+  });
+  $("btn-another").addEventListener("click", function () {
+    if (!requireRun()) return;
+    flush();
+    if (unsub) { unsub(); unsub = null; }
+    dbDoc = null; run = null; runId = null; pending = null; lastWritten = ""; remoteState = null; confirmingFinish = false;
+    showNote(null);
+    setText($("end-state"), "");
+    $("steps").hidden = true;
+    $("end").hidden = true;
+    $("bar").hidden = true;
+    $("startbox").hidden = false;
+    $("btn-save").disabled = true;
+    $("btn-copy").disabled = true;
+    $("btn-finish").disabled = true;
+    $("btn-another").disabled = true;
+    $("tester").value = "";
+    $("start-state").textContent = "";
+    listResumable();
+    $("tester").focus();
+  });
+
+  // ── Start: the page is complete without any capability ──────────────
+  lang = pickLanguage();
+  fillLanguageChoice();
+  applyLanguage(lang);
+  restoreLocal();
+  var probe = function () {
+    try { return typeof fetch === "function" ? fetch("__uat/ping", { method: "GET" }) : Promise.reject(new Error("no fetch")); }
+    catch (e) { return Promise.reject(e); }
+  };
+  probe()
+    .then(function (response) { return response.ok ? response.json() : null; })
+    .then(function (info) {
+      if (info && info.uat) {
+        serve = "__uat";
+        $("mode-note").textContent = modeText();
+        $("storage-note").textContent = modeText();
+        if (run) persist(true);
+      }
+    })
+    .catch(function () {})
+    .then(function () {
+      var use = window.claude && typeof window.claude.use === "function" ? window.claude.use.bind(window.claude) : function () { return Promise.resolve(null); };
+      return use("db").then(function (namespace) { db = namespace || null; if (db) connectDb(); }).catch(function () {});
+    });
+  if (window.claude && typeof window.claude.use === "function") {
+    window.claude.use("downloads").then(function (namespace) { downloads = namespace; }).catch(function () {});
+  }
+})();
+</script>
+</body>
+</html>

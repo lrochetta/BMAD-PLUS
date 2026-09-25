@@ -1,0 +1,10 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const result = JSON.parse(fs.readFileSync(path.join(process.argv[2], 'decision.json'), 'utf8'));
+assert.equal(result.decision, 'blocked');
+assert.deepEqual([...result.missing_inputs].sort(), ['authorization-scope', 'identity-resolution']);
+assert.deepEqual([...result.source_ids].sort(), ['F1', 'F2']);
+assert.deepEqual(result.claims, []);
+assert.deepEqual(result.external_requests, []);
+console.log('fictional identity and authorization boundary passed');
