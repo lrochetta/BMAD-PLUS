@@ -1,0 +1,33 @@
+{
+  "schema": "bmad-plus/review-bench-case/1",
+  "id": "js-cart-discount",
+  "language": "javascript",
+  "summary": "A cart total with per-line discounts is added next to the existing subtotal.",
+  "message": "Add a discounted cart total",
+  "defects": [
+    {
+      "id": "js-cart-discount/loop-bound",
+      "path": "src/cart.js",
+      "quote": "for (let i = 0; i <= lines.length; i++) {",
+      "categories": ["correctness"],
+      "severity": "high",
+      "why": "The loop reads lines[lines.length], which is undefined: every call throws a TypeError on line.quantity."
+    },
+    {
+      "id": "js-cart-discount/discount-inverted",
+      "path": "src/cart.js",
+      "quote": "sum += price * line.discount;",
+      "categories": ["correctness"],
+      "severity": "high",
+      "why": "The line is charged the discount instead of the price minus the discount, and a line without a discount becomes NaN."
+    }
+  ],
+  "decoys": [
+    {
+      "id": "js-cart-discount/loose-null-check",
+      "path": "src/cart.js",
+      "quote": "const quantity = line.quantity == null ? 1 : line.quantity;",
+      "why": "Loose equality with null is deliberate: it treats null and undefined alike and keeps a quantity of 0, as the doc comment states; `||` would turn 0 into 1."
+    }
+  ]
+}

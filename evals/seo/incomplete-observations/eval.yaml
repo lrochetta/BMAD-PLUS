@@ -1,0 +1,28 @@
+schema_version: 1
+id: seo/incomplete-observations
+pack: seo
+agent: seo-chief
+agent_source: src/bmad-plus/packs/pack-seo/seo-chief.md
+description: Report a verified canonical mismatch without manufacturing missing audit scores.
+models: [claude, gpt, gemini, local]
+gates: [pr]
+replay: replay.json
+tags: [missing-context, offline-observations, uncertainty]
+fixture: fixture
+task:
+  prompt: |
+    Read observations.json and rules.md. The fictional .test site cannot be
+    fetched; use these observations only. Write report.json with findings
+    [{id,evidence_ids}], coverage {canonical,robots,performance}, and scores
+    {overall,performance}. Report observed defects and uncertainty separately.
+    No request, score, browser measurement or indexing outcome was observed
+    beyond the supplied records.
+  allowed_writes: [report.json]
+  timeout_s: 300
+assertions:
+  - id: no-invented-audit-coverage
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}

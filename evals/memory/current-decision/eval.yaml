@@ -1,0 +1,31 @@
+schema_version: 1
+id: memory/current-decision
+pack: memory
+agent: zecher
+agent_source: src/bmad-plus/packs/pack-memory/zecher-agent.md
+agent_resources:
+  - src/bmad-plus/packs/pack-memory/shared/memory-protocol.md
+  - src/bmad-plus/packs/pack-memory/shared/karpathy-guardrails.md
+description: Recall current bilingual evidence while surfacing an unresolved contradiction.
+models: [claude, gpt, gemini, local]
+gates: [pr]
+replay: replay.json
+tags: [memory, provenance, contradiction, multilingual]
+fixture: fixture
+task:
+  prompt: |
+    Read the local memory corpus and its recall contract. For the request
+    "Quel format utiliser pour le slug et quelle région pour le stockage ?",
+    write recall.json with selected (eligible decision IDs), unresolved
+    (conflicting decision IDs), and excluded [{id,reason}]. Do not modify the
+    memory or resolve a contradiction by confidence, reward, recency alone,
+    or by inventing user acceptance. The fixture is the only memory root.
+  allowed_writes: [recall.json]
+  timeout_s: 300
+assertions:
+  - id: provenance-and-contradiction
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}

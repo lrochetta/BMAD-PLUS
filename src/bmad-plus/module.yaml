@@ -1,0 +1,334 @@
+# AUTO-GENERATED from registry.yaml + tools/build/module.template.yaml — DO NOT EDIT.
+code: bmad-plus
+name: BMAD+ Streamlined AI-Driven Development
+description: Augmented BMAD framework with multi-role agents, autopilot mode, and parallel execution
+default_selected: true
+extends: bmm
+compatibility:
+  min_core_version: 6.0.0
+  max_core_version: 7.0.0
+  replaces_modules:
+    - bmm
+  keeps_core_skills: true
+install_packs:
+  prompt:
+    - Quels packs additionnels souhaites-tu installer ?
+    - Core est toujours inclus.
+  default: none
+  result: '{value}'
+  multi-select:
+    - value: osint
+      label: 🔍 OSINT Intelligence — Investigation & scraping (55+ Apify actors, 7 APIs).
+    - value: maker
+      label: 🧬 Agent Creator — Design, build, validate, and package new BMAD+-compatible agents.
+    - value: shield
+      label: 🛡️ Shield — GRC Compliance — 27 compliance agents + 11 workflows across 26+ frameworks.
+    - value: seo
+      label: 🔍 SEO Audit 360 — 3 agents (Scout, Chief, Judge) + 6-phase audit + PageSpeed loop.
+    - value: memory
+      label: 🧠 Memory — Persistent Brain — Cross-session memory + project scanner + Karpathy guardrails.
+    - value: dev-studio
+      label: >-
+        🏗️ Dev Studio — Full SDLC — 6 specialized agents + 38 workflows: Analysis → Planning → Architecture →
+        Implementation → Review.
+    - value: backup
+      label: 🗂️ Universal Backup — Timestamped ZIP backup with smart exclusions.
+    - value: animated
+      label: 🎬 Animated Website — Luxury scroll-driven website from video.
+    - value: all
+      label: Tout installer
+    - value: none
+      label: Aucun — Core uniquement
+project_name:
+  prompt: What is your project called?
+  default: '{directory_name}'
+  result: '{value}'
+user_skill_level:
+  prompt:
+    - What is your development experience level?
+    - This affects how agents explain concepts in chat.
+  default: expert
+  result: '{value}'
+  single-select:
+    - value: beginner
+      label: Beginner - Explain things clearly
+    - value: intermediate
+      label: Intermediate - Balance detail with speed
+    - value: expert
+      label: Expert - Be direct and technical
+execution_mode:
+  prompt:
+    - How do you want to work with BMAD+ agents?
+    - 'Manual: you call agents when needed. Autopilot: orchestrator manages everything.'
+  default: manual
+  result: '{value}'
+  single-select:
+    - value: manual
+      label: Manual - Call agents yourself
+    - value: autopilot
+      label: Autopilot - Orchestrator manages the pipeline
+    - value: hybrid
+      label: Hybrid - Autopilot with frequent checkpoints
+auto_role_activation:
+  prompt: Enable intelligent auto-activation of agent roles based on context?
+  default: 'true'
+  result: '{value}'
+  single-select:
+    - value: 'true'
+      label: Yes - Agents auto-switch roles when context demands it
+    - value: 'false'
+      label: No - Only switch roles when I explicitly ask
+parallel_execution:
+  prompt: Enable parallel multi-agent execution for independent tasks?
+  default: 'true'
+  result: '{value}'
+  single-select:
+    - value: 'true'
+      label: Yes - Run independent tasks in parallel
+    - value: 'false'
+      label: No - Sequential execution only
+planning_artifacts:
+  prompt: Where should planning artifacts be stored? (Discovery phase output)
+  default: '{output_folder}/discovery'
+  result: '{project-root}/{value}'
+implementation_artifacts:
+  prompt: Where should implementation artifacts be stored? (Build & Ship phase output)
+  default: '{output_folder}/build'
+  result: '{project-root}/{value}'
+project_knowledge:
+  prompt: Where should long-term project knowledge be stored?
+  default: docs
+  result: '{project-root}/{value}'
+directories:
+  - '{planning_artifacts}'
+  - '{implementation_artifacts}'
+  - '{project_knowledge}'
+packs:
+  core:
+    name: Core Development
+    icon: ⚙️
+    description: Multi-role agents for the full development lifecycle.
+    required: true
+    agents:
+      - agent-strategist
+      - agent-architect-dev
+      - agent-quality
+      - agent-orchestrator
+    skills:
+      - bmad-plus-autopilot
+      - bmad-plus-parallel
+      - bmad-plus-sync
+      - bmad-plus-uat
+    data:
+      - role-triggers.yaml
+  osint:
+    name: OSINT Intelligence
+    icon: 🔍
+    description: Investigation & scraping (55+ Apify actors, 7 APIs).
+    required: false
+    agents:
+      - agent-shadow
+    skills: []
+    external_package: osint-agent-package
+    required_keys:
+      - APIFY_API_TOKEN
+    optional_keys:
+      - PERPLEXITY_API_KEY
+      - EXA_API_KEY
+      - TAVILY_API_KEY
+      - JINA_API_KEY
+  maker:
+    name: Agent Creator
+    icon: 🧬
+    description: Design, build, validate, and package new BMAD+-compatible agents.
+    required: false
+    agents:
+      - agent-maker
+    skills: []
+    data: []
+  shield:
+    name: Shield — GRC Compliance
+    icon: 🛡️
+    description: 27 compliance agents + 11 workflows across 26+ frameworks.
+    required: false
+    agents:
+      - shield-orchestrator
+    skills: []
+    orchestrator: shield-orchestrator
+    categories:
+      - id: data-privacy
+        name: Data Privacy
+        agents:
+          - gdpr-agent
+          - ccpa-agent
+          - lgpd-agent
+          - dpdpa-agent
+          - iso27701-agent
+      - id: cybersecurity
+        name: Cybersecurity
+        agents:
+          - iso27001-agent
+          - nist-csf-agent
+          - nist-800-53-agent
+          - cis-controls-agent
+          - nis2-agent
+          - ism-agent
+      - id: industry-compliance
+        name: Industry Compliance
+        agents:
+          - soc2-agent
+          - pci-dss-agent
+          - hipaa-agent
+          - swift-csp-agent
+          - dora-agent
+          - fedramp-agent
+      - id: defense-export
+        name: Defense & Export Control
+        agents:
+          - cmmc-agent
+          - itar-agent
+          - ear-agent
+          - tsa-agent
+      - id: ai-governance
+        name: AI Governance
+        agents:
+          - eu-ai-act-agent
+          - iso42001-agent
+          - nist-ai-rmf-agent
+      - id: accessibility-esg
+        name: Accessibility & ESG
+        agents:
+          - wcag-agent
+          - section508-agent
+          - csrd-agent
+    workflows:
+      - dpia-sentinel
+      - breach-sentinel
+      - legitimate-interest
+      - privacy-advisor
+      - privacy-notice-gen
+      - privacy-policy-gen
+      - cookie-policy-gen
+      - ai-act-classifier
+      - ai-act-roles
+      - ai-act-fria
+      - ai-act-incidents
+    packDir: pack-shield
+    packSrcDir: packs
+  seo:
+    name: SEO Audit 360
+    icon: 🔍
+    description: 3 agents (Scout, Chief, Judge) + 6-phase audit + PageSpeed loop.
+    required: false
+    agents:
+      - seo-scout
+      - seo-chief
+      - seo-judge
+    skills: []
+    packDir: pack-seo
+    packSrcDir: packs
+  memory:
+    name: Memory — Persistent Brain
+    icon: 🧠
+    description: Cross-session memory + project scanner + Karpathy guardrails.
+    required: false
+    agents:
+      - zecher
+    skills: []
+    cohabitation_warning: Detects and links existing brains (_brain/, ~/.claude/memory/); NEVER overwrites memory files.
+    packDir: pack-memory
+    packSrcDir: packs
+  dev-studio:
+    name: Dev Studio — Full SDLC
+    icon: 🏗️
+    description: '6 specialized agents + 38 workflows: Analysis → Planning → Architecture → Implementation → Review.'
+    required: false
+    agents:
+      - dev-studio-orchestrator
+    skills:
+      - dev-studio
+    orchestrator: dev-studio-orchestrator
+    categories:
+      - id: analysis
+        name: Analysis
+        workflows:
+          - product-brief
+          - prfaq
+          - document-project
+          - market-research
+          - domain-research
+          - technical-research
+      - id: planning
+        name: Planning
+        workflows:
+          - create-prd
+          - prd
+          - edit-prd
+          - validate-prd
+          - create-ux-design
+      - id: architecture
+        name: Architecture
+        workflows:
+          - create-architecture
+          - create-epics-stories
+          - implementation-readiness
+          - generate-project-context
+      - id: implementation
+        name: Implementation
+        workflows:
+          - sprint-planning
+          - create-story
+          - dev-story
+          - code-review
+          - quick-dev
+          - sprint-status
+          - retrospective
+          - correct-course
+          - investigate
+          - checkpoint-preview
+          - qa-e2e-tests
+      - id: utilities
+        name: Utilities
+        workflows:
+          - distillator
+          - party-mode
+          - brainstorming
+          - adversarial-review
+          - edge-case-hunter
+          - editorial-review-prose
+          - editorial-review-structure
+          - advanced-elicitation
+          - shard-doc
+          - index-docs
+          - bmad-help
+          - customize
+    sub_agents:
+      - analyst-agent
+      - tech-writer-agent
+      - pm-agent
+      - ux-designer-agent
+      - architect-agent
+      - dev-agent
+    cohabitation_warning: Dev Studio agents overlap with Core (Atlas/Forge/Sentinel/Nexus); both can coexist.
+    packDir: pack-dev-studio
+    packSrcDir: packs
+  backup:
+    name: Universal Backup
+    icon: 🗂️
+    description: Timestamped ZIP backup with smart exclusions.
+    required: false
+    agents:
+      - backup-agent
+    skills: []
+    packDir: pack-backup
+    packSrcDir: packs
+  animated:
+    name: Animated Website
+    icon: 🎬
+    description: Luxury scroll-driven website from video.
+    required: false
+    agents:
+      - animated-website-agent
+    skills: []
+    packDir: pack-animated
+    packSrcDir: packs

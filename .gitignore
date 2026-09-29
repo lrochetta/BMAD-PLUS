@@ -1,0 +1,115 @@
+# BMAD+ — .gitignore
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Test coverage (build artifact)
+coverage/
+
+# Eval runner output artifacts (generated, not source)
+evals/_out.json
+evals/_out.xml
+evals/**/_out.*
+evals/_runs/
+
+# Runtime and build
+*.pyc
+__pycache__/
+*.pyo
+*.egg-info/
+dist/
+# Python virtualenvs + test cache (ARCH-11 — root-anchored, not per-dir .gitignore)
+.venv/
+.pytest_cache/
+# NOTE: anchored to repo root so it does NOT swallow tools/build/ (the registry +
+# adapter generators, which ARE source and must be tracked).
+/build/
+.eggs/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+mcp-server/.env
+monitor/config.yaml
+*.key
+*.pem
+
+# Upstream clone cache (use your own)
+upstream/
+monitor/.upstream-cache/
+
+# Dogfooding — BMAD+ installed on itself (instance ≠ source)
+.agents/
+_bmad/
+_bmad-output/
+# Eval fixtures legitimately ship their own .agents/, _bmad/ and _bmad-output/
+# trees: a sealed replay binds those files, and an ignored fixture file is simply
+# absent on a fresh checkout, which reports the seal as stale.
+!evals/**/fixture/**/.agents/
+!evals/**/fixture/**/.agents/**
+!evals/**/fixture/**/_bmad/
+!evals/**/fixture/**/_bmad/**
+!evals/**/fixture/**/_bmad-output/
+!evals/**/fixture/**/_bmad-output/**
+# Local CLI state: update receipts and their backups, cached version checks,
+# diagnostics. Machine-specific, and the backups hold copies of managed files.
+.bmad/
+
+# IDE-specific (user-generated during install)
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Chromadb / RAG data
+chroma_db/
+mcp-server/chroma_db/
+
+# Monitor state (local only)
+monitor/last-synced.json
+
+# Docker volumes
+monitor/evolution_data/
+
+# Orchestrator runtime state
+.bmad-plus/orchestrator-state.yaml
+.bmad-plus/nexus/
+
+# Reports and output (project-specific)
+osint-reports/
+reports/
+
+# Secrets and credentials — NEVER commit
+secrets/
+.credentials/
+credentials.json
+token.json
+
+# Local QA / acceptance run output (may contain local paths and terminal logs)
+qa-output/
+
+# Graphify knowledge-graph artifacts — STRICTLY LOCAL (safeguard 7).
+# Graph indexes are provisioned per-machine and must never be committed or
+# pushed to any repo/mirror. (.agents/graph/ is already covered by .agents/
+# above; these anchor the managed-output + cache defaults explicitly.)
+graphify-out/
+.graphify/
+/.agents/graph/
+
+# Audit reports & personal brainstorm — LOCAL ONLY, never pushed to any repo.
+# These carry internal security findings (VPS IPs, vuln catalogs) and private
+# notes. Kept on disk, excluded from git tracking and from the public mirror.
+# (Belt-and-suspenders: publish-distribution.yml also rm -rf's them before push.)
+/audit/
+/brainstorm-laurent/
+
+# BMAD+'s own acceptance recipes stay on the maintainer's machine: specs, runs (with local
+# paths and terminal output), triage and pages. Never committed, never mirrored, never
+# packed. The release tag push checks them locally (.husky/pre-push).
+/recettes/

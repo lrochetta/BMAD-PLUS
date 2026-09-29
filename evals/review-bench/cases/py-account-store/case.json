@@ -1,0 +1,33 @@
+{
+  "schema": "bmad-plus/review-bench-case/1",
+  "id": "py-account-store",
+  "language": "python",
+  "summary": "The account store gains a lookup by e-mail, an avatar shard and a display-name update.",
+  "message": "Look accounts up by e-mail and let users rename themselves",
+  "defects": [
+    {
+      "id": "py-account-store/sql-injection",
+      "path": "accounts/store.py",
+      "quote": "query = f\"SELECT id, email FROM accounts WHERE email = '{email}'\"",
+      "categories": ["security"],
+      "severity": "critical",
+      "why": "The e-mail is interpolated into the SQL text; a value such as ' OR '1'='1 returns another account. The neighbouring lookup already uses a bound parameter."
+    },
+    {
+      "id": "py-account-store/swallowed-write",
+      "path": "accounts/store.py",
+      "quote": "except Exception:\n    pass",
+      "categories": ["error-handling", "data-loss"],
+      "severity": "medium",
+      "why": "A failed update or commit is discarded silently: the caller is told nothing and the new name is lost."
+    }
+  ],
+  "decoys": [
+    {
+      "id": "py-account-store/md5-shard",
+      "path": "accounts/store.py",
+      "quote": "digest = hashlib.md5(email.strip().lower().encode(), usedforsecurity=False).digest()",
+      "why": "MD5 only spreads avatars over shards; nothing depends on collision resistance, and usedforsecurity=False says so to FIPS builds."
+    }
+  ]
+}

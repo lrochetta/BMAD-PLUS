@@ -1,0 +1,53 @@
+# AI processing register (bmad-plus/ai-processing-register/1).
+#
+# Start with `bmad-plus ai-register init` (it writes _bmad/ai-processing-register.yaml)
+# and describe every AI tool the project uses:
+# coding assistants, agent CLIs, model APIs called by the product, MCP servers. Then:
+#   bmad-plus ai-register check
+# warns about any AI integration found in the project (adapter files such as CLAUDE.md,
+# tool folders such as .cursor/, servers declared in .mcp.json) that no entry covers.
+# `bmad-plus doctor` reports the same when the Shield pack is installed. A missing entry
+# never fails a build: the register is a record of processing, kept honest by review.
+#
+# integrations: the ids this entry covers. Tool ids are those of the BMAD+ adapters
+#   (claude-code, gemini-cli, antigravity, cursor, codex-cli, opencode, aider) or of other
+#   tools (github-copilot, windsurf, continue); an MCP server is mcp:<name as declared>.
+# legalBasis (GDPR Art. 6(1)), only when personalData is true: consent, contract,
+#   legal-obligation, vital-interests, public-task, legitimate-interests.
+# transfers: every destination outside the EEA with its mechanism: adequacy-decision,
+#   standard-contractual-clauses, binding-corporate-rules, derogation. [] when none.
+# Every value below is an example: replace it with what the provider's terms actually say.
+schema: bmad-plus/ai-processing-register/1
+controller: Example Ltd, 1 Example Street, Example City
+reviewed: 2026-09-29
+
+tools:
+  - id: coding-assistant
+    name: Claude Code
+    provider: Anthropic PBC
+    integrations: [claude-code]
+    purpose: Assist developers in reading, writing and reviewing the code of this repository.
+    data:
+      - Source code and commit history of this repository
+      - File contents and command output the developer shares in a session
+    personalData: true
+    legalBasis: legitimate-interests
+    retention: The period set by the provider's terms for the plan in use, written here in days.
+    transfers:
+      - to: United States
+        mechanism: standard-contractual-clauses
+    agreement: Data processing addendum attached to the commercial terms.
+
+  - id: issue-tracker-connector
+    name: GitHub MCP server
+    provider: GitHub, Inc.
+    integrations: ['mcp:github']
+    purpose: Let the coding assistant read and comment on issues and pull requests.
+    data:
+      - Issue and pull-request text, including contributor names and handles
+    personalData: true
+    legalBasis: legitimate-interests
+    retention: Not stored by the connector; the assistant's retention applies to what it reads.
+    transfers:
+      - to: United States
+        mechanism: standard-contractual-clauses

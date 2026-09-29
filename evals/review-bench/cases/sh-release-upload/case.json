@@ -1,0 +1,33 @@
+{
+  "schema": "bmad-plus/review-bench-case/1",
+  "id": "sh-release-upload",
+  "language": "shell",
+  "summary": "The release script now stages the build and uploads it with a downloaded uploader.",
+  "message": "Stage and upload release archives",
+  "defects": [
+    {
+      "id": "sh-release-upload/unset-staging-dir",
+      "path": "scripts/release.sh",
+      "quote": "rm -rf \"$STAGING_DIR\"/*",
+      "categories": ["data-loss", "correctness"],
+      "severity": "critical",
+      "why": "STAGING_DIR is never set and the script does not use set -u, so the command expands to rm -rf /* on a machine where the variable is missing."
+    },
+    {
+      "id": "sh-release-upload/curl-pipe-sh",
+      "path": "scripts/release.sh",
+      "quote": "curl -fsSL https://get.example.com/uploader/install.sh | sh",
+      "categories": ["security"],
+      "severity": "high",
+      "why": "An unpinned remote script runs with the release key loaded in the agent; whoever controls that URL controls the release."
+    }
+  ],
+  "decoys": [
+    {
+      "id": "sh-release-upload/eval-ssh-agent",
+      "path": "scripts/release.sh",
+      "quote": "eval \"$(ssh-agent -s)\"",
+      "why": "This is the documented way to start ssh-agent: eval runs the variable assignments printed by a local binary, not external input, and the trap stops the agent."
+    }
+  ]
+}

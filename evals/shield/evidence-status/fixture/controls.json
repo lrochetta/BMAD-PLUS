@@ -1,0 +1,10 @@
+{
+  "fictional": true,
+  "controls": [
+    {"id":"access-review","artifact_hash":"current-a","evidence":[{"id":"E1","type":"narrative","claim":"done and approved"}]},
+    {"id":"encryption-check","artifact_hash":"current-b","evidence":[{"id":"E2","type":"executed-check","outcome":"pass","artifact_hash":"current-b"}]},
+    {"id":"restore-test","artifact_hash":"current-c","evidence":[{"id":"E3","type":"executed-check","outcome":"pass","artifact_hash":"old-c"}]},
+    {"id":"deletion-test","artifact_hash":"current-d","evidence":[]}
+  ],
+  "certifications": []
+}

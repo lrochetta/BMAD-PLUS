@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "kind": "maintainer-authored-replay",
+  "transcript": "Maintainer-authored offline artifact example for forge/customized-slug. Independent checks run after application; no model behavior is measured.",
+  "files": [
+    {
+      "path": "src/slug.cjs",
+      "content": "exports.slug = (value) => {\n  if (typeof value !== 'string' || !value.trim() || !/^[A-Za-z0-9_\\s-]+$/.test(value)) throw new TypeError('Invalid identifier');\n  return value.trim().toLowerCase().replace(/[\\s-]+/g, '_');\n};\n",
+      "sha256": "e7d4e4ac09558b4240048323d9b18e4c83e9c574408352a3afc47fdd8d4ab01e"
+    },
+    {
+      "path": "tests/slug.test.cjs",
+      "content": "const test = require('node:test');\nconst assert = require('node:assert/strict');\nconst { documentKey } = require('../src/caller.cjs');\ntest('customized identifier uses underscores and preserves zero', () => {\n  assert.equal(documentKey('007 Launch - Notes'), 'notes/007_launch_notes.md');\n});\n",
+      "sha256": "4c82e6e6ed0492a53cf77a8de1fc061923f711e1dde61095c6c813686bd5d99b"
+    }
+  ],
+  "bindings": {
+    "spec_sha256": "62b719a22c999af1a7f49b5137a66d09edecc0038bfce5c6773eed7ddea67c99",
+    "fixture": {
+      "sha256": "34927fe1af1f33716cc71e42fb5a521689e6156b452816440d71954d9eb72c86",
+      "files": [
+        {
+          "path": ".agents/project-rules.md",
+          "sha256": "6cc4adec072b0291909a89dd5c425de29b96915ac65903c41fd336eed083df7f",
+          "size_bytes": 400
+        },
+        {
+          "path": "src/caller.cjs",
+          "sha256": "9a101fa54b75496b7c73e977dab7ab07564eb2bb6acb26843ff31d0432bccd7c",
+          "size_bytes": 103
+        },
+        {
+          "path": "src/slug.cjs",
+          "sha256": "52989d4090c2c75596e13c5ae67417716a1b7bbf96da0f9320188e3f1359efd1",
+          "size_bytes": 83
+        }
+      ]
+    },
+    "checks": {
+      "sha256": "824de195798406f8b93ebf9478e82ea7f5478a5d8567e47c8a5cb2c8d4f6340e",
+      "files": [
+        {
+          "path": "check.cjs",
+          "sha256": "33ab5b4182310f6cf3084235c9b648ea3fd6135b62173f825ccb6b7c44c1a861",
+          "size_bytes": 1200
+        }
+      ]
+    },
+    "agent_resources": {
+      "sha256": "3e3d2c469074bf7de5809395ee1ada28f030d76dd4272ee24fa80681a239025a",
+      "files": [
+        {
+          "path": "src/bmad-plus/agents/agent-architect-dev/SKILL.md",
+          "sha256": "b6ced41a4691e3b6ae3de9ce8fec63de8d2178de7e72cb32d995aab6f478f412",
+          "size_bytes": 8615
+        }
+      ]
+    }
+  },
+  "review_note": "Initial original maintainer-authored fixture: reviewed against the bounded task contract; no model execution claimed.",
+  "sealed_at": "2026-09-11T02:14:42.284318+00:00"
+}

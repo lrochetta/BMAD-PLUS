@@ -1,0 +1,6 @@
+- **Failure handling.** Bash without `set -euo pipefail` (or an explicit reason); a failing command in a pipeline hidden by the last stage; PowerShell without `$ErrorActionPreference = 'Stop'` where errors must stop the script; native exit codes (`$LASTEXITCODE`) not checked.
+- **Quoting.** Unquoted variables and command substitutions that split on spaces or expand globs; `eval` or `Invoke-Expression` on data.
+- **Destructive commands.** `rm -rf`, `Remove-Item -Recurse`, `git reset --hard`, `DROP` or deploy commands on a path or target built from a variable that can be empty or wrong.
+- **Secrets.** Tokens passed on the command line (visible in process lists and logs), echoed, or written to world-readable files; `set -x` in a script that handles credentials.
+- **Portability.** Bash-only syntax under `#!/bin/sh`; GNU-only flags on macOS; PowerShell 7 syntax (`&&`, `??`, ternary) in scripts run by Windows PowerShell 5.1; CRLF line endings in a script run by Linux.
+- **Temporary files.** Predictable names in shared directories instead of `mktemp`/`New-TemporaryFile`, and no cleanup trap.

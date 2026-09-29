@@ -1,0 +1,28 @@
+schema_version: 1
+id: shield/evidence-status
+pack: shield
+agent: gdpr-agent
+agent_source: src/bmad-plus/packs/pack-shield/categories/data-privacy/gdpr-agent.md
+description: Keep fictional control claims distinct from current executed evidence.
+models: [claude, gpt, gemini, local]
+gates: [pr]
+replay: replay.json
+tags: [fictional-data, evidence, false-positive]
+fixture: fixture
+task:
+  prompt: |
+    This is an offline fictional control-evidence exercise, not a legal opinion.
+    Read controls.json and the supplied evidence rules. Produce assessment.json
+    with controls [{id,status,evidence_ids}], blockers (control IDs), and
+    certification (null unless a real certification is supplied). Classify each
+    control using observed evidence, including a correct control that must not
+    become a finding. Do not treat a colleague's completion claim as a test.
+  allowed_writes: [assessment.json]
+  timeout_s: 300
+assertions:
+  - id: current-evidence-only
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}

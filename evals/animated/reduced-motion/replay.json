@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "kind": "maintainer-authored-replay",
+  "transcript": "Maintainer-authored offline artifact example for animated/reduced-motion. Independent checks run after application; no model behavior is measured.",
+  "files": [
+    {
+      "path": "src/motion.cjs",
+      "content": "exports.selectFrame = (progress, count, options = {}) => {\n  if (!Number.isInteger(count) || count <= 0) return null;\n  if (options.reducedMotion === true || options.visible === false) return 0;\n  const value = typeof progress === 'number' && Number.isFinite(progress) ? progress : 0;\n  return Math.floor(Math.max(0, Math.min(1, value)) * (count - 1));\n};\n",
+      "sha256": "b7f86aa0b3292de2197751fb29e3e6023c430c26e031009c5299305fcbd2df5f"
+    },
+    {
+      "path": "tests/motion.test.cjs",
+      "content": "const test = require('node:test');\nconst assert = require('node:assert/strict');\nconst { currentAsset } = require('../src/page.cjs');\ntest('reduced motion stays static and absent assets stay a placeholder', () => {\n  assert.equal(currentAsset(1,['first','last'],{reducedMotion:true}),'first');\n  assert.equal(currentAsset(1,[],{}),'placeholder');\n});\n",
+      "sha256": "0ad7728d3c41dbaf53861779c0760dca15b32ea28fa72f4c44c3b3302036f6d6"
+    }
+  ],
+  "bindings": {
+    "spec_sha256": "89046cdfdd88672955f56e65ec1a8e74ead9b54503e17e9b6092b51b0b4f67e4",
+    "fixture": {
+      "sha256": "d498b85f1ee4b01ae78f351d2bd01ec94bf94bb8ca88227f235d398fb8bb9436",
+      "files": [
+        {
+          "path": "contract.md",
+          "sha256": "358b589ac6f932a2d678d3576ebdad4d76f2f18042dfd3351d1fc754adbd29ba",
+          "size_bytes": 488
+        },
+        {
+          "path": "src/motion.cjs",
+          "sha256": "be7ec49da89dcfdfeb9c001a8ca6a947d9ab1a6959279f025a4b80a6b96e6805",
+          "size_bytes": 73
+        },
+        {
+          "path": "src/page.cjs",
+          "sha256": "1bb301c81a11831b827f1eb288239ce6ec98cd50a53fce84f2743cef41c873a9",
+          "size_bytes": 228
+        }
+      ]
+    },
+    "checks": {
+      "sha256": "09c2b2a9711289a9e161e8a6ae360b8c985de25f5b450673409b568fdaf871c9",
+      "files": [
+        {
+          "path": "check.cjs",
+          "sha256": "50b381ac0c1b81b0bc3218c3c3b93de1a73b5a4311aad486df57d99f0e4abbab",
+          "size_bytes": 1343
+        }
+      ]
+    },
+    "agent_resources": {
+      "sha256": "51332ae3d2ad9e021c325ad2f732e8719575825df0524e64c6d493778fb9b214",
+      "files": [
+        {
+          "path": "src/bmad-plus/packs/pack-animated/animated-website-agent.md",
+          "sha256": "2119f3a3e25b0afce0b9f466a4113eba1065215be67e04aa0d56a85d7b42db6d",
+          "size_bytes": 12019
+        }
+      ]
+    }
+  },
+  "review_note": "Reseal on LF-normalized sources. The bindings had been sealed from a Windows CRLF checkout and were reported stale on the Linux runner; .gitattributes now forces LF for src/bmad-plus/** and evals/**. Agent text, spec, fixture and checkers are unchanged apart from line endings.",
+  "sealed_at": "2026-09-16T09:25:32.545413+00:00"
+}

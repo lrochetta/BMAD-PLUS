@@ -1,0 +1,6 @@
+- **Privilege.** Containers running as root without need; `privileged: true`, added capabilities, host network or PID namespace; the Docker socket mounted into a container (root on the host).
+- **Images.** Base images on `latest` or an unpinned tag; packages installed without cleanup or version pins where reproducibility matters; secrets passed as build arguments or copied into a layer.
+- **Exposure.** Ports published on `0.0.0.0` for services that should stay internal (databases, caches, admin APIs); missing network separation between stacks.
+- **Health and restart.** No health check for a service others depend on; `depends_on` without a health condition; restart policies that loop a crashing container.
+- **Data.** Volumes for stateful services missing or anonymous; host paths mounted read-write where read-only suffices.
+- **Resources.** No memory or CPU limits on a shared host; Kubernetes pods without requests/limits, probes or a `securityContext` (`runAsNonRoot`, `readOnlyRootFilesystem`).

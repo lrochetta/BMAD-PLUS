@@ -1,0 +1,167 @@
+{
+  "schema": "bmad-plus/review-bench-run/1",
+  "id": "reference-perfect",
+  "reviewer": "answer key: one confirmed finding per planted defect, nothing on decoys",
+  "corpusSha256": "dc90652a7030e76726e20e8cd96354ed7f3e0da1d936c86e930f54a77d42be4b",
+  "cases": {
+    "gha-pr-preview": {
+      "findings": [
+        {
+          "id": "f1",
+          "path": ".github/workflows/preview.yml",
+          "existing_code": "ref: ${{ github.event.pull_request.head.sha }}",
+          "content": "pull_request_target checks out and builds untrusted pull request code with the preview token in the environment.",
+          "category": "security",
+          "severity": "critical",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "The trigger is pull_request_target and the next step runs npm scripts with PREVIEW_TOKEN."
+        },
+        {
+          "id": "f2",
+          "path": ".github/workflows/preview.yml",
+          "existing_code": "run: echo \"Preview ready for ${{ github.event.pull_request.title }}\"",
+          "content": "The pull request title is expanded into the shell script: command injection.",
+          "category": "security",
+          "severity": "high",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "A title containing a quote and a command is executed by the runner shell."
+        }
+      ]
+    },
+    "go-worker-pool": {
+      "findings": [
+        {
+          "id": "f1",
+          "path": "pool.go",
+          "existing_code": "results[job.ID] = process(job)",
+          "content": "Concurrent writes to one map without synchronisation.",
+          "category": "concurrency",
+          "severity": "critical",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "Every goroutine assigns into results; Go maps are not safe for concurrent writes."
+        },
+        {
+          "id": "f2",
+          "path": "pool.go",
+          "existing_code": "wg.Add(1)",
+          "content": "WaitGroup.Add runs inside the goroutine, so Wait can return first.",
+          "category": "concurrency",
+          "severity": "high",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "Add must happen before the go statement for Wait to count the goroutine."
+        }
+      ]
+    },
+    "js-cart-discount": {
+      "findings": [
+        {
+          "id": "f1",
+          "path": "src/cart.js",
+          "existing_code": "for (let i = 0; i <= lines.length; i++) {",
+          "content": "The loop runs one step past the end of lines.",
+          "category": "correctness",
+          "severity": "high",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "lines[lines.length] is undefined and line.quantity then throws."
+        },
+        {
+          "id": "f2",
+          "path": "src/cart.js",
+          "existing_code": "sum += price * line.discount;",
+          "content": "The total adds the discount instead of the discounted price.",
+          "category": "correctness",
+          "severity": "high",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "A 10% discount on 1000 cents yields 100 instead of 900."
+        }
+      ]
+    },
+    "py-account-store": {
+      "findings": [
+        {
+          "id": "f1",
+          "path": "accounts/store.py",
+          "existing_code": "query = f\"SELECT id, email FROM accounts WHERE email = '{email}'\"",
+          "content": "SQL injection through the e-mail value.",
+          "category": "security",
+          "severity": "critical",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "The value is interpolated into the statement text instead of bound as a parameter."
+        },
+        {
+          "id": "f2",
+          "path": "accounts/store.py",
+          "existing_code": "except Exception:\n    pass",
+          "content": "A failed update is silently discarded.",
+          "category": "error-handling",
+          "severity": "medium",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "Any exception from execute or commit is swallowed and the caller believes the name was saved."
+        }
+      ]
+    },
+    "sh-release-upload": {
+      "findings": [
+        {
+          "id": "f1",
+          "path": "scripts/release.sh",
+          "existing_code": "rm -rf \"$STAGING_DIR\"/*",
+          "content": "STAGING_DIR is never set, so this deletes /*.",
+          "category": "data-loss",
+          "severity": "critical",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "Nothing assigns STAGING_DIR and set -u is not enabled."
+        },
+        {
+          "id": "f2",
+          "path": "scripts/release.sh",
+          "existing_code": "curl -fsSL https://get.example.com/uploader/install.sh | sh",
+          "content": "An unpinned remote installer runs with the release key loaded.",
+          "category": "security",
+          "severity": "high",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "The script is fetched at run time without a checksum while ssh-agent holds the release key."
+        }
+      ]
+    },
+    "sql-order-archive": {
+      "findings": [
+        {
+          "id": "f1",
+          "path": "migrations/0008_archive_orders.sql",
+          "existing_code": "UPDATE orders SET status = 'archived', archived_at = now();",
+          "content": "The archive update has no WHERE clause and archives every order.",
+          "category": "data-loss",
+          "severity": "critical",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "The header limits archiving to orders older than two years."
+        },
+        {
+          "id": "f2",
+          "path": "migrations/0008_archive_orders.sql",
+          "existing_code": "ALTER TABLE orders ADD COLUMN region TEXT NOT NULL;",
+          "content": "A NOT NULL column without a default cannot be added to a populated table.",
+          "category": "compatibility",
+          "severity": "high",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "PostgreSQL rejects the statement because existing rows would hold NULL."
+        }
+      ]
+    },
+    "ts-retry-backoff": {
+      "findings": []
+    }
+  }
+}

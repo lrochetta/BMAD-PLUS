@@ -1,0 +1,26 @@
+schema_version: 1
+id: backup/rotation-plan
+pack: backup
+agent: backup-agent
+agent_source: src/bmad-plus/packs/pack-backup/backup-agent.md
+description: Calculate a conservative rotation plan without deleting any files.
+models: [claude, gpt, gemini, local]
+gates: [pr]
+replay: replay.json
+tags: [ownership, rotation, executable-consumer]
+fixture: fixture
+task:
+  prompt: |
+    Fix the pure function in src/rotation.cjs to follow contract.md. This task
+    creates a reviewable plan only; it does not authorize deletion or archive
+    creation. Add a regression test in tests/ using Node stdlib. The actual
+    caller consumes an array of deletion candidates; preserve this API.
+  allowed_writes: [src/rotation.cjs, tests/]
+  timeout_s: 300
+assertions:
+  - id: conservative-rotation
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}
