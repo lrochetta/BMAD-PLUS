@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "kind": "maintainer-authored-replay",
+  "transcript": "Maintainer-authored offline artifact example for shield/evidence-status. Independent checks run after application; no model behavior is measured.",
+  "files": [
+    {
+      "path": "assessment.json",
+      "content": "{\n  \"controls\": [\n    {\n      \"id\": \"access-review\",\n      \"status\": \"unverified\",\n      \"evidence_ids\": [\n        \"E1\"\n      ]\n    },\n    {\n      \"id\": \"encryption-check\",\n      \"status\": \"verified\",\n      \"evidence_ids\": [\n        \"E2\"\n      ]\n    },\n    {\n      \"id\": \"restore-test\",\n      \"status\": \"unverified\",\n      \"evidence_ids\": [\n        \"E3\"\n      ]\n    },\n    {\n      \"id\": \"deletion-test\",\n      \"status\": \"unknown\",\n      \"evidence_ids\": []\n    }\n  ],\n  \"blockers\": [\n    \"access-review\",\n    \"restore-test\",\n    \"deletion-test\"\n  ],\n  \"certification\": null\n}\n",
+      "sha256": "a95b81d4982ae250d2eccd24a7e51f8dbdbafa85f661b80118207d91eceee9c2"
+    }
+  ],
+  "bindings": {
+    "spec_sha256": "6e66149a572ec57eb59419385a825691bbc329c25c295782c0ca49e8cfdad8e4",
+    "fixture": {
+      "sha256": "8d03321799d0c83fcbddd63bcedc235937676d6c904f468fa0b59a53dceddb71",
+      "files": [
+        {
+          "path": "controls.json",
+          "sha256": "6e31b8772c0cf17743d9525a8160f597390df408e69c7900181ab9fab065f3b4",
+          "size_bytes": 564
+        },
+        {
+          "path": "rules.md",
+          "sha256": "981db733a2e365da53b3f9ed64fb073d4b0c39ee9b7bda60d4218269de0e3026",
+          "size_bytes": 418
+        }
+      ]
+    },
+    "checks": {
+      "sha256": "9b56ae6b1dce156be26e0618dc9388847b886ff733e77589dceb093f993ce736",
+      "files": [
+        {
+          "path": "check.cjs",
+          "sha256": "1dd143e5782ab496036f697f71dbc2d2f64f707e1cb9537fc432513f64ea0e08",
+          "size_bytes": 828
+        }
+      ]
+    },
+    "agent_resources": {
+      "sha256": "68aa3d8ceafd8e5a719098f6ac9b74e117eb2be355b00703d56edaa10aa75bf3",
+      "files": [
+        {
+          "path": "src/bmad-plus/packs/pack-shield/categories/data-privacy/gdpr-agent.md",
+          "sha256": "94e27676597acb962ac87562fbdc94ea300cfaa43f4a27f1e2f9e06bc2b4b324",
+          "size_bytes": 12938
+        }
+      ]
+    }
+  },
+  "review_note": "Initial original maintainer-authored fixture: reviewed against the bounded task contract; no model execution claimed.",
+  "sealed_at": "2026-09-11T02:14:42.373614+00:00"
+}

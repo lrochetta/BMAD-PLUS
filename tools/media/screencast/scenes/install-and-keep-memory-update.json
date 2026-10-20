@@ -1,0 +1,26 @@
+{
+  "id": "install-and-keep-memory-update",
+  "video": "install-and-keep-memory",
+  "scene": "update",
+  "type": "terminal",
+  "description": "A project installed from the previous release (0.22.0), one managed file edited by hand, then update-check (read-only) and update with the edited file preserved.",
+  "transcript": "update",
+  "seed": 61,
+  "minDuration": 11,
+  "steps": [
+    { "ref": 0, "type": { "max": 1.2 }, "pause": 0.3 },
+    {
+      "ref": 1,
+      "type": { "max": 0.9 },
+      "focus": [{ "match": "update-available", "zoom": 1.5, "hold": 1.2 }],
+      "pause": 0.3
+    },
+    {
+      "ref": 2,
+      "type": { "max": 0.9 },
+      "lineInterval": 0.16,
+      "focus": [{ "match": "SKILL.md: preserved", "zoom": 1.45, "hold": 1.8 }]
+    }
+  ],
+  "notes": ["The project was first installed from the published 0.22.0 package, then updated by this 0.23.0 build."]
+}

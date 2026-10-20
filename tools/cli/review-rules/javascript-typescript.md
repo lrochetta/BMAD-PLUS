@@ -1,0 +1,7 @@
+- **Async.** A promise that is created but not awaited or returned; `forEach` with an async callback; an `await` inside a loop that should run in parallel, or `Promise.all` where one failure must not cancel the others (`allSettled`). Unhandled rejections in event handlers and timers.
+- **Nullish values.** Property access on a value that can be `undefined` after an `await`, a `find`, a map lookup or an optional API field; `||` used where `0`, `''` or `false` are valid values and `??` was meant.
+- **Equality and numbers.** Loose equality across types; floating-point money; `parseInt` without a radix or on user input without a `NaN` check; array index arithmetic off by one.
+- **Mutation.** A function that mutates its argument or a shared default object; sorting or splicing an array the caller still uses; state mutated in a React render or a reducer.
+- **Injection.** `innerHTML`, `dangerouslySetInnerHTML`, `v-html`, template literals building SQL, shell commands through `exec` or `shell: true`, `eval`/`new Function`, a user-controlled path reaching `fs` without confinement, a user-controlled URL fetched by the server (SSRF), `Object.assign`/spread of untrusted keys (`__proto__`).
+- **Types that lie.** `as` casts, non-null assertions (`!`) and `any` that hide a real `undefined` or a wrong shape at runtime.
+- **Resources.** Listeners, intervals, streams, file handles or database connections opened without a matching close on every path, including errors.

@@ -1,0 +1,17 @@
+{
+  "id": "install-and-keep-memory-doctor",
+  "video": "install-and-keep-memory",
+  "scene": "doctor",
+  "type": "terminal",
+  "description": "bmad-plus doctor on a project with the Core and Design packs: the Health Report note, 87/87 checks passed.",
+  "transcript": "doctor-design",
+  "seed": 3,
+  "minDuration": 6,
+  "steps": [
+    {
+      "ref": 0,
+      "lineInterval": 0.085,
+      "focus": [{ "match": "87/87 checks passed", "zoom": 1.55, "hold": 1.5 }]
+    }
+  ]
+}

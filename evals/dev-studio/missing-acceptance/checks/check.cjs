@@ -1,0 +1,12 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const root = process.argv[2];
+const result = JSON.parse(fs.readFileSync(path.join(root, 'readiness.json'), 'utf8'));
+assert.equal(result.status, 'blocked');
+assert.deepEqual([...result.missing_inputs].sort(), ['persistence_rule', 'success_metric']);
+assert.equal(result.next_step, 'request-missing-input');
+assert.equal(result.implementation_started, false);
+assert.equal(JSON.parse(fs.readFileSync(path.join(root, 'story.json'), 'utf8')).status, 'customer-validation-pending');
+assert.deepEqual(require(path.join(root, 'src/application.cjs')).recentlyVisited(), []);
+console.log('missing acceptance preserved custom state and implementation');

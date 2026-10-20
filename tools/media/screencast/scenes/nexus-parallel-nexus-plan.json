@@ -1,0 +1,27 @@
+{
+  "id": "nexus-parallel-nexus-plan",
+  "video": "nexus-parallel",
+  "scene": "nexus-plan",
+  "type": "split",
+  "title": "~/app",
+  "description": "nexus create with a plan of two independent tasks whose write scopes are disjoint (src/value.json and docs/notes.md), then nexus inspect. The plan file is shown on the right.",
+  "transcript": "nexus-plan",
+  "seed": 81,
+  "minDuration": 8,
+  "steps": [
+    { "ref": 0, "type": { "max": 1.2 }, "lineInterval": 0.1, "pause": 0.3 },
+    { "ref": 1, "type": { "max": 0.9 }, "lineInterval": 0.1 }
+  ],
+  "preview": {
+    "step": 0,
+    "file": 0,
+    "kind": "json",
+    "name": "nexus-plan.json",
+    "start": 0.1,
+    "interval": 0.05,
+    "focus": [
+      { "match": "\"scope\": [\"src/value.json\"]", "zoom": 1.45, "hold": 1.3 },
+      { "match": "\"scope\": [\"docs/notes.md\"]", "zoom": 1.45, "hold": 1.3 }
+    ]
+  }
+}

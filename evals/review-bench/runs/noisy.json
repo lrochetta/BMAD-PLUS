@@ -1,0 +1,235 @@
+{
+  "schema": "bmad-plus/review-bench-run/1",
+  "id": "reference-noisy",
+  "reviewer": "hand-written run exercising every verdict of the matching rule",
+  "model": "none (recorded answers)",
+  "corpusSha256": "dc90652a7030e76726e20e8cd96354ed7f3e0da1d936c86e930f54a77d42be4b",
+  "cases": {
+    "gha-pr-preview": {
+      "findings": [
+        {
+          "id": "n1",
+          "path": ".github/workflows/preview.yml",
+          "existing_code": "- name: Announce\n  run: echo \"Preview ready for ${{ github.event.pull_request.title }}\"",
+          "content": "Script injection through the pull request title.",
+          "category": "security",
+          "severity": "high",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "The expression is expanded before the shell parses the script."
+        },
+        {
+          "id": "n2",
+          "path": ".github/workflows/preview.yml",
+          "existing_code": "runs-on: ubuntu-latest",
+          "content": "Use the self-hosted runner like the rest of the organisation.",
+          "category": "maintainability",
+          "severity": "low",
+          "confidence": "low",
+          "disposition": "unresolved"
+        },
+        {
+          "id": "n3",
+          "path": ".github/workflows/deploy.yml",
+          "existing_code": "environment: production",
+          "content": "Production deployment without a required reviewer.",
+          "category": "security",
+          "severity": "medium",
+          "confidence": "medium",
+          "disposition": "unresolved"
+        }
+      ],
+      "usage": { "inputTokens": 4200, "outputTokens": 600, "costUsd": 0.021, "seconds": 14.5 }
+    },
+    "go-worker-pool": {
+      "findings": [
+        {
+          "id": "n1",
+          "path": "pool.go",
+          "existing_code": "defer wg.Done()\nresults[job.ID] = process(job)",
+          "content": "The results map is written from several goroutines at once.",
+          "category": "concurrency",
+          "severity": "critical",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "No mutex guards results."
+        },
+        {
+          "id": "n2",
+          "path": "pool.go",
+          "existing_code": "}",
+          "content": "Wait may return before the goroutines have registered.",
+          "category": "concurrency",
+          "severity": "high",
+          "confidence": "medium",
+          "disposition": "unresolved"
+        },
+        {
+          "id": "n3",
+          "path": "pool.go",
+          "existing_code": "go func() {",
+          "content": "The closure captures the loop variable job.",
+          "category": "concurrency",
+          "severity": "high",
+          "confidence": "medium",
+          "disposition": "confirmed",
+          "evidence": "All goroutines may see the last job."
+        }
+      ],
+      "usage": { "inputTokens": 3100, "outputTokens": 450, "costUsd": 0.0155, "seconds": 11 }
+    },
+    "js-cart-discount": {
+      "findings": [
+        {
+          "id": "n1",
+          "path": "src/cart.js",
+          "existing_code": "for (let i = 0; i <= lines.length; i++) {\n  const line = lines[i];",
+          "content": "Off-by-one: the loop reads past the last line.",
+          "category": "correctness",
+          "severity": "high",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "i reaches lines.length."
+        },
+        {
+          "id": "n2",
+          "path": "src/cart.js",
+          "existing_code": "for (let i = 0; i <= lines.length; i++) {",
+          "content": "total() throws on every non-empty cart.",
+          "category": "correctness",
+          "severity": "high",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "Reading quantity of undefined throws a TypeError."
+        },
+        {
+          "id": "n3",
+          "path": "src/cart.js",
+          "existing_code": "sum += price * line.discount;",
+          "content": "The discount arithmetic deserves a helper.",
+          "category": "maintainability",
+          "severity": "low",
+          "confidence": "low",
+          "disposition": "unresolved"
+        },
+        {
+          "id": "n4",
+          "path": "src/cart.js",
+          "existing_code": "const quantity = line.quantity == null ? 1 : line.quantity;",
+          "content": "Use strict equality.",
+          "category": "correctness",
+          "severity": "low",
+          "confidence": "medium",
+          "disposition": "confirmed",
+          "evidence": "== performs type coercion."
+        }
+      ],
+      "usage": { "inputTokens": 3600, "outputTokens": 700, "costUsd": 0.0189, "seconds": 12.5 }
+    },
+    "py-account-store": {
+      "findings": [
+        {
+          "id": "n1",
+          "path": "accounts/store.py",
+          "existing_code": "query = f\"SELECT id, email FROM accounts WHERE email = '{email}'\"\nrow = conn.execute(query).fetchone()",
+          "content": "SQL injection in find_by_email.",
+          "category": "security",
+          "severity": "critical",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "The e-mail is formatted into the query."
+        },
+        {
+          "id": "n2",
+          "path": "accounts/store.py",
+          "existing_code": "except Exception:\n    pass",
+          "content": "Errors of the update are swallowed.",
+          "category": "error-handling",
+          "severity": "medium",
+          "confidence": "medium",
+          "disposition": "refuted",
+          "refutation": "Assumed the connection is in autocommit mode; nothing in the file says so."
+        },
+        {
+          "id": "n3",
+          "path": "accounts/store.py",
+          "existing_code": "digest = hashlib.md5(email.strip().lower().encode(), usedforsecurity=False).digest()",
+          "content": "MD5 is a broken hash.",
+          "category": "security",
+          "severity": "medium",
+          "confidence": "low",
+          "disposition": "refuted",
+          "refutation": "\"usedforsecurity=False\": the digest only picks a shard."
+        }
+      ],
+      "usage": { "inputTokens": 3900, "outputTokens": 650, "costUsd": 0.0198, "seconds": 13 }
+    },
+    "sh-release-upload": {
+      "findings": [
+        {
+          "id": "n1",
+          "path": "scripts/release.sh",
+          "existing_code": "curl -fsSL https://get.example.com/uploader/install.sh | sh",
+          "content": "Remote script piped to sh.",
+          "category": "security",
+          "severity": "high",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "No checksum or pinned version."
+        },
+        {
+          "id": "n2",
+          "path": "scripts/release.sh",
+          "existing_code": "#!/usr/bin/env bash\n# Build the release archive for the version given as the first argument, stage it\n# and upload it to the release host.\nset -eo pipefail\n\nVERSION=\"$1\"\necho \"Releasing ${VERSION}\"\nnpm run build\n\neval \"$(ssh-agent -s)\"\ntrap 'ssh-agent -k >/dev/null' EXIT\nssh-add ~/.ssh/release_upload\n\nrm -rf \"$STAGING_DIR\"/*\nmkdir -p \"$STAGING_DIR\"\ncp -R dist/. \"$STAGING_DIR\"/\n\ncurl -fsSL https://get.example.com/uploader/install.sh | sh\nuploader push \"$STAGING_DIR\" --tag \"$VERSION\"",
+          "content": "Something in this script can destroy data.",
+          "category": "data-loss",
+          "severity": "high",
+          "confidence": "low",
+          "disposition": "unresolved"
+        }
+      ],
+      "usage": { "inputTokens": 3300, "outputTokens": 500, "costUsd": 0.0162, "seconds": 10.5 }
+    },
+    "sql-order-archive": {
+      "findings": [
+        {
+          "id": "n1",
+          "path": "migrations/0008_archive_orders.sql",
+          "existing_code": "UPDATE orders SET status = 'archived', archived_at = now();",
+          "content": "Every order is archived.",
+          "category": "data-loss",
+          "severity": "critical",
+          "confidence": "high",
+          "disposition": "confirmed",
+          "evidence": "No WHERE clause."
+        },
+        {
+          "id": "n2",
+          "path": "migrations/0008_archive_orders.sql",
+          "existing_code": "ALTER TABLE orders ADD COLUMN region TEXT NOT NULL DEFAULT '';",
+          "content": "The region column needs a default.",
+          "category": "compatibility",
+          "severity": "high",
+          "confidence": "medium",
+          "disposition": "unresolved"
+        }
+      ],
+      "usage": { "inputTokens": 2900, "outputTokens": 420, "costUsd": 0.0143, "seconds": 9.5 }
+    },
+    "ts-retry-backoff": {
+      "findings": [
+        {
+          "id": "n1",
+          "path": "src/retry.ts",
+          "existing_code": "return await fn();",
+          "content": "Redundant await on a returned promise.",
+          "category": "maintainability",
+          "severity": "low",
+          "confidence": "low",
+          "disposition": "unresolved"
+        }
+      ],
+      "usage": { "inputTokens": 2500, "outputTokens": 300, "costUsd": 0.0115, "seconds": 8 }
+    }
+  }
+}

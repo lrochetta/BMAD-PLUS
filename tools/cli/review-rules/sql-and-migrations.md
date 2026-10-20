@@ -1,0 +1,6 @@
+- **Parameters.** Any value reaching a query must be bound, never concatenated; identifiers (table, column, sort order) chosen from an allow-list.
+- **Scope of writes.** An `UPDATE` or `DELETE` whose `WHERE` can match more rows than intended, or none at all silently; a missing tenant or owner filter.
+- **Migrations.** A migration that locks a large table, drops or renames a column still read by the running version, adds a `NOT NULL` column without a default or backfill, or cannot be rolled back. Data migrations must be idempotent and safe to rerun.
+- **Transactions.** Several writes that must succeed together outside a transaction; a transaction held open across a network call.
+- **Performance.** A new filter or join on a column without an index; a query inside a loop (N+1); an unbounded result set returned to a caller.
+- **Nulls.** Comparisons with `NULL` using `=`; aggregates or `NOT IN` over nullable columns.

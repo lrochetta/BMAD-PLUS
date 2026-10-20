@@ -1,0 +1,26 @@
+{
+  "id": "case-study-install",
+  "video": "case-study",
+  "scene": "install",
+  "type": "terminal",
+  "description": "npx bmad-plus install --yes with the Core, Design and Memory packs in a fresh git project, from the command to the closing line (BMAD+ is ready! Talk to Atlas to get started); the getting-started box that the real run prints is collapsed behind an explicit marker.",
+  "transcript": "cs-install",
+  "cols": 80,
+  "endPrompt": false,
+  "seed": 41,
+  "minDuration": 2.6,
+  "tail": 0.2,
+  "steps": [
+    {
+      "ref": 0,
+      "type": { "max": 0.8 },
+      "lineInterval": 0.03,
+      "collapse": [{ "from": 17, "to": 56, "label": "…  getting-started box, 40 lines" }],
+      "focus": [{ "match": "BMAD+ is ready!", "zoom": 1.35, "hold": 0.5, "rampIn": 0.35, "rampOut": 0.3, "delay": 0.05 }]
+    }
+  ],
+  "notes": [
+    "Recorded from the published package bmad-plus@0.23.0, not from the checkout.",
+    "Lines 17 to 56 of the output (the inside of the getting-started box) are replaced by one marker line; every other line is the real output."
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "note": "Replies written by hand for the screencast. They stand in for sub-agent answers and are not research results; the swarm commands that read them are real.",
+  "valid": {
+    "B001": { "id": "B001", "buys": true, "reason_code": "habit", "reason": "It is on my way to the station and I already buy a flat white most mornings.", "price_floor": 3.8, "visits_per_week": 4 },
+    "B002": { "id": "B002", "buys": false, "reason_code": "price", "reason": "Four twenty for a flat white is more than I pay next door.", "price_floor": 3.2 },
+    "B003": { "id": "B003", "buys": true, "reason_code": "need", "reason": "I meet clients near the station and need a quiet place that opens at seven.", "price_floor": 4.5, "visits_per_week": 2 },
+    "B004": { "id": "B004", "buys": false, "reason_code": "trust", "reason": "I do not know the brand yet; I would wait for a friend to recommend it.", "price_floor": 3.5 },
+    "B005": { "id": "B005", "buys": true, "reason_code": "habit", "reason": "The loyalty card with a free tenth coffee decides it for me.", "price_floor": 4, "visits_per_week": 5 },
+    "B006": { "id": "B006", "buys": false, "reason_code": "habit", "reason": "My usual place is closer and they know my order.", "price_floor": 3 },
+    "B007": { "id": "B007", "buys": true, "reason_code": "other", "reason": "I like that the bar keeps my usual order under my name.", "price_floor": 4.2, "visits_per_week": 3 },
+    "B008": { "id": "B008", "buys": false, "reason_code": "price", "reason": "A treat once in a while, not a routine, and not at this price.", "price_floor": 3.4 }
+  },
+  "refused": {
+    "B009": { "id": "B009", "buys": "maybe", "reason_code": "need", "reason": "Not sure yet." }
+  }
+}

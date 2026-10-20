@@ -1,0 +1,29 @@
+{
+  "id": "overview-swarm-tally",
+  "video": "overview",
+  "scene": "swarm-tally",
+  "type": "split",
+  "title": "~/app",
+  "description": "tally.md of a finished panel run: the disclosure quote first, then the rate and the counts. The replies behind it are eight demo answers written by hand.",
+  "transcript": "swarm",
+  "seed": 34,
+  "minDuration": 9,
+  "steps": [{ "ref": 7, "type": { "max": 1.0 }, "latency": 0.2 }],
+  "preview": {
+    "step": 0,
+    "file": 0,
+    "kind": "markdown",
+    "name": "tally.md",
+    "start": 0.15,
+    "interval": 0.1,
+    "shorten": [{ "startsWith": "8 of 40 units gave a valid answer", "keep": 110, "label": "…" }],
+    "focus": [
+      { "match": "Simulated units are not people", "zoom": 1.45, "hold": 2.0 },
+      { "match": "50.0%", "zoom": 1.3, "hold": 1.6 }
+    ]
+  },
+  "notes": [
+    "The 8 replies are hand-written fixtures (capture/fixtures/replies.json), not research results.",
+    "The long list of skipped units in the summary sentence is shortened with an ellipsis in the preview."
+  ]
+}

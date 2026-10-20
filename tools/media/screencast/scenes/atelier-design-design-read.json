@@ -1,0 +1,29 @@
+{
+  "id": "atelier-design-design-read",
+  "video": "atelier-design",
+  "scene": "design-read",
+  "type": "terminal",
+  "description": "intake plan on pack-design/intake.yaml (the design read), then intake record with the job left UNKNOWN; the dial questions (variance, motion, density) stay open.",
+  "transcript": "intake",
+  "seed": 23,
+  "minDuration": 14,
+  "crf": 30,
+  "steps": [
+    {
+      "ref": 0,
+      "type": { "max": 1.8 },
+      "lineInterval": 0.12,
+      "focus": [{ "match": "Must-haves still open", "zoom": 1.4, "hold": 1.4 }],
+      "pause": 0.4
+    },
+    {
+      "ref": 1,
+      "type": { "max": 2.0 },
+      "lineInterval": 0.1,
+      "focus": [
+        { "match": "[number] Layout variance", "zoom": 1.35, "hold": 1.5 },
+        { "match": "Unknown: job", "zoom": 1.5, "hold": 1.6 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>screencast stage</title>
+    <link rel="stylesheet" href="stage.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <div id="camera">
+        <div id="term" class="window">
+          <div class="titlebar"><i></i><i></i><i></i><span id="term-title"></span></div>
+          <div class="viewport" id="term-viewport"><div id="term-content"></div><div id="caret"></div></div>
+        </div>
+        <div id="preview" class="window" hidden>
+          <div class="titlebar"><i></i><i></i><i></i><span id="preview-title"></span></div>
+          <div class="viewport" id="preview-viewport"><div id="preview-content"></div></div>
+        </div>
+        <div id="ring"></div>
+        <div id="titlecard"></div>
+      </div>
+      <div id="caption"></div>
+    </div>
+    <script src="../lib/timing.js"></script>
+    <script src="../lib/cells.js"></script>
+    <script src="../lib/vt.js"></script>
+    <script src="../lib/highlight.js"></script>
+    <script src="../lib/markdown.js"></script>
+    <script src="../lib/scene.js"></script>
+    <script src="stage.js"></script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "schema": "bmad-plus/screencast-transcript/2",
+  "id": "checklist",
+  "capturedAt": "2026-10-18T20:43:08.419Z",
+  "environment": {
+    "container": "node:20-bookworm",
+    "os": "Debian GNU/Linux 12 (bookworm)",
+    "node": "v20.20.2",
+    "bmadPlus": "0.23.0",
+    "repoCommit": "e040df7",
+    "project": "/home/dev/app",
+    "note": "The CLI ran from the tarball made by `npm pack` on this checkout, installed one level above the throwaway project."
+  },
+  "setup": [
+    "npm install --ignore-scripts <bmad-plus tarball> (one level above the project)",
+    "git init -q",
+    "npx bmad-plus install --yes --lang en --packs core,design --tools claude-code"
+  ],
+  "hiddenSteps": [],
+  "redactions": [],
+  "cleanup": [
+    "plain commands: ANSI escape sequences and carriage returns removed, trailing spaces trimmed, \"npm notice run\" lines dropped",
+    "interactive commands: raw pty output stored untouched"
+  ],
+  "steps": [
+    {
+      "cmd": "sed -n '7,28p' .agents/skills/design/references/80-preflight.md",
+      "output": "## A. Foundations\n\n- [ ] Colors are OKLCH semantic tokens, no raw hex/rgb in components (`11`, `10`)\n- [ ] Contrast: all text ≥4.5:1 (large ≥3:1), UI/graphics ≥3:1; checked with APCA/WCAG (`11`, `20`)\n- [ ] ≤2 font families, not Inter-by-default; type from a fixed scale; body measure 45–75ch (`12`)\n- [ ] Spacing on the 4px scale, no arbitrary px; `gap` not `space-*`; consistent rhythm (`13`)\n- [ ] Radius from scale, nested corners concentric; ≤3 elevation levels, no heavy shadows (`14`)\n\n## B. Accessibility (blockers — any fail blocks delivery)\n\n- [ ] Semantic HTML; non-native widgets use headless libs implementing APG (`21`)\n- [ ] Full keyboard operability, logical tab order, no traps; focus visible (box-shadow ring) (`22`)\n- [ ] Every input labelled; icon buttons named; errors tied via `aria-describedby` (`20`, `33`)\n- [ ] Target size ≥24px (mobile ≥44px); info never by color alone (`20`)\n- [ ] Reflows at 320px, text to 200%, no h-scroll (`20`)\n- [ ] `prefers-reduced-motion` respected; nothing flashes >3×/s (`23`)\n- [ ] One `<h1>`, headings nest, landmarks present, `<html lang>` set, images have alt (`20`)\n- [ ] Focus not obscured by sticky UI; route changes move focus (`22`)\n\n## C. States (the most-forgotten section)\n\n- [ ] Empty (first-run) designed with a CTA (`35`)",
+      "exitCode": 0,
+      "ms": 17
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+- **Defaults and scope.** Mutable default arguments; a loop variable captured late by a closure; a module-level object mutated per request.
+- **Exceptions.** Bare `except:` or `except Exception` that swallows and continues; `raise` without `from` that loses the cause; cleanup that is not in `finally` or a context manager.
+- **Resources.** Files, sockets, database cursors and locks not managed by `with`; a subprocess whose output is never drained.
+- **Injection.** SQL built with f-strings or `%`; `subprocess` with `shell=True` or a string command built from input; `pickle`, `yaml.load` without a safe loader, `eval`/`exec` on untrusted data; `os.path.join` with an absolute user path; `tarfile`/`zipfile` extraction without member path checks.
+- **Types and values.** `None` returned on one path and used unconditionally; integer division where a float was meant; naive and aware datetimes compared; timezones assumed.
+- **Concurrency.** Shared state touched from threads or async tasks without a lock; a blocking call inside an `async def`.

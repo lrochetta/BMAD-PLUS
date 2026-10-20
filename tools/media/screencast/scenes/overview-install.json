@@ -1,0 +1,22 @@
+{
+  "id": "overview-install",
+  "video": "overview",
+  "scene": "install",
+  "type": "terminal",
+  "description": "bmad-plus install in a fresh git project, interactive, from the first prompt to the agents/skills/files summary. The replay stops at the summary; the closing getting-started box that the real run prints next is not shown.",
+  "transcript": "install-quick",
+  "cols": 80,
+  "endPrompt": false,
+  "seed": 5,
+  "minDuration": 6,
+  "steps": [
+    {
+      "ref": 0,
+      "type": { "max": 1.2 },
+      "cutAfter": "IDE(s) configured",
+      "hold": 0.4,
+      "focus": [{ "match": "files copied", "zoom": 1.4, "hold": 0.9 }]
+    }
+  ],
+  "notes": ["Replay cut after the screen that shows '1 IDE(s) configured'."]
+}

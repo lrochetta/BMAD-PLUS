@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Fixed synthetic retrieval corpus; downstream LLM task quality is not measured.",
+  "languages": {
+    "en": {
+      "query": "cache values",
+      "correct": { "heading": "Cache contract", "text": "Preserve false and zero cache values." },
+      "legacy": { "heading": "Cache shortcut", "text": "Reuse cache values without inspection." },
+      "unrelated": { "heading": "Billing export", "text": "Export annual invoices." }
+    },
+    "fr": {
+      "query": "cache valeurs",
+      "correct": {
+        "heading": "Contrat cache",
+        "text": "Préserver les valeurs false et zéro du cache."
+      },
+      "legacy": {
+        "heading": "Raccourci cache",
+        "text": "Réutiliser les valeurs du cache sans inspection."
+      },
+      "unrelated": { "heading": "Export facturation", "text": "Exporter les factures annuelles." }
+    }
+  },
+  "cases": [
+    { "id": "empty", "expected": null },
+    { "id": "relevant-boost", "expected": "correct" },
+    { "id": "already-first", "expected": "correct" },
+    { "id": "stale-artifact", "expected": null },
+    { "id": "contradiction", "expected": null },
+    { "id": "contradiction-repeated-anchor", "expected": null },
+    { "id": "missing-source", "expected": null },
+    { "id": "missing-memory", "expected": null },
+    { "id": "unrelated-high-reward", "expected": "correct" },
+    { "id": "repeated-failure", "expected": "correct" },
+    { "id": "duplicate", "expected": "correct" },
+    { "id": "supersession", "expected": "correct" }
+  ]
+}

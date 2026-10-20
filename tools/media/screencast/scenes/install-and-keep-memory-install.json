@@ -1,0 +1,25 @@
+{
+  "id": "install-and-keep-memory-install",
+  "video": "install-and-keep-memory",
+  "scene": "install",
+  "type": "terminal",
+  "description": "bmad-plus install in an empty git project with the choices made live: packs, the AI tool, name, language, mode; then the agents, skills and files summary. The replay stops at the summary.",
+  "transcript": "install-choices",
+  "cols": 80,
+  "endPrompt": false,
+  "seed": 9,
+  "lead": 0.15,
+  "minDuration": 10.633,
+  "steps": [
+    {
+      "ref": 0,
+      "preType": 0.1,
+      "enterPause": 0.2,
+      "type": { "max": 0.7 },
+      "cutAfter": "IDE(s) configured",
+      "hold": 0.4,
+      "focus": [{ "match": "files copied", "zoom": 1.2, "hold": 1.1 }]
+    }
+  ],
+  "notes": ["Replay cut after the screen that shows '1 IDE(s) configured'."]
+}

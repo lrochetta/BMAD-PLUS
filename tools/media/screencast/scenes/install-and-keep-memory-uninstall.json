@@ -1,0 +1,30 @@
+{
+  "id": "install-and-keep-memory-uninstall",
+  "video": "install-and-keep-memory",
+  "scene": "uninstall",
+  "type": "terminal",
+  "description": "A project with an edited managed file (AGENTS.md) and a memory folder: bmad-plus uninstall --yes removes 105 items and preserves memory, settings and the edited file; ls shows them still there.",
+  "transcript": "uninstall",
+  "seed": 71,
+  "minDuration": 12,
+  "steps": [
+    { "ref": 0, "type": { "max": 0.9 }, "pause": 0.2 },
+    { "ref": 1, "type": { "max": 1.3 }, "pause": 0.2 },
+    {
+      "ref": 2,
+      "type": { "max": 0.9 },
+      "lineInterval": 0.14,
+      "focus": [
+        { "match": "BMAD+ removed (105 items)", "zoom": 1.5, "hold": 1.0 },
+        { "match": "have been preserved", "zoom": 1.45, "hold": 1.4 }
+      ],
+      "pause": 0.3
+    },
+    {
+      "ref": 3,
+      "type": { "max": 1.1 },
+      "lineInterval": 0.12,
+      "focus": [{ "match": "config.yaml", "zoom": 1.5, "hold": 1.2 }]
+    }
+  ]
+}

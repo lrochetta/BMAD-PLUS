@@ -1,0 +1,51 @@
+{
+  "schema": "bmad-plus/screencast-transcript/2",
+  "id": "update",
+  "capturedAt": "2026-10-18T20:22:00.414Z",
+  "environment": {
+    "container": "node:20-bookworm",
+    "os": "Debian GNU/Linux 12 (bookworm)",
+    "node": "v20.20.2",
+    "bmadPlus": "0.23.0",
+    "repoCommit": "e040df7",
+    "project": "/home/dev/app",
+    "note": "The CLI ran from the tarball made by `npm pack` on this checkout, installed one level above the throwaway project."
+  },
+  "setup": [
+    "npm install --ignore-scripts <bmad-plus tarball> (one level above the project)",
+    "git init -q",
+    "npx --yes bmad-plus@0.22.0 install --yes --lang en --packs core --tools claude-code"
+  ],
+  "hiddenSteps": [],
+  "redactions": [],
+  "cleanup": [
+    "plain commands: ANSI escape sequences and carriage returns removed, trailing spaces trimmed, \"npm notice run\" lines dropped",
+    "interactive commands: raw pty output stored untouched"
+  ],
+  "steps": [
+    {
+      "cmd": "echo '# my notes' >> .agents/skills/agent-strategist/SKILL.md",
+      "output": "",
+      "exitCode": 0,
+      "ms": 3
+    },
+    {
+      "cmd": "bmad-plus update-check",
+      "output": "Installed: 0.22.0; running: 0.23.0; channel latest: 0.23.0\nupdate-available: approval-required",
+      "exitCode": 0,
+      "ms": 1203
+    },
+    {
+      "cmd": "bmad-plus update --yes",
+      "output": "┌   BMAD+ Updater v0.23.0\n│\n●  Installed: v0.22.0 -> Executing package: v0.23.0\n│\n●  Planned changes: 12 files (0 no longer shipped, removed with backup); preserved conflicts: 1.\n│\n▲  .agents/skills/agent-strategist/SKILL.md: preserved (modified-managed-file).\n│\n◇  12 files updated; 1 local conflicts preserved.\n│\n●  Receipt and backups: /home/dev/app/.bmad/updates/789ad2ef-9fc5-4928-b0f7-322ffd45b2fe/receipt.json\n│\n└  BMAD+ v0.23.0 applied partially. Reload your agent instructions or start a new session.",
+      "exitCode": 0,
+      "ms": 397
+    },
+    {
+      "cmd": "tail -n 2 .agents/skills/agent-strategist/SKILL.md",
+      "output": "**CRITICAL Handling:** When user responds with a code, line number or skill, invoke the corresponding skill by its exact registered name from the Capabilities table. DO NOT invent capabilities on the fly.\n# my notes",
+      "exitCode": 0,
+      "ms": 7
+    }
+  ]
+}

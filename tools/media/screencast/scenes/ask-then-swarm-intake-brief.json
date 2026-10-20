@@ -1,0 +1,22 @@
+{
+  "id": "ask-then-swarm-intake-brief",
+  "video": "ask-then-swarm",
+  "scene": "intake-brief",
+  "type": "split",
+  "title": "~/app",
+  "description": "intake render writes brief.md; the file is shown rendered: each answer with its status, then the closing Open questions list with the risk of the unknown must-have.",
+  "transcript": "intake",
+  "seed": 24,
+  "minDuration": 6,
+  "steps": [{ "ref": 2, "type": { "max": 1.6 }, "latency": 0.25 }],
+  "preview": {
+    "step": 0,
+    "file": 0,
+    "kind": "markdown",
+    "name": "brief.md",
+    "start": 0.15,
+    "interval": 0.06,
+    "focus": [{ "match": "job (must-have): unknown", "zoom": 1.45, "hold": 1.8 }]
+  },
+  "notes": ["Right panel: brief.md as written by the command, rendered from its Markdown."]
+}

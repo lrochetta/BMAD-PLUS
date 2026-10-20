@@ -1,0 +1,33 @@
+{
+  "schema": "bmad-plus/review-bench-case/1",
+  "id": "go-worker-pool",
+  "language": "go",
+  "summary": "A concurrent runner is added to the job package (module on Go 1.22).",
+  "message": "Run jobs concurrently",
+  "defects": [
+    {
+      "id": "go-worker-pool/concurrent-map-write",
+      "path": "pool.go",
+      "quote": "results[job.ID] = process(job)",
+      "categories": ["concurrency"],
+      "severity": "critical",
+      "why": "Several goroutines write the same map without a lock; the runtime aborts with \"concurrent map writes\" or the results are corrupted."
+    },
+    {
+      "id": "go-worker-pool/add-inside-goroutine",
+      "path": "pool.go",
+      "quote": "wg.Add(1)",
+      "categories": ["concurrency"],
+      "severity": "high",
+      "why": "Add runs inside the goroutine, so Wait can return before any goroutine has started and Run returns missing results."
+    }
+  ],
+  "decoys": [
+    {
+      "id": "go-worker-pool/loop-variable-capture",
+      "path": "pool.go",
+      "quote": "for _, job := range jobs {\n    go func() {",
+      "why": "Since Go 1.22, which go.mod declares, each iteration has its own job variable: the closure does not share the last job."
+    }
+  ]
+}

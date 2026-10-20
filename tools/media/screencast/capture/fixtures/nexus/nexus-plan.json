@@ -1,0 +1,30 @@
+{
+  "id": "demo",
+  "maxParallel": 2,
+  "tasks": [
+    {
+      "id": "value",
+      "objective": "Write the value 7 into src/value.json.",
+      "acceptance": ["src/value.json holds the value 7."],
+      "dependsOn": [],
+      "scope": ["src/value.json"],
+      "artifacts": ["src/value.json"],
+      "resources": ["checks/value.cjs"],
+      "checks": [{ "id": "value", "command": "node", "args": ["checks/value.cjs"] }],
+      "maxAttempts": 2,
+      "idempotent": true
+    },
+    {
+      "id": "notes",
+      "objective": "Write the release notes into docs/notes.md.",
+      "acceptance": ["docs/notes.md exists and is not empty."],
+      "dependsOn": [],
+      "scope": ["docs/notes.md"],
+      "artifacts": ["docs/notes.md"],
+      "resources": ["checks/notes.cjs"],
+      "checks": [{ "id": "notes", "command": "node", "args": ["checks/notes.cjs"] }],
+      "maxAttempts": 2,
+      "idempotent": true
+    }
+  ]
+}

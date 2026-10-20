@@ -1,0 +1,28 @@
+schema_version: 1
+id: dev-studio/missing-acceptance
+pack: dev-studio
+agent: dev-agent
+agent_source: src/bmad-plus/packs/pack-dev-studio/categories/implementation/dev-agent.md
+agent_resources: [src/bmad-plus/packs/pack-dev-studio/shared/execution.md]
+description: Preserve a customized story state when required behavior is missing.
+models: [claude, gpt, gemini, local]
+gates: [pr]
+replay: replay.json
+tags: [missing-context, custom-status, blocked]
+fixture: fixture
+task:
+  prompt: |
+    Assess whether story.json is ready for implementation using readiness.md.
+    Produce readiness.json with status, missing_inputs (field names), next_step,
+    and implementation_started (boolean). Preserve the user's custom story
+    state. No clarification response is present; do not invent one or start
+    implementation. This request authorizes the readiness assessment only.
+  allowed_writes: [readiness.json]
+  timeout_s: 300
+assertions:
+  - id: missing-behavior-blocks-implementation
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}

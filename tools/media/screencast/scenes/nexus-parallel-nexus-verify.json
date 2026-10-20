@@ -1,0 +1,37 @@
+{
+  "id": "nexus-parallel-nexus-verify",
+  "video": "nexus-parallel",
+  "scene": "nexus-verify",
+  "type": "terminal",
+  "description": "A planned local command launched under the foreground supervisor (nexus launch), its process receipt collected, then nexus verify runs the independent check (command, exit result, restricted environment policy) and nexus accept closes the task.",
+  "transcript": "nexus-run",
+  "seed": 82,
+  "minDuration": 14,
+  "steps": [
+    { "ref": 1, "type": { "max": 1.0 }, "lineInterval": 0.08, "pause": 0.25 },
+    { "ref": 2, "type": { "max": 1.1 }, "lineInterval": 0.08, "pause": 0.25 },
+    {
+      "ref": 3,
+      "type": { "max": 1.2 },
+      "lineInterval": 0.08,
+      "focus": [{ "match": "verification=passed", "zoom": 1.45, "hold": 1.0 }],
+      "pause": 0.25
+    },
+    {
+      "ref": 4,
+      "type": { "max": 1.6 },
+      "lineInterval": 0.14,
+      "focus": [{ "match": "minimal-local-v1", "zoom": 1.5, "hold": 1.4 }],
+      "pause": 0.25
+    },
+    {
+      "ref": 5,
+      "type": { "max": 0.9 },
+      "lineInterval": 0.08,
+      "focus": [{ "match": "acceptance=accepted", "zoom": 1.5, "hold": 1.2 }]
+    }
+  ],
+  "notes": [
+    "attempt.json, the input of nexus collect, was written between launch and collect from `nexus inspect demo --json` (hidden step, listed in the transcript)."
+  ]
+}

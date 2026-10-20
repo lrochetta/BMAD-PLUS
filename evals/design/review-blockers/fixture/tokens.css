@@ -1,0 +1,25 @@
+/* Ledgerly token sheet. Components consume these names; nothing else defines a colour. */
+:root {
+  --color-surface: #ffffff;
+  --color-surface-raised: #f4f4f5;
+  --color-border: #e4e4e7;
+  --color-text: #18181b;
+  --color-text-muted: #5f5f5f;
+  --color-accent: #1d4ed8;
+  --color-accent-contrast: #ffffff;
+  --color-danger: #b91c1c;
+  --color-overdue-bg: #fef2f2;
+  --focus-ring-color: #1d4ed8;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --radius-md: 8px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-xl: 1.5rem;
+}

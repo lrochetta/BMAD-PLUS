@@ -1,0 +1,110 @@
+@import url("tokens.css");
+
+* {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+.page-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: var(--text-xl);
+}
+
+.toolbar {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.toolbar label {
+  font-size: var(--text-sm);
+}
+
+.toolbar input {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font: inherit;
+}
+
+.card {
+  background: #f4f4f5;
+  border: 1px solid #e4e4e7;
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.hint {
+  margin: var(--space-2) 0 0;
+  color: #9a9a9a;
+  font-size: var(--text-sm);
+}
+
+.btn {
+  padding: var(--space-2) var(--space-4);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font: inherit;
+  cursor: pointer;
+}
+
+.icon-btn {
+  padding: var(--space-1);
+  border: 0;
+  background: transparent;
+  color: var(--color-danger);
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+th {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+tr.overdue td {
+  background: var(--color-overdue-bg);
+}
+
+.status {
+  font-size: var(--text-sm);
+}

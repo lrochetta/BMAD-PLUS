@@ -1,0 +1,27 @@
+{
+  "id": "ask-then-swarm-intake-plan",
+  "video": "ask-then-swarm",
+  "scene": "intake-plan",
+  "type": "terminal",
+  "description": "intake plan (not ready, the next batch of at most six questions, the must-haves marked), then intake record with one UNKNOWN and one --default.",
+  "transcript": "intake",
+  "seed": 22,
+  "minDuration": 13,
+  "steps": [
+    {
+      "ref": 0,
+      "type": { "max": 1.6 },
+      "lineInterval": 0.12,
+      "focus": [
+        { "match": "Must-haves still open: surface_kind, audience, job", "zoom": 1.35, "hold": 1.6 }
+      ],
+      "pause": 0.4
+    },
+    {
+      "ref": 1,
+      "type": { "max": 1.8 },
+      "lineInterval": 0.1,
+      "focus": [{ "match": "Unknown: job", "zoom": 1.5, "hold": 1.8 }]
+    }
+  ]
+}

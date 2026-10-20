@@ -1,0 +1,27 @@
+{
+  "scenes": [
+    { "id": "install-and-keep-memory-doctor" },
+    { "id": "overview-install" },
+    { "id": "install-and-keep-memory-install" },
+    { "id": "overview-intake-plan" },
+    { "id": "ask-then-swarm-intake-plan" },
+    { "id": "ask-then-swarm-intake-brief" },
+    { "id": "ask-then-swarm-swarm-budget" },
+    { "id": "ask-then-swarm-swarm-waves" },
+    { "id": "ask-then-swarm-swarm-tally" },
+    { "id": "overview-swarm-tally" },
+    { "id": "atelier-design-design-read" },
+    { "id": "atelier-design-design-checklist" },
+    { "id": "atelier-design-design-doctor" },
+    { "id": "ten-packs-packs-select" },
+    { "id": "ten-packs-agents-roster" },
+    { "id": "install-and-keep-memory-update" },
+    { "id": "install-and-keep-memory-uninstall" },
+    { "id": "nexus-parallel-nexus-plan" },
+    { "id": "nexus-parallel-nexus-verify" },
+    { "id": "case-study-install" },
+    { "id": "case-study-intake" },
+    { "id": "case-study-swarm" },
+    { "id": "case-study-review-gate" }
+  ]
+}

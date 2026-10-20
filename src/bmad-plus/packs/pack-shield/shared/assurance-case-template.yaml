@@ -1,0 +1,87 @@
+# Security assurance case (bmad-plus/assurance-case/1).
+#
+# Start with `bmad-plus assurance init _bmad/assurance/<id>.yaml`, then replace every
+# example with the project's own claims and checks. At the commit the case is about:
+#   bmad-plus assurance run _bmad/assurance/<id>.yaml
+#   bmad-plus assurance verify _bmad/assurance/<id>.yaml --ledger-head <head reported by run>
+#     --emit-check _bmad-output/assurance/<id>/check.json
+# Keep the head outside the ledger, and set BMAD_PLUS_ASSURANCE_KEY from a secret in CI:
+# without them the ledger shows accidental edits, not deliberate ones.
+#
+# Evidence is only ever a check below that ran: its command, exit code, output digest and
+# artifact digests are recorded in a hash-chained ledger (_bmad-output/assurance/<id>/runs.jsonl).
+# A statement, a document or a link is not evidence, and verify refuses a case that relies
+# on one. Evidence goes stale when the commit, the command or an artifact changes, or when
+# it is older than freshness.maxAgeDays.
+#
+# Commands run without a shell: write each argument separately. On Windows, programs such
+# as npm are .cmd files and need [cmd, /c, npm, ...]. A check inherits only PATH, HOME and
+# the temporary folders; name any other variable it needs under env.
+schema: bmad-plus/assurance-case/1
+id: release-security
+title: Release security case
+scope: >-
+  The service at the commit being released, built by the pipeline from this repository.
+freshness:
+  maxAgeDays: 30
+  sameCommit: true
+
+checks:
+  - id: unit-tests
+    run: [npm, test]
+    timeoutSeconds: 900
+  - id: dependency-audit
+    run: [npm, audit, --audit-level=high, --omit=dev]
+  - id: secret-scan
+    run: [gitleaks, detect, --no-banner, --redact, --report-path, reports/gitleaks.json]
+    artifacts: [reports/gitleaks.json]
+  - id: review-gate
+    run: [npx, bmad-plus, review, gate, release, --emit-check, reports/review-check.json]
+    artifacts: [reports/review-check.json]
+
+claims:
+  - id: C1
+    claim: The release ships no known exploitable weakness, no committed credential, and no unreviewed change.
+    argument: >-
+      The top claim holds when each of the four sub-claims below holds; together they cover
+      third-party code, secrets, the change process and the behaviour the controls rely on.
+  - id: C1.1
+    parent: C1
+    claim: Production dependencies carry no known vulnerability rated high or critical.
+    argument: >-
+      npm audit compares the resolved dependency tree with the advisory database and exits
+      non-zero at the chosen level; a zero exit at this commit shows none is known today.
+    controls: [ISO27001:A.8.8, NIST-800-53:RA-5]
+    evidence:
+      - check: dependency-audit
+        shows: npm audit reports no advisory at high or above for production dependencies.
+  - id: C1.2
+    parent: C1
+    claim: No credential is committed in the repository history.
+    argument: >-
+      The scanner reads every commit reachable from this one and exits non-zero on a finding;
+      its report is kept as an artifact so the result can be inspected.
+    controls: [ISO27001:A.5.17, SOC2:CC6.1]
+    evidence:
+      - check: secret-scan
+        shows: gitleaks finds no secret in the history and writes its report.
+  - id: C1.3
+    parent: C1
+    claim: Every changed file of the release was reviewed and no finding is left open.
+    argument: >-
+      The review gate derives its verdict from coverage of the sealed scope: it exits zero
+      only when every selected file is completed or waived and no finding is open.
+    controls: [ISO27001:A.8.32, SOC2:CC8.1]
+    evidence:
+      - check: review-gate
+        shows: bmad-plus review gate reports the release review clean.
+  - id: C1.4
+    parent: C1
+    claim: The behaviour the security controls rely on is covered by passing tests.
+    argument: >-
+      Access checks, input validation and redaction have tests in the suite; the suite
+      passing at this commit shows that behaviour is intact.
+    controls: [ISO27001:A.8.29]
+    evidence:
+      - check: unit-tests
+        shows: The test suite passes at this commit.

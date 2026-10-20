@@ -1,0 +1,173 @@
+{
+  "schema": "bmad-plus/screencast-transcript/2",
+  "id": "install-quick",
+  "capturedAt": "2026-10-18T21:01:40.702Z",
+  "environment": {
+    "container": "node:20-bookworm",
+    "os": "Debian GNU/Linux 12 (bookworm)",
+    "node": "v20.20.2",
+    "bmadPlus": "0.23.0",
+    "repoCommit": "e040df7",
+    "project": "/home/dev/app",
+    "note": "The CLI ran from the tarball made by `npm pack` on this checkout, installed one level above the throwaway project."
+  },
+  "setup": [
+    "npm install --ignore-scripts <bmad-plus tarball> (one level above the project)",
+    "git init -q"
+  ],
+  "hiddenSteps": [],
+  "redactions": [],
+  "cleanup": [
+    "plain commands: ANSI escape sequences and carriage returns removed, trailing spaces trimmed, \"npm notice run\" lines dropped",
+    "interactive commands: raw pty output stored untouched"
+  ],
+  "steps": [
+    {
+      "cmd": "npx bmad-plus install --lang en --packs core,design --tools claude-code",
+      "tty": {
+        "cols": 80,
+        "rows": 30
+      },
+      "chunks": [
+        {
+          "t": 1.941,
+          "data": "\u001b[1G"
+        },
+        {
+          "t": 1.96,
+          "data": "\u001b[0K\\"
+        },
+        {
+          "t": 2.057,
+          "data": "\u001b[1G\u001b[0K"
+        },
+        {
+          "t": 2.897,
+          "data": "\u001b[90m┌\u001b[39m  \u001b[46m\u001b[30m BMAD+ Installer v0.23.0 \u001b[39m\u001b[49m\r\n\u001b[90m│\u001b[39m\r\n\u001b[34m●\u001b[39m  \u001b[2m✨ Created by Laurent Rochetta — github.com/lrochetta/BMAD-PLUS\u001b[22m\r\n\u001b[90m│\u001b[39m\r\n\u001b[34m●\u001b[39m  Installing to: \u001b[36m/home/dev/app\u001b[39m\r\n\u001b[90m│\u001b[39m\r\n\u001b[32m◆\u001b[39m  Selected packs: ⚙️ Core, 🎨 Design\r\n\u001b[90m│\u001b[39m"
+        },
+        {
+          "t": 2.898,
+          "data": "\r\n\u001b[34m●\u001b[39m  Detected IDEs: Claude Code\r\n"
+        },
+        {
+          "t": 3.004,
+          "data": "\u001b[?25l\u001b[90m│\u001b[39m"
+        },
+        {
+          "t": 3.005,
+          "data": "\r\n\u001b[36m◆\u001b[39m  Your first name (agents use it to greet you)\r\n\u001b[36m│\u001b[39m  \u001b[7mD\u001b[27m\u001b[2meveloper\u001b[22m\r\n\u001b[36m└\u001b[39m\r\n"
+        },
+        {
+          "t": 3.386,
+          "data": "\u001b[999D\u001b[4A\u001b[1B\u001b[J\u001b[32m◇\u001b[39m  Your first name (agents use it to greet you)\r\n\u001b[90m│\u001b[39m  \u001b[2mDeveloper\u001b[22m"
+        },
+        {
+          "t": 3.386,
+          "data": "\r\n"
+        },
+        {
+          "t": 3.387,
+          "data": "\u001b[?25h"
+        },
+        {
+          "t": 3.4,
+          "data": "\u001b[?25l\u001b[90m│\u001b[39m\r\n"
+        },
+        {
+          "t": 3.406,
+          "data": "\u001b[36m◆\u001b[39m  Communication language\r\n\u001b[36m│\u001b[39m  \u001b[32m●\u001b[39m 🇬🇧 English\r\n\u001b[36m│\u001b[39m  \u001b[2m○\u001b[22m \u001b[2m🇫🇷 Français\u001b[22m\r\n\u001b[36m│\u001b[39m  \u001b[2m○\u001b[22m \u001b[2m🇪🇸 Español\u001b[22m\r\n\u001b[36m│\u001b[39m  \u001b[2m○\u001b[22m \u001b[2m🇩🇪 Deutsch\u001b[22m\r\n\u001b[36m│\u001b[39m  \u001b[2m○\u001b[22m \u001b[2m🇧🇷 Português (Brasil)\u001b[22m\r\n\u001b[36m│\u001b[39m  \u001b[2m○\u001b[22m \u001b[2m🇷🇺 Русский\u001b[22m\r\n\u001b[36m│\u001b[39m  \u001b[2m○\u001b[22m \u001b[2m🇨🇳 中文 (简体)\u001b[22m\r\n\u001b[36m│\u001b[39m  \u001b[2m○\u001b[22m \u001b[2m🇮🇱 עברית\u001b[22m\r\n\u001b[36m│\u001b[39m  \u001b[2m○\u001b[22m \u001b[2m🇯🇵 日本語\u001b[22m\r\n\u001b[36m│\u001b[39m  \u001b[2m○\u001b[22m \u001b[2m🇮🇹 Italiano\u001b[22m\r\n\u001b[36m│\u001b[39m  \u001b[2m↑/↓\u001b[22m to navigate • \u001b[2mEnter:\u001b[22m confirm\r\n\u001b[36m└\u001b[39m\r\n"
+        },
+        {
+          "t": 3.771,
+          "data": "\u001b[999D\u001b[14A"
+        },
+        {
+          "t": 3.773,
+          "data": "\u001b[1B\u001b[J\u001b[32m◇\u001b[39m  Communication language\r\n\u001b[90m│\u001b[39m  \u001b[2m🇬🇧 English\u001b[22m\r\n\u001b[?25h"
+        },
+        {
+          "t": 3.779,
+          "data": "\u001b[?25l\u001b[90m│\u001b[39m\r\n\u001b[36m◆\u001b[39m  Test environment for human acceptance recipes (URL, blank if none)\r\n\u001b[36m│\u001b[39m  \u001b[7mh\u001b[27m\u001b[2mttps://demo.example.com\u001b[22m\r\n\u001b[36m└\u001b[39m\r\n"
+        },
+        {
+          "t": 4.14,
+          "data": "\u001b[999D\u001b[4A\u001b[1B\u001b[J\u001b[32m◇\u001b[39m  Test environment for human acceptance recipes (URL, blank if none)\r\n\u001b[90m│\u001b[39m\r\n"
+        },
+        {
+          "t": 4.14,
+          "data": "\u001b[?25h"
+        },
+        {
+          "t": 4.141,
+          "data": "\u001b[?25l\u001b[90m│\u001b[39m\r\n\u001b[36m◆\u001b[39m  Execution mode\r\n\u001b[36m│\u001b[39m  \u001b[32m●\u001b[39m Manual — You call agents yourself\r\n\u001b[36m│\u001b[39m  \u001b[2m○\u001b[22m \u001b[2mAutopilot — Nexus manages the full pipeline\u001b[22m\r\n\u001b[36m│\u001b[39m  \u001b[2m○\u001b[22m \u001b[2mHybrid — Autopilot with frequent checkpoints\u001b[22m\r\n\u001b[36m│\u001b[39m  \u001b[2m↑/↓\u001b[22m to navigate • \u001b[2mEnter:\u001b[22m confirm\r\n\u001b[36m└\u001b[39m\r\n"
+        },
+        {
+          "t": 4.513,
+          "data": "\u001b[999D\u001b[7A\u001b[1B\u001b[J\u001b[32m◇\u001b[39m  Execution mode\r\n\u001b[90m│\u001b[39m  \u001b[2mManual — You call agents yourself\u001b[22m"
+        },
+        {
+          "t": 4.513,
+          "data": "\r\n"
+        },
+        {
+          "t": 4.513,
+          "data": "\u001b[?25h"
+        },
+        {
+          "t": 4.688,
+          "data": "\u001b[?25l"
+        },
+        {
+          "t": 4.689,
+          "data": "\u001b[90m│\u001b[39m\r\n"
+        },
+        {
+          "t": 4.885,
+          "data": "\u001b[32m◇\u001b[39m  ✅ 5 agents, 9 skills, 4 files copied\r\n"
+        },
+        {
+          "t": 4.886,
+          "data": "\u001b[?25h"
+        },
+        {
+          "t": 4.886,
+          "data": "\u001b[?25l"
+        },
+        {
+          "t": 4.887,
+          "data": "\u001b[90m│\u001b[39m\r\n"
+        },
+        {
+          "t": 4.893,
+          "data": "\u001b[32m◇\u001b[39m  ✅ 1 IDE(s) configured\r\n"
+        },
+        {
+          "t": 4.898,
+          "data": "\u001b[?25h"
+        },
+        {
+          "t": 4.975,
+          "data": "\u001b[90m│\u001b[39m\r\n\u001b[32m◇\u001b[39m  \u001b[0m✅ Installation complete — Getting started\u001b[0m \u001b[90m────────────────────────────────╮\u001b[39m\r\n\u001b[90m│\u001b[39m                                                                             \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m  💬 Who to talk to?                                                         \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m                                                                             \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    Discuss an idea              →  \"Atlas, [...]\"                           \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    Create a PRD                 →  \"Atlas, create PRD\"                      \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    Technical architecture       →  \"Forge, propose architecture\"            \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    Implement code               →  \"Forge, implement story [X]\"             \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    Test / code review           →  \"Sentinel, review module [X]\"            \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    Plan a sprint                →  \"Nexus, create epics\"                    \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    Automate everything          →  \"autopilot\"                              \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    Design with Atelier          →  \"/design read\"                           \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m                                                                             \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m  🚀 Recommended workflow:                                                   \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    1. Atlas (idea → brief → PRD)                                            \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    2. Forge (architecture → code)                                           \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    3. Sentinel (tests → review)                                             \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m                                                                             \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m  ⚡ Or: \"autopilot\" to manage everything automatically                      \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m                                                                             \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m  📁 Output: _bmad-output/discovery/ & _bmad-output/build/                   \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m                                                                             \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m  ──────────────────────────────────────────────────                         \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m                                                                             \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m  📦 CLI Commands:                                                           \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    npx bmad-plus install    — Install agents & skills                       \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    npx bmad-plus update     — Update agents (keeps config)                  \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    npx bmad-plus doctor     — Check installation health                     \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    npx bmad-plus uninstall  — Remove BMAD+ from project                     \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m                                                                             \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m  💡 Quick Examples:                                                         \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m    🎨 Design: \"/design read\" → Atelier interviews you, then builds          \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m                                                                             \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m  ---                                                                        \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m  ✨ BMAD+ is created by Laurent Rochetta — github.com/lrochetta/BMAD-PLUS   \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m  ✨                                                                         \u001b[90m│\u001b[39m\r\n\u001b[90m│\u001b[39m                                                             "
+        },
+        {
+          "t": 4.976,
+          "data": "                \u001b[90m│\u001b[39m\r\n\u001b[90m├─────────────────────────────────────────────────────────────────────────────╯\u001b[39m\r\n\u001b[90m│\u001b[39m\r\n\u001b[90m└\u001b[39m  \u001b[32mBMAD+ is ready! Talk to Atlas to get started 🚀\u001b[39m\r\n\r\n"
+        },
+        {
+          "t": 5.087,
+          "data": "\u001b[1G\u001b[0K\\"
+        },
+        {
+          "t": 5.093,
+          "data": "\u001b[1G"
+        },
+        {
+          "t": 5.097,
+          "data": "\u001b[0K"
+        }
+      ],
+      "exitCode": 0,
+      "ms": 5134
+    }
+  ]
+}

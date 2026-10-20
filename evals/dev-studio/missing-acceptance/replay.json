@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "kind": "maintainer-authored-replay",
+  "transcript": "Maintainer-authored offline artifact example for dev-studio/missing-acceptance. Independent checks run after application; no model behavior is measured.",
+  "files": [
+    {
+      "path": "readiness.json",
+      "content": "{\n  \"status\": \"blocked\",\n  \"missing_inputs\": [\n    \"success_metric\",\n    \"persistence_rule\"\n  ],\n  \"next_step\": \"request-missing-input\",\n  \"implementation_started\": false\n}\n",
+      "sha256": "d90be74d57714df38d9c27aa9dc3a17306b901b7ddc07b1b9af387f70a4db667"
+    }
+  ],
+  "bindings": {
+    "spec_sha256": "cfede687f54e648a5f6f0cf63e739581c9abc0c46703c13f1a0e1792c892a8db",
+    "fixture": {
+      "sha256": "cee6028ac696485fc89a8e49e13951278e62ee1338415e28a3a40b96109a39d4",
+      "files": [
+        {
+          "path": "readiness.md",
+          "sha256": "26304749f87897c4d351104901ffd240a7fdf64a0659a8d5391429ab047d5abe",
+          "size_bytes": 330
+        },
+        {
+          "path": "src/application.cjs",
+          "sha256": "7b4c2462cd615b1c9143cff8c4287a1a88292a0053968c19a76722c1eb9fd553",
+          "size_bytes": 36
+        },
+        {
+          "path": "story.json",
+          "sha256": "fbac5691722dbdad447009c72a977890594e052ae3a3112ada8cd3093c337bad",
+          "size_bytes": 245
+        }
+      ]
+    },
+    "checks": {
+      "sha256": "e123338181f815f7fb7d4a761ca04ed901f12e37b0299434a0574f701205a4d8",
+      "files": [
+        {
+          "path": "check.cjs",
+          "sha256": "7534446182d668cc77a2816548c5e46f045b99c94a2f737864a80e42646c07e9",
+          "size_bytes": 757
+        }
+      ]
+    },
+    "agent_resources": {
+      "sha256": "709a3ca3caea48a24d87b70f655a2ca5825620801a26d71e0491ef341c8304e0",
+      "files": [
+        {
+          "path": "src/bmad-plus/packs/pack-dev-studio/categories/implementation/dev-agent.md",
+          "sha256": "c566bf2a6e90c27567a405a7b9bca0168b8d52ce88a446d1229d2baf7018bf78",
+          "size_bytes": 2551
+        },
+        {
+          "path": "src/bmad-plus/packs/pack-dev-studio/shared/execution.md",
+          "sha256": "b8152ec5057fc79749aa7b0823fa35c241c6a0c3f13d12716fa3aae11bcbf354",
+          "size_bytes": 4113
+        }
+      ]
+    }
+  },
+  "review_note": "Initial original maintainer-authored fixture: reviewed against the bounded task contract; no model execution claimed.",
+  "sealed_at": "2026-09-11T02:14:42.263074+00:00"
+}

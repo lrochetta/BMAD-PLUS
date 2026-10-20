@@ -1,0 +1,8 @@
+{
+  "id":"story-17",
+  "status":"customer-validation-pending",
+  "requested_behavior":"Show a recently visited list",
+  "success_metric":null,
+  "persistence_rule":null,
+  "owner_notes":"Do not infer whether the list persists across devices."
+}

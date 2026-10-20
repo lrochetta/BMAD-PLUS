@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "buyer-panel",
+  "kind": "panel",
+  "pack": "marketfit",
+  "title": "Simulated buyers see the pitch",
+  "units": { "source": "profile", "idPrefix": "B" },
+  "brief": { "template": "briefs/buyer.md", "context": ["pitch"] },
+  "answer": {
+    "required": ["id", "buys", "reason_code", "reason"],
+    "fields": {
+      "buys": { "type": "boolean" },
+      "reason_code": { "type": "enum", "values": ["price", "habit", "need", "trust", "other"] },
+      "reason": { "type": "string", "max": 600 },
+      "price_floor": { "type": "number", "min": 0 },
+      "visits_per_week": { "type": "integer", "min": 0, "max": 14 },
+      "would_tell": { "type": "list", "maxItems": 3 }
+    }
+  },
+  "tally": {
+    "rate": "buys",
+    "groupBy": ["segment", "behaviour"],
+    "counts": ["reason_code"],
+    "quotes": { "reason": 2 },
+    "numbers": ["price_floor"]
+  },
+  "disclosure": "Simulated units are not people. Read rates as an upper bound and confirm with real ones."
+}

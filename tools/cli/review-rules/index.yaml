@@ -1,0 +1,45 @@
+# Built-in review checklists, applied by path. Every matching rule applies to a file.
+# A project adds, replaces (same id) or disables rules in _bmad/review-rules.yaml.
+# A group is a rule family: parallel reviewers can split one unit by group.
+schema: bmad-plus/review-rules/1
+rules:
+  - id: general
+    title: Every change
+    group: code
+    globs: ['**']
+    doc: general.md
+  - id: javascript-typescript
+    title: JavaScript and TypeScript
+    group: code
+    globs: ['**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}', '**/*.{vue,svelte}']
+    doc: javascript-typescript.md
+  - id: python
+    title: Python
+    group: code
+    globs: ['**/*.{py,pyi}']
+    doc: python.md
+  - id: sql-and-migrations
+    title: SQL, queries and migrations
+    group: data
+    globs: ['**/*.sql', '**/{migrations,migrate,db/migrate}/**', '**/*.prisma', '**/schema.rb']
+    doc: sql-and-migrations.md
+  - id: shell
+    title: Shell and PowerShell scripts
+    group: code
+    globs: ['**/*.{sh,bash,zsh,ps1,psm1}', '**/{Makefile,makefile}']
+    doc: shell.md
+  - id: ci-workflows
+    title: CI workflows
+    group: delivery
+    globs: ['.github/workflows/**/*.{yml,yaml}', '**/.gitlab-ci.yml', '**/{bitbucket-pipelines.yml,azure-pipelines.yml}']
+    doc: ci-workflows.md
+  - id: containers
+    title: Containers and deployment manifests
+    group: delivery
+    globs: ['**/{Dockerfile,Containerfile}', '**/*.dockerfile', '**/{docker-,}compose*.{yml,yaml}', '**/{k8s,kubernetes,helm,charts}/**/*.{yml,yaml}']
+    doc: containers.md
+  - id: configuration
+    title: Configuration and dependency manifests
+    group: delivery
+    globs: ['**/*.{json,yml,yaml,toml,ini,properties}', '**/.env.example', '**/{package.json,pyproject.toml,requirements*.txt,go.mod,Cargo.toml,composer.json}']
+    doc: configuration.md

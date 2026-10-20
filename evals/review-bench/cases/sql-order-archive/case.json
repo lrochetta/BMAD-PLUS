@@ -1,0 +1,33 @@
+{
+  "schema": "bmad-plus/review-bench-case/1",
+  "id": "sql-order-archive",
+  "language": "sql",
+  "summary": "A PostgreSQL migration archives old orders, adds a region and drops the import staging table.",
+  "message": "Archive old orders and retire the import staging table",
+  "defects": [
+    {
+      "id": "sql-order-archive/update-without-where",
+      "path": "migrations/0008_archive_orders.sql",
+      "quote": "UPDATE orders SET status = 'archived', archived_at = now();",
+      "categories": ["data-loss", "correctness"],
+      "severity": "critical",
+      "why": "The header promises orders older than two years; the statement has no WHERE clause and archives every order, overwriting each current status."
+    },
+    {
+      "id": "sql-order-archive/not-null-without-default",
+      "path": "migrations/0008_archive_orders.sql",
+      "quote": "ALTER TABLE orders ADD COLUMN region TEXT NOT NULL;",
+      "categories": ["compatibility", "correctness"],
+      "severity": "high",
+      "why": "On a table that already has rows PostgreSQL refuses a NOT NULL column without a default, so the migration fails on every real database and only passes on an empty one."
+    }
+  ],
+  "decoys": [
+    {
+      "id": "sql-order-archive/drop-staging",
+      "path": "migrations/0008_archive_orders.sql",
+      "quote": "DROP TABLE IF EXISTS import_staging;",
+      "why": "0006 documents import_staging as a scratch table nothing else reads, and the header says imports now write to orders directly: dropping it loses no data."
+    }
+  ]
+}

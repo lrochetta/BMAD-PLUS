@@ -1,0 +1,18 @@
+{
+  "id": "overview-intake-plan",
+  "video": "overview",
+  "scene": "intake-plan",
+  "type": "terminal",
+  "description": "bmad-plus intake record on the design-read intake with one answer left UNKNOWN: the next batch of questions, then the unknown with its risk.",
+  "transcript": "intake",
+  "seed": 21,
+  "minDuration": 7,
+  "steps": [
+    {
+      "ref": 1,
+      "type": { "max": 1.6 },
+      "lineInterval": 0.08,
+      "focus": [{ "match": "Unknown: job", "zoom": 1.5, "hold": 1.7 }]
+    }
+  ]
+}

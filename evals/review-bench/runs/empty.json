@@ -1,0 +1,15 @@
+{
+  "schema": "bmad-plus/review-bench-run/1",
+  "id": "reference-empty",
+  "reviewer": "a reviewer that reports nothing on any case",
+  "corpusSha256": "dc90652a7030e76726e20e8cd96354ed7f3e0da1d936c86e930f54a77d42be4b",
+  "cases": {
+    "gha-pr-preview": { "findings": [] },
+    "go-worker-pool": { "findings": [] },
+    "js-cart-discount": { "findings": [] },
+    "py-account-store": { "findings": [] },
+    "sh-release-upload": { "findings": [] },
+    "sql-order-archive": { "findings": [] },
+    "ts-retry-backoff": { "findings": [] }
+  }
+}

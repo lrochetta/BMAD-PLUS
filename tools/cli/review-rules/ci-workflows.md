@@ -1,0 +1,7 @@
+- **Untrusted triggers.** `pull_request_target`, `workflow_run` or `issue_comment` jobs that check out or execute code from a pull request with secrets or a write token available.
+- **Script injection.** Expressions such as `${{ github.event.* }}`, branch names, titles or commit messages interpolated directly into `run:`; pass them through `env:` and quote them.
+- **Permissions.** No top-level `permissions:` (defaults may be broad), or `write` scopes a job does not need; `id-token: write` on jobs that do not publish.
+- **Pinning.** Third-party actions referenced by a moving tag or branch instead of a full commit SHA; container images without a digest.
+- **Secrets.** Secrets echoed, written to artifacts or caches, or exposed to steps that run third-party code; `ACTIONS_STEP_DEBUG` left on.
+- **Runners.** Self-hosted runners on public repositories; a job that assumes a tool preinstalled on GitHub-hosted images (`node`, `python`, `jq`) before setting it up.
+- **Gates.** A step that should block marked `continue-on-error`; a required check that can be skipped by a path filter; a release job that does not depend on the test jobs.

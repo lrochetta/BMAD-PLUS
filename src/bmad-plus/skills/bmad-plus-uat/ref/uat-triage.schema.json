@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "bmad-plus/uat-triage/1",
+  "title": "Human acceptance recipe — triage of one or more runs",
+  "description": "Written by the agent after reading a run. Every failed or blocked expectation is classified and decided before it becomes a fix, and every passed writing step gets its read-only confirmation. The gate reads this file; an unclassified failure keeps it red.",
+  "type": "object",
+  "required": ["schema", "specId", "runs"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "bmad-plus/uat-triage/1" },
+    "specId": { "type": "string" },
+    "runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["runId"],
+        "additionalProperties": false,
+        "properties": {
+          "runId": { "type": "string" },
+          "specSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "failures": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["step", "expect", "class", "decision"],
+              "additionalProperties": false,
+              "properties": {
+                "step": { "type": "string" },
+                "expect": { "type": "string", "pattern": "^[a-z]$" },
+                "class": {
+                  "enum": ["product", "recipe", "data", "undecided"],
+                  "description": "product: the screen differs from what the code was meant to render. recipe: the screen is right, the expectation described it wrongly. data: the witness is no longer in the assumed state. undecided: no note — ask the tester, never guess (keeps the gate red)."
+                },
+                "evidence": { "type": "string", "description": "What establishes the class: code path, query result, screenshot reference." },
+                "decision": { "enum": ["fix", "amend-spec", "remeasure", "accept-risk", "ask-tester"] },
+                "decidedBy": { "type": "string", "description": "Required for accept-risk: who took the risk." },
+                "fixRef": { "type": "string", "description": "Story, task or commit that carries the fix." },
+                "replayIn": { "type": "string", "description": "Recipe id where this step is played again." }
+              }
+            }
+          },
+          "writeChecks": {
+            "type": "array",
+            "description": "One entry per step with writes: true that the tester passed. A tick is an observation; this is the proof.",
+            "items": {
+              "type": "object",
+              "required": ["step", "verified"],
+              "additionalProperties": false,
+              "properties": {
+                "step": { "type": "string" },
+                "verified": { "type": "boolean" },
+                "evidence": { "type": "string", "description": "Read-only result: row timestamp, event, response." }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

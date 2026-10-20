@@ -1,0 +1,29 @@
+schema_version: 1
+id: forge/cache-values
+pack: core
+agent: agent-architect-dev
+agent_source: src/bmad-plus/agents/agent-architect-dev/SKILL.md
+persona: Forge
+description: Fix repeated lookups without changing the established caller contract.
+models: [claude, gpt, gemini, local]
+fixture: fixture
+task:
+  prompt: |
+    The label picker repeatedly fetches labels whose value is empty. Fix this
+    in the existing implementation. Inspect the caller and documented contract,
+    preserve the public API, and add regression coverage. Run the relevant checks
+    and leave a short report in result.md with the changed files and actual results.
+    Use Node 20+ and its standard library, without dependencies or a package.json.
+  timeout_s: 300
+  allowed_writes: [src/cache.cjs, tests/, result.md]
+assertions:
+  - id: current-caller-contract
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+    timeout_s: 30
+  - id: explanation
+    kind: file_exists
+    path: result.md
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}

@@ -1,0 +1,3 @@
+# Generated from registry.yaml by tools/build/generate.js; --check compares it byte for byte.
+tools/cli/lib/packs.js
+tools/build/generated-adapters/

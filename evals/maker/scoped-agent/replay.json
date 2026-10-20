@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "kind": "maintainer-authored-replay",
+  "transcript": "Maintainer-authored offline artifact example for maker/scoped-agent. Independent checks run after application; no model behavior is measured.",
+  "files": [
+    {
+      "path": "agent/SKILL.md",
+      "content": "---\nname: patch-notes\ndescription: Draft local change notes from supplied repository evidence.\n---\n\n# Patch Notes\n\nActivate for the exact phrase `draft patch notes` in a repository-change context.\nA generic mention of notes does not activate this agent.\n\n- CN: Create a note from the supplied diff.\n- VR: Verify references against the supplied files.\n\nWrite only inside notes/. Ask for missing diff evidence; never invent changes.\nNever publish or send messages. No external tools are available.\n",
+      "sha256": "f8976ac38bd1b0abd8a81d5eec1dc70d0fc34b3fa70802babdad686c0b24d9ec"
+    },
+    {
+      "path": "agent/manifest.json",
+      "content": "{\n  \"id\": \"patch-notes\",\n  \"entry\": \"SKILL.md\",\n  \"capabilities\": [\n    \"CN\",\n    \"VR\"\n  ],\n  \"allowed_writes\": [\n    \"notes/\"\n  ],\n  \"external_tools\": [],\n  \"activation\": {\n    \"phrase\": \"draft patch notes\",\n    \"context\": \"repository-change\"\n  }\n}\n",
+      "sha256": "efb729bdd26082c1eb78a718da15015ca5cae62e4ee94e34ef4bc7d8da2b3c99"
+    }
+  ],
+  "bindings": {
+    "spec_sha256": "6045fb7f5779336f1812082991af1b3f05f65a8b813a1013e31f76dd78187728",
+    "fixture": {
+      "sha256": "e39ddf33cf64e7fef4206821eb7db88cd992c3370f36aef4e7b240d13ca8e602",
+      "files": [
+        {
+          "path": "brief.md",
+          "sha256": "089f1cbff6d25789b86183e64f35fd2a9366aaa99ae0dad1f6e35f1df2cd69a8",
+          "size_bytes": 482
+        },
+        {
+          "path": "schema.json",
+          "sha256": "eb8ad7b8ff5673269b5bb43f679138a6eb1693dd8caca3a34611dd19ddc8dc27",
+          "size_bytes": 220
+        }
+      ]
+    },
+    "checks": {
+      "sha256": "4cc1902a2a7bbd5f68f713b00041a63c695b9fed235af8e078bc9b4bc623e7ad",
+      "files": [
+        {
+          "path": "check.cjs",
+          "sha256": "e51c1231de1088aa343f91c4b336e9e647fe590ec3e495c6021a21c66d9c82e0",
+          "size_bytes": 1126
+        }
+      ]
+    },
+    "agent_resources": {
+      "sha256": "81cf41f9af8644ef8a45f8309d835c785580cfe7035feb05a26f21d68775eca6",
+      "files": [
+        {
+          "path": "src/bmad-plus/agents/agent-maker/SKILL.md",
+          "sha256": "caa6ef8c708bec04f27d2c83a12ae155917cda1f32af43698bc371c6deebeb76",
+          "size_bytes": 8376
+        }
+      ]
+    }
+  },
+  "review_note": "Reviewed the 0.23.1 change to the Maker skill: the integration guide registers a pack through registry.yaml and regenerates from it instead of editing generated files; the scoped, self-contained agent contract is unchanged; still an offline fixture.",
+  "sealed_at": "2026-10-19T21:05:39.162785+00:00"
+}

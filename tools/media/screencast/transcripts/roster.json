@@ -1,0 +1,33 @@
+{
+  "schema": "bmad-plus/screencast-transcript/2",
+  "id": "roster",
+  "capturedAt": "2026-10-18T20:21:48.917Z",
+  "environment": {
+    "container": "node:20-bookworm",
+    "os": "Debian GNU/Linux 12 (bookworm)",
+    "node": "v20.20.2",
+    "bmadPlus": "0.23.0",
+    "repoCommit": "e040df7",
+    "project": "/home/dev/app",
+    "note": "The CLI ran from the tarball made by `npm pack` on this checkout, installed one level above the throwaway project."
+  },
+  "setup": [
+    "npm install --ignore-scripts <bmad-plus tarball> (one level above the project)",
+    "git init -q",
+    "npx bmad-plus install --yes --lang en --packs all --tools claude-code"
+  ],
+  "hiddenSteps": [],
+  "redactions": [],
+  "cleanup": [
+    "plain commands: ANSI escape sequences and carriage returns removed, trailing spaces trimmed, \"npm notice run\" lines dropped",
+    "interactive commands: raw pty output stored untouched"
+  ],
+  "steps": [
+    {
+      "cmd": "sed -n '/^## Agents/,/^## Skills/p' AGENTS.md",
+      "output": "## Agents\n\nTo activate an agent, say its name or persona:\n\n- **Atlas** (Strategist) — Business analysis + Product management\n- **Forge** (Architect-Dev) — Architecture + Development + Documentation\n- **Sentinel** (Quality) — QA + UX review\n- **Nexus** (Orchestrator) — Sprint management + Autopilot + Parallel execution\n- **Shadow** (OSINT) — Investigation + Public-source research (governed, legal basis required) (OSINT)\n- **Maker** (Agent Creator) — Design, build, validate, and package new BMAD+ agents (Maker)\n- **Shield** (GRC) — Compliance agents for GDPR, ISO 27001, SOC 2, HIPAA, EU AI Act, DORA, NIS2 and more (Shield)\n- **SEO Scout** (Technical Scanner) — Crawling + technical inspection + performance (SEO)\n- **SEO Chief** (Strategist & Reporter) — Scoring + strategy + reporting (SEO)\n- **SEO Judge** (Content & AI Analyst) — Content quality + structured data + GEO analysis (SEO)\n- **Zecher** (זכר, Memory Guardian) — Memory Archivist — Persistent cross-session memory, consolidation, project scanning, context recall, session handoffs (Memory)\n- **Miriam** (מרים) — Business Analyst — Strategic analysis, research, product briefs (Dev Studio)\n- **Huldah** (חולדה) — Technical Writer — Documentation, diagrams, editorial review (Dev Studio)\n- **Yosef** (יוסף) — Product Manager — PRD, requirements, feature prioritization (Dev Studio)\n- **Rachel** (רחל) — UX Designer — User experience, wireframes, empathy mapping (Dev Studio)\n- **Bezalel** (בצלאל) — System Architect — Architecture, ADRs, epics & stories (Dev Studio)\n- **Oholiab** (אהליאב) — Senior Engineer — TDD, sprint, code review, implementation (Dev Studio)\n- **Backup Manager** (Backup & Restore) — Timestamped backups, restoration, and rotation (Backup)\n- **Animated Website Creator** (Website Builder) — Video-driven scrolling websites (Animated)\n- **Atelier** (Design Engine) — Senior product designer and design engineer: surfaces, tokens, accessibility, audits, redesigns (Design) — drives: design, design-review, redesign\n\n## Skills",
+      "exitCode": 0,
+      "ms": 10
+    }
+  ]
+}

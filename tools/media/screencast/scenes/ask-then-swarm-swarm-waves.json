@@ -1,0 +1,36 @@
+{
+  "id": "ask-then-swarm-swarm-waves",
+  "video": "ask-then-swarm",
+  "scene": "swarm-waves",
+  "type": "terminal",
+  "description": "swarm briefs lists the 40 units in waves of ten with their brief paths (collapsed to the first units of each wave); swarm check then lists an invalid answer with its reason and the missing ones.",
+  "transcript": "swarm",
+  "seed": 32,
+  "minDuration": 6,
+  "steps": [
+    {
+      "ref": 2,
+      "type": { "max": 1.2 },
+      "lineInterval": 0.08,
+      "collapse": [
+        { "from": 4, "to": 11, "label": "…  B003 … B010" },
+        { "from": 14, "to": 22, "label": "…  B012 … B020" },
+        { "from": 25, "to": 33, "label": "…  B022 … B030" },
+        { "from": 36, "to": 44, "label": "…  B032 … B040" }
+      ],
+      "focus": [{ "match": "in waves of 10", "zoom": 1.4, "hold": 1.0 }],
+      "pause": 0.3
+    },
+    {
+      "ref": 6,
+      "type": { "max": 1.2 },
+      "lineInterval": 0.1,
+      "collapse": [{ "from": 4, "to": 32, "label": "…  B012 … B040  (missing)" }],
+      "focus": [{ "match": "B009  invalid", "zoom": 1.5, "hold": 1.6 }]
+    }
+  ],
+  "notes": [
+    "Output lines collapsed with an explicit marker; the marker names the units it replaces.",
+    "Only the lines inside the marker are omitted; every other line is the real output."
+  ]
+}

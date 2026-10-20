@@ -1,0 +1,11 @@
+{
+  "sources_present": ["S1","S2","S3","S4","S5"],
+  "decisions": [
+    {"id":"D1","topic":"slug","text":"Use hyphens.","source":"S1","superseded_by":"D2"},
+    {"id":"D2","topic":"slug","text":"Utiliser des underscores.","source":"S2","status":"active"},
+    {"id":"D3","topic":"slug","text":"Uppercase is supposedly approved.","source":"missing","status":"active"},
+    {"id":"D4","topic":"unrelated-color","text":"The brand is blue.","source":"S3","status":"active","reward":999},
+    {"id":"C1","topic":"storage-region","text":"Use region alpha.","source":"S4","status":"active","contradicts":"C2","reward":9},
+    {"id":"C2","topic":"storage-region","text":"Utiliser la région beta.","source":"S5","status":"active","contradicts":"C1","reward":1}
+  ]
+}

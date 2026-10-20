@@ -1,0 +1,10 @@
+{
+  "request_id": "fictional-request-01",
+  "handle": "fictional-twin",
+  "authorization_scope": null,
+  "sources": [
+    {"id": "F1", "entity": "fictional-profile-a", "handle": "fictional-twin"},
+    {"id": "F2", "entity": "fictional-profile-b", "handle": "fictional-twin"}
+  ],
+  "identity_match_evidence": []
+}

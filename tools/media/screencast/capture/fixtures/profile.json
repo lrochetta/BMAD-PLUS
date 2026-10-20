@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "subject": "Orbit espresso bar",
+  "target": "Urban professionals who buy coffee most days",
+  "dimensions": [
+    {
+      "name": "segment",
+      "values": [
+        { "value": "early career", "share": 0.45, "ranges": { "income": [38000, 85000] } },
+        { "value": "mid career", "share": 0.4, "ranges": { "income": [85000, 150000] } },
+        { "value": "high earner", "share": 0.15, "ranges": { "income": [150000, 210000] } }
+      ]
+    },
+    {
+      "name": "behaviour",
+      "values": [
+        { "value": "daily regular", "share": 0.2, "note": "same drink, same place, most mornings" },
+        { "value": "explorer", "share": 0.5 },
+        { "value": "occasional", "share": 0.3, "note": "a treat, not a routine" }
+      ]
+    }
+  ],
+  "ranges": { "age": [24, 38], "walk_minutes": [1.5, 12] },
+  "pools": {
+    "objection": ["too steep for a drink", "my place is closer", "I do not know the brand"],
+    "habit": ["you pass the street on the way to work", "you order the same thing every day"]
+  }
+}
