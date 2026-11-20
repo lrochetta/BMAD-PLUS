@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "kind": "maintainer-authored-replay",
+  "transcript": "Two authored outputs for the French chat regression. This exact-text oracle covers one stipulated edit and one unchanged price reply. It measures neither model preference nor watermark presence or removal.",
+  "files": [
+    {
+      "path": "deadline.txt",
+      "content": "Votre lien expire vendredi à midi.\n",
+      "sha256": "7b6a4b58a9c9c1f41c76f7757f667fd6a84ae622b0033edbddca359f4c08c514"
+    },
+    {
+      "path": "price.txt",
+      "content": "L’entrée coûte 12 €.\n",
+      "sha256": "120a668d236535c4da1ce76c470670a77841f972475a8237d998290e50c31abd"
+    }
+  ],
+  "bindings": {
+    "spec_sha256": "b066d578c0a79da498f8a68517eebc3699a92e281520ee81817268842594094d",
+    "fixture": {
+      "sha256": "93426ed59f10f2db00fee2ca6339232b552b168b666b0bd955a3118e09e950e8",
+      "files": [
+        {
+          "path": "replies.json",
+          "sha256": "6c4e41481034f0b4080dea687fa2c13285f0006907730c7e5e563c0d237deb36",
+          "size_bytes": 196
+        }
+      ]
+    },
+    "checks": {
+      "sha256": "7e67b3b8d2ce08240692dbd8713d710ae2c4a61b0b17d01b442774816c01c29d",
+      "files": [
+        {
+          "path": "check.cjs",
+          "sha256": "83599eb416a9ce69f47bde482df9149c32b13100509d5607dead4a9794ed8155",
+          "size_bytes": 876
+        },
+        {
+          "path": "oracle.test.cjs",
+          "sha256": "6224fc70cca36dfd112a2729c0927598e610225033810c6ad72472c6eb3d46a7",
+          "size_bytes": 1209
+        }
+      ]
+    },
+    "agent_resources": {
+      "sha256": "682823f679934afc73509d47fd3ed41d3f6ff1c460578aa6b5c0a6b48a0147ab",
+      "files": [
+        {
+          "path": "src/bmad-plus/skills/ghostwriter-humanize/SKILL.md",
+          "sha256": "1152024a16693ebc596099a38cf71b412239e0576daeae3180901c0a61b2c92c",
+          "size_bytes": 2886
+        },
+        {
+          "path": "src/bmad-plus/packs/pack-ghostwriter/workflows/humanize.md",
+          "sha256": "90f2100ed2bf7f37fcf02aa4177032e8ea9e91d8c57309d0909e51393d8225b4",
+          "size_bytes": 5403
+        },
+        {
+          "path": "src/bmad-plus/packs/pack-ghostwriter/shared/editorial-contract.md",
+          "sha256": "97bf4e154111b75f7338147f89d650e6be83b09131788ce9aac8b143d5da3df0",
+          "size_bytes": 6016
+        }
+      ]
+    }
+  },
+  "review_note": "Reviewed the clarified delivery rule for missing facts and text-only replies. Both French fixture inputs still contain sufficient information and their exact copy remains valid. The replay does not exercise the new clarification branch or measure a model.",
+  "sealed_at": "2026-11-19T22:30:37.477681+00:00"
+}

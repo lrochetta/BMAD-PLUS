@@ -1,0 +1,25 @@
+{
+  "id": "case-study-intake",
+  "video": "case-study",
+  "scene": "intake",
+  "type": "terminal",
+  "description": "bmad-plus intake record on the design-read intake with three answers: the plan reports 3 answered and 10 not asked yet, then asks at most 6 questions per message.",
+  "transcript": "cs-intake",
+  "cols": 86,
+  "seed": 42,
+  "minDuration": 4,
+  "tail": 0.2,
+  "steps": [
+    {
+      "ref": 0,
+      "type": { "max": 1.0 },
+      "lineInterval": 0.05,
+      "focus": [
+        { "match": "3 answered", "zoom": 1.4, "hold": 0.55, "rampIn": 0.3, "rampOut": 0.25, "delay": 0.05 },
+        { "match": "10 not asked yet", "zoom": 1.4, "hold": 0.55, "rampIn": 0.3, "rampOut": 0.25, "delay": 0.05 },
+        { "match": "at most 6 per message", "zoom": 1.4, "hold": 0.6, "rampIn": 0.3, "rampOut": 0.25, "delay": 0.05 }
+      ]
+    }
+  ],
+  "notes": ["Recorded from the published package bmad-plus@0.23.0, not from the checkout."]
+}

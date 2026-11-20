@@ -1,0 +1,5 @@
+- **Secrets.** A real credential, token, private URL or personal data committed in a configuration file or an example file; an example file whose placeholder looks real.
+- **Dependencies.** A new dependency: is it maintained, necessary, and from the expected publisher (typosquatting)? A version range widened to accept a major; a lockfile out of step with its manifest; install scripts from a new package.
+- **Defaults.** A security-relevant setting weakened (TLS verification, CORS origins, cookie flags, debug mode, log level exposing data) or a default that now differs between environments.
+- **Consistency.** A key renamed in one environment file and not the others; a value duplicated where one source of truth exists; a feature flag left on.
+- **Parsing.** YAML values that change type silently (`no`, `on`, `0755`, unquoted dates and versions); JSON with duplicate keys.

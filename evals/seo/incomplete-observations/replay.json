@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "kind": "maintainer-authored-replay",
+  "transcript": "Maintainer-authored offline artifact example for seo/incomplete-observations. Independent checks run after application; no model behavior is measured.",
+  "files": [
+    {
+      "path": "report.json",
+      "content": "{\n  \"findings\": [\n    {\n      \"id\": \"canonical-conflict\",\n      \"evidence_ids\": [\n        \"H1\",\n        \"H2\"\n      ]\n    }\n  ],\n  \"coverage\": {\n    \"canonical\": \"verified\",\n    \"robots\": \"unknown\",\n    \"performance\": \"not-measured\"\n  },\n  \"scores\": {\n    \"overall\": null,\n    \"performance\": null\n  }\n}\n",
+      "sha256": "42714e032be8b4c7c8ed7c9623f01b30c42c185e3ed5a2694e55b942ac1679f0"
+    }
+  ],
+  "bindings": {
+    "spec_sha256": "39a0247843bf172baf5200e11921f4b9968c631f8c294705012b19d9d8f682d5",
+    "fixture": {
+      "sha256": "5850d715c984235f84f87e40b7b193398bf297f8015a277b2f0d4d365b839c91",
+      "files": [
+        {
+          "path": "observations.json",
+          "sha256": "61647fe20185da98814095b41ca0b3936121f27c3dace8ac41937221ef5bd5a9",
+          "size_bytes": 426
+        },
+        {
+          "path": "rules.md",
+          "sha256": "2bda566a46eee87c62781dfcf34d07702a4b9eaf6cf4da5d7b45345099da0314",
+          "size_bytes": 441
+        }
+      ]
+    },
+    "checks": {
+      "sha256": "6757026c6697b6e754b9b69a4ef203193fa8e628dbfc4326ad30a8f0c87a4891",
+      "files": [
+        {
+          "path": "check.cjs",
+          "sha256": "cb6a3a194428752cc00e82a3251bd5a08e7022ae753bc80eac7c44e50e3d9587",
+          "size_bytes": 662
+        }
+      ]
+    },
+    "agent_resources": {
+      "sha256": "4857820b605d4e000a82ee68d986f594a85283f17ad239d8d9dcf371e82cd5d7",
+      "files": [
+        {
+          "path": "src/bmad-plus/packs/pack-seo/seo-chief.md",
+          "sha256": "30cdf72ced6f51bd9c519af7eb5ba3fb9de260794615f05ea94a555e5d879647",
+          "size_bytes": 9479
+        }
+      ]
+    }
+  },
+  "review_note": "Reviewed the SEO Chief change: a When to challenge paragraph for bmad-plus-challenge was added to the Strategist role. The task, fixture, checker and the replay artifact are unchanged; this stays an offline fixture.",
+  "sealed_at": "2026-10-19T22:20:04.096016+00:00"
+}

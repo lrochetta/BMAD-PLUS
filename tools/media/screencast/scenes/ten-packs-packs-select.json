@@ -1,0 +1,23 @@
+{
+  "id": "ten-packs-packs-select",
+  "video": "ten-packs",
+  "scene": "packs-select",
+  "type": "terminal",
+  "description": "The pack multiselect of bmad-plus install, driven with the arrow keys through a real pseudo-terminal; the run is cancelled with Ctrl-C before anything is confirmed, so nothing is installed.",
+  "transcript": "packs-select",
+  "cols": 80,
+  "seed": 51,
+  "lead": 0.15,
+  "minDuration": 18.633,
+  "drift": 0.015,
+  "steps": [
+    {
+      "ref": 0,
+      "preType": 0.1,
+      "enterPause": 0.2,
+      "type": { "max": 0.8 },
+      "hold": 0.8
+    }
+  ],
+  "notes": ["The install is cancelled with Ctrl-C at the pack prompt; no file is written."]
+}

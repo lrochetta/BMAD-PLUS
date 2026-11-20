@@ -1,0 +1,28 @@
+{
+  "id": "ask-then-swarm-swarm-budget",
+  "video": "ask-then-swarm",
+  "scene": "swarm-budget",
+  "type": "terminal",
+  "description": "swarm init for 40 units on the default budget of 26: needs approval, exit code 2; then the same init with --approved and the same seed: the panel is ready.",
+  "transcript": "swarm",
+  "seed": 31,
+  "minDuration": 12,
+  "steps": [
+    {
+      "ref": 0,
+      "type": { "max": 2.2 },
+      "lineInterval": 0.18,
+      "focus": [
+        { "match": "needs approval", "zoom": 1.4, "hold": 1.6 },
+        { "match": "exit code: 2", "zoom": 1.6, "hold": 1.3 }
+      ],
+      "pause": 0.4
+    },
+    {
+      "ref": 1,
+      "type": { "max": 2.2 },
+      "lineInterval": 0.2,
+      "focus": [{ "match": "panel of 40 units", "zoom": 1.45, "hold": 1.6 }]
+    }
+  ]
+}

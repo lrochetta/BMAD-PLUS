@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "bmad-plus/ghostwriter/voice-profile/1",
+  "title": "Ghostwriter voice profile",
+  "type": "object",
+  "required": ["schema_version", "id", "version", "status", "kind", "locale"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{0,62}$" },
+    "version": { "type": "integer", "minimum": 1 },
+    "status": { "enum": ["draft", "approved"] },
+    "kind": { "enum": ["author", "brand"] },
+    "locale": { "type": "string", "minLength": 1 },
+    "channels": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+    "approved_samples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "path", "sha256"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{0,62}$" },
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        },
+        "additionalProperties": true
+      },
+      "maxItems": 32
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sample_id", "passage", "observation"],
+        "properties": {
+          "sample_id": { "type": "string", "minLength": 1 },
+          "passage": { "type": "string", "minLength": 1 },
+          "observation": { "type": "string", "minLength": 1 },
+          "confidence": { "type": ["number", "string"] }
+        },
+        "additionalProperties": true
+      }
+    },
+    "explicit_preferences": { "type": "object" },
+    "glossary": { "type": "array" },
+    "protected_names": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true,
+      "maxItems": 128
+    },
+    "exceptions": { "type": "array" },
+    "unresolved_questions": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+  },
+  "additionalProperties": true
+}

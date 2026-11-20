@@ -1,0 +1,40 @@
+schema_version: 1
+id: ghostwriter/review-meaning
+pack: ghostwriter
+agent: ghostwriter-verify
+agent_source: src/bmad-plus/skills/ghostwriter-verify/SKILL.md
+agent_resources:
+  - src/bmad-plus/packs/pack-ghostwriter/shared/editorial-contract.md
+  - src/bmad-plus/packs/pack-ghostwriter/workflows/agent-output-review.md
+description: Review five proposed edits to a French booking notice against a closed set of source clauses.
+models: [claude, gpt, gemini, local]
+gates: [pr]
+replay: replay.json
+tags: [editorial-review, semantic-fidelity, source-coverage, french]
+fixture: fixture
+task:
+  prompt: |
+    You are reviewing proposed replacements for a French booking notice. Each entry in
+    candidates.json replaces exactly one clause from source.json. All names and facts
+    are fictional. Read each replacement independently, in the context of its source.
+    No external verification is requested or available. The brief favors clear, short
+    sentences and preserves eligibility, promises, exceptions and template variables.
+
+    Write only review.json with external_verification set to "not-performed" and a
+    reviews array. For each proposal give its id, the unit id from the source, and
+    decision "keep" or "revise". For a faithful revision give findings: []. Otherwise
+    list each substantive issue once in findings. Use these issue codes:
+      eligibility-bound, commitment-strength, eligibility-condition, protected-variable,
+      unsupported-price.
+    Each finding has code, source_quote and candidate_quote. Copy exact excerpts
+    from that proposal and its source clause, including enough context to expose the
+    problem. More than one issue can apply. Avoid penalizing harmless rephrasing.
+  allowed_writes: [review.json]
+  timeout_s: 240
+assertions:
+  - id: review-covers-every-proposal-and-grounds-each-finding
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}

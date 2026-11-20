@@ -1,0 +1,212 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "bmad-plus/ghostwriter/review-result/1",
+  "title": "Ghostwriter controller report",
+  "description": "Only a current controller evaluation can accept a run. This schema validates the shape of its report. A caller also needs the bound inputs, outputs, independent execution evidence and the checks required by the policy.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "attempt_id",
+    "execution",
+    "mechanical_checks",
+    "semantic_review",
+    "gate",
+    "usage",
+    "coverage"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "attempt_id": { "anyOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }] },
+    "workflow": {
+      "enum": ["voice-profile", "draft", "humanize", "improve", "localize", "agent-output-review"]
+    },
+    "content_type": { "type": "string", "minLength": 1 },
+    "locale": { "type": "string", "minLength": 1 },
+    "input_sha256": { "anyOf": [{ "$ref": "#/definitions/sha256" }, { "type": "null" }] },
+    "output_sha256": { "anyOf": [{ "$ref": "#/definitions/sha256" }, { "type": "null" }] },
+    "source_set_sha256": { "anyOf": [{ "$ref": "#/definitions/sha256" }, { "type": "null" }] },
+    "profile_sha256": { "anyOf": [{ "$ref": "#/definitions/sha256" }, { "type": "null" }] },
+    "policy_sha256": { "anyOf": [{ "$ref": "#/definitions/sha256" }, { "type": "null" }] },
+    "execution": {
+      "type": "object",
+      "required": ["status", "producer_session_id", "reviewer_session_id"],
+      "properties": {
+        "status": { "enum": ["not_verified", "observed"] },
+        "producer_session_id": { "anyOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }] },
+        "reviewer_session_id": { "anyOf": [{ "type": "string", "minLength": 1 }, { "type": "null" }] },
+        "producer_adapter": { "enum": ["codex-exec", null] },
+        "reviewer_adapter": { "enum": ["codex-exec", null] }
+      }
+    },
+    "semantic_review": {
+      "type": "object",
+      "required": ["fidelity", "quality", "facts", "findings"],
+      "properties": {
+        "fidelity": { "enum": ["pass", "findings", "not_run"] },
+        "quality": { "enum": ["pass", "findings", "not_run"] },
+        "facts": {
+          "enum": ["not_run", "supported_by_provided_sources", "partially_verified", "unresolved"]
+        },
+        "findings": { "type": "array", "items": { "$ref": "#/definitions/finding" } },
+        "coverage": { "$ref": "#/definitions/coverage" },
+        "units": { "type": "array", "items": { "$ref": "#/definitions/observation" } },
+        "sources": { "type": "array", "items": { "$ref": "#/definitions/citation" } }
+      }
+    },
+    "mechanical_checks": { "$ref": "#/definitions/mechanical" },
+    "coverage": { "$ref": "#/definitions/coverage" },
+    "usage": {
+      "type": "object",
+      "properties": {
+        "tokens": { "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }] },
+        "cost": { "anyOf": [{ "type": "number", "minimum": 0 }, { "type": "null" }] },
+        "duration_ms": { "anyOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }] }
+      },
+      "additionalProperties": true
+    },
+    "gate": {
+      "type": "object",
+      "required": ["verdict", "reasons"],
+      "properties": {
+        "verdict": { "enum": ["accepted", "findings", "incomplete"] },
+        "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      },
+      "additionalProperties": true
+    },
+    "manifest_sha256": { "$ref": "#/definitions/sha256" },
+    "output_path": { "type": "string", "minLength": 1 },
+    "review_path": { "type": "string", "minLength": 1 },
+    "receipt_path": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": true,
+  "definitions": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "coverage": {
+      "type": "object",
+      "required": ["total_units", "completed_units", "missing_units"],
+      "properties": {
+        "total_units": { "type": "integer", "minimum": 0 },
+        "completed_units": { "type": "integer", "minimum": 0 },
+        "missing_units": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "required": ["id", "quote", "assessment"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^(p|out)[1-9][0-9]*$" },
+        "quote": { "type": "string", "pattern": "\\S" },
+        "assessment": { "type": "string", "pattern": "\\S" }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "required": ["code", "severity", "input_quote", "output_quote", "explanation"],
+      "properties": {
+        "code": { "type": "string", "pattern": "\\S" },
+        "severity": { "enum": ["advisory", "blocking"] },
+        "input_quote": { "type": "string", "pattern": "\\S" },
+        "output_quote": { "type": "string", "pattern": "\\S" },
+        "explanation": { "type": "string", "pattern": "\\S" }
+      }
+    },
+    "citation": {
+      "type": "object",
+      "required": ["path", "quote", "claim"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "quote": { "type": "string", "pattern": "\\S" },
+        "claim": { "type": "string", "pattern": "\\S" }
+      }
+    },
+    "mechanical": {
+      "type": "object",
+      "required": ["status", "findings"],
+      "properties": {
+        "status": { "enum": ["pass", "findings", "incomplete", "not_run"] },
+        "coverage": { "enum": ["complete", "partial"] },
+        "findings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["rule", "path", "message"],
+            "properties": {
+              "rule": { "type": "string", "minLength": 1 },
+              "path": { "type": "string" },
+              "message": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "semantic": { "const": "unreviewed" },
+        "factual": { "const": "unverified" }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "gate": { "properties": { "verdict": { "const": "accepted" } } } } },
+      "then": {
+        "required": [
+          "workflow",
+          "content_type",
+          "locale",
+          "output_path",
+          "review_path",
+          "receipt_path",
+          "manifest_sha256",
+          "input_sha256",
+          "output_sha256",
+          "source_set_sha256",
+          "profile_sha256",
+          "policy_sha256"
+        ],
+        "properties": {
+          "manifest_sha256": { "$ref": "#/definitions/sha256" },
+          "input_sha256": { "$ref": "#/definitions/sha256" },
+          "output_sha256": { "$ref": "#/definitions/sha256" },
+          "source_set_sha256": { "$ref": "#/definitions/sha256" },
+          "profile_sha256": { "$ref": "#/definitions/sha256" },
+          "policy_sha256": { "$ref": "#/definitions/sha256" },
+          "attempt_id": { "type": "string", "minLength": 1 },
+          "execution": {
+            "required": ["producer_adapter", "reviewer_adapter"],
+            "properties": {
+              "status": { "const": "observed" },
+              "producer_session_id": { "type": "string", "minLength": 1 },
+              "reviewer_session_id": { "type": "string", "minLength": 1 },
+              "producer_adapter": { "const": "codex-exec" },
+              "reviewer_adapter": { "const": "codex-exec" }
+            }
+          },
+          "coverage": {
+            "properties": {
+              "total_units": { "minimum": 1 },
+              "completed_units": { "minimum": 1 },
+              "missing_units": { "maxItems": 0 }
+            }
+          },
+          "semantic_review": {
+            "required": ["coverage", "units", "sources"],
+            "properties": {
+              "fidelity": { "const": "pass" },
+              "quality": { "const": "pass" },
+              "units": { "minItems": 1 },
+              "findings": { "items": { "properties": { "severity": { "const": "advisory" } } } }
+            }
+          },
+          "mechanical_checks": {
+            "required": ["coverage"],
+            "properties": {
+              "status": { "const": "pass" },
+              "coverage": { "const": "complete" },
+              "findings": { "maxItems": 0 }
+            }
+          },
+          "gate": { "properties": { "reasons": { "maxItems": 0 } } }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+# Dev Studio provenance and selective adaptation ledger.
+# Version and commit below have different, explicitly recorded roles.
+# The 0.14.0 implementation is original BMAD+ work, not a wholesale upstream sync.
+schema_version: 2
+
+upstream:
+  repository: https://github.com/bmad-code-org/BMAD-METHOD
+  version: "6.6.0"
+  version_role: declared-compatibility-baseline
+  baseline_tag_commit: "e6cdc93b79420fcc915d3bd3ca63387bc86af694"
+  commit: "0f852a38ac7c0ac30340b3aedc3aba4505b7c14a"
+  commit_role: historical-partial-import
+  synced_at: "2026-05-17"
+  synced_at_role: recorded-date-of-historical-import
+  license: MIT
+
+reviewed_reference:
+  version: "6.12.0"
+  commit: "05bfbd46d00766ec88eb9b42e76be2c575d64d7b"
+  reviewed_at: "2026-09-09"
+  status: reviewed-only
+  full_migration: false
+  compatibility_baseline_changed: false
+
+implementation:
+  bmad_plus_version: "0.14.0"
+  origin: original-bmad-plus-instructions-and-context-preparation
+  authored_at: "2026-09-09"
+  execution: host-managed-markdown
+  context_preparation: read-only-cli
+  standalone_llm_runtime: false
+  upstream_runtime_imported: false
+  preserved_public_workflow_ids: 38
+  preserved_personas: 6
+  evidence_limit: Resource reconciliation does not establish host execution or model compliance.
+
+adaptations:
+  format: Original BMAD+ Markdown procedures with explicit inputs, evidence and continuation.
+  personas:
+    Mary: Miriam (מרים)
+    Paige: Huldah (חולדה)
+    John: Yosef (יוסף)
+    Sally: Rachel (רחל)
+    Winston: Bezalel (בצלאל)
+    Amelia: Oholiab (אהליאב)
+  entry: SKILL.md
+  catalog: shared/catalog.json
+  execution_guide: shared/execution.md
+  historical_bwml_document: shared/bwml-spec.md
+  historical_bwml_document_role: migration-note-not-interpreter-specification
+  configuration:
+    file: _bmad/config.yaml
+    scope: explicitly-selected-project
+    parser: existing-bmad-plus-yaml-parser
+    known_fields:
+      - user_name
+      - communication_language
+      - document_output_language
+      - output_folder
+      - project_name
+    missing_values: Explicit neutral defaults in the execution guide.
+    invalid_present_values: Report an error rather than inventing configuration.
+    preserve_unrelated_settings: true
+    layered_toml_overrides: false
+  retired_dependency_contracts:
+    - Imported PRD headless schemas and automatic HTML validation rendering.
+    - Distillator compression/reconstruction format and Python source analyzer.
+    - Upstream Python/TOML customization discovery and layered override merging.
+    - Implied execution of BWML tags as scheduler, memory, events or validation gates.
+  historical_dependency_note: >-
+    The old removed_dependencies list was not proof that dependent instructions
+    remained executable. Project YAML configuration is supported now; it is not
+    a removed dependency. Per-skill customize.toml files and shared upstream
+    resolvers fall outside the 147-support-file inventory below.
+
+support_reconciliation:
+  source_method: Read-only git ls-tree at the historical import commit.
+  historical_bmad_plus_commit: "913d0600b9e0c3ac12af22b17e2205bf9d394a63"
+  mapped_entry_families: 44
+  excluded_relative_paths:
+    - SKILL.md
+    - customize.toml
+  source_support_files: 147
+  historically_delivered: 15
+  historically_omitted: 132
+  historically_omitted_families: 24
+  omitted_dispositions:
+    replaced-by-self-contained-workflows: 117
+    retired-runtime: 12
+    optional-tests-or-metadata: 3
+  delivered_disposition: retained-as-original-support
+  interpretation: >-
+    Counts describe the pre-remediation snapshot. An omitted support file is not
+    automatically a demonstrated runtime failure. Replaced means the relevant
+    purpose is covered by original instructions, not exact upstream feature parity.
+    Retired-runtime includes unsupported execution contracts even when no working
+    runtime had been delivered.
+  repository_report: docs/research/dev-studio-0.14-validation/migration.md
+  repository_inventory: docs/research/dev-studio-0.14-validation/migration.json
+
+# Historical source mapping only. These are lineage references, not live imports
+# or runtime dependencies. Current routes resolve through shared/catalog.json.
+source_mapping:
+  categories/analysis:
+    - src/bmm-skills/1-analysis/bmad-agent-analyst → analyst-agent.md
+    - src/bmm-skills/1-analysis/bmad-agent-tech-writer → tech-writer-agent.md
+    - src/bmm-skills/1-analysis/bmad-product-brief → product-brief.md
+    - src/bmm-skills/1-analysis/bmad-prfaq → prfaq.md
+    - src/bmm-skills/1-analysis/bmad-document-project → document-project.md
+    - src/bmm-skills/1-analysis/research/bmad-market-research → market-research.md
+    - src/bmm-skills/1-analysis/research/bmad-domain-research → domain-research.md
+    - src/bmm-skills/1-analysis/research/bmad-technical-research → technical-research.md
+  categories/planning:
+    - src/bmm-skills/2-plan-workflows/bmad-agent-pm → pm-agent.md
+    - src/bmm-skills/2-plan-workflows/bmad-agent-ux-designer → ux-designer-agent.md
+    - src/bmm-skills/2-plan-workflows/bmad-create-prd → create-prd.md
+    - src/bmm-skills/2-plan-workflows/bmad-create-ux-design → create-ux-design.md
+    - src/bmm-skills/2-plan-workflows/bmad-edit-prd → edit-prd.md
+    - src/bmm-skills/2-plan-workflows/bmad-prd → prd.md
+    - src/bmm-skills/2-plan-workflows/bmad-validate-prd → validate-prd.md
+  categories/architecture:
+    - src/bmm-skills/3-solutioning/bmad-agent-architect → architect-agent.md
+    - src/bmm-skills/3-solutioning/bmad-create-architecture → create-architecture.md + steps/
+    - src/bmm-skills/3-solutioning/bmad-create-epics-and-stories → create-epics-stories.md
+    - src/bmm-skills/3-solutioning/bmad-check-implementation-readiness → implementation-readiness.md
+    - src/bmm-skills/3-solutioning/bmad-generate-project-context → generate-project-context.md
+  categories/implementation:
+    - src/bmm-skills/4-implementation/bmad-agent-dev → dev-agent.md
+    - src/bmm-skills/4-implementation/bmad-dev-story → dev-story.md + checklist
+    - src/bmm-skills/4-implementation/bmad-create-story → create-story.md
+    - src/bmm-skills/4-implementation/bmad-sprint-planning → sprint-planning.md
+    - src/bmm-skills/4-implementation/bmad-sprint-status → sprint-status.md
+    - src/bmm-skills/4-implementation/bmad-code-review → code-review.md + steps/
+    - src/bmm-skills/4-implementation/bmad-quick-dev → quick-dev.md
+    - src/bmm-skills/4-implementation/bmad-correct-course → correct-course.md
+    - src/bmm-skills/4-implementation/bmad-checkpoint-preview → checkpoint-preview.md
+    - src/bmm-skills/4-implementation/bmad-investigate → investigate.md
+    - src/bmm-skills/4-implementation/bmad-qa-generate-e2e-tests → qa-e2e-tests.md
+    - src/bmm-skills/4-implementation/bmad-retrospective → retrospective.md
+  categories/utilities:
+    - src/core-skills/bmad-distillator → distillator.md
+    - src/core-skills/bmad-party-mode → party-mode.md
+    - src/core-skills/bmad-brainstorming → brainstorming.md
+    - src/core-skills/bmad-editorial-review-prose → editorial-review-prose.md
+    - src/core-skills/bmad-editorial-review-structure → editorial-review-structure.md
+    - src/core-skills/bmad-review-adversarial-general → adversarial-review.md
+    - src/core-skills/bmad-review-edge-case-hunter → edge-case-hunter.md
+    - src/core-skills/bmad-advanced-elicitation → advanced-elicitation.md
+    - src/core-skills/bmad-shard-doc → shard-doc.md
+    - src/core-skills/bmad-index-docs → index-docs.md
+    - src/core-skills/bmad-help → bmad-help.md
+    - src/core-skills/bmad-customize → customize.md

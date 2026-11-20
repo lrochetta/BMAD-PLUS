@@ -1,0 +1,20 @@
+schema_version: 1
+id: author-note-fr
+version: 1
+status: draft
+kind: author
+locale: fr-FR
+channels: [email, report]
+approved_samples: []
+observations: []
+explicit_preferences:
+  register: "Professionnel, avec la forme d’adresse établie pour ce destinataire."
+  tone: "Direct. Donner la réponse ou la décision dès le début."
+  priorities:
+    - "Situer la raison dans le travail en cours."
+    - "Nommer la personne chargée de la suite si le brief la désigne."
+glossary: []
+protected_names: []
+exceptions: []
+unresolved_questions:
+  - "Quels exemples l’auteur approuve-t-il pour ce canal ?"

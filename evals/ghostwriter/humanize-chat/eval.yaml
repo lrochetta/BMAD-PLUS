@@ -1,0 +1,31 @@
+schema_version: 1
+id: ghostwriter/humanize-chat
+pack: ghostwriter
+agent: ghostwriter-humanize
+agent_source: src/bmad-plus/skills/ghostwriter-humanize/SKILL.md
+agent_resources:
+  - src/bmad-plus/packs/pack-ghostwriter/workflows/humanize.md
+  - src/bmad-plus/packs/pack-ghostwriter/shared/editorial-contract.md
+description: Apply the French chat example and preserve an already suitable reply with French nonbreaking spacing.
+models: [claude, gpt, gemini, local]
+gates: [pr]
+replay: replay.json
+tags: [chat, humanize, french, fidelity, false-positive]
+fixture: fixture
+task:
+  prompt: |
+    Read the two unrelated French support replies in replies.json.
+    For deadline, remove the canned preamble. Keep the existing factual clause as
+    its own sentence, changing only its initial capitalization.
+    For price, the current answer already works. Keep the wording and typography.
+    Write deadline.txt and price.txt, each containing only its final reply as it
+    would appear in chat. The user asked only for the two edits.
+  allowed_writes: [deadline.txt, price.txt]
+  timeout_s: 120
+assertions:
+  - id: only-the-requested-french-copy
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}

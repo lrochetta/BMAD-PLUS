@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "kind": "maintainer-authored-replay",
+  "transcript": "Maintainer-authored offline artifact example for core/challenge-frontier. Independent checks run after application; no model behavior is measured.",
+  "files": [
+    {
+      "path": "challenge/tree.json",
+      "content": "{\n  \"decisions\": [\n    { \"id\": \"d1\", \"label\": \"Who may sign in\", \"needs\": [] },\n    { \"id\": \"d2\", \"label\": \"How members sign in\", \"needs\": [\"d1\"] },\n    { \"id\": \"d3\", \"label\": \"How long a session lasts\", \"needs\": [\"d2\"] },\n    { \"id\": \"d4\", \"label\": \"Whether members pay the yearly fee online\", \"needs\": [] },\n    { \"id\": \"d5\", \"label\": \"Which payment provider takes the fee\", \"needs\": [\"d4\"] },\n    { \"id\": \"d6\", \"label\": \"What the club keeps about former members\", \"needs\": [] },\n    { \"id\": \"d7\", \"label\": \"Web framework\", \"needs\": [] },\n    { \"id\": \"d8\", \"label\": \"Hosting\", \"needs\": [] },\n    { \"id\": \"d9\", \"label\": \"Club size (members)\", \"needs\": [] },\n    { \"id\": \"d10\", \"label\": \"Site admins\", \"needs\": [] }\n  ]\n}\n",
+      "sha256": "b3a6cb60142cee6f2375f7b742217a874cc08f1aa0155e3a1dde6a2bdf078e03"
+    },
+    {
+      "path": "challenge/rounds.md",
+      "content": "Settled before asking: d7 by project/package.json (Next.js 14), d8 by project/docs/hosting.md (Hetzner VPS), d9 and d10 by the caller (about 300 members, two volunteer admins).\n\n## Round 1\n\n1. [d1] Who may sign in: members only, or guests too?\n   Recommended: Members only, no guest accounts.\n   Why: guests add a second sign-up path and nothing in the plan needs them.\n2. [d4] Do members pay the yearly fee online?\n   Recommended: Yes, online, with the club desk as a fallback.\n   Why: the treasurer re-keys desk payments by hand today.\n3. [d6] What does the club keep about former members, and for how long?\n   Recommended: Keep name and boat history for two years, then delete.\n   Why: the history helps with insurance claims and older data has no use.\n\n## Round 2\n\n1. [d2] How do members sign in?\n   Recommended: An emailed one-time link, no passwords.\n   Why: two volunteers cannot run password resets for the whole membership.\n2. [d5] Which payment provider takes the fee?\n   Recommended: Stripe Checkout, hosted by the provider.\n   Why: no card data then touches the club's single server.\n\n## Round 3\n\n1. [d3] How long does a session last?\n   Recommended: Thirty days on the same device.\n   Why: members book about once a week and a link every visit would annoy them.\n",
+      "sha256": "7187633da749ceaced9a7472570a3d8c1708e05a3e84363bb28308fcdd9fc31b"
+    },
+    {
+      "path": "challenge/decisions.md",
+      "content": "# Decisions — members-area\n\nMembers' area for the Lac Bleu rowing club, 2026-10-20, interview.\n\n## Decisions\n\n| ID | Decision | Status | Answer | Source | Risk |\n|----|----------|--------|--------|--------|------|\n| d1 | Who may sign in | answered | Members only | user | |\n| d2 | How members sign in | defaulted | Emailed one-time link | recommendation | A member without a reachable email address cannot sign in |\n| d3 | How long a session lasts | defaulted | Thirty days on the same device | recommendation | A shorter rule from the board means unexpected sign-in prompts |\n| d4 | Whether members pay the yearly fee online | answered | Yes | user | |\n| d5 | Which payment provider takes the fee | unknown | | | The checkout cannot be built until the treasurer picks a provider |\n| d6 | What the club keeps about former members | unknown | | | Retention rules unknown: a board or legal ruling may force a data-model rewrite |\n| d7 | Web framework | answered | Next.js 14 | project/package.json | |\n| d8 | Hosting | answered | One Hetzner VPS, Debian 12 | project/docs/hosting.md | |\n| d9 | Club size (members) | answered | About 300 | caller: Atlas | |\n| d10 | Site admins | answered | Two volunteers | caller: Atlas | |\n\n## Open items\n\n- d5: the treasurer decides the provider; the fee flow in the PRD stays open until then.\n- d6: ask the board what to keep and for how long; the member data model depends on it.\n\n## Next\n\nHand over to Atlas: freeze the PRD with d5 and d6 listed as open, and build on the defaults of d2 and d3 only after the user has seen them.\n",
+      "sha256": "14c990a27df4e94e9320c5d3b6fc6eb43ba54a9237ee3db953a8fd1759e8ce0a"
+    }
+  ],
+  "bindings": {
+    "spec_sha256": "5ee6673078014290559d7c351861af8e9e224b56a232d50bb4264e8d2aceb112",
+    "fixture": {
+      "sha256": "540bf39642b30fb34b31bb74e63f6029682c90ff09387a355b70c0dd2b451e05",
+      "files": [
+        {
+          "path": "handoff.md",
+          "sha256": "187d9d93b217b0a8691cac35d568cfd8b469b103716195d73ee8b87312b2b239",
+          "size_bytes": 321
+        },
+        {
+          "path": "interview-notes.md",
+          "sha256": "2cb0963fee8093f1bc7918783192ee8a4b63629ee82d13afe23636affdcb4aa3",
+          "size_bytes": 217
+        },
+        {
+          "path": "plan.md",
+          "sha256": "0e74fc60eae0cbceacd7b6dc31b492ffb3ac975206fba43521dc09a6a18d861d",
+          "size_bytes": 291
+        },
+        {
+          "path": "project/README.md",
+          "sha256": "51f723d2d161d4f3f730a16dd3746b22afa7c298959caad06e21b7baee75045e",
+          "size_bytes": 105
+        },
+        {
+          "path": "project/docs/hosting.md",
+          "sha256": "808de335d21a79009acf371a0330fce8978adf793a76d7d04d5c2a98c06eed29",
+          "size_bytes": 143
+        },
+        {
+          "path": "project/package.json",
+          "sha256": "edd6201d36ce7d4f2583461ff2fa1c87345e824fe84a521b7c9ef6526500931a",
+          "size_bytes": 193
+        },
+        {
+          "path": "replies.md",
+          "sha256": "c823118f2d0533fd46906258211dfe0096bd04a2845b98ef28b10b3824a08246",
+          "size_bytes": 315
+        }
+      ]
+    },
+    "checks": {
+      "sha256": "47e703212a88e56f0ae6bc367632e43cb3f69437c95423f716c6690b2bc0441f",
+      "files": [
+        {
+          "path": "check.cjs",
+          "sha256": "212c952208f55980bae075ad62036935dfd9f43471107ef492e0ba0acb47e276",
+          "size_bytes": 12201
+        }
+      ]
+    },
+    "agent_resources": {
+      "sha256": "43a1ba6ee0c85d584b3cebb5addb369241132c06aaa36362eb6ba25b1e6d4214",
+      "files": [
+        {
+          "path": "src/bmad-plus/skills/bmad-plus-challenge/SKILL.md",
+          "sha256": "5e5e0f94b0ae4f86eae6e317c65fdb15402eca551e78bfbd149cf2e0926837be",
+          "size_bytes": 8612
+        }
+      ]
+    }
+  },
+  "review_note": "Authored the offline artifact example for the challenge skill: the tree, three rounds and the decisions log of a members-area plan called by Atlas; no model was run.",
+  "sealed_at": "2026-10-19T22:19:37.782558+00:00"
+}

@@ -1,0 +1,20 @@
+schema_version: 1
+id: customer-reply-pt-br
+version: 1
+status: draft
+kind: brand
+locale: pt-BR
+channels: [email, ui-copy]
+approved_samples: []
+observations: []
+explicit_preferences:
+  register: "Cordial e profissional. Usar o tratamento adotado no canal."
+  tone: "Responder à dúvida do cliente na primeira frase."
+  priorities:
+    - "Explicar quem pode agir e o que a pessoa precisa ter em mãos."
+    - "Manter as condições de cada prazo e de cada promessa."
+glossary: []
+protected_names: []
+exceptions: []
+unresolved_questions:
+  - "Que termos a equipe usa no produto e no atendimento?"

@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "kind": "maintainer-authored-replay",
+  "transcript": "Offline authored review of five fictional booking edits. The grader checks semantic issue coverage and exact source and candidate evidence. No model or external fact source was used.",
+  "files": [
+    {
+      "path": "review.json",
+      "content": "{\n  \"external_verification\": \"not-performed\",\n  \"reviews\": [\n    {\n      \"id\": \"merle\",\n      \"unit\": \"eligibility\",\n      \"decision\": \"revise\",\n      \"findings\": [\n        {\n          \"code\": \"eligibility-bound\",\n          \"source_quote\": \"Seuls les sites qui gèrent plus de 18 ateliers peuvent déposer un dossier.\",\n          \"candidate_quote\": \"Les sites qui gèrent jusqu’à 18 ateliers peuvent déposer un dossier.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"chene\",\n      \"unit\": \"timing\",\n      \"decision\": \"keep\",\n      \"findings\": []\n    },\n    {\n      \"id\": \"silex\",\n      \"unit\": \"price\",\n      \"decision\": \"revise\",\n      \"findings\": [\n        {\n          \"code\": \"unsupported-price\",\n          \"source_quote\": \"Le dépôt du dossier est gratuit. Le tarif de l’intervention reste à fixer.\",\n          \"candidate_quote\": \"Le dépôt du dossier et l’intervention sont gratuits.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"roseau\",\n      \"unit\": \"key\",\n      \"decision\": \"revise\",\n      \"findings\": [\n        {\n          \"code\": \"protected-variable\",\n          \"source_quote\": \"Le formulaire attend la variable {atelier_id}.\",\n          \"candidate_quote\": \"Renseignez la variable {site_id} dans le formulaire.\"\n        }\n      ]\n    },\n    {\n      \"id\": \"lin\",\n      \"unit\": \"timing\",\n      \"decision\": \"revise\",\n      \"findings\": [\n        {\n          \"code\": \"commitment-strength\",\n          \"source_quote\": \"Après réception du dossier complet, le secrétariat peut proposer un créneau sous 7 jours.\",\n          \"candidate_quote\": \"Le secrétariat propose un créneau sous 7 jours, même si le dossier est incomplet.\"\n        },\n        {\n          \"code\": \"eligibility-condition\",\n          \"source_quote\": \"Après réception du dossier complet, le secrétariat peut proposer un créneau sous 7 jours.\",\n          \"candidate_quote\": \"Le secrétariat propose un créneau sous 7 jours, même si le dossier est incomplet.\"\n        }\n      ]\n    }\n  ]\n}\n",
+      "sha256": "849b8dd2c315a332f06c01cb92f0653363b757e830a711990df9e1916e5bf4cc"
+    }
+  ],
+  "bindings": {
+    "spec_sha256": "bb9924826a265ddab98a0c698ddbea88112d8592b6bc83b7b663ebb3b267fe7c",
+    "fixture": {
+      "sha256": "7988e672f9edcc0c020f0b088cde172c44554eea1dbda97c7c994aa8b9d22340",
+      "files": [
+        {
+          "path": "candidates.json",
+          "sha256": "6a3350d55c61955d55429bb8561679c03f228cdcfc85819865704898af448cb0",
+          "size_bytes": 636
+        },
+        {
+          "path": "source.json",
+          "sha256": "78708c98a5f0156d068357a9d800cc1cd00dcc1f959ab87dd76206720e0aea66",
+          "size_bytes": 362
+        }
+      ]
+    },
+    "checks": {
+      "sha256": "3a633384b0ebdae548afb4abcd6f18448230ff237d98d32f024b09239f0c5a48",
+      "files": [
+        {
+          "path": "check.cjs",
+          "sha256": "14ff7df774c2a806934ae6dde39bccced116989cc18a8a6488e3ce10456bfd21",
+          "size_bytes": 2289
+        }
+      ]
+    },
+    "agent_resources": {
+      "sha256": "5183d1a37bc312a28f50bbc499ce2020a714d1edb8255df60bea21146059faf0",
+      "files": [
+        {
+          "path": "src/bmad-plus/skills/ghostwriter-verify/SKILL.md",
+          "sha256": "0438c158707addf01c8652d811341a1fa6dcf03716d186cc2b6d49e063a34d15",
+          "size_bytes": 2635
+        },
+        {
+          "path": "src/bmad-plus/packs/pack-ghostwriter/shared/editorial-contract.md",
+          "sha256": "97bf4e154111b75f7338147f89d650e6be83b09131788ce9aac8b143d5da3df0",
+          "size_bytes": 6016
+        },
+        {
+          "path": "src/bmad-plus/packs/pack-ghostwriter/workflows/agent-output-review.md",
+          "sha256": "e08680838fbf20aa0e166ce5264de810d74795ba1a5aaac18f10c8a9b7fa4998",
+          "size_bytes": 2583
+        }
+      ]
+    }
+  },
+  "review_note": "Reviewed source clauses and five candidate decisions, evidence anchors, the verification skill, editorial contract, and review workflow. An authored artifact replay cannot establish writing quality.",
+  "sealed_at": "2026-11-19T22:04:15.643547+00:00"
+}

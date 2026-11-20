@@ -1,0 +1,12 @@
+{
+  "id": "atelier-design-design-checklist",
+  "video": "atelier-design",
+  "scene": "design-checklist",
+  "type": "terminal",
+  "description": "The pre-flight checklist file of the installed design skill (.agents/skills/design/references/80-preflight.md, the file that STEP 3 of SKILL.md requires before delivery): its foundations and accessibility items, scrolled slowly.",
+  "transcript": "checklist",
+  "seed": 41,
+  "minDuration": 7,
+  "steps": [{ "ref": 0, "type": { "max": 1.6 }, "lineInterval": 0.2 }],
+  "notes": ["Lines 7 to 28 of the file are shown (sed -n '7,28p'); the file has 78 lines."]
+}

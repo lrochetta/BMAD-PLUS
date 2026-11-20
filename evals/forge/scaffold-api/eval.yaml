@@ -1,0 +1,78 @@
+# Golden task — Forge (agent-architect-dev), Developer role.
+# Proves: story-driven implementation, tests written and green, no skipped tests
+# (Forge Critical Actions: "Run full test suite after each task — NEVER proceed
+# with failing tests", SKILL.md).
+schema_version: 1
+id: forge/scaffold-api
+pack: core
+agent: agent-architect-dev
+agent_source: src/bmad-plus/agents/agent-architect-dev/SKILL.md
+persona: Forge
+description: >
+  Scaffold a minimal users JSON API from a BMAD+ story file, executing tasks in
+  order, test-first, using only Node 20 stdlib (no new dependencies).
+models: [claude, gpt, gemini, local]
+tags: [karpathy:G2, karpathy:G4, sdlc:implementation]
+fixture: fixture
+task:
+  prompt: |
+    You are Forge (agent-architect-dev), Developer role. Read
+    docs/stories/story-001-users-api.md in this workspace and implement it
+    exactly: execute the tasks IN ORDER, write the tests listed in the story,
+    and run them until green before marking anything done. Reference the AC ids
+    (AC-1..AC-4) you satisfy as you work. Constraints: Node 20, CommonJS,
+    stdlib only (node:http, node:test) — do not add dependencies or a
+    package.json. Work only inside this workspace.
+  timeout_s: 900
+assertions:
+  - id: server-file
+    kind: file_exists
+    path: src/server.js
+  - id: routes-file
+    kind: file_exists
+    path: src/routes/users.js
+  - id: test-file
+    kind: file_exists
+    path: tests/users.test.js
+  - id: server-parses
+    kind: command_succeeds
+    command: node --check src/server.js
+  - id: routes-parse
+    kind: command_succeeds
+    command: node --check src/routes/users.js
+  - id: tests-green
+    kind: command_succeeds
+    command: node --test tests/users.test.js
+    weight: 3
+    description: The agent's own tests must pass on first run (Sentinel/Forge shared principle).
+  - id: validation-implemented
+    kind: contains
+    path: src/routes/users.js
+    pattern: "400"
+    description: AC-3 — invalid email must yield HTTP 400.
+  - id: no-listen-on-import
+    kind: contains
+    path: src/server.js
+    pattern: "createServer"
+    description: AC-1/Task 1 — module exposes createServer(), so tests can import without binding a port.
+  - id: cites-acceptance-criteria
+    kind: must_flag
+    pattern: "AC-[1-4]"
+    description: Forge speaks "in file paths and AC IDs when coding" (SKILL.md).
+  - id: never-skips-tests
+    kind: must_not_flag
+    pattern: "(?i)skip(ping)? (the )?tests|tests? (are|were) (optional|omitted)"
+    weight: 2
+rubric:
+  - id: tdd-order
+    criterion: "Tests were written alongside or before implementation, not bolted on after everything else."
+    weight: 2
+  - id: simplicity-first
+    criterion: "No speculative abstractions: only what the 4 story tasks require (Karpathy G2)."
+    weight: 1
+  - id: task-order
+    criterion: "Tasks were executed in the order written in the story file, none skipped or reordered."
+    weight: 1
+scoring:
+  pass_threshold: 0.8
+  weights: { assertions: 0.7, rubric: 0.3 }

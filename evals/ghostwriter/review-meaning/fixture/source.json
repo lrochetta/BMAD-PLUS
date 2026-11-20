@@ -1,0 +1,6 @@
+{
+  "eligibility": "Seuls les sites qui gèrent plus de 18 ateliers peuvent déposer un dossier.",
+  "timing": "Après réception du dossier complet, le secrétariat peut proposer un créneau sous 7 jours.",
+  "key": "Le formulaire attend la variable {atelier_id}.",
+  "price": "Le dépôt du dossier est gratuit. Le tarif de l’intervention reste à fixer."
+}

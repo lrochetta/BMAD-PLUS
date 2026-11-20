@@ -1,0 +1,39 @@
+id,category,path,description
+product-brief,analysis,categories/analysis/product-brief.md,Define the product problem and first useful scope
+prfaq,analysis,categories/analysis/prfaq.md,Challenge a proposed launch narrative and its assumptions
+document-project,analysis,categories/analysis/document-project.md,Document an existing project from inspected evidence
+market-research,analysis,categories/analysis/market-research.md,Compare markets and alternatives using sources
+domain-research,analysis,categories/analysis/domain-research.md,Map domain concepts and constraints
+technical-research,analysis,categories/analysis/technical-research.md,Assess feasibility and choose a next check
+create-prd,planning,categories/planning/create-prd.md,Write testable product requirements
+prd,planning,categories/planning/prd.md,Select PRD creation editing or validation
+edit-prd,planning,categories/planning/edit-prd.md,Apply traceable requirements changes
+validate-prd,planning,categories/planning/validate-prd.md,Inspect requirements and report supported findings
+create-ux-design,planning,categories/planning/create-ux-design.md,Describe user flows and interaction acceptance
+create-architecture,architecture,categories/architecture/create-architecture.md,Record technical boundaries and decisions
+create-epics-stories,architecture,categories/architecture/create-epics-stories.md,Define increments and implementable stories
+implementation-readiness,architecture,categories/architecture/implementation-readiness.md,Check planning alignment before implementation
+generate-project-context,architecture,categories/architecture/generate-project-context.md,Extract current project constraints with sources
+sprint-planning,implementation,categories/implementation/sprint-planning.md,Plan scoped work and dependencies
+create-story,implementation,categories/implementation/create-story.md,Prepare a story with context and acceptance criteria
+dev-story,implementation,categories/implementation/dev-story.md,Implement and verify a story
+code-review,implementation,categories/implementation/code-review.md,Review a change against evidence and intent
+quick-dev,implementation,categories/implementation/quick-dev.md,Deliver a bounded change with proportionate checks
+sprint-status,implementation,categories/implementation/sprint-status.md,Report actual progress and blockers
+retrospective,implementation,categories/implementation/retrospective.md,Turn completed work into actionable lessons
+correct-course,implementation,categories/implementation/correct-course.md,Respond to a material project change
+investigate,implementation,categories/implementation/investigate.md,Test hypotheses and collect reproduction evidence
+checkpoint-preview,implementation,categories/implementation/checkpoint-preview.md,Explain a concrete change for review
+qa-e2e-tests,implementation,categories/implementation/qa-e2e-tests.md,Build relevant automated checks and run them
+distillator,utilities,categories/utilities/distillator.md,Create a compact brief with sources and omissions
+party-mode,utilities,categories/utilities/party-mode.md,Compare relevant perspectives on a decision
+brainstorming,utilities,categories/utilities/brainstorming.md,Explore distinct approaches and choose an experiment
+adversarial-review,utilities,categories/utilities/adversarial-review.md,Challenge consequential claims with evidence
+edge-case-hunter,utilities,categories/utilities/edge-case-hunter.md,Derive observable boundary and failure scenarios
+editorial-review-prose,utilities,categories/utilities/editorial-review-prose.md,Improve wording while preserving meaning
+editorial-review-structure,utilities,categories/utilities/editorial-review-structure.md,Organize documents around a reader task
+advanced-elicitation,utilities,categories/utilities/advanced-elicitation.md,Resolve uncertainties affecting the next decision
+shard-doc,utilities,categories/utilities/shard-doc.md,Split a document and verify source coverage
+index-docs,utilities,categories/utilities/index-docs.md,Index inspected documents with working local links
+bmad-help,utilities,categories/utilities/bmad-help.md,Explain available routes and the next useful step
+customize,utilities,categories/utilities/customize.md,Adapt supported configuration or explicit instructions

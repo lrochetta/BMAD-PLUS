@@ -1,0 +1,42 @@
+{
+  "schema": "bmad-plus/screencast-transcript/2",
+  "id": "cs-review",
+  "capturedAt": "2026-10-19T11:32:57.673Z",
+  "environment": {
+    "container": "node:20-bookworm",
+    "os": "Debian GNU/Linux 12 (bookworm)",
+    "node": "v20.20.2",
+    "bmadPlus": "0.23.0",
+    "repoCommit": "0.23.0",
+    "project": "/home/dev/app",
+    "note": "The CLI ran from the published package bmad-plus@0.23.0 (npm registry), installed one level above the throwaway project."
+  },
+  "setup": [
+    "npm install --ignore-scripts <bmad-plus tarball> (one level above the project)",
+    "git init -q",
+    "npx bmad-plus install --yes --lang en --packs core,design,memory --tools claude-code"
+  ],
+  "prepared": [
+    "three pages written under site/ (about, pricing, contact), one commit named baseline, then one line appended to site/contact/index.md"
+  ],
+  "hiddenSteps": [],
+  "redactions": [],
+  "cleanup": [
+    "plain commands: ANSI escape sequences and carriage returns removed, trailing spaces trimmed, \"npm notice run\" lines dropped",
+    "interactive commands: raw pty output stored untouched"
+  ],
+  "steps": [
+    {
+      "cmd": "npx bmad-plus review scope site --workspace --base HEAD",
+      "output": "/home/dev/app/_bmad-output/review/site/scope.json\n1 file(s) to review, 1 changed lines, 1 unit(s) — scope 8e0149923ccd\nchecklist: /home/dev/app/_bmad-output/review/site/checklist.md\nplan: medium effort, 2 pass(es), refutation pass\nEvery selected file must end in coverage.json as completed, failed or waived (with a reason).",
+      "exitCode": 0,
+      "ms": 1222
+    },
+    {
+      "cmd": "npx bmad-plus review gate site; echo \"exit code: $?\"",
+      "output": "site: incomplete — coverage 0/1 completed (0 waived), 0 open finding(s), 0 refuted\n  - no coverage.json: which files were reviewed is not established\n  - no findings.json: write it even when there is nothing to report\n  - 1 selected file(s) never accounted for: site/contact/index.md\nexit code: 2",
+      "exitCode": 0,
+      "ms": 1111
+    }
+  ]
+}

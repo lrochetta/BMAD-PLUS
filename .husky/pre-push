@@ -1,0 +1,15 @@
+# A v* tag reaching the remote publishes BMAD+. That push waits for a human acceptance
+# run played on this machine: the recipes stay local (recettes/, never committed), so
+# this is the only place their evidence can be read. Ordinary pushes are not affected.
+tags=""
+while read -r local_ref local_oid remote_ref remote_oid; do
+  [ "$local_oid" = "0000000000000000000000000000000000000000" ] && continue
+  case "$remote_ref" in
+    refs/tags/v*) tags="$tags ${remote_ref#refs/tags/}" ;;
+  esac
+done
+[ -z "$tags" ] && exit 0
+
+echo "Release tag push:$tags — checking the human acceptance run in recettes/"
+npm run --silent uat:spec
+npm run --silent uat:gate

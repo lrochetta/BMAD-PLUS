@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "site-pages",
+  "kind": "fanout",
+  "title": "One sub-agent per page of the site",
+  "units": { "source": "input" },
+  "brief": { "template": "briefs/page.md", "context": [] },
+  "answer": {
+    "required": ["id", "done", "words"],
+    "fields": {
+      "done": { "type": "boolean" },
+      "words": { "type": "integer", "min": 0 },
+      "note": { "type": "string", "max": 200 }
+    }
+  },
+  "tally": { "rate": "done", "numbers": ["words"] },
+  "disclosure": "Each page was written by a separate sub-agent from the same brief; read them together before publishing."
+}

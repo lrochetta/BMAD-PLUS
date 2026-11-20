@@ -1,0 +1,52 @@
+schema_version: 1
+id: core/challenge-frontier
+pack: core
+agent: bmad-plus-challenge
+agent_source: src/bmad-plus/skills/bmad-plus-challenge/SKILL.md
+description: Stress-test a plan called by another agent; ask the frontier in rounds, never a settled fact, and log three statuses.
+models: [claude, gpt, gemini, local]
+gates: [pr]
+replay: replay.json
+tags: [challenge, decision-tree, frontier, caller-handoff]
+fixture: fixture
+task:
+  prompt: |
+    Run the challenge session on plan.md as the skill describes, offline and in
+    one go. handoff.md is the request of the calling agent. The project files are
+    under project/. replies.md holds what the user answers, by topic; a topic it
+    does not list gets "I don't know". Apply each reply only after the round that
+    asked it.
+
+    Write three files in challenge/, and nothing else:
+    - tree.json: {"decisions": [{"id": "d1", "label": "...", "needs": ["d2"]}]},
+      every choice the plan depends on, including those settled from the project
+      files or by the caller. "needs" lists the ids that must be settled first.
+    - rounds.md: each round as you would send it to the user. A "## Round N"
+      heading, then numbered questions of the form "1. [d3] The question?"
+      followed by the lines "   Recommended: ..." and "   Why: ...".
+    - decisions.md: the log the skill writes once the user confirms the end, in
+      the layout the skill defines. Give a project file as its path, and what the
+      caller passed with the source "caller: Atlas".
+
+    Ask only what the files and the caller leave open. Do not edit anything else.
+  allowed_writes: [challenge/]
+  timeout_s: 300
+assertions:
+  - id: frontier-order
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}', order]
+  - id: recommendation-on-every-question
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}', recommend]
+  - id: repository-facts-not-asked
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}', repository]
+  - id: caller-facts-not-rediscovered
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}', caller]
+  - id: three-statuses-in-decisions-log
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}', statuses]
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}

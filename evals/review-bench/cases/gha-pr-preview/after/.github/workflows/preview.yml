@@ -1,0 +1,25 @@
+name: Preview
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Build and publish the preview
+        run: npm ci && npm run build && npm run publish-preview
+        env:
+          PREVIEW_TOKEN: ${{ secrets.PREVIEW_TOKEN }}
+      - name: Announce
+        run: echo "Preview ready for ${{ github.event.pull_request.title }}"

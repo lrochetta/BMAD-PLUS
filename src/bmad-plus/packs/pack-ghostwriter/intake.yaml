@@ -1,0 +1,73 @@
+schema_version: 1
+id: ghostwriter-brief
+pack: ghostwriter
+title: Editorial brief
+language: user
+max_per_message: 3
+sections:
+  - id: purpose
+    title: Assignment and reader
+    questions:
+      - id: workflow
+        ask: What editorial work should this piece receive?
+        kind: choice
+        choices: [voice-profile, draft, humanize, improve, localize, agent-output-review]
+        must_have: true
+        risk_if_unknown: A style pass could change the argument or a review could edit the draft.
+        feeds: [brief.md#assignment]
+      - id: reader
+        ask: Who will read this, and what context do they already have?
+        kind: text
+        feeds: [brief.md#reader]
+      - id: reader_task
+        ask: What should the reader understand, decide or do after reading?
+        kind: text
+        must_have: true
+        risk_if_unknown: The edit may hide the decision or instruction that matters most.
+        feeds: [brief.md#reader-task]
+  - id: delivery
+    title: Voice and destination
+    questions:
+      - id: locale
+        ask: Which language and regional conventions should the finished piece use?
+        kind: text
+        feeds: [brief.md#locale]
+      - id: content_type
+        ask: Where will this text appear?
+        kind: choice
+        choices: [chat, email, article, landing-page, social-post, documentation, report, ui-copy, script, fiction, other]
+        feeds: [brief.md#channel]
+      - id: voice_profile
+        ask: Which approved profile or samples may guide the voice?
+        kind: text
+        feeds: [brief.md#voice]
+      - id: length_constraint
+        ask: Is there a specific length, duration or space limit?
+        kind: text
+        feeds: [brief.md#constraints]
+      - id: call_to_action
+        ask: Which existing or explicitly requested action should the reader take?
+        kind: text
+        feeds: [brief.md#action]
+  - id: boundaries
+    title: Sources, protection and scope
+    questions:
+      - id: source_paths
+        ask: Which supplied passages, files or references may support factual claims?
+        kind: list
+        feeds: [brief.md#sources]
+      - id: protected_content
+        ask: Which additional wording, fields, glossary terms or quotation spans must remain exact?
+        kind: list
+        feeds: [brief.md#protected]
+      - id: edit_depth
+        ask: How far may the edits go within the selected workflow?
+        kind: text
+        after: [workflow]
+        feeds: [brief.md#scope]
+      - id: output_mode
+        ask: How should the result be returned?
+        kind: choice
+        choices: [copy-only, copy-and-report, review-only]
+        after: [workflow]
+        feeds: [brief.md#delivery]

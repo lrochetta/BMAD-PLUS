@@ -1,0 +1,33 @@
+{
+  "schema": "bmad-plus/review-bench-case/1",
+  "id": "gha-pr-preview",
+  "language": "github-actions",
+  "summary": "A workflow publishes a preview build for every pull request.",
+  "message": "Publish a preview for every pull request",
+  "defects": [
+    {
+      "id": "gha-pr-preview/untrusted-checkout",
+      "path": ".github/workflows/preview.yml",
+      "quote": "ref: ${{ github.event.pull_request.head.sha }}",
+      "categories": ["security"],
+      "severity": "critical",
+      "why": "pull_request_target runs with the base repository's secrets; checking out the pull request head and running its npm scripts hands PREVIEW_TOKEN to any fork."
+    },
+    {
+      "id": "gha-pr-preview/title-injection",
+      "path": ".github/workflows/preview.yml",
+      "quote": "run: echo \"Preview ready for ${{ github.event.pull_request.title }}\"",
+      "categories": ["security"],
+      "severity": "high",
+      "why": "The title is pasted into the shell script before it runs; a title such as \"; curl … | sh #\" executes commands. It belongs in an environment variable."
+    }
+  ],
+  "decoys": [
+    {
+      "id": "gha-pr-preview/number-in-group",
+      "path": ".github/workflows/preview.yml",
+      "quote": "group: preview-${{ github.event.pull_request.number }}",
+      "why": "The expression is a concurrency key, not a script, and the pull request number is an integer: nothing is executed or injectable here."
+    }
+  ]
+}

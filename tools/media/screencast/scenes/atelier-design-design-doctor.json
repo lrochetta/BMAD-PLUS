@@ -1,0 +1,17 @@
+{
+  "id": "atelier-design-design-doctor",
+  "video": "atelier-design",
+  "scene": "design-doctor",
+  "type": "terminal",
+  "description": "bmad-plus doctor on a project with the Core and Design packs installed: the Health Report, 87/87 checks passed, and the closing 'Installation checks passed' note.",
+  "transcript": "doctor-design",
+  "seed": 42,
+  "minDuration": 6,
+  "steps": [
+    {
+      "ref": 0,
+      "lineInterval": 0.075,
+      "focus": [{ "match": "87/87 checks passed", "zoom": 1.5, "hold": 1.2 }]
+    }
+  ]
+}

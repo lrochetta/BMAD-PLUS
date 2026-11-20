@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Invoices — Ledgerly</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="page-header">
+        <h1>Invoices</h1>
+        <button class="btn" type="button">New invoice</button>
+      </header>
+
+      <div class="toolbar">
+        <label for="filter">Filter by client</label>
+        <input id="filter" type="search" name="filter" placeholder="Client name" />
+      </div>
+
+      <section class="card" aria-labelledby="list-title">
+        <h2 id="list-title" class="status">Open invoices</h2>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Number</th>
+              <th scope="col">Client</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Due</th>
+              <th scope="col">Status</th>
+              <th scope="col"><span class="status">Actions</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="overdue">
+              <td>INV-0041</td>
+              <td>Marlowe Studio</td>
+              <td>1 250,00 €</td>
+              <td>2026-09-30</td>
+              <td>Overdue</td>
+              <td>
+                <button class="btn" type="button">Send reminder</button>
+              </td>
+            </tr>
+            <tr>
+              <td>INV-0042</td>
+              <td>Harbor &amp; Finch</td>
+              <td>480,00 €</td>
+              <td>2026-10-24</td>
+              <td>Sent</td>
+              <td>
+                <button class="btn" type="button">Send reminder</button>
+              </td>
+            </tr>
+            <tr>
+              <td>INV-0043</td>
+              <td>Draft</td>
+              <td>0,00 €</td>
+              <td>—</td>
+              <td>Draft</td>
+              <td>
+                <button class="icon-btn" type="button">
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16">
+                    <path d="M3 4h10M6 4V2h4v2M5 4l1 10h4l1-10" fill="none" stroke="currentColor" stroke-width="1.5" />
+                  </svg>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="hint">Amounts are shown in the currency of each invoice.</p>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+# The design read as an intake (docs/specs/core-orchestration.md §4). Atelier asks these
+# before any design work; the rendered brief carries every answer with its status and
+# feeds the design skill's STEP 0 (surface, audience, aesthetic family, dials).
+# Validated by tools/build/intake-contract.js at build time and by `bmad-plus intake check`.
+schema_version: 1
+id: design-read
+pack: design
+title: Design read
+language: user
+max_per_message: 6
+sections:
+  - id: surface
+    title: What is being built
+    questions:
+      - id: surface_kind
+        ask: Which surface is this? A marketing landing page, a dashboard, a data table, a form, an auth or onboarding flow, a mobile screen, an email, a chat or AI surface, a checkout, a settings page, or something else?
+        kind: choice
+        choices: [landing, dashboard, table, form, auth, onboarding, mobile, email, ai-chat, checkout, settings, other]
+        must_have: true
+        feeds: [brief.md#surface]
+        risk_if_unknown: The wrong reference modules load and the result is a generic template that fits no surface.
+
+  - id: audience
+    title: Who and why
+    questions:
+      - id: audience
+        ask: Who uses it, and in what situation (device, time pressure, expertise, frequency)?
+        kind: text
+        must_have: true
+        feeds: [brief.md#audience]
+        risk_if_unknown: Density, tone and the size of touch targets are guessed instead of chosen; the page serves nobody in particular.
+      - id: job
+        ask: What is the one job this page must get done, and how will you know it did?
+        kind: text
+        must_have: true
+        feeds: [brief.md#job]
+        risk_if_unknown: There is no goal to review against, so hierarchy and the primary action cannot be judged, only decorated.
+
+  - id: assets
+    title: Existing assets
+    questions:
+      - id: brand_assets
+        ask: Which brand assets exist already? None, a partial set (a logo and a colour or two), or a full kit (logo, palette, type, voice)?
+        kind: choice
+        choices: [none, partial, full]
+        feeds: [brief.md#brand]
+      - id: design_system
+        ask: Is a design system or component library already in use?
+        kind: choice
+        choices: [none, shadcn, radix, mantine, material, fluent, carbon, polaris, other]
+        default: none
+        feeds: [brief.md#design-system]
+
+  - id: direction
+    title: Direction
+    questions:
+      - id: aesthetic_family
+        ask: Does the brief imply an aesthetic family? Minimalist, brutalist, soft editorial, premium dense, or none in particular?
+        kind: choice
+        choices: [minimalist, brutalist, soft-editorial, premium-dense, none]
+        default: none
+        feeds: [brief.md#dials]
+      # The three dials carry no default on purpose: a dial the user leaves open is set by
+      # the design router from the surface, and the brief records that it was inferred.
+      - id: variance
+        ask: Layout variance, from 1 (symmetric and safe) to 10 (asymmetric and bold)? Leave it open and Atelier sets it from the surface.
+        kind: number
+        min: 1
+        max: 10
+        feeds: [brief.md#dials]
+      - id: motion
+        ask: Motion, from 1 (static) to 10 (choreographed)? Leave it open and Atelier sets it from the surface.
+        kind: number
+        min: 1
+        max: 10
+        feeds: [brief.md#dials]
+      - id: density
+        ask: Density, from 1 (gallery-sparse) to 10 (cockpit-packed)? Leave it open and Atelier sets it from the surface.
+        kind: number
+        min: 1
+        max: 10
+        feeds: [brief.md#dials]
+
+  - id: constraints
+    title: Constraints
+    questions:
+      - id: stack
+        ask: Which stack renders it (framework, CSS approach, build)? Leave it open when the project already shows it; Atelier reads the stack from the repository and records it as inferred.
+        kind: text
+        feeds: [brief.md#stack]
+      - id: accessibility_target
+        ask: Which WCAG conformance level is the target, AA or AAA?
+        kind: choice
+        choices: [AA, AAA]
+        default: AA
+        feeds: [brief.md#accessibility]
+      - id: languages
+        ask: Which languages must it serve, and is a right-to-left script among them?
+        kind: text
+        default: one language, LTR
+        feeds: [brief.md#languages]
+      - id: required_states
+        ask: Which states must be designed beyond the happy path (empty, loading, error, no results, offline, partial permission)? List them.
+        kind: list
+        feeds: [brief.md#states]

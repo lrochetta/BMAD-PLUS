@@ -1,0 +1,51 @@
+{
+  "schema": "bmad-plus/screencast-transcript/2",
+  "id": "intake",
+  "capturedAt": "2026-10-18T20:21:35.866Z",
+  "environment": {
+    "container": "node:20-bookworm",
+    "os": "Debian GNU/Linux 12 (bookworm)",
+    "node": "v20.20.2",
+    "bmadPlus": "0.23.0",
+    "repoCommit": "e040df7",
+    "project": "/home/dev/app",
+    "note": "The CLI ran from the tarball made by `npm pack` on this checkout, installed one level above the throwaway project."
+  },
+  "setup": [
+    "npm install --ignore-scripts <bmad-plus tarball> (one level above the project)",
+    "git init -q",
+    "npx bmad-plus install --yes --lang en --packs core,design --tools claude-code"
+  ],
+  "hiddenSteps": [],
+  "redactions": [],
+  "cleanup": [
+    "plain commands: ANSI escape sequences and carriage returns removed, trailing spaces trimmed, \"npm notice run\" lines dropped",
+    "interactive commands: raw pty output stored untouched"
+  ],
+  "steps": [
+    {
+      "cmd": "bmad-plus intake plan --intake .agents/skills/pack-design/intake.yaml --answers _bmad-output/design/intake.json",
+      "output": "design-read (design): not ready — 0 answered, 0 defaulted, 0 unknown, 13 not asked yet.\nMust-haves still open: surface_kind, audience, job\nAsk next (at most 6 per message):\n  - surface_kind [choice] Which surface is this? A marketing landing page, a dashboard, a data table, a form, an auth or onboarding flow, a mobile screen, an email, a chat or AI surface, a checkout, a settings page, or something else? (must-have; choices: landing, dashboard, table, form, auth, onboarding, mobile, email, ai-chat, checkout, settings, other)\n  - audience [text] Who uses it, and in what situation (device, time pressure, expertise, frequency)? (must-have)\n  - job [text] What is the one job this page must get done, and how will you know it did? (must-have)\n  - brand_assets [choice] Which brand assets exist already? None, a partial set (a logo and a colour or two), or a full kit (logo, palette, type, voice)? (choices: none, partial, full)\n  - design_system [choice] Is a design system or component library already in use? (choices: none, shadcn, radix, mantine, material, fluent, carbon, polaris, other; default: \"none\")\n  - aesthetic_family [choice] Does the brief imply an aesthetic family? Minimalist, brutalist, soft editorial, premium dense, or none in particular? (choices: minimalist, brutalist, soft-editorial, premium-dense, none; default: \"none\")",
+      "exitCode": 2,
+      "ms": 246
+    },
+    {
+      "cmd": "bmad-plus intake record --intake .agents/skills/pack-design/intake.yaml --answers _bmad-output/design/intake.json --set surface_kind=dashboard --set \"audience=Accountants in a practice, on a desktop, at month end\" --set job=UNKNOWN --default design_system",
+      "output": "Recorded surface_kind, audience, job, design_system in _bmad-output/design/intake.json.\ndesign-read (design): ready — 2 answered, 1 defaulted, 1 unknown, 9 not asked yet.\nAsk next (at most 6 per message):\n  - brand_assets [choice] Which brand assets exist already? None, a partial set (a logo and a colour or two), or a full kit (logo, palette, type, voice)? (choices: none, partial, full)\n  - aesthetic_family [choice] Does the brief imply an aesthetic family? Minimalist, brutalist, soft editorial, premium dense, or none in particular? (choices: minimalist, brutalist, soft-editorial, premium-dense, none; default: \"none\")\n  - variance [number] Layout variance, from 1 (symmetric and safe) to 10 (asymmetric and bold)? Leave it open and Atelier sets it from the surface.\n  - motion [number] Motion, from 1 (static) to 10 (choreographed)? Leave it open and Atelier sets it from the surface.\n  - density [number] Density, from 1 (gallery-sparse) to 10 (cockpit-packed)? Leave it open and Atelier sets it from the surface.\n  - stack [text] Which stack renders it (framework, CSS approach, build)? Leave it open when the project already shows it; Atelier reads the stack from the repository and records it as inferred.\nUnknown: job — risk: There is no goal to review against, so hierarchy and the primary action cannot be judged, only decorated.",
+      "exitCode": 0,
+      "ms": 378
+    },
+    {
+      "cmd": "bmad-plus intake render --intake .agents/skills/pack-design/intake.yaml --answers _bmad-output/design/intake.json --out _bmad-output/design/brief.md",
+      "output": "Brief written to _bmad-output/design/brief.md (3238 bytes); the intake is ready.",
+      "exitCode": 0,
+      "ms": 325,
+      "files": [
+        {
+          "path": "_bmad-output/design/brief.md",
+          "content": "# Design read\n<!-- owned by bmad-plus intake design-read; written by bmad-plus intake render, do not edit -->\n\nIntake `design-read` of pack `design` — 2 answered, 1 defaulted, 1 unknown, 9 not asked yet. Ready.\n\n## What is being built\n\n### surface_kind (must-have)\n\nWhich surface is this? A marketing landing page, a dashboard, a data table, a form, an auth or onboarding flow, a mobile screen, an email, a chat or AI surface, a checkout, a settings page, or something else?\n\nAnswer:\n    dashboard\nFeeds: brief.md#surface\n\n## Who and why\n\n### audience (must-have)\n\nWho uses it, and in what situation (device, time pressure, expertise, frequency)?\n\nAnswer:\n    Accountants in a practice, on a desktop, at month end\nFeeds: brief.md#audience\n\n### job (must-have)\n\nWhat is the one job this page must get done, and how will you know it did?\n\nAnswer: unknown — risk: There is no goal to review against, so hierarchy and the primary action cannot be judged, only decorated.\nFeeds: brief.md#job\n\n## Existing assets\n\n### brand_assets\n\nWhich brand assets exist already? None, a partial set (a logo and a colour or two), or a full kit (logo, palette, type, voice)?\n\nAnswer: not asked yet.\nFeeds: brief.md#brand\n\n### design_system\n\nIs a design system or component library already in use?\n\nAnswer (proposed default, not confirmed by the user):\n    none\nFeeds: brief.md#design-system\n\n## Direction\n\n### aesthetic_family\n\nDoes the brief imply an aesthetic family? Minimalist, brutalist, soft editorial, premium dense, or none in particular?\n\nAnswer: not asked yet.\nFeeds: brief.md#dials\n\n### variance\n\nLayout variance, from 1 (symmetric and safe) to 10 (asymmetric and bold)? Leave it open and Atelier sets it from the surface.\n\nAnswer: not asked yet.\nFeeds: brief.md#dials\n\n### motion\n\nMotion, from 1 (static) to 10 (choreographed)? Leave it open and Atelier sets it from the surface.\n\nAnswer: not asked yet.\nFeeds: brief.md#dials\n\n### density\n\nDensity, from 1 (gallery-sparse) to 10 (cockpit-packed)? Leave it open and Atelier sets it from the surface.\n\nAnswer: not asked yet.\nFeeds: brief.md#dials\n\n## Constraints\n\n### stack\n\nWhich stack renders it (framework, CSS approach, build)? Leave it open when the project already shows it; Atelier reads the stack from the repository and records it as inferred.\n\nAnswer: not asked yet.\nFeeds: brief.md#stack\n\n### accessibility_target\n\nWhich WCAG conformance level is the target, AA or AAA?\n\nAnswer: not asked yet.\nFeeds: brief.md#accessibility\n\n### languages\n\nWhich languages must it serve, and is a right-to-left script among them?\n\nAnswer: not asked yet.\nFeeds: brief.md#languages\n\n### required_states\n\nWhich states must be designed beyond the happy path (empty, loading, error, no results, offline, partial permission)? List them.\n\nAnswer: not asked yet.\nFeeds: brief.md#states\n\n## Open questions\n\n- job (must-have): unknown — risk: There is no goal to review against, so hierarchy and the primary action cannot be judged, only decorated.\n- brand_assets: not asked yet\n- aesthetic_family: not asked yet\n- variance: not asked yet\n- motion: not asked yet\n- density: not asked yet\n- stack: not asked yet\n- accessibility_target: not asked yet\n- languages: not asked yet\n- required_states: not asked yet\n"
+        }
+      ]
+    }
+  ]
+}

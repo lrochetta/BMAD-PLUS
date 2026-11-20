@@ -1,0 +1,22 @@
+{
+  "merle": {
+    "unit": "eligibility",
+    "text": "Les sites qui gèrent jusqu’à 18 ateliers peuvent déposer un dossier."
+  },
+  "chene": {
+    "unit": "timing",
+    "text": "À réception d’un dossier complet, le secrétariat peut proposer un créneau sous 7 jours."
+  },
+  "silex": {
+    "unit": "price",
+    "text": "Le dépôt du dossier et l’intervention sont gratuits."
+  },
+  "roseau": {
+    "unit": "key",
+    "text": "Renseignez la variable {site_id} dans le formulaire."
+  },
+  "lin": {
+    "unit": "timing",
+    "text": "Le secrétariat propose un créneau sous 7 jours, même si le dossier est incomplet."
+  }
+}

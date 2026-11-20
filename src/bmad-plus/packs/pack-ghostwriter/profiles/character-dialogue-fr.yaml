@@ -1,0 +1,20 @@
+schema_version: 1
+id: character-dialogue-fr
+version: 1
+status: draft
+kind: author
+locale: fr-FR
+channels: [script]
+approved_samples: []
+observations: []
+explicit_preferences:
+  register: "Suivre la relation établie entre les personnages."
+  tone: "Écrire des répliques qui se comprennent à voix haute."
+  priorities:
+    - "Respecter ce que le personnage peut savoir à cet instant du récit."
+    - "Conserver les indices, balises de jeu et contraintes de la scène."
+glossary: []
+protected_names: []
+exceptions: []
+unresolved_questions:
+  - "Quelles répliques appartiennent au canon approuvé ?"

@@ -1,0 +1,87 @@
+{
+  "schema": "bmad-plus/screencast-transcript/2",
+  "id": "swarm",
+  "capturedAt": "2026-10-18T20:21:44.172Z",
+  "environment": {
+    "container": "node:20-bookworm",
+    "os": "Debian GNU/Linux 12 (bookworm)",
+    "node": "v20.20.2",
+    "bmadPlus": "0.23.0",
+    "repoCommit": "e040df7",
+    "project": "/home/dev/app",
+    "note": "The CLI ran from the tarball made by `npm pack` on this checkout, installed one level above the throwaway project."
+  },
+  "setup": [
+    "npm install --ignore-scripts <bmad-plus tarball> (one level above the project)",
+    "git init -q",
+    "npx bmad-plus install --yes --lang en --packs core --tools claude-code"
+  ],
+  "hiddenSteps": [],
+  "redactions": [],
+  "cleanup": [
+    "plain commands: ANSI escape sequences and carriage returns removed, trailing spaces trimmed, \"npm notice run\" lines dropped",
+    "interactive commands: raw pty output stored untouched"
+  ],
+  "steps": [
+    {
+      "cmd": "bmad-plus swarm init --definition swarm/buyer-panel.json --profile swarm/profile.json --context pitch=swarm/pitch.md --n 40 --seed 7; echo \"exit code: $?\"",
+      "output": "buyer-panel-20261018-asuq: needs approval. The run needs 40 sub-agents and the budget is 26: ask the user, then re-run init with --approved --seed 7.\nexit code: 2",
+      "exitCode": 0,
+      "ms": 308
+    },
+    {
+      "cmd": "bmad-plus swarm init --definition swarm/buyer-panel.json --profile swarm/profile.json --context pitch=swarm/pitch.md --n 40 --seed 7 --approved",
+      "output": "buyer-panel-20261018-zho8: panel of 40 units, budget 26, approval user.\nSeed 7 (same seed, same cards).\nNext: bmad-plus swarm briefs buyer-panel-20261018-zho8",
+      "exitCode": 0,
+      "ms": 333
+    },
+    {
+      "cmd": "bmad-plus swarm briefs buyer-panel-20261018-zho8",
+      "output": "buyer-panel-20261018-zho8: 40 of 40 units need a sub-agent, in waves of 10.\nWave 1:\n  B001  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B001.md\n  B002  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B002.md\n  B003  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B003.md\n  B004  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B004.md\n  B005  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B005.md\n  B006  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B006.md\n  B007  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B007.md\n  B008  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B008.md\n  B009  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B009.md\n  B010  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B010.md\nWave 2:\n  B011  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B011.md\n  B012  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B012.md\n  B013  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B013.md\n  B014  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B014.md\n  B015  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B015.md\n  B016  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B016.md\n  B017  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B017.md\n  B018  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B018.md\n  B019  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B019.md\n  B020  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B020.md\nWave 3:\n  B021  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B021.md\n  B022  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B022.md\n  B023  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B023.md\n  B024  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B024.md\n  B025  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B025.md\n  B026  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B026.md\n  B027  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B027.md\n  B028  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B028.md\n  B029  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B029.md\n  B030  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B030.md\nWave 4:\n  B031  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B031.md\n  B032  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B032.md\n  B033  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B033.md\n  B034  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B034.md\n  B035  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B035.md\n  B036  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B036.md\n  B037  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B037.md\n  B038  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B038.md\n  B039  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B039.md\n  B040  /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B040.md\nEach sub-agent: Read the brief and follow it exactly; it is your whole instruction.\nDisclosure: Simulated units are not people. Read rates as an upper bound and confirm with real ones.",
+      "exitCode": 0,
+      "ms": 475,
+      "files": [
+        {
+          "path": ".bmad-plus/swarm/runs/buyer-panel-20261018-zho8/briefs/B001.md",
+          "content": "# You are unit B001 of run buyer-panel-20261018-zho8\n\nYou are one simulated buyer. Stay inside this card for the whole task.\n\n- Segment: early career, income 56717\n- Behaviour: occasional (a treat, not a routine)\n- Age 38, 8.32 minutes on foot from the bar\n- Your first objection: I do not know the brand\n- Your habit: you pass the street on the way to work\n\n## The pitch\n\nOrbit opens at 7, two streets from the station. A flat white is 4.20, the loyalty card gives\nthe tenth one free, and the bar keeps your usual order under your name.\n\n\n## Your answer\n\nWrite a JSON object to `/home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/answers/B001.json` with the fields `id` (exactly \"B001\"), `buys`,\n`reason_code` (price, habit, need, trust or other), `reason` (your own words, 600 characters at\nmost) and, when you have one, `price_floor`.\n\nSimulated units are not people. Read rates as an upper bound and confirm with real ones.\n"
+        }
+      ]
+    },
+    {
+      "cmd": "bmad-plus swarm save buyer-panel-20261018-zho8 B001 --input swarm/inbox/B001.txt",
+      "output": "buyer-panel-20261018-zho8: answer of B001 filed at /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/answers/B001.json",
+      "exitCode": 0,
+      "ms": 323
+    },
+    {
+      "cmd": "for n in 2 3 4 5 6 7 8; do bmad-plus swarm save buyer-panel-20261018-zho8 B00$n --input swarm/inbox/B00$n.txt; done",
+      "output": "buyer-panel-20261018-zho8: answer of B002 filed at /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/answers/B002.json\nbuyer-panel-20261018-zho8: answer of B003 filed at /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/answers/B003.json\nbuyer-panel-20261018-zho8: answer of B004 filed at /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/answers/B004.json\nbuyer-panel-20261018-zho8: answer of B005 filed at /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/answers/B005.json\nbuyer-panel-20261018-zho8: answer of B006 filed at /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/answers/B006.json\nbuyer-panel-20261018-zho8: answer of B007 filed at /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/answers/B007.json\nbuyer-panel-20261018-zho8: answer of B008 filed at /home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/answers/B008.json",
+      "exitCode": 0,
+      "ms": 1997
+    },
+    {
+      "cmd": "cp swarm/inbox/B009.json .bmad-plus/swarm/runs/buyer-panel-20261018-zho8/answers/B009.json",
+      "output": "",
+      "exitCode": 0,
+      "ms": 16
+    },
+    {
+      "cmd": "bmad-plus swarm check buyer-panel-20261018-zho8",
+      "output": "buyer-panel-20261018-zho8: 8 of 40 valid answers.\n  B009  invalid: field \"buys\" must be true or false\n  B010  missing: no answer file\n  B011  missing: no answer file\n  B012  missing: no answer file\n  B013  missing: no answer file\n  B014  missing: no answer file\n  B015  missing: no answer file\n  B016  missing: no answer file\n  B017  missing: no answer file\n  B018  missing: no answer file\n  B019  missing: no answer file\n  B020  missing: no answer file\n  B021  missing: no answer file\n  B022  missing: no answer file\n  B023  missing: no answer file\n  B024  missing: no answer file\n  B025  missing: no answer file\n  B026  missing: no answer file\n  B027  missing: no answer file\n  B028  missing: no answer file\n  B029  missing: no answer file\n  B030  missing: no answer file\n  B031  missing: no answer file\n  B032  missing: no answer file\n  B033  missing: no answer file\n  B034  missing: no answer file\n  B035  missing: no answer file\n  B036  missing: no answer file\n  B037  missing: no answer file\n  B038  missing: no answer file\n  B039  missing: no answer file\n  B040  missing: no answer file",
+      "exitCode": 1,
+      "ms": 320
+    },
+    {
+      "cmd": "bmad-plus swarm tally buyer-panel-20261018-zho8",
+      "output": "/home/dev/app/.bmad-plus/swarm/runs/buyer-panel-20261018-zho8/tally.md\n8 of 40 units counted; 32 skipped.\nDisclosure: Simulated units are not people. Read rates as an upper bound and confirm with real ones.",
+      "exitCode": 0,
+      "ms": 376,
+      "files": [
+        {
+          "path": ".bmad-plus/swarm/runs/buyer-panel-20261018-zho8/tally.md",
+          "content": "> Simulated units are not people. Read rates as an upper bound and confirm with real ones.\n\n# Simulated buyers see the pitch (run buyer-panel-20261018-zho8)\n\n8 of 40 units gave a valid answer; 32 skipped: B009 (field \"buys\" must be true or false), B010 (no answer file), B011 (no answer file), B012 (no answer file), B013 (no answer file), B014 (no answer file), B015 (no answer file), B016 (no answer file), B017 (no answer file), B018 (no answer file), B019 (no answer file), B020 (no answer file), B021 (no answer file), B022 (no answer file), B023 (no answer file), B024 (no answer file), B025 (no answer file), B026 (no answer file), B027 (no answer file), B028 (no answer file), B029 (no answer file), B030 (no answer file), B031 (no answer file), B032 (no answer file), B033 (no answer file), B034 (no answer file), B035 (no answer file), B036 (no answer file), B037 (no answer file), B038 (no answer file), B039 (no answer file), B040 (no answer file).\n\n## Rate: buys\n\n| group | yes | of | rate |\n|---|---|---|---|\n| all | 4 | 8 | 50.0% |\n| segment = early career | 1 | 1 | 100.0% |\n| segment = mid career | 3 | 5 | 60.0% |\n| segment = high earner | 0 | 2 | 0.0% |\n| behaviour = occasional | 1 | 1 | 100.0% |\n| behaviour = explorer | 3 | 5 | 60.0% |\n| behaviour = daily regular | 0 | 2 | 0.0% |\n\n## Counts: reason_code\n\n| group | price | habit | need | trust | other |\n|---|---|---|---|---|---|\n| all | 2 | 3 | 1 | 1 | 1 |\n| segment = early career | 0 | 1 | 0 | 0 | 0 |\n| segment = mid career | 2 | 1 | 1 | 0 | 1 |\n| segment = high earner | 0 | 1 | 0 | 1 | 0 |\n| behaviour = occasional | 0 | 1 | 0 | 0 | 0 |\n| behaviour = explorer | 1 | 1 | 1 | 1 | 1 |\n| behaviour = daily regular | 1 | 1 | 0 | 0 | 0 |\n\n## Quotes: reason (up to 2 per group, verbatim)\n\n**all**\n- B001: \"It is on my way to the station and I already buy a flat white most mornings.\"\n- B002: \"Four twenty for a flat white is more than I pay next door.\"\n\n**segment = early career**\n- B001: \"It is on my way to the station and I already buy a flat white most mornings.\"\n\n**segment = mid career**\n- B002: \"Four twenty for a flat white is more than I pay next door.\"\n- B003: \"I meet clients near the station and need a quiet place that opens at seven.\"\n\n**segment = high earner**\n- B004: \"I do not know the brand yet; I would wait for a friend to recommend it.\"\n- B006: \"My usual place is closer and they know my order.\"\n\n**behaviour = occasional**\n- B001: \"It is on my way to the station and I already buy a flat white most mornings.\"\n\n**behaviour = explorer**\n- B002: \"Four twenty for a flat white is more than I pay next door.\"\n- B003: \"I meet clients near the station and need a quiet place that opens at seven.\"\n\n**behaviour = daily regular**\n- B006: \"My usual place is closer and they know my order.\"\n- B008: \"A treat once in a while, not a routine, and not at this price.\"\n\n## Numbers: price_floor\n\n| group | count | median | mean | min | max |\n|---|---|---|---|---|---|\n| all | 8 | 3.65 | 3.7 | 3 | 4.5 |\n| segment = early career | 1 | 3.8 | 3.8 | 3.8 | 3.8 |\n| segment = mid career | 5 | 4 | 3.86 | 3.2 | 4.5 |\n| segment = high earner | 2 | 3.25 | 3.25 | 3 | 3.5 |\n| behaviour = occasional | 1 | 3.8 | 3.8 | 3.8 | 3.8 |\n| behaviour = explorer | 5 | 4 | 3.88 | 3.2 | 4.5 |\n| behaviour = daily regular | 2 | 3.2 | 3.2 | 3 | 3.4 |\n"
+        }
+      ]
+    }
+  ]
+}

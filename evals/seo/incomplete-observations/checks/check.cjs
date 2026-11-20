@@ -1,0 +1,10 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const result = JSON.parse(fs.readFileSync(path.join(process.argv[2], 'report.json'), 'utf8'));
+assert.equal(result.findings.length, 1, 'unknown coverage must not become a defect');
+assert.equal(result.findings[0].id, 'canonical-conflict');
+assert.deepEqual([...result.findings[0].evidence_ids].sort(), ['H1','H2']);
+assert.deepEqual(result.coverage, {canonical:'verified',robots:'unknown',performance:'not-measured'});
+assert.deepEqual(result.scores, {overall:null,performance:null});
+console.log('verified finding with incomplete coverage passed');

@@ -1,0 +1,95 @@
+{
+  "schema": "bmad-plus/uat-spec/2",
+  "id": "example-1.0.0",
+  "product": "Example",
+  "versions": ["1.0.0"],
+  "date": "2026-09-16",
+  "language": "en",
+  "title": "What this delivery changes, in one sentence — this becomes the page title",
+  "subtitle": "Example · TEST environment · version 1.0.0 · 2026-09-16",
+  "environment": { "name": "TEST", "url": "https://test.example.com" },
+  "estimate": "5 min",
+  "intro": [
+    "<b>What the measurement showed.</b> The numbers taken before the delivery: how many cases change, where, production included. \"0\" is a number and gets said."
+  ],
+  "warnings": [
+    "<b>Step 2 writes for real on TEST</b> (a button that persists). It is intended."
+  ],
+  "witnesses": [
+    {
+      "id": "TEST-001",
+      "proof": "select updated_at, funder from folder where reference = 'TEST-001'",
+      "reads": ["1-nominal"],
+      "writes": ["2-the-gesture"]
+    }
+  ],
+  "steps": [
+    {
+      "id": "0-setup",
+      "title": "Setup",
+      "duration": "1 min",
+      "where": [
+        "Open <a href=\"https://test.example.com\" target=\"_blank\" rel=\"noopener\">test.example.com</a> and sign in."
+      ],
+      "do": ["Find the <span class=\"ecran\">Folders</span> menu."],
+      "expect": [{ "id": "a", "text": "I am signed in and I can see the list." }]
+    },
+    {
+      "id": "1-nominal",
+      "title": "The nominal case (TEST-001)",
+      "duration": "2 min",
+      "stories": [{ "ref": "story-12", "criteria": ["AC-3"] }],
+      "where": [
+        "Folder <code>TEST-001</code> → tab <span class=\"ecran\">Technical</span> → the card named exactly as on screen."
+      ],
+      "do": [
+        "One click per line: click <span class=\"ecran\">Analyse</span>.",
+        "Wait until the button reads <span class=\"ecran\">Analyse</span> again."
+      ],
+      "expect": [
+        {
+          "id": "a",
+          "text": "The line reads exactly: <span class=\"ecran\">Label copied from the code, accents included or not</span>."
+        },
+        {
+          "id": "b",
+          "text": "One fact per line: the <span class=\"ecran\">My box</span> checkbox is <b>ticked</b>."
+        }
+      ]
+    },
+    {
+      "id": "2-the-gesture",
+      "title": "The gesture that lifts the red",
+      "duration": "2 min",
+      "writes": true,
+      "verify": {
+        "kind": "sql",
+        "text": "select updated_at, funder from folder where reference = 'TEST-001' — updated_at must be later than the run"
+      },
+      "where": ["Same folder, same card."],
+      "do": [
+        "Click <span class=\"ecran\">Confirm</span>. <b>This writes for real.</b>",
+        "Come back to the folder with the browser's back button."
+      ],
+      "expect": [
+        {
+          "id": "a",
+          "text": "The <span class=\"ecran\">My box</span> checkbox is now <b>ticked</b>."
+        },
+        {
+          "id": "b",
+          "text": "Positive control: <code>TEST-002</code> is <b>unchanged</b> — its box was already ticked and no link appeared."
+        }
+      ]
+    }
+  ],
+  "closing": {
+    "text": [
+      "<b>What did not change</b>: no migration, and the deployment touched no data.",
+      "<b>What waits for a decision</b>: name it here, or say there is none."
+    ]
+  },
+  "authorNotes": [
+    "Free field for the agent who wrote this: doubts, witnesses not yet measured, labels to confirm. The page ignores it; the reviewer reads it."
+  ]
+}

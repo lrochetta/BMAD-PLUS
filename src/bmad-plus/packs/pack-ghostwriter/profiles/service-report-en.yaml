@@ -1,0 +1,20 @@
+schema_version: 1
+id: service-report-en
+version: 1
+status: draft
+kind: brand
+locale: en
+channels: [documentation, report, email]
+approved_samples: []
+observations: []
+explicit_preferences:
+  register: "Professional. Use the reader's established technical vocabulary."
+  tone: "Measured. Lead with what was observed."
+  priorities:
+    - "Keep the scope of each measurement alongside the result."
+    - "Identify expected behaviour and outstanding checks when relevant."
+glossary: []
+protected_names: []
+exceptions: []
+unresolved_questions:
+  - "Which spelling convention does the organisation use?"

@@ -1,0 +1,25 @@
+{
+  "id": "demo",
+  "maxParallel": 1,
+  "tasks": [
+    {
+      "id": "value",
+      "objective": "Write the value 7 into src/value.json.",
+      "acceptance": ["src/value.json holds the value 7."],
+      "dependsOn": [],
+      "scope": ["src/value.json"],
+      "artifacts": ["src/value.json"],
+      "resources": ["checks/value.cjs"],
+      "checks": [{ "id": "value", "command": "node", "args": ["checks/value.cjs"] }],
+      "execution": {
+        "adapter": "command",
+        "command": "node",
+        "args": ["workers/value.cjs"],
+        "input": "inputs/task.json",
+        "resources": ["workers/value.cjs"]
+      },
+      "maxAttempts": 2,
+      "idempotent": true
+    }
+  ]
+}

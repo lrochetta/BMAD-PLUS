@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "id": "ghostwriter-council",
+  "kind": "jury",
+  "pack": "ghostwriter",
+  "title": "Narrative council",
+  "units": {
+    "source": "list",
+    "list": [
+      {
+        "id": "three-act",
+        "lens": "The three acts",
+        "family": "arc",
+        "focus": "Trace setup, confrontation and resolution. Locate the choice that changes what can happen next, and the cost of delaying or moving it."
+      },
+      {
+        "id": "hero-journey",
+        "lens": "The hero's journey",
+        "family": "transformation",
+        "focus": "Use Vogler's twelve-step adaptation when useful. Trace the move from familiar to unfamiliar ground and the return transformed. Where does the character's action earn that change?"
+      },
+      {
+        "id": "freytag-pyramid",
+        "lens": "Freytag's pyramid",
+        "family": "arc",
+        "focus": "Track exposition, rising action, climax, falling action and resolution. Which turn reverses the pressure, and what action makes the consequence visible?"
+      },
+      {
+        "id": "story-circle",
+        "lens": "Dan Harmon's story circle",
+        "family": "transformation",
+        "focus": "Locate desire, departure, adaptation, getting what was wanted, its price, return and change. Ask what the character pays, and how the ending demonstrates it."
+      },
+      {
+        "id": "kishotenketsu",
+        "lens": "Kishōtenketsu (起承転結)",
+        "family": "contrast",
+        "focus": "Read the introduction, development, turn and connection. What juxtaposition lets the reader reinterpret the opening? Test whether overt conflict would weaken that discovery."
+      },
+      {
+        "id": "in-medias-res",
+        "lens": "In medias res",
+        "family": "opening",
+        "focus": "Try entering after events are under way. Which concrete detail lets readers orient themselves, and how late can the missing context arrive before confusion wins?"
+      },
+      {
+        "id": "snowflake-method",
+        "lens": "Randy Ingermanson's Snowflake Method",
+        "family": "planning",
+        "focus": "Expand a one-sentence premise into character and scene decisions. Which unresolved premise would cause the greatest rework, and which detail is worth discovering during drafting?"
+      },
+      {
+        "id": "story-spine",
+        "lens": "Kenn Adams' Story Spine",
+        "family": "causality",
+        "focus": "Use the eight-part chain to test whether one action changes what happens next. Which causal step feels assumed, and how does the new routine answer the initial disruption?"
+      },
+      {
+        "id": "narrative-arc",
+        "lens": "Narrative arc",
+        "family": "arc",
+        "focus": "Track how exposition, conflict, tension, climax and resolution shape the reader's experience. Which event changes the level of tension, and what consequence gives that change weight?"
+      }
+    ]
+  },
+  "brief": {
+    "template": "brief.md",
+    "context": [
+      "scene",
+      "round"
+    ]
+  },
+  "answer": {
+    "required": [
+      "id",
+      "anchor",
+      "reading",
+      "proposal",
+      "cost",
+      "peer",
+      "peer_quote",
+      "response"
+    ],
+    "fields": {
+      "anchor": {
+        "type": "string",
+        "min": 1,
+        "max": 300
+      },
+      "reading": {
+        "type": "string",
+        "min": 1,
+        "max": 900
+      },
+      "proposal": {
+        "type": "string",
+        "min": 1,
+        "max": 700
+      },
+      "cost": {
+        "type": "string",
+        "min": 1,
+        "max": 500
+      },
+      "peer": {
+        "type": "string",
+        "max": 64
+      },
+      "peer_quote": {
+        "type": "string",
+        "max": 500
+      },
+      "response": {
+        "type": "string",
+        "max": 800
+      }
+    }
+  },
+  "tally": {
+    "groupBy": [
+      "lens"
+    ],
+    "quotes": {
+      "proposal": 1,
+      "response": 1
+    }
+  },
+  "disclosure": "These are editorial readings by delegated AI specialists. The author chooses the revision."
+}

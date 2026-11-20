@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "bmad-plus/uat-spec/2",
+  "title": "Human acceptance recipe (recette) — specification",
+  "description": "What an agent writes to describe a human acceptance run step by step. `bmad-plus uat build` turns it into a self-contained HTML page. Validation is performed by tools/cli/lib/uat.js; this file documents the contract.",
+  "type": "object",
+  "required": ["schema", "id", "product", "versions", "title", "environment", "steps"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "schema": { "const": "bmad-plus/uat-spec/2" },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9.-]{2,80}$",
+      "description": "Stable identifier, lowercase: <product>-<versions>. Used as file name and storage key."
+    },
+    "product": { "type": "string", "minLength": 1 },
+    "versions": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "date": { "type": "string", "description": "ISO date the recipe was written." },
+    "language": { "enum": ["en", "fr"], "description": "Page strings. Defaults to English." },
+    "title": { "type": "string", "minLength": 1, "description": "What this delivery changes, in one sentence." },
+    "subtitle": { "type": "string" },
+    "environment": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "description": "DEMO, STAGING, PREPROD…" },
+        "url": { "type": "string", "format": "uri" }
+      }
+    },
+    "estimate": { "type": "string", "description": "e.g. \"25 min\". Over the configured budget, lint asks for a split." },
+    "intro": { "type": "array", "items": { "type": "string" }, "description": "Allowlisted inline markup: what the measurement showed, with its numbers." },
+    "warnings": { "type": "array", "items": { "type": "string" }, "description": "Shown in orange: real writes, play order, prerequisites." },
+    "notes": { "type": "array", "items": { "type": "string" } },
+    "witnesses": {
+      "type": "array",
+      "description": "Named test records. `proof` is the read-only query that establishes the state; `reads`/`writes` list the steps. Two recipes sharing a witness get an order.",
+      "items": {
+        "type": "object",
+        "required": ["id", "proof"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "proof": { "type": "string", "minLength": 1 },
+          "reads": { "type": "array", "items": { "type": "string" } },
+          "writes": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "after": { "type": "array", "items": { "type": "string" }, "description": "Recipe ids that must be played before this one." },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "where", "do", "expect"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,60}$" },
+          "title": { "type": "string", "minLength": 1 },
+          "duration": { "type": "string" },
+          "writes": { "type": "boolean", "description": "True when the step persists something. Requires `verify`." },
+          "warning": { "type": "string", "description": "Replaces the default orange sentence; use it when the product must REFUSE the attempted action." },
+          "optional": { "type": "boolean", "description": "The tester may skip it; a skipped expectation never blocks the gate." },
+          "stories": {
+            "type": "array",
+            "description": "Traceability to the delivery's acceptance criteria.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "ref": { "type": "string" },
+                "criteria": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          },
+          "verify": {
+            "type": "object",
+            "required": ["kind", "text"],
+            "additionalProperties": false,
+            "description": "The read-only confirmation run AFTER the tester: a tick on a writing step is not a write.",
+            "properties": {
+              "kind": { "enum": ["sql", "http", "command", "manual"] },
+              "text": { "type": "string", "minLength": 1 }
+            }
+          },
+          "where": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "do": { "type": "array", "minItems": 1, "items": { "type": "string" }, "description": "One click per line." },
+          "expect": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["id", "text"],
+              "additionalProperties": false,
+              "properties": {
+                "id": { "type": "string", "pattern": "^[a-z]$" },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "ONE verifiable observation, on-screen labels quoted word for word inside <span class=\"ecran\">…</span>. Lint refuses a label that exists in no source file."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "closing": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "text": { "type": "array", "items": { "type": "string" } } }
+    },
+    "authorNotes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "The author's doubts (unverified witness, label to confirm). Ignored by the page, read by the reviewer."
+    }
+  }
+}

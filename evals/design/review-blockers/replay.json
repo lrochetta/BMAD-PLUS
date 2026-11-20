@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "kind": "maintainer-authored-replay",
+  "transcript": "Maintainer-authored offline artifact example for design/review-blockers: the review ranks the three accessibility blockers before the two majors and the minor, states the pre-flight failure, and the fix routes every component colour through tokens.css, restores :focus-visible, names the delete button and adds the empty state. Independent checks run after application; no model behavior is measured.",
+  "files": [
+    {
+      "path": "review.md",
+      "content": "# Design review — Ledgerly invoice list\n\nReviewed against brief.md: a dense product table for keyboard-first freelancers whose job is\nto find the overdue invoices and act on them. Every check below was made by inspection of\nindex.html, styles.css and tokens.css; no browser, contrast tool or audit tool ran in this\nsession, so no measurement is quoted as a tool result.\n\n## Findings\n\n- [blocker] styles.css `*:focus { outline: none; }` — keyboard focus is invisible on every control and no `:focus-visible` rule exists, so a keyboard user cannot tell where they are in a list built for them → replace it with a `:focus-visible` outline drawn from the `--focus-ring-*` values and suppress the outline only under `:focus:not(:focus-visible)` (WCAG 2.2 2.4.7, 2.4.11)\n- [blocker] index.html draft row, `<button class=\"icon-btn\">` — the delete control holds only an `aria-hidden` icon, so it has no accessible name: assistive technology announces \"button\" and nothing else → give it `aria-label=\"Delete draft INV-0043\"` (WCAG 4.1.2)\n- [blocker] styles.css `.hint` — `#9a9a9a` on the raised card surface is about 2.6:1, below the 4.5:1 AA floor for text; the only sentence explaining the amounts is unreadable for low-vision users → use `var(--color-text-muted)`, already defined in the sheet at AA contrast (WCAG 1.4.3)\n- [major] index.html `<table>` — there is no empty state although the brief states the list is empty on first login and whenever a filter matches nothing; a new user meets a bare heading and does not learn the next step → add an empty state marked `data-state=\"empty\"` with one line and the primary action, shown when the table has no rows\n- [major] styles.css `.card` — `#f4f4f5` and `#e4e4e7` are typed into the component although `--color-surface-raised` and `--color-border` hold the same values; the brief makes a raw colour in a component a defect, and the next palette change would miss this card → consume the two tokens\n- [minor] index.html overdue row — the state is carried by a tint and the word \"Overdue\", which is fine; the status cell could add how late (\"17 days\") so the job of the page is faster → optional, outside this fix\n\n## Top 3\n\n1. Restore visible focus through the focus tokens.\n2. Name the delete button.\n3. Move every component colour onto the token sheet, which also repairs the hint contrast.\n\nPre-flight: fail — invisible focus, an unnamed control and a failed contrast pair are\naccessibility failures, each a blocker on its own.\n\n## After the fix\n\nstyles.css carries no raw colour, `:focus-visible` draws the ring from the tokens, the hint\nreads at AA on the card surface, the delete button is named, and the list has an empty state\nwith its next action. Verified by inspection; the fixed page is not declared to pass the\npre-flight until a tool run confirms it.\n",
+      "sha256": "668d18247d66ba104a8c8c3eb963493f358d6e48d31d20136c15ba1aed76d866"
+    },
+    {
+      "path": "styles.css",
+      "content": "@import url(\"tokens.css\");\n\n* {\n  box-sizing: border-box;\n}\n\n:focus-visible {\n  outline: var(--focus-ring-width) solid var(--focus-ring-color);\n  outline-offset: var(--focus-ring-offset);\n}\n\n:focus:not(:focus-visible) {\n  outline: none;\n}\n\nbody {\n  margin: 0;\n  font-family: var(--font-sans);\n  font-size: var(--text-md);\n  color: var(--color-text);\n  background: var(--color-surface);\n}\n\n.page {\n  max-width: 960px;\n  margin: 0 auto;\n  padding: var(--space-6);\n}\n\n.page-header {\n  display: flex;\n  align-items: baseline;\n  justify-content: space-between;\n  gap: var(--space-4);\n  margin-bottom: var(--space-4);\n}\n\n.page-header h1 {\n  margin: 0;\n  font-size: var(--text-xl);\n}\n\n.toolbar {\n  display: flex;\n  gap: var(--space-3);\n  align-items: center;\n  margin-bottom: var(--space-4);\n}\n\n.toolbar label {\n  font-size: var(--text-sm);\n}\n\n.toolbar input {\n  padding: var(--space-2) var(--space-3);\n  border: 1px solid var(--color-border);\n  border-radius: var(--radius-md);\n  font: inherit;\n}\n\n.card {\n  background: var(--color-surface-raised);\n  border: 1px solid var(--color-border);\n  border-radius: var(--radius-md);\n  padding: var(--space-4);\n}\n\n.hint {\n  margin: var(--space-2) 0 0;\n  color: var(--color-text-muted);\n  font-size: var(--text-sm);\n}\n\n.btn {\n  padding: var(--space-2) var(--space-4);\n  border: 0;\n  border-radius: var(--radius-md);\n  background: var(--color-accent);\n  color: var(--color-accent-contrast);\n  font: inherit;\n  cursor: pointer;\n}\n\n.icon-btn {\n  padding: var(--space-1);\n  border: 0;\n  background: transparent;\n  color: var(--color-danger);\n  cursor: pointer;\n}\n\ntable {\n  width: 100%;\n  border-collapse: collapse;\n}\n\nth,\ntd {\n  padding: var(--space-2) var(--space-3);\n  text-align: left;\n  border-bottom: 1px solid var(--color-border);\n}\n\nth {\n  font-size: var(--text-sm);\n  color: var(--color-text-muted);\n}\n\ntr.overdue td {\n  background: var(--color-overdue-bg);\n}\n\n.status {\n  font-size: var(--text-sm);\n}\n\n.empty-state {\n  padding: var(--space-6) var(--space-4);\n  text-align: center;\n  color: var(--color-text-muted);\n}\n\n.empty-state p {\n  margin: 0 0 var(--space-3);\n}\n\n.empty-state[hidden] {\n  display: none;\n}\n",
+      "sha256": "f3a7e692f63af42659eba4eb647e1da1f79a5f8aa52b65ee0b9040a2027e1af5"
+    },
+    {
+      "path": "index.html",
+      "content": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n    <title>Invoices — Ledgerly</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n    <main class=\"page\">\n      <header class=\"page-header\">\n        <h1>Invoices</h1>\n        <button class=\"btn\" type=\"button\">New invoice</button>\n      </header>\n\n      <div class=\"toolbar\">\n        <label for=\"filter\">Filter by client</label>\n        <input id=\"filter\" type=\"search\" name=\"filter\" placeholder=\"Client name\" />\n      </div>\n\n      <section class=\"card\" aria-labelledby=\"list-title\">\n        <h2 id=\"list-title\" class=\"status\">Open invoices</h2>\n        <table>\n          <thead>\n            <tr>\n              <th scope=\"col\">Number</th>\n              <th scope=\"col\">Client</th>\n              <th scope=\"col\">Amount</th>\n              <th scope=\"col\">Due</th>\n              <th scope=\"col\">Status</th>\n              <th scope=\"col\"><span class=\"status\">Actions</span></th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr class=\"overdue\">\n              <td>INV-0041</td>\n              <td>Marlowe Studio</td>\n              <td>1 250,00 €</td>\n              <td>2026-09-30</td>\n              <td>Overdue</td>\n              <td>\n                <button class=\"btn\" type=\"button\">Send reminder</button>\n              </td>\n            </tr>\n            <tr>\n              <td>INV-0042</td>\n              <td>Harbor &amp; Finch</td>\n              <td>480,00 €</td>\n              <td>2026-10-24</td>\n              <td>Sent</td>\n              <td>\n                <button class=\"btn\" type=\"button\">Send reminder</button>\n              </td>\n            </tr>\n            <tr>\n              <td>INV-0043</td>\n              <td>Draft</td>\n              <td>0,00 €</td>\n              <td>—</td>\n              <td>Draft</td>\n              <td>\n                <button class=\"icon-btn\" type=\"button\" aria-label=\"Delete draft INV-0043\">\n                  <svg aria-hidden=\"true\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\">\n                    <path d=\"M3 4h10M6 4V2h4v2M5 4l1 10h4l1-10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" />\n                  </svg>\n                </button>\n              </td>\n            </tr>\n          </tbody>\n        </table>\n        <div class=\"empty-state\" data-state=\"empty\" hidden>\n          <p>No open invoices. The ones you create will be listed here, overdue first.</p>\n          <button class=\"btn\" type=\"button\">Create your first invoice</button>\n        </div>\n        <p class=\"hint\">Amounts are shown in the currency of each invoice.</p>\n      </section>\n    </main>\n  </body>\n</html>\n",
+      "sha256": "0467886e16985195c6334b5014778cfa99afd059b721e95cabaa6a4577a1b6ad"
+    }
+  ],
+  "bindings": {
+    "spec_sha256": "b6897296fdaf939d208afa90406904fc2930ec7db74dba2ee67fe9aaf0007d5e",
+    "fixture": {
+      "sha256": "e633315961f82b2fdd1545271791f65b7069ba09e224450e11746834f5632493",
+      "files": [
+        {
+          "path": "brief.md",
+          "sha256": "6ce6c61fc996fe5eb06a4e3ac966b54a0a347ab21135cdbea18432886625357a",
+          "size_bytes": 1429
+        },
+        {
+          "path": "index.html",
+          "sha256": "7d59119cb52d5b0ed3b85db0c1a2db2bdb51735fc41e36e86981a717e2d101e0",
+          "size_bytes": 2451
+        },
+        {
+          "path": "styles.css",
+          "sha256": "42430dedd1990f0444be592a7d7b79a0e46bcb991d382b8f73df1893033219b4",
+          "size_bytes": 1744
+        },
+        {
+          "path": "tokens.css",
+          "sha256": "e4cb725d7b5fa29611e669f6556c7fc5a7a77b49d4edf89d9547be08c2f37d1e",
+          "size_bytes": 695
+        }
+      ]
+    },
+    "checks": {
+      "sha256": "9828c3b7b1babcb3d35d84c3c3aa7524d7af498fb0a3446602ff06e2125f39a2",
+      "files": [
+        {
+          "path": "check.cjs",
+          "sha256": "a5d85410e6bfa65e2246dac3ba2e60fbe3018e6ba75e211b4fe75c7113f02722",
+          "size_bytes": 8967
+        }
+      ]
+    },
+    "agent_resources": {
+      "sha256": "093d352b7430dc7043d2a09fd1e655aa55c80028c49bbd2702dcc3de06c9f1bb",
+      "files": [
+        {
+          "path": "src/bmad-plus/packs/pack-design/design-engine.md",
+          "sha256": "e3ba747acb8c5fb197535005ef0f7e87b58577b3d473c88c35522bab8979c78a",
+          "size_bytes": 8579
+        }
+      ]
+    }
+  },
+  "review_note": "Reseal after the adversarial review: the held-out check now requires exactly three blockers on distinct lines, the empty-state and token findings as non-blockers, every fixture rule kept, and refuses outline suppression by 0, 0px, transparent or outline-* on focus rules; the persona was rewritten in fresh words and the authored review adjusted to it. Offline maintainer artifacts, no model output.",
+  "sealed_at": "2026-10-17T19:24:35.517864+00:00"
+}

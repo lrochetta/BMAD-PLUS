@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "units": [
+    { "id": "about", "scope": "site/about", "title": "About us", "tone": "warm" },
+    { "id": "pricing", "scope": ["site/pricing", "site/data/prices.json"], "title": "Pricing", "tone": "plain" },
+    { "id": "contact", "scope": "site/contact", "title": "Contact", "tone": "short" }
+  ]
+}

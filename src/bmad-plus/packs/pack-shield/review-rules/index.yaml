@@ -1,0 +1,134 @@
+# Shield compliance review rules, applied by path once the Shield pack is installed.
+# They add to the built-in rules (a pack never replaces or disables one); a project replaces
+# or disables them by id in _bmad/review-rules.yaml. Every rule names the controls it
+# examines as FRAMEWORK:ID (bmad-plus review rules lists them), so a checklist can say which
+# controls a change touches. All rules share the `compliance` group: one parallel reviewer
+# can take them together.
+schema: bmad-plus/review-rules/1
+rules:
+  - id: shield-access-control
+    title: Identity, authentication and authorisation
+    group: compliance
+    globs:
+      - '**/{auth,authn,authz,login,session,sessions,permissions,rbac,acl,oauth,oidc,sso,iam,guards,policies}/**'
+      - '**/*{auth,Auth,session,Session,permission,Permission,policy,Policy}*.*'
+    controls:
+      [
+        ISO27001:A.5.15,
+        ISO27001:A.5.18,
+        ISO27001:A.8.2,
+        ISO27001:A.8.5,
+        SOC2:CC6.1,
+        SOC2:CC6.2,
+        SOC2:CC6.3,
+        NIST-800-53:AC-3,
+        NIST-800-53:AC-6,
+        NIST-800-53:IA-2,
+        NIS2:Art.21(2)(i),
+        NIS2:Art.21(2)(j),
+      ]
+    doc: access-control.md
+  - id: shield-personal-data
+    title: Personal data in models, schemas and migrations
+    group: compliance
+    globs:
+      - '**/{models,entities,schemas,schema,dto,dtos,migrations,migrate}/**'
+      - '**/*{user,User,customer,Customer,profile,Profile,account,Account,contact,Contact,consent,Consent,privacy,Privacy}*.*'
+    controls:
+      [
+        GDPR:Art.5(1)(c),
+        GDPR:Art.5(1)(e),
+        GDPR:Art.25,
+        GDPR:Art.30,
+        GDPR:Art.32,
+        ISO27001:A.5.34,
+        ISO27001:A.8.10,
+        ISO27001:A.8.11,
+        SOC2:P4.2,
+        SOC2:P4.3,
+      ]
+    doc: personal-data.md
+  - id: shield-cryptography
+    title: Cryptography, keys and secrets handling
+    group: compliance
+    globs:
+      - '**/{crypto,cryptography,security,secrets,certs,certificates,tls,vault,kms}/**'
+      - '**/*{crypt,Crypt,cipher,Cipher,hash,Hash,signature,Signature,token,Token,secret,Secret}*.*'
+    controls:
+      [
+        ISO27001:A.8.24,
+        ISO27001:A.5.17,
+        SOC2:CC6.1,
+        SOC2:CC6.7,
+        NIST-800-53:SC-8,
+        NIST-800-53:SC-12,
+        NIST-800-53:SC-13,
+        NIST-800-53:SC-28,
+        GDPR:Art.32(1)(a),
+        NIS2:Art.21(2)(h),
+      ]
+    doc: cryptography.md
+  - id: shield-logging
+    title: Logging, audit trail and monitoring
+    group: compliance
+    globs:
+      - '**/{logs,logger,logging,audit,telemetry,observability,monitoring,metrics,tracing}/**'
+      - '**/*{logger,Logger,logging,Logging,audit,Audit,telemetry,Telemetry}*.*'
+    controls:
+      [
+        ISO27001:A.8.15,
+        ISO27001:A.8.16,
+        ISO27001:A.8.17,
+        SOC2:CC7.2,
+        SOC2:CC7.3,
+        NIST-800-53:AU-2,
+        NIST-800-53:AU-3,
+        NIST-800-53:AU-9,
+        NIST-800-53:AU-11,
+        GDPR:Art.5(1)(c),
+        NIS2:Art.23,
+      ]
+    doc: logging.md
+  - id: shield-ai-integrations
+    title: AI models, prompts and agent tooling
+    group: compliance
+    globs:
+      - '**/{ai,llm,llms,prompts,agents,mcp,rag,embeddings}/**'
+      - '**/*{openai,OpenAI,anthropic,Anthropic,gemini,Gemini,llm,LLM,prompt,Prompt}*.*'
+      - '**/{.mcp.json,mcp.json}'
+      - '{CLAUDE,GEMINI,AGENTS,CONVENTIONS}.md'
+      - '{.claude,.cursor,.codex,.opencode,.gemini}/**'
+    controls:
+      [
+        GDPR:Art.28,
+        GDPR:Art.35,
+        GDPR:Art.44,
+        EU-AI-Act:Art.50,
+        ISO27001:A.5.19,
+        ISO27001:A.5.23,
+        ISO27001:A.8.12,
+      ]
+    doc: ai-integrations.md
+  - id: shield-change-and-supply-chain
+    title: Change control and supply chain
+    group: compliance
+    globs:
+      - '.github/workflows/**/*.{yml,yaml}'
+      - '**/{.gitlab-ci.yml,azure-pipelines.yml,bitbucket-pipelines.yml,CODEOWNERS}'
+      - '**/{package.json,pyproject.toml,requirements*.txt,go.mod,Cargo.toml,composer.json,Gemfile}'
+      - '**/{Dockerfile,Containerfile}'
+    controls:
+      [
+        ISO27001:A.8.25,
+        ISO27001:A.8.32,
+        ISO27001:A.5.21,
+        ISO27001:A.8.9,
+        SOC2:CC8.1,
+        SOC2:CC7.1,
+        NIST-800-53:CM-3,
+        NIST-800-53:SA-10,
+        NIST-800-53:SR-3,
+        NIS2:Art.21(2)(d),
+        NIS2:Art.21(2)(e),
+      ]
+    doc: change-and-supply-chain.md

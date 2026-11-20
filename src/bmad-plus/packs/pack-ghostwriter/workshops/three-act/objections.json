@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "kind": "jury",
+  "pack": "ghostwriter",
+  "units": {
+    "source": "list",
+    "list": [
+      {
+        "id": "installation",
+        "lens": "Setup (installation)",
+        "question": "Find the first observable desire, what makes it urgent and the choice that commits the protagonist. Try an earlier or later entry into the story. Trace a setup the ending will need.",
+        "peer": "resolution"
+      },
+      {
+        "id": "confrontation",
+        "lens": "Confrontation",
+        "question": "Follow the chain of attempted solutions and consequences. Locate a reversal that changes available options, test its cost and show why the crisis forces a choice.",
+        "peer": "installation"
+      },
+      {
+        "id": "resolution",
+        "lens": "Resolution (résolution)",
+        "question": "Test whether the climax follows from a choice the protagonist can actually make. Trace its setup and consequence. Protect the kind of closure the author wants, including uncertainty.",
+        "peer": "confrontation"
+      }
+    ]
+  },
+  "disclosure": "Three AI dramaturgy roles offer editorial interpretations. The author decides which revisions to pursue.",
+  "id": "three-act-objections",
+  "title": "Three acts: cross-examination",
+  "brief": {
+    "template": "briefs/objection.md",
+    "context": [
+      "story",
+      "installation",
+      "confrontation",
+      "resolution"
+    ]
+  },
+  "answer": {
+    "required": [
+      "id",
+      "target",
+      "cited_proposal",
+      "anchor",
+      "objection",
+      "alternative",
+      "position",
+      "author_choice"
+    ],
+    "fields": {
+      "target": {
+        "type": "enum",
+        "values": [
+          "installation",
+          "confrontation",
+          "resolution"
+        ]
+      },
+      "cited_proposal": {
+        "type": "string",
+        "min": 1,
+        "max": 400
+      },
+      "anchor": {
+        "type": "string",
+        "min": 1,
+        "max": 500
+      },
+      "objection": {
+        "type": "string",
+        "min": 5,
+        "max": 900
+      },
+      "alternative": {
+        "type": "string",
+        "min": 5,
+        "max": 900
+      },
+      "position": {
+        "type": "enum",
+        "values": [
+          "retain",
+          "amend",
+          "oppose"
+        ]
+      },
+      "author_choice": {
+        "type": "string",
+        "min": 5,
+        "max": 700
+      }
+    }
+  },
+  "tally": {
+    "counts": [
+      "position"
+    ],
+    "quotes": {
+      "author_choice": 3
+    }
+  }
+}

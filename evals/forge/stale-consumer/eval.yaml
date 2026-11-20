@@ -1,0 +1,30 @@
+schema_version: 1
+id: forge/stale-consumer
+pack: core
+agent: agent-architect-dev
+agent_source: src/bmad-plus/agents/agent-architect-dev/SKILL.md
+persona: Forge
+description: Reverify a changed helper through its actual command-line consumer.
+models: [claude, gpt, gemini, local]
+fixture: fixture
+task:
+  prompt: |
+    Finish the label-normalization change and verify that the command-line entry
+    works. A previous green check is recorded in docs/previous-check.md. Inspect
+    the current code and relevant callers before deciding what remains. Preserve
+    the new helper API and the documented CLI contract, add useful regression
+    coverage, and record your actual current verification in result.md. Use
+    Node 20+ standard library only. Do not add a package.json or dependencies.
+  timeout_s: 300
+  allowed_writes: [src/cli.cjs, tests/, result.md]
+assertions:
+  - id: current-cli-behavior
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+    timeout_s: 30
+  - id: current-evidence
+    kind: file_exists
+    path: result.md
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}

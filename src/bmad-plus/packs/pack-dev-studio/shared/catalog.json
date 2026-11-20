@@ -1,0 +1,489 @@
+{
+  "schemaVersion": 1,
+  "agents": [
+    {
+      "id": "analyst-agent",
+      "persona": "Miriam",
+      "path": "categories/analysis/analyst-agent.md"
+    },
+    {
+      "id": "tech-writer-agent",
+      "persona": "Huldah",
+      "path": "categories/analysis/tech-writer-agent.md"
+    },
+    {
+      "id": "pm-agent",
+      "persona": "Yosef",
+      "path": "categories/planning/pm-agent.md"
+    },
+    {
+      "id": "ux-designer-agent",
+      "persona": "Rachel",
+      "path": "categories/planning/ux-designer-agent.md"
+    },
+    {
+      "id": "architect-agent",
+      "persona": "Bezalel",
+      "path": "categories/architecture/architect-agent.md"
+    },
+    {
+      "id": "dev-agent",
+      "persona": "Oholiab",
+      "path": "categories/implementation/dev-agent.md"
+    }
+  ],
+  "workflows": [
+    {
+      "id": "product-brief",
+      "aliases": [
+        "bmad-product-brief",
+        "bmad-plus-product-brief"
+      ],
+      "path": "categories/analysis/product-brief.md",
+      "input": "request",
+      "resources": [],
+      "agent": "analyst-agent"
+    },
+    {
+      "id": "prfaq",
+      "aliases": [
+        "bmad-prfaq",
+        "bmad-plus-prfaq"
+      ],
+      "path": "categories/analysis/prfaq.md",
+      "input": "request",
+      "resources": [],
+      "agent": "analyst-agent"
+    },
+    {
+      "id": "document-project",
+      "aliases": [
+        "bmad-document-project",
+        "bmad-plus-document-project"
+      ],
+      "agent": "tech-writer-agent",
+      "path": "categories/analysis/document-project.md",
+      "input": "project",
+      "resources": []
+    },
+    {
+      "id": "market-research",
+      "aliases": [
+        "bmad-market-research",
+        "bmad-plus-market-research"
+      ],
+      "path": "categories/analysis/market-research.md",
+      "input": "request",
+      "resources": [],
+      "agent": "analyst-agent"
+    },
+    {
+      "id": "domain-research",
+      "aliases": [
+        "bmad-domain-research",
+        "bmad-plus-domain-research"
+      ],
+      "path": "categories/analysis/domain-research.md",
+      "input": "request",
+      "resources": [],
+      "agent": "analyst-agent"
+    },
+    {
+      "id": "technical-research",
+      "aliases": [
+        "bmad-technical-research",
+        "bmad-plus-technical-research"
+      ],
+      "path": "categories/analysis/technical-research.md",
+      "input": "request",
+      "resources": [],
+      "agent": "analyst-agent"
+    },
+    {
+      "id": "create-prd",
+      "aliases": [
+        "bmad-create-prd",
+        "bmad-plus-create-prd"
+      ],
+      "path": "categories/planning/create-prd.md",
+      "input": "request",
+      "resources": [],
+      "agent": "pm-agent"
+    },
+    {
+      "id": "prd",
+      "aliases": [
+        "bmad-prd",
+        "bmad-plus-prd"
+      ],
+      "path": "categories/planning/prd.md",
+      "input": "request",
+      "resources": [
+        "categories/planning/create-prd.md",
+        "categories/planning/edit-prd.md",
+        "categories/planning/validate-prd.md"
+      ],
+      "agent": "pm-agent"
+    },
+    {
+      "id": "edit-prd",
+      "aliases": [
+        "bmad-edit-prd",
+        "bmad-plus-edit-prd"
+      ],
+      "path": "categories/planning/edit-prd.md",
+      "input": "artifact",
+      "resources": [],
+      "agent": "pm-agent"
+    },
+    {
+      "id": "validate-prd",
+      "aliases": [
+        "bmad-validate-prd",
+        "bmad-plus-validate-prd"
+      ],
+      "path": "categories/planning/validate-prd.md",
+      "input": "artifact",
+      "resources": [],
+      "agent": "pm-agent"
+    },
+    {
+      "id": "create-ux-design",
+      "aliases": [
+        "bmad-create-ux-design",
+        "bmad-plus-create-ux-design"
+      ],
+      "agent": "ux-designer-agent",
+      "path": "categories/planning/create-ux-design.md",
+      "input": "request",
+      "resources": []
+    },
+    {
+      "id": "create-architecture",
+      "aliases": [
+        "bmad-create-architecture",
+        "bmad-plus-create-architecture"
+      ],
+      "path": "categories/architecture/create-architecture.md",
+      "input": "request",
+      "resources": [
+        "shared/architecture-decision-template.md"
+      ],
+      "agent": "architect-agent"
+    },
+    {
+      "id": "create-epics-stories",
+      "aliases": [
+        "bmad-create-epics-stories",
+        "bmad-plus-create-epics-stories",
+        "bmad-create-epics-and-stories"
+      ],
+      "path": "categories/architecture/create-epics-stories.md",
+      "input": "artifact",
+      "resources": [],
+      "agent": "architect-agent"
+    },
+    {
+      "id": "implementation-readiness",
+      "aliases": [
+        "bmad-implementation-readiness",
+        "bmad-plus-implementation-readiness",
+        "bmad-check-implementation-readiness"
+      ],
+      "path": "categories/architecture/implementation-readiness.md",
+      "input": "artifact",
+      "resources": [],
+      "agent": "architect-agent"
+    },
+    {
+      "id": "generate-project-context",
+      "aliases": [
+        "bmad-generate-project-context",
+        "bmad-plus-generate-project-context"
+      ],
+      "path": "categories/architecture/generate-project-context.md",
+      "input": "project",
+      "resources": [],
+      "agent": "architect-agent"
+    },
+    {
+      "id": "sprint-planning",
+      "aliases": [
+        "bmad-sprint-planning",
+        "bmad-plus-sprint-planning"
+      ],
+      "path": "categories/implementation/sprint-planning.md",
+      "input": "artifact",
+      "resources": [],
+      "agent": "dev-agent"
+    },
+    {
+      "id": "create-story",
+      "aliases": [
+        "bmad-create-story",
+        "bmad-plus-create-story"
+      ],
+      "path": "categories/implementation/create-story.md",
+      "input": "artifact",
+      "resources": [],
+      "agent": "dev-agent"
+    },
+    {
+      "id": "dev-story",
+      "aliases": [
+        "bmad-dev-story",
+        "bmad-plus-dev-story"
+      ],
+      "path": "categories/implementation/dev-story.md",
+      "input": "artifact",
+      "resources": [
+        "categories/implementation/dev-story-checklist.md"
+      ],
+      "agent": "dev-agent"
+    },
+    {
+      "id": "code-review",
+      "aliases": [
+        "bmad-code-review",
+        "bmad-plus-code-review"
+      ],
+      "path": "categories/implementation/code-review.md",
+      "input": "project",
+      "resources": [],
+      "agent": "dev-agent"
+    },
+    {
+      "id": "quick-dev",
+      "aliases": [
+        "bmad-quick-dev",
+        "bmad-plus-quick-dev"
+      ],
+      "path": "categories/implementation/quick-dev.md",
+      "input": "project",
+      "resources": [],
+      "agent": "dev-agent"
+    },
+    {
+      "id": "sprint-status",
+      "aliases": [
+        "bmad-sprint-status",
+        "bmad-plus-sprint-status"
+      ],
+      "path": "categories/implementation/sprint-status.md",
+      "input": "project",
+      "resources": [],
+      "agent": "dev-agent"
+    },
+    {
+      "id": "retrospective",
+      "aliases": [
+        "bmad-retrospective",
+        "bmad-plus-retrospective"
+      ],
+      "path": "categories/implementation/retrospective.md",
+      "input": "artifact",
+      "resources": [],
+      "agent": "dev-agent"
+    },
+    {
+      "id": "correct-course",
+      "aliases": [
+        "bmad-correct-course",
+        "bmad-plus-correct-course"
+      ],
+      "path": "categories/implementation/correct-course.md",
+      "input": "project",
+      "resources": [],
+      "agent": "dev-agent"
+    },
+    {
+      "id": "investigate",
+      "aliases": [
+        "bmad-investigate",
+        "bmad-plus-investigate"
+      ],
+      "path": "categories/implementation/investigate.md",
+      "input": "project",
+      "resources": [],
+      "agent": "dev-agent"
+    },
+    {
+      "id": "checkpoint-preview",
+      "aliases": [
+        "bmad-checkpoint-preview",
+        "bmad-plus-checkpoint-preview"
+      ],
+      "path": "categories/implementation/checkpoint-preview.md",
+      "input": "project",
+      "resources": [],
+      "agent": "dev-agent"
+    },
+    {
+      "id": "qa-e2e-tests",
+      "aliases": [
+        "bmad-qa-e2e-tests",
+        "bmad-plus-qa-e2e-tests",
+        "bmad-qa-generate-e2e-tests"
+      ],
+      "path": "categories/implementation/qa-e2e-tests.md",
+      "input": "project",
+      "resources": [],
+      "agent": "dev-agent"
+    },
+    {
+      "id": "distillator",
+      "aliases": [
+        "bmad-distillator",
+        "bmad-plus-distillator"
+      ],
+      "agent": "tech-writer-agent",
+      "path": "categories/utilities/distillator.md",
+      "input": "artifact",
+      "resources": []
+    },
+    {
+      "id": "party-mode",
+      "aliases": [
+        "bmad-party-mode",
+        "bmad-plus-party-mode"
+      ],
+      "agent": "analyst-agent",
+      "path": "categories/utilities/party-mode.md",
+      "input": "request",
+      "resources": [
+        "shared/catalog.json"
+      ]
+    },
+    {
+      "id": "brainstorming",
+      "aliases": [
+        "bmad-brainstorming",
+        "bmad-plus-brainstorming"
+      ],
+      "agent": "analyst-agent",
+      "path": "categories/utilities/brainstorming.md",
+      "input": "request",
+      "resources": []
+    },
+    {
+      "id": "adversarial-review",
+      "aliases": [
+        "bmad-adversarial-review",
+        "bmad-plus-adversarial-review",
+        "bmad-review-adversarial-general"
+      ],
+      "agent": "pm-agent",
+      "path": "categories/utilities/adversarial-review.md",
+      "input": "artifact",
+      "resources": []
+    },
+    {
+      "id": "edge-case-hunter",
+      "aliases": [
+        "bmad-edge-case-hunter",
+        "bmad-plus-edge-case-hunter",
+        "bmad-review-edge-case-hunter"
+      ],
+      "agent": "architect-agent",
+      "path": "categories/utilities/edge-case-hunter.md",
+      "input": "request",
+      "resources": []
+    },
+    {
+      "id": "editorial-review-prose",
+      "aliases": [
+        "bmad-editorial-review-prose",
+        "bmad-plus-editorial-review-prose"
+      ],
+      "agent": "tech-writer-agent",
+      "path": "categories/utilities/editorial-review-prose.md",
+      "input": "artifact",
+      "resources": []
+    },
+    {
+      "id": "editorial-review-structure",
+      "aliases": [
+        "bmad-editorial-review-structure",
+        "bmad-plus-editorial-review-structure"
+      ],
+      "agent": "tech-writer-agent",
+      "path": "categories/utilities/editorial-review-structure.md",
+      "input": "artifact",
+      "resources": []
+    },
+    {
+      "id": "advanced-elicitation",
+      "aliases": [
+        "bmad-advanced-elicitation",
+        "bmad-plus-advanced-elicitation"
+      ],
+      "agent": "analyst-agent",
+      "path": "categories/utilities/advanced-elicitation.md",
+      "input": "request",
+      "resources": []
+    },
+    {
+      "id": "shard-doc",
+      "aliases": [
+        "bmad-shard-doc",
+        "bmad-plus-shard-doc"
+      ],
+      "agent": "tech-writer-agent",
+      "path": "categories/utilities/shard-doc.md",
+      "input": "artifact",
+      "resources": []
+    },
+    {
+      "id": "index-docs",
+      "aliases": [
+        "bmad-index-docs",
+        "bmad-plus-index-docs"
+      ],
+      "agent": "tech-writer-agent",
+      "path": "categories/utilities/index-docs.md",
+      "input": "project",
+      "resources": []
+    },
+    {
+      "id": "bmad-help",
+      "aliases": [
+        "bmad-bmad-help",
+        "bmad-plus-bmad-help"
+      ],
+      "agent": "analyst-agent",
+      "path": "categories/utilities/bmad-help.md",
+      "input": "none",
+      "resources": [
+        "shared/catalog.json"
+      ]
+    },
+    {
+      "id": "customize",
+      "aliases": [
+        "bmad-customize",
+        "bmad-plus-customize"
+      ],
+      "agent": "dev-agent",
+      "path": "categories/utilities/customize.md",
+      "input": "project",
+      "resources": []
+    }
+  ],
+  "compatibility": [
+    "shared/bwml-spec.md",
+    "categories/planning/steps/step-01-init.md",
+    "categories/architecture/steps/step-01-init.md",
+    "categories/architecture/steps/step-01b-continue.md",
+    "categories/architecture/steps/step-02-context.md",
+    "categories/architecture/steps/step-03-starter.md",
+    "categories/architecture/steps/step-04-decisions.md",
+    "categories/architecture/steps/step-05-patterns.md",
+    "categories/architecture/steps/step-06-structure.md",
+    "categories/architecture/steps/step-07-validation.md",
+    "categories/architecture/steps/step-08-complete.md",
+    "categories/implementation/code-review-steps/step-01-gather-context.md",
+    "categories/implementation/code-review-steps/step-02-review.md",
+    "categories/implementation/code-review-steps/step-03-triage.md",
+    "categories/implementation/code-review-steps/step-04-present.md"
+  ]
+}

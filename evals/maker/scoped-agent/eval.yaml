@@ -1,0 +1,27 @@
+schema_version: 1
+id: maker/scoped-agent
+pack: maker
+agent: agent-maker
+agent_source: src/bmad-plus/agents/agent-maker/SKILL.md
+description: Create a small original agent with a validated resource boundary.
+models: [claude, gpt, gemini, local]
+gates: [pr]
+replay: replay.json
+tags: [agent-creation, scoped-resources]
+fixture: fixture
+task:
+  prompt: |
+    Implement the approved brief in brief.md. The user has already approved
+    generation of these files. Produce agent/SKILL.md and agent/manifest.json.
+    This small package uses the exact local schema in schema.json; do not
+    invent external tools or expand its allowed writes. Use an original name
+    and actionable capabilities. Preserve the brief and schema.
+  allowed_writes: [agent/]
+  timeout_s: 300
+assertions:
+  - id: self-contained-agent
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}

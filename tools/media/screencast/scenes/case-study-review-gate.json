@@ -1,0 +1,23 @@
+{
+  "id": "case-study-review-gate",
+  "video": "case-study",
+  "scene": "review-gate",
+  "type": "terminal",
+  "description": "review gate on a sealed scope whose only selected file was never accounted for: the verdict is incomplete and the exit code is 2.",
+  "transcript": "cs-review",
+  "seed": 44,
+  "minDuration": 3.4,
+  "tail": 0.2,
+  "steps": [
+    {
+      "ref": 1,
+      "type": { "max": 0.9 },
+      "lineInterval": 0.08,
+      "focus": [{ "match": "incomplete", "zoom": 1.6, "hold": 1.0, "rampIn": 0.4, "rampOut": 0.3, "delay": 0.05 }]
+    }
+  ],
+  "notes": [
+    "Recorded from the published package bmad-plus@0.23.0, not from the checkout.",
+    "The scope step that comes first in the transcript (review scope site --workspace --base HEAD) is not replayed in this clip."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "bmad-plus/review-bench-case/1",
+  "id": "ts-retry-backoff",
+  "language": "typescript",
+  "summary": "Exponential backoff between retries. The change is correct: a reviewer should report nothing.",
+  "message": "Back off exponentially between retries",
+  "defects": [],
+  "decoys": [
+    {
+      "id": "ts-retry-backoff/return-await",
+      "path": "src/retry.ts",
+      "quote": "return await fn();",
+      "why": "Inside try, return await is required: without await a rejected promise escapes the catch and no retry happens."
+    },
+    {
+      "id": "ts-retry-backoff/last-attempt-bound",
+      "path": "src/retry.ts",
+      "quote": "if (attempt < attempts - 1) await sleep(baseMs * 2 ** attempt);",
+      "why": "The bound skips the wait after the last attempt, where nothing follows; waits are baseMs, 2 × baseMs, … as documented."
+    }
+  ]
+}

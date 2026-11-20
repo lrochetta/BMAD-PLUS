@@ -1,0 +1,27 @@
+schema_version: 1
+id: forge/customized-slug
+pack: core
+agent: agent-architect-dev
+agent_source: src/bmad-plus/agents/agent-architect-dev/SKILL.md
+description: Repair a caller while preserving an explicit project customization.
+models: [claude, gpt, gemini, local]
+gates: [pr]
+replay: replay.json
+tags: [customization, caller-contract]
+fixture: fixture
+task:
+  prompt: |
+    Fix src/slug.cjs for the rules in .agents/project-rules.md. This is an
+    existing customized project. Preserve its rules and callers. Add a Node
+    regression test in tests/ and run it if your host can execute tools.
+    Use Node stdlib only; no dependency or configuration changes are needed.
+  allowed_writes: [src/slug.cjs, tests/]
+  timeout_s: 300
+assertions:
+  - id: customized-consumer
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+    timeout_s: 20
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}

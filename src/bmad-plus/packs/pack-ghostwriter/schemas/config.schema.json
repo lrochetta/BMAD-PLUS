@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "bmad-plus/ghostwriter/config/1",
+  "title": "Ghostwriter project settings",
+  "type": "object",
+  "required": ["schema_version"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "enabled": { "type": "boolean" },
+    "mode": { "enum": ["manual", "host_policy", "orchestrated"] },
+    "default_locale": { "type": "string", "minLength": 1 },
+    "voice_profile": { "type": "string", "pattern": "^([a-z][a-z0-9-]{0,62}|profiles/[a-z][a-z0-9-]{0,62}\\.yaml)$" },
+    "content_types": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 128,
+      "items": { "type": "string", "pattern": "\\S" }
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "include_paths": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 128,
+          "items": { "type": "string", "pattern": "\\S" }
+        },
+        "exclude_paths": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 128,
+          "items": { "type": "string", "pattern": "\\S" }
+        },
+        "editable_fields": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 128,
+          "items": { "type": "string", "pattern": "\\S" }
+        },
+        "protected_terms": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 128,
+          "items": { "type": "string", "pattern": "\\S" }
+        },
+        "protected_spans": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 128,
+          "items": { "type": "string", "pattern": "\\S" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "verification": {
+      "type": "object",
+      "properties": {
+        "facts": { "enum": ["not_run", "provided-sources"] },
+        "reviewer_context": { "const": "separate" },
+        "semantic_review": { "const": "required" },
+        "fidelity": { "const": "required" }
+      },
+      "additionalProperties": false
+    },
+    "limits": {
+      "type": "object",
+      "properties": {
+        "max_revision_attempts": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "timeout_ms": { "type": "integer", "minimum": 1000, "maximum": 600000 },
+        "max_output_bytes": { "type": "integer", "minimum": 1024, "maximum": 524288 }
+      },
+      "additionalProperties": false
+    },
+    "review_policy": { "const": "required_for_selected_deliverables" },
+    "output": {
+      "type": "object",
+      "properties": { "text": { "const": "final-only" }, "report": { "const": "separate" } },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

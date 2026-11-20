@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "agents": [
+    { "id": "ghostwriter", "persona": "Ghostwriter", "path": "ghostwriter.md" }
+  ],
+  "workflows": [
+    { "id": "voice-profile", "skill": "ghostwriter-voice", "path": "workflows/voice-profile.md" },
+    { "id": "draft", "skill": "ghostwriter-write", "path": "workflows/draft.md" },
+    { "id": "humanize", "skill": "ghostwriter-humanize", "path": "workflows/humanize.md" },
+    { "id": "improve", "skill": "ghostwriter-edit", "path": "workflows/improve.md" },
+    { "id": "localize", "skill": "ghostwriter-localize", "path": "workflows/localize.md" },
+    { "id": "agent-output-review", "skill": "ghostwriter-verify", "path": "workflows/agent-output-review.md" }
+  ]
+}

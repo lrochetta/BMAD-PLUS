@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "pitch-jury",
+  "kind": "jury",
+  "title": "Three lenses on the pitch",
+  "units": {
+    "source": "list",
+    "idPrefix": "J",
+    "list": [
+      { "lens": "price", "stance": "Every claim is a cost the buyer pays." },
+      { "lens": "trust", "stance": "Who vouches for this, and why believe them?" },
+      { "id": "J-habit", "lens": "habit", "stance": "What has to change in a normal morning?" }
+    ]
+  },
+  "brief": { "template": "briefs/juror.md", "context": ["pitch"] },
+  "answer": {
+    "required": ["id", "verdict", "weakest_claim"],
+    "fields": {
+      "verdict": { "type": "enum", "values": ["convincing", "unclear", "weak"] },
+      "weakest_claim": { "type": "string", "min": 5, "max": 300 },
+      "fixes": { "type": "list", "maxItems": 2 }
+    }
+  },
+  "tally": { "counts": ["verdict"], "quotes": { "weakest_claim": 3 } },
+  "disclosure": "A simulated jury is a rehearsal, not a review by the people it imitates."
+}

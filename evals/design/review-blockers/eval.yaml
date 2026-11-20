@@ -1,0 +1,32 @@
+schema_version: 1
+id: design/review-blockers
+pack: design
+agent: design-engine
+agent_source: src/bmad-plus/packs/pack-design/design-engine.md
+description: Rank planted accessibility and token defects blockers-first, then fix them through the token sheet.
+models: [claude, gpt, gemini, local]
+gates: [pr]
+replay: replay.json
+tags: [accessibility, design-tokens, severity-order, states]
+fixture: fixture
+task:
+  prompt: |
+    Review the invoice page in index.html, styles.css and tokens.css against brief.md.
+    Write review.md: a findings list where each finding is one line of the form
+    "- [blocker|major|minor] <file or element> — <observation> → <fix>", most severe
+    first, blockers before majors before minors, followed by the line "Pre-flight: fail"
+    or "Pre-flight: pass" for the page as found. Then fix what you found, editing only
+    styles.css and index.html: components take their colours from tokens.css (no raw
+    hex in styles.css), keyboard focus is visible on every control, every control has
+    an accessible name, and the invoice list carries an empty state marked
+    data-state="empty" with the next action. Do not edit tokens.css or brief.md, do not
+    add dependencies, and do not report a tool measurement you did not run.
+  allowed_writes: [review.md, styles.css, index.html]
+  timeout_s: 300
+assertions:
+  - id: blockers-first-and-fixed-through-tokens
+    kind: command_succeeds
+    command: [node, '{checks}/check.cjs', '{workspace}']
+scoring:
+  pass_threshold: 1
+  weights: {assertions: 1, rubric: 0}
